@@ -103,6 +103,23 @@ EndFunc   ;==>getSpellOffset
 
 Func smartZap($minDE = -1)
 	$g_Zapped = True
+	#Region - Endzy Mod - Smart Zap mod
+	Local $performedZap = False
+
+	If $g_bSmartZapEnable = False Then Return $performedZap
+	If $g_bDoneSmartZap = True Then Return $performedZap
+
+	Local $iTime = Int(AttackRemainingTime() / 1000)
+	SetDebugLog("Remain time in seconds is " & $iTime & "s", $COLOR_INFO)
+	If $g_iRemainTimeToZap > $iTime And $g_iRemainTimeToZap <> 0 Or $bLastChance = True Then
+		SetLog("Let's ZAP, even with troops on the ground.", $COLOR_ACTION)
+		$g_bDoneSmartZap = True
+	Else
+		$g_bDoneSmartZap = False
+		Return $performedZap
+	EndIf
+	#EndRegion - Endzy Mod - Smart Zap mod
+
 	Local $strikeOffsets = [0, 14] ; Adjust according to drill locate pictures in "imgxml\Storages\Drills"
 	Local $drillLvlOffset, $spellAdjust, $numDrills, $testX, $testY, $tempTestX, $tempTestY, $strikeGain, $expectedDE
 	Local $error = 5 ; 5 pixel error margin for DE drill search
@@ -629,13 +646,17 @@ Func zapBuilding(ByRef $Spells, $x, $y)
 	If $Spells[$iSpell][2] > -1 Then
 		SetLog("Dropping " & $Spells[$iSpell][0] & " " & String(GetTroopName($Spells[$iSpell][1])), $COLOR_ACTION)
 		SelectDropTroop($Spells[$iSpell][2])
+		#Region - Endzy Mod - Smart Zap mod
 		If _Sleep($DELAYCASTSPELL1) Then Return
-		If IsAttackPage() Then Click($x, $y, 1, 0, "#0029")
-		$Spells[$iSpell][4] -= 1
-	Else
-		If $g_bDebugSmartZap = True Then SetLog("No " & String(GetTroopName($Spells[$iSpell][1])) & " Found", $COLOR_DEBUG)
-	EndIf
-	Return $Spells[$iSpell][1]
+		If IsAttackPage() Then ;Click($x, $y, 1, 0, "#0029")
+			AttackClick($x, $y, $g_iInpSmartZapTimes, ($g_iInpSmartZapTimes > 1) ? (500) : (0), "#0029")
+		EndIf
+			$Spells[$iSpell][4] -= $g_iInpSmartZapTimes ;$Spells[$iSpell][4] -= 1
+		Else
+			If $g_bDebugSmartZap = True Then SetLog("No " & String(GetTroopName($Spells[$iSpell][1], 0)) & " Found", $COLOR_DEBUG) ;If $g_bDebugSmartZap = True Then SetLog("No " & String(GetTroopName($Spells[$iSpell][1])) & " Found", $COLOR_DEBUG)
+		EndIf
+		Return $Spells[$iSpell][1]
+		#EndRegion Smart Zap mod
 EndFunc   ;==>zapBuilding
 
 Func ReCheckDrillExist($x, $y)

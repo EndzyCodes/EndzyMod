@@ -23,6 +23,7 @@ Func chkSmartLightSpell()
 		GUICtrlSetState($g_hChkNoobZap, $GUI_ENABLE)
 		GUICtrlSetState($g_hChkSmartEQSpell, $GUI_ENABLE)
 		GUICtrlSetState($g_hLblSmartUseLSpell, $GUI_SHOW)
+		GUICtrlSetState($g_hRemainTimeToZap, $GUI_ENABLE) ; Endzy Mod - Smart Zap mod
 		If GUICtrlRead($g_hChkNoobZap) = $GUI_CHECKED Then
 			GUICtrlSetState($g_hTxtSmartZapMinDE, $GUI_ENABLE)
 			GUICtrlSetState($g_hTxtSmartExpectedDE, $GUI_ENABLE)
@@ -30,6 +31,9 @@ Func chkSmartLightSpell()
 			GUICtrlSetState($g_hTxtSmartZapMinDE, $GUI_DISABLE)
 			GUICtrlSetState($g_hTxtSmartExpectedDE, $GUI_DISABLE)
 		EndIf
+		; Endzy Mod - Smart Zap mod
+		GUICtrlSetState($g_hChkSmartZapDestroyCollectors, $GUI_ENABLE)
+		GUICtrlSetState($g_hChkSmartZapDestroyMines, $GUI_ENABLE)
 		$g_bSmartZapEnable = True
 	Else
 		GUICtrlSetState($g_hChkSmartZapDB, $GUI_DISABLE)
@@ -41,6 +45,10 @@ Func chkSmartLightSpell()
 		GUICtrlSetState($g_hChkSmartEQSpell, $GUI_DISABLE)
 		GUICtrlSetState($g_hLblSmartUseLSpell, $GUI_HIDE)
 		GUICtrlSetState($g_hTxtSmartExpectedDE, $GUI_DISABLE)
+		; Endzy Mod - Smart Zap mod
+		GUICtrlSetState($g_hRemainTimeToZap, $GUI_DISABLE)
+		GUICtrlSetState($g_hChkSmartZapDestroyCollectors, $GUI_DISABLE)
+		GUICtrlSetState($g_hChkSmartZapDestroyMines, $GUI_DISABLE)
 		$g_bSmartZapEnable = False
 	EndIf
 EndFunc   ;==>chkSmartLightSpell
@@ -90,3 +98,29 @@ EndFunc   ;==>txtMinDark
 Func txtExpectedDE()
 	$g_iSmartZapExpectedDE = GUICtrlRead($g_hTxtSmartExpectedDE)
 EndFunc   ;==>TxtExpectedDE
+
+; Endzy Mod - Smart Zap mod
+Func ZapRemainTime()
+	Local $iInt = Int(GUICtrlRead($g_hRemainTimeToZap))
+	If IsInt($iInt) And $iInt > -1 And $iInt < 100 Then
+		$g_iRemainTimeToZap = Int(GUICtrlRead($g_hRemainTimeToZap))
+		If $iInt <> 0 Then SetLog("SmartZap " & $g_iRemainTimeToZap & "sec before battle ends.")
+		If $iInt = 0 Then SetLog("Option disabled, proceed with a normal Smart Zap at ends.")
+	Else
+		SetLog("Please input a number 0-99 seconds.")
+		$g_iRemainTimeToZap = 0
+	EndIf
+EndFunc   ;==>ZapRemainTime
+
+Func InpSmartZapTimes()
+	$g_iInpSmartZapTimes = Int(GUICtrlRead($g_hInpSmartZapTimes))
+	If $g_iInpSmartZapTimes < 1 Then
+		SetLog("Smart Zap: Please input a number 1 to 5.", $COLOR_INFO)
+		GUICtrlSetData($g_hInpSmartZapTimes, 1)
+		$g_iInpSmartZapTimes = 1
+	ElseIf $g_iInpSmartZapTimes > 5 Then
+		SetLog("Smart Zap: Please input a number 1 to 5.", $COLOR_INFO)
+		GUICtrlSetData($g_hInpSmartZapTimes, 5)
+		$g_iInpSmartZapTimes = 5
+	EndIf
+EndFunc   ;==>InpSmartZapTimes

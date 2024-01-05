@@ -19,16 +19,16 @@ Func Collect($bCheckTreasury = True)
 
 	ClickAway()
 
-	StartGainCost()
-	checkAttackDisable($g_iTaBChkIdle) ; Early Take-A-Break detection
+	;~ StartGainCost()
+	;~ checkAttackDisable($g_iTaBChkIdle) ; Early Take-A-Break detection
 	
 	;If $g_bChkCollectCartFirst And ($g_iTxtCollectGold = 0 Or $g_aiCurrentLoot[$eLootGold] < Number($g_iTxtCollectGold) Or $g_iTxtCollectElixir = 0 Or $g_aiCurrentLoot[$eLootElixir] < Number($g_iTxtCollectElixir) Or $g_iTxtCollectDark = 0 Or $g_aiCurrentLoot[$eLootDarkElixir] < Number($g_iTxtCollectDark)) Then CollectLootCart()
 
 	SetLog("Collecting Resources", $COLOR_INFO)
-	If _Sleep($DELAYCOLLECT2) Then Return
+	;~ If _Sleep($DELAYCOLLECT2) Then Return
 
 	; Setup arrays, including default return values for $return
-	Local $sFileName = ""
+	;~ Local $sFileName = ""
 	Local $aCollectXY, $t
 
 	Local $aResult = returnMultipleMatchesOwnVillage($g_sImgCollectResources)
@@ -37,37 +37,37 @@ Func Collect($bCheckTreasury = True)
 		For $i = 1 To UBound($aResult) - 1 ; loop through array rows
 			$sFileName = $aResult[$i][1] ; Filename
 			$aCollectXY = $aResult[$i][5] ; Coords
-			Switch StringLower($sFileName)
-				Case "collectmines"
-					If $g_iTxtCollectGold <> 0 And $g_aiCurrentLoot[$eLootGold] >= Number($g_iTxtCollectGold) Then
-						SetLog("Gold is high enough, skip collecting", $COLOR_ACTION)
-						ContinueLoop
-					EndIf
-				Case "collectelix"
-					If $g_iTxtCollectElixir <> 0 And $g_aiCurrentLoot[$eLootElixir] >= Number($g_iTxtCollectElixir) Then
-						SetLog("Elixir is high enough, skip collecting", $COLOR_ACTION)
-						ContinueLoop
-					EndIf
-				Case "collectdelix"
-					If $g_iTxtCollectDark <> 0 And $g_aiCurrentLoot[$eLootDarkElixir] >= Number($g_iTxtCollectDark) Then
-						SetLog("Dark Elixier is high enough, skip collecting", $COLOR_ACTION)
-						ContinueLoop
-					EndIf
-			EndSwitch
+			;~ Switch StringLower($sFileName)
+			;~ 	Case "collectmines"
+			;~ 		If $g_iTxtCollectGold <> 0 And $g_aiCurrentLoot[$eLootGold] >= Number($g_iTxtCollectGold) Then
+			;~ 			SetLog("Gold is high enough, skip collecting", $COLOR_ACTION)
+			;~ 			ContinueLoop
+			;~ 		EndIf
+			;~ 	Case "collectelix"
+			;~ 		If $g_iTxtCollectElixir <> 0 And $g_aiCurrentLoot[$eLootElixir] >= Number($g_iTxtCollectElixir) Then
+			;~ 			SetLog("Elixir is high enough, skip collecting", $COLOR_ACTION)
+			;~ 			ContinueLoop
+			;~ 		EndIf
+			;~ 	Case "collectdelix"
+			;~ 		If $g_iTxtCollectDark <> 0 And $g_aiCurrentLoot[$eLootDarkElixir] >= Number($g_iTxtCollectDark) Then
+			;~ 			SetLog("Dark Elixier is high enough, skip collecting", $COLOR_ACTION)
+			;~ 			ContinueLoop
+			;~ 		EndIf
+			;~ EndSwitch
 			If IsArray($aCollectXY) Then ; found array of locations
 				$t = Random(0, UBound($aCollectXY) - 1, 1) ; SC May 2017 update only need to pick one of each to collect all
-				SetDebugLog($sFileName & " found, random pick(" & $aCollectXY[$t][0] & "," & $aCollectXY[$t][1] & ")", $COLOR_GREEN)
+				;~ SetDebugLog($sFileName & " found, random pick(" & $aCollectXY[$t][0] & "," & $aCollectXY[$t][1] & ")", $COLOR_GREEN)
 				If IsMainPage() Then Click($aCollectXY[$t][0], $aCollectXY[$t][1], 1, 0, "#0430")
-				If _Sleep($DELAYCOLLECT2) Then Return
+				If _Sleep(500) Then Return
 			EndIf
 		Next
 	EndIf
 
-	If _Sleep($DELAYCOLLECT3) Then Return
-	CollectCookieRumble()
-	CollectLootCart()
+	;~ If _Sleep($DELAYCOLLECT3) Then Return
+	;~ CollectCookieRumble()
+	;~ CollectLootCart()
 	If $g_bChkTreasuryCollect And $bCheckTreasury Then TreasuryCollect()
-	EndGainCost("Collect")
+	;~ EndGainCost("Collect")
 EndFunc   ;==>Collect
 
 Func CollectLootCart()

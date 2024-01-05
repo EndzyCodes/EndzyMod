@@ -91,6 +91,7 @@ Func GoldElixirChangeEBO()
 		$bOneLoop = False
 		;HEALTH HEROES
 		CheckHeroesHealth()
+		If IsAttackPage() Then SmartZap(-1, True) ; Check to see if we should zap the DE Drills ; Smart Zap mod - Endzy
 		If $g_bRestart Then Return
 		;Early Zap - xbebenkmod
 		If $g_bEarlyZap And Not $g_Zapped And $CurDamage > 50 Then

@@ -26,6 +26,10 @@ Func CreateAttackSearchDeadBaseSmartFarm()
 	Local $sTxtTip = ""
 	Local $x = 35, $y = 20
 		GUICtrlCreateGroup(GetTranslatedFileIni("MBR GUI Design Child Attack - Attack Smart Farm", "Group_01", "Options"), $x - 20, $y - 20, 270, $g_iSizeHGrpTab4)
+		$y += 20
+		$g_hChkSmartFarmAndRandomQuant = GUICtrlCreateCheckbox(GetTranslatedFileIni("MBR GUI Design Child Attack - Attack Smart Farm", "ChkSmartFarmAndRandomQuant", "Use Random Troops Quant by side"), $x, $y, -1, -1)
+		_GUICtrlSetTip(-1, GetTranslatedFileIni("MBR GUI Design Child Attack - Attack Smart Farm", "ChkSmartFarmAndRandomDeploy_Info_03", "Will random deploy quantities each side from Barb, Arch, Wiza, Mini and Gobl"))
+		GUICtrlSetOnEvent(-1, "chkUseSmartFarmAndRandomQuant")
 		$y += 30
 		GUICtrlCreateLabel(GetTranslatedFileIni("MBR GUI Design Child Attack - Attack Smart Farm", "Lbl-TxtMaxAttackSide", "Max Attack Side") & ":", $x, $y + 2, -1, -1)
 		$g_hCmbMaxAttackSide = GUICtrlCreateCombo("", $x + 90, $y, 40, 25, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL, $WS_VSCROLL))

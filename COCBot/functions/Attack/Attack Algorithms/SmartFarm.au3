@@ -745,6 +745,8 @@ Func LaunchTroopSmartFarm($listInfoDeploy, $iCC, $iKing, $iQueen, $iWarden, $iCh
 
 	Local $numberSidesDropTroop = 1
 
+	If IsAttackPage() Then SmartZap() ; Endzy Mod - Smart Zap mod
+
 	; Drop a full wave of all troops (e.g. giants, barbs and archers) on each side then switch sides.
 	For $numWave = 0 To UBound($listListInfoDeployTroopPixel) - 1
 		If IsProblemAffect(True) Then Return
@@ -818,6 +820,8 @@ Func LaunchTroopSmartFarm($listInfoDeploy, $iCC, $iKing, $iQueen, $iWarden, $iCh
 		EndIf
 		If _Sleep(SetSleep(1)) Then Return
 	Next
+
+	If IsAttackPage() Then SmartZap() ; Endzy Mod - Smart Zap mod
 
 	For $numWave = 0 To UBound($listListInfoDeployTroopPixel) - 1
 		If IsProblemAffect(True) Then Return

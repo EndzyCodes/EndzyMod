@@ -40,9 +40,15 @@
 
 Func GetVectorPixelOnEachSide2($arrPixel, $vectorDirection, $slotsPerEdge)
 	; $vectorDirection = 0 than is Xaxis , $vectorDirection = 1 than is Yaxis	
-	Local $minAdd = Random(0, Ceiling(($slotsPerEdge / 100) * 20), 1)
-	$slotsPerEdge += $minAdd
-	
+	;~ Local $minAdd = Random(0, Ceiling(($slotsPerEdge / 100) * 20), 1)
+	;~ $slotsPerEdge += $minAdd
+	#Region - Endzy Mod
+	If $g_bUseSmartFarmAndRandomQuant Then
+		Local $minAdd = Random(0, Ceiling(($slotsPerEdge / 100) * 20), 1)
+		$slotsPerEdge += $minAdd
+	EndIf
+	#EndRegion - Endzy Mod
+
 	Local $vectorPixelEachSide[$slotsPerEdge]
 	If (UBound($arrPixel) > 1) Then
 		Local $pixelSearch[2] = [-1, -1]

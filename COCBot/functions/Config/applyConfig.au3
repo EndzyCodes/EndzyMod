@@ -485,7 +485,8 @@ Func ApplyConfig_600_6($TypeReadSave)
 			GUICtrlSetState($g_hChkForceSwitchifNoCGEvent, $g_bChkForceSwitchifNoCGEvent ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hChkEnableCCSleep, $g_bEnableCCSleep ? $GUI_CHECKED : $GUI_UNCHECKED)
 			GUICtrlSetState($g_hChkSkipDT, $g_bSkipDT ? $GUI_CHECKED : $GUI_UNCHECKED)
-
+			; Endzy Mod - Smart Farm mod
+			GUICtrlSetState($g_hChkSmartFarmAndRandomQuant, $g_bUseSmartFarmAndRandomQuant ? $GUI_CHECKED : $GUI_UNCHECKED)
 		Case "Save"
 			$g_bChkBotStop = (GUICtrlRead($g_hChkBotStop) = $GUI_CHECKED)
 			$g_iCmbBotCommand = _GUICtrlComboBox_GetCurSel($g_hCmbBotCommand)
@@ -656,7 +657,8 @@ Func ApplyConfig_600_6($TypeReadSave)
 			$g_bChkForceSwitchifNoCGEvent = (GUICtrlRead($g_hChkForceSwitchifNoCGEvent) = $GUI_CHECKED)
 			$g_bEnableCCSleep = (GUICtrlRead($g_hChkEnableCCSleep) = $GUI_CHECKED)
 			$g_bSkipDT = (GUICtrlRead($g_hChkSkipDT) = $GUI_CHECKED)
-
+			; Endzy Mod - Smart Farm mod
+			$g_bUseSmartFarmAndRandomQuant = (GUICtrlRead($g_hChkSmartFarmAndRandomQuant) = $GUI_CHECKED)
 	EndSwitch
 EndFunc   ;==>ApplyConfig_600_6
 
@@ -2427,6 +2429,10 @@ Func ApplyConfig_600_56($TypeReadSave)
 			GUICtrlSetData($g_hTxtSmartExpectedDE, $g_iSmartZapExpectedDE)
 			GUICtrlSetState($g_hEarlyZap, $g_bEarlyZap = True ? $GUI_CHECKED : $GUI_UNCHECKED)
 			chkSmartLightSpell()
+			; Endzy Mod - Smart Zap mod
+			GUICtrlSetData($g_hRemainTimeToZap, $g_iRemainTimeToZap)
+			GUICtrlSetState($g_hChkSmartZapDestroyCollectors, $g_bChkSmartZapDestroyCollectors = True ? $GUI_CHECKED : $GUI_UNCHECKED)
+			GUICtrlSetState($g_hChkSmartZapDestroyMines, $g_bChkSmartZapDestroyMines = True ? $GUI_CHECKED : $GUI_UNCHECKED)
 			#CS
 				GUICtrlSetState($g_hChkSmartZapDB, $g_bSmartZapEnable = True ? $GUI_ENABLE : $GUI_DISABLE)
 				GUICtrlSetState($g_hTxtSmartZapMinDE, $g_bSmartZapEnable = True ? $GUI_ENABLE : $GUI_DISABLE)
@@ -2444,7 +2450,10 @@ Func ApplyConfig_600_56($TypeReadSave)
 			$g_iSmartZapMinDE = Int(GUICtrlRead($g_hTxtSmartZapMinDE))
 			$g_iSmartZapExpectedDE = Int(GUICtrlRead($g_hTxtSmartExpectedDE))
 			$g_bEarlyZap = (GUICtrlRead($g_hEarlyZap) = $GUI_CHECKED)
-	EndSwitch
+			; Endzy Mod - Smart Zap mod
+			$g_iInpSmartZapTimes = Int(GUICtrlRead($g_hInpSmartZapTimes))
+			$g_iRemainTimeToZap = Int(GUICtrlRead($g_hRemainTimeToZap))
+		EndSwitch
 EndFunc   ;==>ApplyConfig_600_56
 
 Func ApplyConfig_641_1($TypeReadSave)

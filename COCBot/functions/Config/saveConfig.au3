@@ -560,6 +560,9 @@ Func SaveConfig_600_6()
 	_Ini_Add("other", "EnableCCSleep", $g_bEnableCCSleep)
 	_Ini_Add("other", "SkipDT", $g_bSkipDT)
 
+	; Endzy Mod
+	_Ini_Add("SmartFarm", "UseSmartFarmAndRandomQuant", $g_bUseSmartFarmAndRandomQuant)
+
 	SaveBuilderBaseMod()
 EndFunc   ;==>SaveConfig_600_6
 
@@ -1360,6 +1363,10 @@ Func SaveConfig_600_56()
 	_Ini_Add("SmartZap", "MinDE", $g_iSmartZapMinDE)
 	_Ini_Add("SmartZap", "ExpectedDE", $g_iSmartZapExpectedDE)
 	_Ini_Add("SmartZap", "EarlyZap", $g_bEarlyZap ? 1 : 0)
+	; Endzy Mod - Smart Zap mod
+	_Ini_Add("SmartZap", "RemainTimeToZap", $g_iRemainTimeToZap)
+	_Ini_Add("SmartZap", "DestroyCollectors", $g_bChkSmartZapDestroyCollectors ? 1 : 0)
+	_Ini_Add("SmartZap", "DestroyMines", $g_bChkSmartZapDestroyMines ? 1 : 0)
 EndFunc   ;==>SaveConfig_600_56
 
 Func SaveConfig_641_1()
