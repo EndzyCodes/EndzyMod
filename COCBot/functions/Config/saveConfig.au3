@@ -562,6 +562,15 @@ Func SaveConfig_600_6()
 
 	; Endzy Mod
 	_Ini_Add("SmartFarm", "UseSmartFarmAndRandomQuant", $g_bUseSmartFarmAndRandomQuant)
+	; Custom Modes
+	_Ini_Add("Modes", "ChkRequestOnly", $g_bChkRequestOnly)
+	_Ini_Add("Modes", "ChkDonateOnly", $g_bChkDonateOnly)
+	_Ini_Add("Modes", "ChkAttackOnly", $g_bChkAttackOnly)
+	_Ini_Add("Modes", "ChkBBAtkOnly", $g_bChkBBAtkOnly)
+	_Ini_Add("Modes", "ChkMainVillAtkOnly", $g_bChkMainVillAtkOnly)
+	_Ini_Add("Modes", "ChkNormalMode", $g_bChkNormalMode)
+	_Ini_Add("Modes", "ChkRoutineMode", $g_bChkRoutineMode)
+	_Ini_Add("Modes", "ChkClanGamesMode", $g_bChkClanGamesMode)
 
 	SaveBuilderBaseMod()
 EndFunc   ;==>SaveConfig_600_6

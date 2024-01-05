@@ -64,6 +64,8 @@ Func applyConfig($bRedrawAtExit = True, $TypeReadSave = "Read") ;Applies the dat
 	ApplyConfig_600_1($TypeReadSave)
 	; <><><><> Village / Misc <><><><>
 	ApplyConfig_600_6($TypeReadSave)
+	; <><><><> Village / Endzy Mod - Custom Modes <><><><>
+	ApplyConfig_600_7($TypeReadSave)
 	; <><><><> Village / Achievements <><><><>
 	ApplyConfig_600_9($TypeReadSave)
 	; <><><><> Village / Donate - Request <><><><>
@@ -661,6 +663,30 @@ Func ApplyConfig_600_6($TypeReadSave)
 			$g_bUseSmartFarmAndRandomQuant = (GUICtrlRead($g_hChkSmartFarmAndRandomQuant) = $GUI_CHECKED)
 	EndSwitch
 EndFunc   ;==>ApplyConfig_600_6
+; Endzy Mod - Custom Modes
+Func ApplyConfig_600_7($TypeReadSave)
+	; <><><><> Village / Endzy Mod <><><><>
+	Switch $TypeReadSave
+		Case "Read"
+			GUICtrlSetState($g_hChkRequestOnly, $g_bChkRequestOnly ? $GUI_CHECKED : $GUI_UNCHECKED)
+			GUICtrlSetState($g_hChkDonateOnly, $g_bChkDonateOnly ? $GUI_CHECKED : $GUI_UNCHECKED)
+			GUICtrlSetState($g_hChkAttackOnly, $g_bChkAttackOnly ? $GUI_CHECKED : $GUI_UNCHECKED)
+			GUICtrlSetState($g_hChkBBAtkOnly, $g_bChkBBAtkOnly ? $GUI_CHECKED : $GUI_UNCHECKED)
+			GUICtrlSetState($g_hChkMainVillAtkOnly, $g_bChkMainVillAtkOnly ? $GUI_CHECKED : $GUI_UNCHECKED)
+			GUICtrlSetState($g_hChkNormalMode, $g_bChkNormalMode ? $GUI_CHECKED : $GUI_UNCHECKED)
+			GUICtrlSetState($g_hChkRoutineMode, $g_bChkRoutineMode ? $GUI_CHECKED : $GUI_UNCHECKED)
+			GUICtrlSetState($g_hChkClanGamesMode, $g_bChkClanGamesMode ? $GUI_CHECKED : $GUI_UNCHECKED)
+		Case "Save"
+			$g_bChkRequestOnly = (GUICtrlRead($g_hChkRequestOnly) = $GUI_CHECKED)
+			$g_bChkDonateOnly = (GUICtrlRead($g_hChkDonateOnly) = $GUI_CHECKED)
+			$g_bChkAttackOnly = (GUICtrlRead($g_hChkAttackOnly) = $GUI_CHECKED)
+			$g_bChkBBAtkOnly = (GUICtrlRead($g_hChkBBAtkOnly) = $GUI_CHECKED)
+			$g_bChkMainVillAtkOnly = (GUICtrlRead($g_hChkMainVillAtkOnly) = $GUI_CHECKED)
+			$g_bChkNormalMode = (GUICtrlRead($g_hChkNormalMode) = $GUI_CHECKED)
+			$g_bChkRoutineMode = (GUICtrlRead($g_hChkRoutineMode) = $GUI_CHECKED)
+			$g_bChkClanGamesMode = (GUICtrlRead($g_hChkClanGamesMode) = $GUI_CHECKED)
+	EndSwitch
+EndFunc   ;==> ApplyConfig_600_7
 
 Func ApplyBuilderBaseMod($TypeReadSave)
 	If $TypeReadSave = "Read" Then

@@ -5,7 +5,7 @@
 ; Parameters ....:
 ; Return values .: None
 ; Author ........:
-; Modified ......: Sardo(06-2015), KnowJack(10-2015), Sardo (08-2015)
+; Modified ......: Sardo(06-2015), KnowJack(10-2015), Sardo (08-2015), Endzy (04/25/2022)
 ; Remarks .......: This file is part of MyBot, previously known as ClashGameBot. Copyright 2015-2019
 ;                  MyBot is distributed under the terms of the GNU GPL
 ; Related .......:
@@ -13,7 +13,7 @@
 ; Example .......: No
 ; ===============================================================================================================================
 
-Func RequestCC($bClickPAtEnd = True, $sText = "", $bTest = False)
+Func RequestCC($bClickPAtEnd = True, $sText = "", $bTest = False, $bNot_Retype_Txt = False)
 
 	If Not $g_bRequestTroopsEnable Or Not $g_bDonationEnabled Then
 		Return
@@ -70,7 +70,7 @@ Func RequestCC($bClickPAtEnd = True, $sText = "", $bTest = False)
 				Next
 			EndIf
 			If $bNeedRequest Then
-				_makerequest($aRequestButton[0][1], $aRequestButton[0][2], $bTest)
+				_makerequest($aRequestButton[0][1], $aRequestButton[0][2], $bTest, $bNot_Retype_Txt)
 			EndIf
 		Case "FullOrUnavail"
 			SetLog("Clan Castle is full or not available", $COLOR_INFO)
@@ -83,7 +83,7 @@ Func RequestCC($bClickPAtEnd = True, $sText = "", $bTest = False)
 
 EndFunc   ;==>RequestCC
 
-Func _makerequest($x, $y, $bTest)
+Func _makerequest($x, $y, $bTest, $bNot_Retype_Txt)
 	
 	Click($x, $y, 1, 0, "0336") ;click button request troops	
 	Local $RequestWindowOpen = False
@@ -96,8 +96,27 @@ Func _makerequest($x, $y, $bTest)
 		EndIf
 		_Sleep(250)
 	Next
-	
-	If $RequestWindowOpen Then 
+
+	If $RequestWindowOpen And $bNot_Retype_Txt = 1 Then ; Not type req text
+		If _Sleep(2000) Then Return
+		For $i = 1 To 10
+			SetDebugLog("Try Click Send Request #" & $i, $COLOR_ACTION)
+			If QuickMis("BC1", $g_sImgSendRequestButton, 440, 380, 600, 600, True) Then ;lets check again the send button position with wider height
+				SetDebugLog("Make final request", $COLOR_ACTION)
+				SetDebugLog("Fast Request - Request sent succesfully", $COLOR_SUCCESS)
+				If Not $bTest Then
+					Click($g_iQuickMISX, $g_iQuickMISY)
+				Else
+					SetLog("Emulate Click : [" & $g_iQuickMISX & "," & $g_iQuickMISY & "]", $COLOR_INFO)
+				EndIf
+			Else
+				SetDebugLog("Send Button Is gone!!!", $COLOR_DEBUG)
+				ExitLoop
+			EndIf
+			_Sleep(1000)
+		Next
+		$g_bCanRequestCC = False
+	ElseIf $RequestWindowOpen And Not $bNRtTxt = 1 Then
 		If $g_sRequestTroopsText <> "" Then
 			If Not $g_bChkBackgroundMode And Not $g_bNoFocusTampering Then ControlFocus($g_hAndroidWindow, "", "")
 			Click($g_iQuickMISX - 50, $g_iQuickMISY - 60) ;click text box 
@@ -131,7 +150,7 @@ Func _makerequest($x, $y, $bTest)
 	EndIf
 	If _Sleep(1000) Then Return
 
-	If _Sleep($DELAYMAKEREQUEST2) Then Return
+	;If _Sleep($DELAYMAKEREQUEST2) Then Return
 EndFunc   ;==>_makerequest
 
 Func IsFullClanCastleType($CCType = 0) ; Troops = 0, Spells = 1, Siege Machine = 2

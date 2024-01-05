@@ -621,6 +621,15 @@ Func ReadConfig_600_6()
 	IniReadS($g_bSkipDT, $g_sProfileConfigPath, "other", "SkipDT", False, "Bool")
 	; Endzy Mod
 	IniReadS($g_bUseSmartFarmAndRandomQuant, $g_sProfileConfigPath, "SmartFarm", "UseSmartFarmAndRandomQuant", True, "Bool") ;Endzy
+	; Custom Modes
+	IniReadS($g_bChkRequestOnly, $g_sProfileConfigPath, "Modes", "ChkRequestOnly", False, "Bool")
+	IniReadS($g_bChkDonateOnly, $g_sProfileConfigPath, "Modes", "ChkDonateOnly", False, "Bool")
+	IniReadS($g_bChkAttackOnly, $g_sProfileConfigPath, "Modes", "ChkAttackOnly", False, "Bool")
+	IniReadS($g_bChkBBAtkOnly, $g_sProfileConfigPath, "Modes", "ChkBBAtkOnly", False, "Bool")
+	IniReadS($g_bChkMainVillAtkOnly, $g_sProfileConfigPath, "Modes", "ChkMainVillAtkOnly", False, "Bool")
+	IniReadS($g_bChkNormalMode, $g_sProfileConfigPath, "Modes", "ChkNormalMode", False, "Bool")
+	IniReadS($g_bChkRoutineMode, $g_sProfileConfigPath, "Modes", "ChkRoutineMode", False, "Bool")
+	IniReadS($g_bChkClanGamesMode, $g_sProfileConfigPath, "Modes", "ChkClanGamesMode", False, "Bool")
 
 	ReadConfigBuilderBaseMod()
 EndFunc   ;==>ReadConfig_600_6
