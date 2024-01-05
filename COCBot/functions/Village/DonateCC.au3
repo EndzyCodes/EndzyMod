@@ -566,7 +566,7 @@ Func DonateCC($bTest = False, $bCheckForNewMsg = False)
 				;~ 	Next
 				;~ 	SetDebugLog("Get Donated troops (to all) in " & StringFormat("%.2f", TimerDiff($iTimer)) & "'ms", $COLOR_DEBUG)
 				;~ 	$iTimer = TimerInit()
-				;~ EndIf
+				EndIf
 
 				If $bDonateAllSpell And Not $g_bSkipDonSpells Then
 					SetDebugLog("Spell All checkpoint.", $COLOR_DEBUG)
