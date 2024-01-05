@@ -1251,11 +1251,12 @@ Func __RunFunction($action)
 			If SwitchBetweenBases("BB") Then
 				$g_bStayOnBuilderBase = True
 				checkMainScreen(True, $g_bStayOnBuilderBase, "BuilderBase")
-				ZoomOut()
+				;~ ZoomOut()
 				CollectBuilderBase()
 				$g_bStayOnBuilderBase = False
 				SwitchBetweenBases("Main")
 			EndIf
+			If Not $g_bStayOnBuilderBase And IsOnBuilderBase() Then SwitchBetweenBases("Main")
 		Case "AttackBB"
 			If SwitchBetweenBases("BB") Then
 				$g_bStayOnBuilderBase = True
@@ -1307,7 +1308,8 @@ Func FirstCheck()
 		MVAOM()
 	ElseIf $g_bChkNormalMode = True Then ; Normal mode
 		;SetLog("Normal mode", $COLOR_INFO)
-		NM()
+		;~ NM()
+		FirstCheckRoutine()
 	ElseIf $g_bChkRoutineMode = True Then ; Routines Only
 		;SetLog("Routines Only", $COLOR_INFO)
 		RM()
