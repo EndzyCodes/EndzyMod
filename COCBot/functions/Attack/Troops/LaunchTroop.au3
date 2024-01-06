@@ -61,7 +61,10 @@ Func LaunchTroop2($listInfoDeploy, $iCC, $iKing, $iQueen, $iWarden, $iChampion)
 			Local $iNumberWaves = $listInfoDeploy[$i][2]
 			Local $iMaxNumberWaves = $listInfoDeploy[$i][3]
 			Local $iSlotsPerEdge = $listInfoDeploy[$i][4]
+
 			#Region - Endzy Mod
+			Local $kind, $RandomEdge, $RandomXY
+
 			$kind = $listInfoDeploy[$i][0]
 			If IsString($kind) And ($kind = "CC" Or $kind = "HEROES") And Random(0, 3, 1) = 2 Then
 				$RandomEdge = $g_aaiEdgeDropPoints[Round(Random(0, 3, 1))]

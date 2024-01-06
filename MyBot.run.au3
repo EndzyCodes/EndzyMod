@@ -1391,11 +1391,6 @@ Func FirstCheckRoutine()
 		; VERIFY THE TROOPS AND ATTACK IF IS FULL
 		SetLog("-- FirstCheck on Train --", $COLOR_DEBUG)
 		If Not $g_bRunState Then Return
-		;~ If $g_bDonateEarly Then
-		;~ 	SetLog("Donate Early Enabled", $COLOR_INFO)
-		;~ 	DonateCC()
-		;~ 	TrainSystem()
-		;~ EndIf
 
 		CheckIfArmyIsReady()
 		ClickAway()
@@ -1440,25 +1435,6 @@ Func FirstCheckRoutine()
 			If Not $g_bDonateEarly Then TrainSystem()
 		EndIf
 	EndIf
-
-	;~ If Not $g_bRunState Then Return
-	;~ If ProfileSwitchAccountEnabled() And ($g_bIsCGPointAlmostMax Or $g_bIsCGPointMaxed) And $g_bChkForceSwitchifNoCGEvent Then ; forced switch after first attack if cg point is almost max
-	;~ 	_RunFunction('UpgradeWall')
-	;~ 	SetLog("ClanGames point almost max/maxed, Forced switch account!", $COLOR_SUCCESS)
-	;~ 	If Not $g_bIsFullArmywithHeroesAndSpells Then TrainSystem()
-	;~ 	;~ CommonRoutine("NoClanGamesEvent")
-	;~ 	$g_bForceSwitchifNoCGEvent = True
-	;~ 	checkSwitchAcc() ;switch to next account
-	;~ EndIf
-
-	;~ If Not $g_bRunState Then Return
-	;~ If ProfileSwitchAccountEnabled() And ($g_bForceSwitch Or $g_bForceSwitchifNoCGEvent) Then
-	;~ 	_RunFunction("DonateCC,Train")
-	;~ 	;~ DonateCC()
-	;~ 	;~ TrainSystem()
-	;~ 	CommonRoutine("Switch")
-	;~ 	checkSwitchAcc() ;switch to next account
-	;~ EndIf
 
 	; ------------------ S E C O N D  A T T A C K ------------------
 	If Not $g_bRunState Then Return
