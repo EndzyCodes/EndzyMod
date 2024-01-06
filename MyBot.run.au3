@@ -1375,16 +1375,6 @@ Func FirstCheckRoutine()
 		If $g_bRestart Then Return
 	Next
 
-	If Not $g_bRunState Then Return
-	If ProfileSwitchAccountEnabled() And $g_bForceSwitchifNoCGEvent And Number($g_aiCurrentLoot[$eLootTrophy]) < 4900 And $bSwitch Then
-		SetLog("No Event on ClanGames, Forced switch account!", $COLOR_SUCCESS)
-		DonateCC()
-		TrainSystem()
-		CommonRoutine("NoClanGamesEvent")
-		$g_bForceSwitchifNoCGEvent = True
-		checkSwitchAcc() ;switch to next account
-	EndIf
-
 	; ------------------ F I R S T  A T T A C K ------------------
 	If Not $g_bRunState Then Return
 	If $g_iCommandStop <> 3 And $g_iCommandStop <> 0 Then
@@ -1651,7 +1641,7 @@ Func TestBuilderBase()
 	$g_bChkCTBoostBlderBz = $bChkCTBoostBlderBz
 	$g_bChkCleanBBYard = $bChkCleanBBYard
 	$g_bChkEnableBBAttack = $bChkEnableBBAttack
- EndFunc
+EndFunc
 
 Func GotoBBTodoCG()
 	If SwitchBetweenBases("BB") And isOnBuilderBase() Then
