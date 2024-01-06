@@ -2000,5 +2000,5 @@ Global $g_sCurrentScenery = "", $g_sSceneryCode = "DS"
 
 ; Endzy Mod Variables
 Global $g_hChkSmartFarmAndRandomQuant, $g_bUseSmartFarmAndRandomQuant = False ; Smart Farm mod
-Global $g_bChkSmartZapDestroyCollectors = False, $g_bChkSmartZapDestroyMines = False, $g_iInpSmartZapTimes = 1, $g_iRemainTimeToZap = 0 ; Endzy Mod
+Global $g_bChkSmartZapDestroyCollectors = False, $g_bChkSmartZapDestroyMines = False, $g_iInpSmartZapTimes = 1, $g_iRemainTimeToZap = 0, $g_bDoneSmartZap = False ; Endzy Mod
 Global $g_bChkRequestOnly = 0, $g_bChkDonateOnly = 0, $g_bChkAttackOnly = 0, $g_bChkBBAtkOnly = 0, $g_bChkMainVillAtkOnly = 0, $g_bChkNormalMode = 0, $g_bChkRoutineMode = 0, $g_bChkClanGamesMode = 0

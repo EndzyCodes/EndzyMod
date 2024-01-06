@@ -116,7 +116,7 @@ Func _makerequest($x, $y, $bTest, $bNot_Retype_Txt)
 			_Sleep(1000)
 		Next
 		$g_bCanRequestCC = False
-	ElseIf $RequestWindowOpen And Not $bNRtTxt = 1 Then
+	ElseIf $RequestWindowOpen And Not $bNot_Retype_Txt = 1 Then
 		If $g_sRequestTroopsText <> "" Then
 			If Not $g_bChkBackgroundMode And Not $g_bNoFocusTampering Then ControlFocus($g_hAndroidWindow, "", "")
 			Click($g_iQuickMISX - 50, $g_iQuickMISY - 60) ;click text box 
