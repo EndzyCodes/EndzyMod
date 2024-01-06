@@ -101,7 +101,7 @@ Func getSpellOffset()
 	Return $result
 EndFunc   ;==>getSpellOffset
 
-Func smartZap($minDE = -1)
+Func smartZap($minDE = -1, $bLastChance = False)
 	$g_Zapped = True
 	#Region - Endzy Mod - Smart Zap mod
 	Local $performedZap = False
