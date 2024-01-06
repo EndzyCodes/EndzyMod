@@ -31,7 +31,7 @@ Func CollectAchievements($bTestMode = False) ;Run with True parameter if testing
 		;Check if possible rewards available from main screen
 		Local $aImgAchievementsMainScreen = decodeSingleCoord(findImage("AchievementsMainScreen", $g_sImgAchievementsMainScreen, GetDiamondFromRect("5, 60, 70, 2"), 1, True))
 		If UBound($aImgAchievementsMainScreen) > 1 Then
-			SetDebugLog("Achievement counter found on main screen", $COLOR_SUCCESS)
+			;~ SetDebugLog("Achievement counter found on main screen", $COLOR_SUCCESS)
 			Click($aImgAchievementsMainScreen[0] - 10, $aImgAchievementsMainScreen[1] + 20)
 			If _Sleep(1500) Then Return
 		Else
@@ -39,7 +39,7 @@ Func CollectAchievements($bTestMode = False) ;Run with True parameter if testing
 				SetLog("All achievement rewards collected", $COLOR_INFO)
 			Else
 				SetLog("No achievement rewards to collect", $COLOR_INFO)
-				SetDebugLog("Achievement counter not found on main screen", $COLOR_ERROR)
+				;~ SetDebugLog("Achievement counter not found on main screen", $COLOR_ERROR)
 			EndIf
 			ExitLoop
 		EndIf
@@ -47,10 +47,10 @@ Func CollectAchievements($bTestMode = False) ;Run with True parameter if testing
 		;Check if MyProfile window Opened correctly
 		Local $aImgAchievementsMyProfile = decodeSingleCoord(findImage("MyProfile", $g_sImgAchievementsMyProfile, GetDiamondFromRect("100, 79, 266, 128"), 1, True))
 		If UBound($aImgAchievementsMainScreen) > 1 Then
-			SetDebugLog("My Profile window opened successfully", $COLOR_SUCCESS)
+			;~ SetDebugLog("My Profile window opened successfully", $COLOR_SUCCESS)
 			If _Sleep(2500) Then Return
 		Else
-			SetDebugLog("My Profile window failed to open", $COLOR_ERROR)
+			;~ SetDebugLog("My Profile window failed to open", $COLOR_ERROR)
 			ClickAway()
 			ExitLoop
 		EndIf

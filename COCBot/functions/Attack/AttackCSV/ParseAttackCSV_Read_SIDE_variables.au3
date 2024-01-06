@@ -116,7 +116,7 @@ Func ParseAttackCSV_Read_SIDE_variables()
 								Case "IN-WALL"
 									$g_bCSVLocateWall = True
 								Case Else
-									SetDebugLog("Invalid MAKE building target name: " & $value8, $COLOR_WARNING)
+									;~ SetDebugLog("Invalid MAKE building target name: " & $value8, $COLOR_WARNING)
 									debugAttackCSV("Invalid MAKE building target name: " & $value8)
 							EndSwitch
 							debugAttackCSV("SIDE Parse MAKE target building= " & $value8)

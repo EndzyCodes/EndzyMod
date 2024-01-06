@@ -112,7 +112,7 @@ Func getArmyHeroTime($iHeroType, $bOpenArmyWindow = False, $bCloseArmyWindow = F
 		; Set Time Array for PickupHealedHeroes
 		For $i = 0 To $eHeroCount - 1
 			If $aResultHeroes[$i] <> "" and $aResultHeroes[$i] > 0 Then $g_asHeroHealTime[$i] = _DateAdd("s", Int($aResultHeroes[$i]) * 60, _NowCalc())
-			SetDebugLog($aHeroRemainData[$i][2] & " heal time: " & $g_asHeroHealTime[$i])
+			;~ SetDebugLog($aHeroRemainData[$i][2] & " heal time: " & $g_asHeroHealTime[$i])
 		Next
 		; calling function needs to check if heroattack enabled & herowait enabled for attack mode used!
 		Return $aResultHeroes ; return array of with each hero regen time value

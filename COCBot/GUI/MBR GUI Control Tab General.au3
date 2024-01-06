@@ -136,6 +136,6 @@ Func MoveDivider()
 	_GUICtrlRichEdit_SetSel($g_hTxtLog, - 1, -1) ; select end
 	_GUICtrlRichEdit_SetSel($g_hTxtAtkLog, - 1, -1) ; select end
 
-	SetDebugLog("MoveDivider exit", Default, True)
+	;~ SetDebugLog("MoveDivider exit", Default, True)
 
 EndFunc   ;==>MoveDivider

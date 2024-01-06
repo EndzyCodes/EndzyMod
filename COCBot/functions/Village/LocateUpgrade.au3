@@ -62,7 +62,7 @@ Func LocateUpgrades()
 			$hGraphic = AndroidGraphicsGdiBegin()
 			If $hGraphic <> 0 Then
 				Local $hPen = AndroidGraphicsGdiAddObject("Pen", _GDIPlus_PenCreate(0xFFFFFF00, 2))
-				SetDebugLog("LocateUpgrades: $hGraphic=" & $hGraphic & ", $hPen=" & $hPen)
+				;~ SetDebugLog("LocateUpgrades: $hGraphic=" & $hGraphic & ", $hPen=" & $hPen)
 
 				For $icount = 0 To UBound($g_avBuildingUpgrades, 1) - 1
 					If $hGraphic <> 0 And $g_avBuildingUpgrades[$icount][0] > 0 And $g_avBuildingUpgrades[$icount][0] > 0 Then
@@ -71,7 +71,7 @@ Func LocateUpgrades()
 						ConvertToVillagePos($xUpgrade, $yUpgrade, $g_iZoomFactor)
 						Local $bMarkerDrawn = _GDIPlus_GraphicsDrawEllipse($hGraphic, $xUpgrade - 10, $yUpgrade - 10, 20, 20, $hPen)
 						AndroidGraphicsGdiUpdate()
-						SetDebugLog("Existing Updgrade #" & $icount & " found at " & $g_avBuildingUpgrades[$icount][0] & "/" & $g_avBuildingUpgrades[$icount][1] & ", marker drawn: " & $bMarkerDrawn)
+						;~ SetDebugLog("Existing Updgrade #" & $icount & " found at " & $g_avBuildingUpgrades[$icount][0] & "/" & $g_avBuildingUpgrades[$icount][1] & ", marker drawn: " & $bMarkerDrawn)
 					EndIf
 				Next
 			EndIf
@@ -102,7 +102,7 @@ Func LocateUpgrades()
 							$bMarkerDrawn = _GDIPlus_GraphicsDrawEllipse($hGraphic, $xUpgrade - 10, $yUpgrade - 10, 20, 20, $hPen)
 							AndroidGraphicsGdiUpdate()
 						EndIf
-						SetDebugLog("Updgrade #" & $icount & " added at " & $g_avBuildingUpgrades[$icount][0] & "/" & $g_avBuildingUpgrades[$icount][1] & ", marker drawn: " & $bMarkerDrawn)
+						;~ SetDebugLog("Updgrade #" & $icount & " added at " & $g_avBuildingUpgrades[$icount][0] & "/" & $g_avBuildingUpgrades[$icount][1] & ", marker drawn: " & $bMarkerDrawn)
 						_GUICtrlSetImage($g_hPicUpgradeStatus[$icount], $g_sLibIconPath, $eIcnYellowLight) ; Set GUI Status to Yellow showing ready for upgrade
 						$g_aiPicUpgradeStatus[$icount] = $eIcnYellowLight
 						If _Sleep(750) Then Return
@@ -206,7 +206,7 @@ Func UpgradeValue($inum, $bRepeat = False) ;function to find the value and type 
 		; check for upgrade in process
 		Local $offColors[3][3] = [[0x000000, 44, 17], [0xE07740, 69, 31], [0xF2F7F1, 81, 0]] ; 2nd pixel black broken hammer, 3rd pixel lt brown handle, 4th pixel white edge of button
 		Local $ButtonPixel = _MultiPixelSearch(284, 572, 570, 615, 1, 1, Hex(0x000000, 6), $offColors, 25) ; first pixel blackon side of button
-		SetDebugLog("Pixel Color #1: " & _GetPixelColor(389, 572, True) & ", #2: " & _GetPixelColor(433, 589, True) & ", #3: " & _GetPixelColor(458, 603, True) & ", #4: " & _GetPixelColor(470, 572, True), $COLOR_DEBUG)
+		;~ SetDebugLog("Pixel Color #1: " & _GetPixelColor(389, 572, True) & ", #2: " & _GetPixelColor(433, 589, True) & ", #3: " & _GetPixelColor(458, 603, True) & ", #4: " & _GetPixelColor(470, 572, True), $COLOR_DEBUG)
 		If IsArray($ButtonPixel) Then
 			If $g_bDebugSetlog Or $bOopsFlag Then
 				SetLog("ButtonPixel = " & $ButtonPixel[0] & ", " & $ButtonPixel[1], $COLOR_DEBUG) ;Debug
@@ -367,7 +367,7 @@ Func UpgradeValue($inum, $bRepeat = False) ;function to find the value and type 
 		If $g_avBuildingUpgrades[$inum][3] = "" And $bOopsFlag And Not $bRepeat Then
 			_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 10, "Comic Sans MS", 500)
 			$inputbox = _ExtMsgBox(0, GetTranslatedFileIni("MBR Popups", "Func_Locate_Building_10", "   GOLD   |  ELIXIR  |DARK ELIXIR"), GetTranslatedFileIni("MBR Popups", "Func_Locate_Building_11",  "Need User Help"), GetTranslatedFileIni("MBR Popups", "Func_Locate_Building_12", "Select Upgrade Type:"), 0, $g_hFrmBot)
-			SetDebugLog(" _MsgBox returned = " & $inputbox, $COLOR_DEBUG)
+			;~ SetDebugLog(" _MsgBox returned = " & $inputbox, $COLOR_DEBUG)
 			Switch $inputbox
 				Case 1
 					$g_avBuildingUpgrades[$inum][3] = "Gold"

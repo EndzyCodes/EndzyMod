@@ -52,17 +52,17 @@ Func GetVillageSize($DebugLog = Default, $sStonePrefix = Default, $sTreePrefix =
 	Local $aResult = 0, $stone, $tree, $x, $y
 	
 	$stone = FindStone($sDirectory, $sStonePrefix, $iAdditionalX, $iAdditionalY)
-	SetDebugLog("stone: " & _ArrayToString($stone))
+	;~ SetDebugLog("stone: " & _ArrayToString($stone))
 	If $stone[0] = 0 Then
-		SetDebugLog("GetVillageSize cannot find stone", $COLOR_WARNING)
+		;~ SetDebugLog("GetVillageSize cannot find stone", $COLOR_WARNING)
 		If $bOnBuilderBase Then ZoomOutHelperBB("GetVillageSize")
 		Return FuncReturn($aResult)
 	EndIf
 	
 	$tree = FindTree($sDirectory, $sTreePrefix, $iAdditionalX, $iAdditionalY, $stone[4])
-	SetDebugLog("tree: " & _ArrayToString($tree))
+	;~ SetDebugLog("tree: " & _ArrayToString($tree))
 	If $tree[0] = 0 Then
-		SetDebugLog("GetVillageSize cannot find tree", $COLOR_ACTION)
+		;~ SetDebugLog("GetVillageSize cannot find tree", $COLOR_ACTION)
 		If $bOnBuilderBase Then ZoomOutHelperBB("GetVillageSize")
 		Return FuncReturn($aResult)
 	Else
@@ -148,7 +148,7 @@ Func FindStone($sDirectory = $g_sImgZoomOutDir, $sStonePrefix = "stone", $iAddit
 		EndIf
 		
 		If @error Then
-			SetDebugLog("Error: Missing stone files (" & @error & ")", $COLOR_ERROR)
+			;~ SetDebugLog("Error: Missing stone files (" & @error & ")", $COLOR_ERROR)
 			ContinueLoop
 		EndIf
 		
@@ -166,12 +166,12 @@ Func FindStone($sDirectory = $g_sImgZoomOutDir, $sStonePrefix = "stone", $iAddit
 				$right = $x0 + $iAdditionalX
 				$bottom = $y0 + $iAdditionalY
 				$sArea = Int($x1) & "," & Int($y1) & "|" & Int($right) & "," & Int($y1) & "|" & Int($right) & "," & Int($bottom) & "|" & Int($x1) & "," & Int($bottom)
-				SetDebugLog("GetVillageSize check for image " & $findImage)
+				;~ SetDebugLog("GetVillageSize check for image " & $findImage)
 				$b = decodeSingleCoord(findImage("stone" & $StoneName, $sDirectory & "stone\" & $findImage, $sArea, 1, True))
 				If UBound($b) = 2 Then
 					$x = Int($b[0])
 					$y = Int($b[1])
-					SetDebugLog("Found stone image at " & $x & ", " & $y & ": " & $findImage, $COLOR_INFO)
+					;~ SetDebugLog("Found stone image at " & $x & ", " & $y & ": " & $findImage, $COLOR_INFO)
 					$stone[0] = $x ; x center of stone found
 					$stone[1] = $y ; y center of stone found
 					$stone[2] = $x0 ; x center of reference stone
@@ -181,7 +181,7 @@ Func FindStone($sDirectory = $g_sImgZoomOutDir, $sStonePrefix = "stone", $iAddit
 					ExitLoop 2
 				EndIf
 			Else
-				SetDebugLog("GetVillageSize ignore image " & $findImage & ", reason: " & UBound($a), $COLOR_WARNING)
+				;~ SetDebugLog("GetVillageSize ignore image " & $findImage & ", reason: " & UBound($a), $COLOR_WARNING)
 			EndIf
 		Next
 		If Not $g_bRunState Then Return $stone
@@ -216,13 +216,13 @@ Func FindTree($sDirectory = $g_sImgZoomOutDir, $sTreePrefix = "tree", $iAddition
 			$right = $x0 + $iAdditionalX
 			$bottom = $y0 + $iAdditionalY
 			$sArea = Int($x1) & "," & Int($y1) & "|" & Int($right) & "," & Int($y1) & "|" & Int($right) & "," & Int($bottom) & "|" & Int($x1) & "," & Int($bottom)
-			SetDebugLog("GetVillageSize check for image " & $findImage)
+			;~ SetDebugLog("GetVillageSize check for image " & $findImage)
 			$b = decodeSingleCoord(findImage($scenerycode, $sDirectory & "tree\" & $findImage, $sArea, 1, True))
 			; sort by x because there can be a 2nd at the right that should not be used
 			If UBound($b) = 2 Then
 				$x = Int($b[0])
 				$y = Int($b[1])
-				SetDebugLog("Found tree image at " & $x & ", " & $y & ": " & $findImage, $COLOR_INFO)
+				;~ SetDebugLog("Found tree image at " & $x & ", " & $y & ": " & $findImage, $COLOR_INFO)
 				$tree[0] = $x ; x center of tree found
 				$tree[1] = $y ; y center of tree found
 				$tree[2] = $x0 ; x ref. center of tree
@@ -232,7 +232,7 @@ Func FindTree($sDirectory = $g_sImgZoomOutDir, $sTreePrefix = "tree", $iAddition
 				ExitLoop
 			EndIf
 		Else
-			SetDebugLog("GetVillageSize ignore image " & $findImage & ", reason: " & UBound($a), $COLOR_WARNING)
+			;~ SetDebugLog("GetVillageSize ignore image " & $findImage & ", reason: " & UBound($a), $COLOR_WARNING)
 		EndIf
 		If Not $g_bRunState Then Return $tree
 	Next

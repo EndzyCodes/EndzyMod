@@ -149,37 +149,37 @@ Func CheckSwitchAcc()
 	;~ Else
 
 	If $g_bChkSmartSwitch = True Then ; Smart switch
-		SetDebugLog("-Smart Switch-")
+		;~ SetDebugLog("-Smart Switch-")
 		$nMinRemainTrain = CheckTroopTimeAllAccount($bForceSwitch)
 
 		If $nMinRemainTrain <= 1 And Not $bForceSwitch Then ; Active (force switch shall give priority to Donate Account)
-			SetDebugLog("Switch to or Stay at Active Account: " & $g_iNextAccount + 1, $COLOR_DEBUG)
+			;~ SetDebugLog("Switch to or Stay at Active Account: " & $g_iNextAccount + 1, $COLOR_DEBUG)
 			$g_iDonateSwitchCounter = 0
 		Else
 			If $g_iDonateSwitchCounter < UBound($aDonateAccount) Then ; Donate
 				$g_iNextAccount = $aDonateAccount[$g_iDonateSwitchCounter]
 				$g_iDonateSwitchCounter += 1
-				SetDebugLog("Switch to Donate Account " & $g_iNextAccount + 1 & ". $g_iDonateSwitchCounter = " & $g_iDonateSwitchCounter, $COLOR_DEBUG)
+				;~ SetDebugLog("Switch to Donate Account " & $g_iNextAccount + 1 & ". $g_iDonateSwitchCounter = " & $g_iDonateSwitchCounter, $COLOR_DEBUG)
 				SetSwitchAccLog(" - Donate Acc [" & $g_iNextAccount + 1 & "]")
 			Else ; Active
 				$g_iDonateSwitchCounter = 0
 			EndIf
 		EndIf
 	Else ; Normal switch (continuous)
-		SetDebugLog("-Normal Switch-")
+		;~ SetDebugLog("-Normal Switch-")
 		$g_iNextAccount = $g_iCurAccount + 1
 		If $g_iNextAccount > $g_iTotalAcc Then $g_iNextAccount = 0
 		While $abAccountNo[$g_iNextAccount] = False
 			$g_iNextAccount += 1
 			If $g_iNextAccount > $g_iTotalAcc Then $g_iNextAccount = 0 ; avoid idle Account
-			SetDebugLog("- While Account: " & $g_asProfileName[$g_iNextAccount] & " number: " & $g_iNextAccount + 1)
+			;~ SetDebugLog("- While Account: " & $g_asProfileName[$g_iNextAccount] & " number: " & $g_iNextAccount + 1)
 		WEnd
 	EndIf
 
 	If Not $g_bRunState Then Return
 
-	SetDebugLog("- Current Account: " & $g_asProfileName[$g_iCurAccount] & " number: " & $g_iCurAccount + 1)
-	SetDebugLog("- Next Account: " & $g_asProfileName[$g_iNextAccount] & " number: " & $g_iNextAccount + 1)
+	;~ SetDebugLog("- Current Account: " & $g_asProfileName[$g_iCurAccount] & " number: " & $g_iCurAccount + 1)
+	;~ SetDebugLog("- Next Account: " & $g_asProfileName[$g_iNextAccount] & " number: " & $g_iNextAccount + 1)
 
 	; Check if the next account is PBT and IF the remain train time is more than 2 minutes
 	If $g_abPBActive[$g_iNextAccount] And _DateDiff("n", _NowCalc(), $g_asTrainTimeFinish[$g_iNextAccount]) > 2 Then
@@ -388,7 +388,7 @@ Func SwitchCOCAcc($NextAccount)
 
 	;switch using scid sometime makes emulator seem freeze but not, need to send back button first for click work again
 	If $g_bChkSuperCellID Then
-		SetDebugLog("Checkscidswitch: Send AndroidBackButton", $COLOR_DEBUG)
+		;~ SetDebugLog("Checkscidswitch: Send AndroidBackButton", $COLOR_DEBUG)
 		AndroidBackButton() ;Send back button to android
 		If _Sleep(1000) Then Return
 		If IsOKCancelPage() Then
@@ -446,7 +446,7 @@ Func SwitchCOCAcc_DisconnectConnect(ByRef $bResult, $bDisconnectOnly = $g_bChkSh
 
 				Return 1
 			Else ; The Unknown has happend
-				SetDebugLog("Unkown Google Play Button State: " & $sButtonState, $COLOR_ERROR)
+				;~ SetDebugLog("Unkown Google Play Button State: " & $sButtonState, $COLOR_ERROR)
 				Return -1
 			EndIf
 		Else ; SupercellID
@@ -489,14 +489,14 @@ Func SwitchCOCAcc_ClickAccount(ByRef $bResult, $iNextAccount, $bStayDisconnected
 				Return FuncReturn("Error")
 			ElseIf UBound($aSearchForAccount, 1) < $g_iTotalAcc + 1 Then
 				SetLog("Less GooglePlay accounts detected than configured!", $COLOR_ERROR)
-				SetDebugLog("Detected: " & UBound($aSearchForAccount, 1) & ", Configured: " & ($g_iTotalAcc + 1), $COLOR_DEBUG)
+				;~ SetDebugLog("Detected: " & UBound($aSearchForAccount, 1) & ", Configured: " & ($g_iTotalAcc + 1), $COLOR_DEBUG)
 				Return FuncReturn("Error")
 			ElseIf UBound($aSearchForAccount, 1) > $g_iTotalAcc + 1 Then
 				SetLog("More GooglePlay accounts detected than configured!", $COLOR_ERROR)
-				SetDebugLog("Detected: " & UBound($aSearchForAccount, 1) & ", Configured: " & ($g_iTotalAcc + 1), $COLOR_DEBUG)
+				;~ SetDebugLog("Detected: " & UBound($aSearchForAccount, 1) & ", Configured: " & ($g_iTotalAcc + 1), $COLOR_DEBUG)
 				Return FuncReturn("Error")
 			Else
-				SetDebugLog("[GooglePlay Accounts]: " & UBound($aSearchForAccount, 1), $COLOR_DEBUG)
+				;~ SetDebugLog("[GooglePlay Accounts]: " & UBound($aSearchForAccount, 1), $COLOR_DEBUG)
 
 				For $j = 0 To UBound($aSearchForAccount) - 1
 					$aTempArray = $aSearchForAccount[$j]
@@ -505,7 +505,7 @@ Func SwitchCOCAcc_ClickAccount(ByRef $bResult, $iNextAccount, $bStayDisconnected
 
 				_ArraySort($aCoordinates, 0, 0, 0, 1) ; short by column 1 [Y]
 				For $j = 0 To UBound($aCoordinates) - 1
-					SetDebugLog("[" & $j & "] Account coordinates: " & $aCoordinates[$j][0] & "," & $aCoordinates[$j][1] & " named: " & $g_asProfileName[$j])
+					;~ SetDebugLog("[" & $j & "] Account coordinates: " & $aCoordinates[$j][0] & "," & $aCoordinates[$j][1] & " named: " & $g_asProfileName[$j])
 				Next
 
 				If $iNextAccount + 1 > UBound($aCoordinates, 1) Then
@@ -787,7 +787,7 @@ Func CheckTroopTimeAllAccount($bExcludeCurrent = False) ; Return the minimum rem
 	Local $iMinRemainTrain = 999, $iRemainTrain, $bNextAccountDefined = False
 	If Not $bExcludeCurrent And Not $g_abPBActive[$g_iCurAccount] Then
 		$g_asTrainTimeFinish[$g_iCurAccount] = _DateAdd("n", Number(_ArrayMax($g_aiTimeTrain, 1, 0, 2)), _NowCalc())
-		SetDebugLog("Army times: Troop = " & $g_aiTimeTrain[0] & ", Spell = " & $g_aiTimeTrain[1] & ", Hero = " & $g_aiTimeTrain[2] & ", $g_asTrainTimeFinish = " & $g_asTrainTimeFinish[$g_iCurAccount])
+		;~ SetDebugLog("Army times: Troop = " & $g_aiTimeTrain[0] & ", Spell = " & $g_aiTimeTrain[1] & ", Hero = " & $g_aiTimeTrain[2] & ", $g_asTrainTimeFinish = " & $g_asTrainTimeFinish[$g_iCurAccount])
 	EndIf
 
 	SetSwitchAccLog(" - Train times: ")
@@ -820,7 +820,7 @@ Func CheckTroopTimeAllAccount($bExcludeCurrent = False) ; Return the minimum rem
 		EndIf
 	Next
 
-	SetDebugLog("- Min Remain Train Time is " & $iMinRemainTrain)
+	;~ SetDebugLog("- Min Remain Train Time is " & $iMinRemainTrain)
 
 	Return $iMinRemainTrain
 
@@ -884,7 +884,7 @@ Func CheckGoogleSelectAccount($bSelectFirst = True)
 	Local $bResult = False
 
 	If _CheckPixel($aListAccount, True) Then
-		SetDebugLog("Found open Google Accounts list pixel")
+		;~ SetDebugLog("Found open Google Accounts list pixel")
 
 		; Account List check be there, validate with imgloc
 		If UBound(decodeSingleCoord(FindImageInPlace("GoogleSelectAccount", $g_sImgGoogleSelectAccount, "180,400(90,300)", False))) > 1 Then
@@ -916,11 +916,11 @@ Func CheckGoogleSelectAccount($bSelectFirst = True)
 				$bResult = False
 			EndIf
 		Else
-			SetDebugLog("Open Google Accounts list not verified")
+			;~ SetDebugLog("Open Google Accounts list not verified")
 			ClickAway("Left")
 		EndIf
 	Else
-		SetDebugLog("CheckGoogleSelectAccount pixel color: " & _GetPixelColor($aListAccount[0], $aListAccount[1], False))
+		;~ SetDebugLog("CheckGoogleSelectAccount pixel color: " & _GetPixelColor($aListAccount[0], $aListAccount[1], False))
 		ClickAway("Left")
 	EndIf
 
@@ -972,7 +972,7 @@ Func CheckLoginWithSupercellID()
 		EndIf
 
 	Else
-		SetDebugLog("Log in with Supercell ID boot screen not verified")
+		;~ SetDebugLog("Log in with Supercell ID boot screen not verified")
 	EndIf
 
 	Return $bResult

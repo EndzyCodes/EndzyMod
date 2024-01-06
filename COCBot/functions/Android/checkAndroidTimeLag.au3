@@ -47,7 +47,7 @@ Func CheckAndroidTimeLag($bRebootAndroid = True)
 
 	; check if problem count should be reseted
 	If $g_aiAndroidTimeLag[4] > 0 And $g_aiAndroidTimeLag[5] <> 0 And __TimerDiff($g_aiAndroidTimeLag[5]) > $g_iAndroidTimeLagResetProblemCountMinutes * 60000 Then
-		SetDebugLog("Time lag problems count of " & $g_aiAndroidTimeLag[4] & " reset to 0 due to " & Round(__TimerDiff($g_aiAndroidTimeLag[5]) / 1000, 0) & " Seconds with an incident")
+		;~ SetDebugLog("Time lag problems count of " & $g_aiAndroidTimeLag[4] & " reset to 0 due to " & Round(__TimerDiff($g_aiAndroidTimeLag[5]) / 1000, 0) & " Seconds with an incident")
 		$g_aiAndroidTimeLag[4] = 0
 		$g_aiAndroidTimeLag[5] = 0
 	EndIf
@@ -82,7 +82,7 @@ Func CheckAndroidTimeLag($bRebootAndroid = True)
 	$lagTotal -= $lagComp
 	Local $lagPerMin = Int($lagTotal / $hostMinutes)
 
-	SetDebugLog($g_sAndroidEmulator & " time lag is " & ($lagPerMin > 0 ? "> " : "") & $lagPerMin & " sec/min (avg for " & $hostSeconds & " sec, Android suspend time was " & $lagComp & " sec)")
+	;~ SetDebugLog($g_sAndroidEmulator & " time lag is " & ($lagPerMin > 0 ? "> " : "") & $lagPerMin & " sec/min (avg for " & $hostSeconds & " sec, Android suspend time was " & $lagComp & " sec)")
 
 	If $androidSeconds <= 0 Then
 		InitAndroidTimeLag(False)

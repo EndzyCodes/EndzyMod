@@ -38,7 +38,7 @@ Func PrepareAttack($pMatchMode = 0, $bRemaining = False) ;Assigns troops
 		$g_bDraggedAttackBar = False
 	EndIf
 
-	SetDebugLog("PrepareAttack for " & $pMatchMode & " " & $g_asModeText[$pMatchMode], $COLOR_DEBUG)
+	;~ SetDebugLog("PrepareAttack for " & $pMatchMode & " " & $g_asModeText[$pMatchMode], $COLOR_DEBUG)
 	If $bRemaining Then
 		SetLog("Checking remaining unused troops for: " & $g_asModeText[$pMatchMode], $COLOR_INFO)
 	Else
@@ -68,7 +68,7 @@ Func PrepareAttack($pMatchMode = 0, $bRemaining = False) ;Assigns troops
 					$bDropped = $g_bDropChampion
 			EndSwitch
 			If $bDropped = False Then
-				SetDebugLog("Discard updating hero " & GetTroopName($g_avAttackTroops[$i][0]) & " because not dropped yet")
+				;~ SetDebugLog("Discard updating hero " & GetTroopName($g_avAttackTroops[$i][0]) & " because not dropped yet")
 				$iTroopNumber += $g_avAttackTroops[$i][2]
 				ContinueLoop
 			EndIf
@@ -76,7 +76,7 @@ Func PrepareAttack($pMatchMode = 0, $bRemaining = False) ;Assigns troops
 				;If $bSlotDetectedAgain Then
 					; ok, hero was dropped, really? don't know yet... TODO add check if hero was really dropped...
 				;EndIf
-				SetDebugLog("Discard updating hero " & GetTroopName($g_avAttackTroops[$i][0]) & " because already dropped")
+				;~ SetDebugLog("Discard updating hero " & GetTroopName($g_avAttackTroops[$i][0]) & " because already dropped")
 				$iTroopNumber += $g_avAttackTroops[$i][2]
 				ContinueLoop
 			EndIf
@@ -131,7 +131,7 @@ Func PrepareAttack($pMatchMode = 0, $bRemaining = False) ;Assigns troops
 						Local $sDebugText = $g_bDebugSetlog ? " (X:" & $avAttackBar[$j][3] & "|Y:" & $avAttackBar[$j][4] & "|OCR-X:" & $avAttackBar[$j][5] & "|OCR-Y:" & $avAttackBar[$j][6] & ")" : ""
 						SetLog($avAttackBar[$j][1] & ": " & $avAttackBar[$j][2] & " " & GetTroopName($avAttackBar[$j][0], $avAttackBar[$j][2]) & $sLogExtension & $sDebugText, $COLOR_SUCCESS)
 					Else
-						SetDebugLog("Discard use of " & GetTroopName($avAttackBar[$j][0]) & " (" & $avAttackBar[$j][0] & ")", $COLOR_ERROR)
+						;~ SetDebugLog("Discard use of " & GetTroopName($avAttackBar[$j][0]) & " (" & $avAttackBar[$j][0] & ")", $COLOR_ERROR)
 					EndIf
 					ExitLoop
 				EndIf
@@ -208,12 +208,12 @@ Func SelectCastleOrSiege(ByRef $iTroopIndex, $iX, $iCmbSiege)
 				EndIf
 
 				If $ToUse = $eCastle Then
-					SetDebugLog("ToUse : Castle")
+					;~ SetDebugLog("ToUse : Castle")
 
 					$TmpIndex = _ArraySearch($aSearchResult, $eCastle, 0, 0, 0, 0, 1, 5)
 					If $aSearchResult[$TmpIndex][5] = $eCastle Then
 						$iTroopIndex = $eCastle ;set ByRef
-						SetDebugLog("Castle found on : [" & $aSearchResult[$TmpIndex][1] & "," & $aSearchResult[$TmpIndex][2] & "]")
+						;~ SetDebugLog("Castle found on : [" & $aSearchResult[$TmpIndex][1] & "," & $aSearchResult[$TmpIndex][2] & "]")
 						Click($aSearchResult[$TmpIndex][1], $aSearchResult[$TmpIndex][2])
 						If _Sleep(750) Then Return
 						Return
@@ -226,7 +226,7 @@ Func SelectCastleOrSiege(ByRef $iTroopIndex, $iX, $iCmbSiege)
 				_ArraySort($aSearchResult, 0, 0, 0, 1) ;sort asc by x coord
 				If $NeedHigherLevel Or $bAnySiege Then
 					If $bAnySiege Then
-						SetDebugLog("AnySiege")
+						;~ SetDebugLog("AnySiege")
 						Local $iSiegeIndex
 						For $i = 0 To UBound($aSearchResult) - 1
 							$iSiegeIndex = $aSearchResult[$i][5]
@@ -234,7 +234,7 @@ Func SelectCastleOrSiege(ByRef $iTroopIndex, $iX, $iCmbSiege)
 								Local $SiegeLevel = $aSearchResult[$i][3]
 								Local $OwnSiege = $aSearchResult[$i][4]
 								Local $SiegeName = $aSearchResult[$i][0]
-								SetDebugLog($i & ". SiegeName: " & $SiegeName & ", OwnSiege: " & $OwnSiege & ", Level: " & $SiegeLevel & ", Coords: " & $aSearchResult[$i][1] & "," & $aSearchResult[$i][2])
+								;~ SetDebugLog($i & ". SiegeName: " & $SiegeName & ", OwnSiege: " & $OwnSiege & ", Level: " & $SiegeLevel & ", Coords: " & $aSearchResult[$i][1] & "," & $aSearchResult[$i][2])
 								If $iFinalLevel < $SiegeLevel Then
 									$iTroopIndex = $iSiegeIndex ;set ByRef
 									$iFinalLevel = $SiegeLevel
@@ -242,7 +242,7 @@ Func SelectCastleOrSiege(ByRef $iTroopIndex, $iX, $iCmbSiege)
 									$FinalCoordX = $aSearchResult[$i][1]
 									$FinalCoordY = $aSearchResult[$i][2]
 									$AnySiegeFound = True
-									SetDebugLog("Selected SiegeName:" & $SiegeName & " Level:" & $iFinalLevel & " Coord:[" & $FinalCoordX & "," & $FinalCoordY & "]")
+									;~ SetDebugLog("Selected SiegeName:" & $SiegeName & " Level:" & $iFinalLevel & " Coord:[" & $FinalCoordX & "," & $FinalCoordY & "]")
 								EndIf
 								;If $iFinalLevel = 4 Then ExitLoop
 								If $OwnSiege = "False" Then
@@ -265,23 +265,23 @@ Func SelectCastleOrSiege(ByRef $iTroopIndex, $iX, $iCmbSiege)
 						EndIf
 					Else
 						Local $TmpIndex = _ArraySearch($aSearchResult, $ToUse, 0, 0, 0, 0, 1, 5)
-						SetDebugLog("To Use = [" & $ToUse & "] " & GetTroopName($ToUse) & ", Got:" & $TmpIndex)
+						;~ SetDebugLog("To Use = [" & $ToUse & "] " & GetTroopName($ToUse) & ", Got:" & $TmpIndex)
 						If $TmpIndex < 0 Then
-							SetDebugLog(GetTroopName($ToUse) & " ===== Not Found, lets pick any siege", $COLOR_INFO)
+							;~ SetDebugLog(GetTroopName($ToUse) & " ===== Not Found, lets pick any siege", $COLOR_INFO)
 							For $i = 0 To UBound($aSearchResult) - 1
 								Local $iSiegeIndex = $aSearchResult[$i][5]
-								SetDebugLog(GetTroopName($iSiegeIndex))
+								;~ SetDebugLog(GetTroopName($iSiegeIndex))
 								If $iSiegeIndex >= $eWallW And $iSiegeIndex <= $eBattleD Then
 									Local $OwnSiege = $aSearchResult[$i][4]
 									Local $SiegeLevel = $aSearchResult[$i][3]
-									SetDebugLog($i & ". Name: " & $aSearchResult[$i][0] & ", OwnSiege: " & $OwnSiege & ", Level: " & $SiegeLevel & ", Coords: " & $aSearchResult[$i][1] & "," & $aSearchResult[$i][2])
+									;~ SetDebugLog($i & ". Name: " & $aSearchResult[$i][0] & ", OwnSiege: " & $OwnSiege & ", Level: " & $SiegeLevel & ", Coords: " & $aSearchResult[$i][1] & "," & $aSearchResult[$i][2])
 									If $iFinalLevel < $SiegeLevel Then
 										$iFinalLevel = $SiegeLevel
 										$FinalCoordX = $aSearchResult[$i][1]
 										$FinalCoordY = $aSearchResult[$i][2]
 										$iTroopIndex = $iSiegeIndex
 										$HigherLevelFound = True
-										SetDebugLog("Got HigherLevel :" & "[" & GetTroopName($iSiegeIndex) & "] Level:" & $iFinalLevel & " Coord:[" & $FinalCoordX & "," & $FinalCoordY & "]")
+										;~ SetDebugLog("Got HigherLevel :" & "[" & GetTroopName($iSiegeIndex) & "] Level:" & $iFinalLevel & " Coord:[" & $FinalCoordX & "," & $FinalCoordY & "]")
 									EndIf
 									If $iFinalLevel = 4 Then ExitLoop
 								EndIf
@@ -296,7 +296,7 @@ Func SelectCastleOrSiege(ByRef $iTroopIndex, $iX, $iCmbSiege)
 							EndIf
 						Else
 							$iTroopIndex = $ToUse ;set ByRef
-							SetDebugLog("ToUse=" & $ToUse)
+							;~ SetDebugLog("ToUse=" & $ToUse)
 							$g_iSiegeLevel = $aSearchResult[$TmpIndex][3]
 							Click($aSearchResult[$TmpIndex][1], $aSearchResult[$TmpIndex][2])
 							If _Sleep(750) Then Return
@@ -320,7 +320,7 @@ Func SelectCastleOrSiege(ByRef $iTroopIndex, $iX, $iCmbSiege)
 			If $iTroopIndex <> $eCastle Then $iTroopIndex = -1 ;setting other than castle only (spesific siege or anysiege) but no switch button, will discard use of siege
 			If $ToUse = $eCastle And $iTroopIndex = $eCastle Then $iTroopIndex = $eCastle ;setting castle only, there is castle on attackbar, but no switch button, will use cc
 			If $ToUse = $eCastle And $iTroopIndex <> $eCastle Then $iTroopIndex = -1 ;setting castle only, there is siege on attackbar, but no switch button, will discard use siege
-			SetDebugLog("ToUse=" & $ToUse & " |iTroopIndex=" & $iTroopIndex)
+			;~ SetDebugLog("ToUse=" & $ToUse & " |iTroopIndex=" & $iTroopIndex)
 			SetLog("No switch button = No CC Detected, discard Siege use", $COLOR_INFO)
 		EndIf
 	EndIf
@@ -339,10 +339,10 @@ Func GetListSiege($x = 135, $y = 470, $x1 = 700, $y1 = 540)
 
 	If IsArray($aSiege) And UBound($aSiege) > 0 Then
 		For $i = 0 To UBound($aSiege) - 1
-			SetDebugLog("[" & $i & "] Siege: " & $aSiege[$i][0] & ", Coord[" & $aSiege[$i][1] & "," & $aSiege[$i][2] & "]")
-			SetDebugLog("getTroopsSpellsLevel(" & $aSiege[$i][1] - 30 & "," & $CheckLvlY & ")", $COLOR_ACTION)
+			;~ SetDebugLog("[" & $i & "] Siege: " & $aSiege[$i][0] & ", Coord[" & $aSiege[$i][1] & "," & $aSiege[$i][2] & "]")
+			;~ SetDebugLog("getTroopsSpellsLevel(" & $aSiege[$i][1] - 30 & "," & $CheckLvlY & ")", $COLOR_ACTION)
 			Local $SiegeLevel = getOcrAndCapture("coc-spellslevel", $aSiege[$i][1] - 30, $CheckLvlY, 20, 20, True); getTroopsSpellsLevel($aTmp[$i][1] - 30, $CheckLvlY)
-			SetDebugLog("SiegeLevel=" & $SiegeLevel)
+			;~ SetDebugLog("SiegeLevel=" & $SiegeLevel)
 			If $SiegeLevel = "" Then $SiegeLevel = 1
 			Local $TroopIndex = TroopIndexLookup($aSiege[$i][0])
 			Local $OwnSiege = False
@@ -352,7 +352,7 @@ Func GetListSiege($x = 135, $y = 470, $x1 = 700, $y1 = 540)
 			_ArrayAdd($aResult, $aSiege[$i][0] & "|" & $aSiege[$i][1] & "|" & $aSiege[$i][2] & "|" & $SiegeLevel & "|" & $OwnSiege & "|" & $TroopIndex)
 		Next
 	Else
-		SetDebugLog("GetListSiege: ERR", $COLOR_ERROR)
+		;~ SetDebugLog("GetListSiege: ERR", $COLOR_ERROR)
 	EndIf
 	_ArraySort($aResult, 1, 0, 0, 3)
 	Return $aResult
@@ -372,7 +372,7 @@ Func SelectWardenMode($iMode, $XCoord)
 		Local $aCurrentModeArray = $aCurrentMode[0]
 		If Not IsArray($aCurrentModeArray) Or UBound($aCurrentModeArray) < 2 Then Return $sLogText
 
-		SetDebugLog("SelectWardenMode() $aCurrentMode[0]: " & _ArrayToString($aCurrentModeArray))
+		;~ SetDebugLog("SelectWardenMode() $aCurrentMode[0]: " & _ArrayToString($aCurrentModeArray))
 		If $g_bDebugSetlog Then SetLog("Benchmark G. Warden mode detection: " & StringFormat("%.2f", _Timer_Diff($hStarttime)) & "'ms", $COLOR_DEBUG)
 
 		If $aCurrentModeArray[0] = $aSelectMode[$iMode] Then
@@ -387,7 +387,7 @@ Func SelectWardenMode($iMode, $XCoord)
 			If $aAvailableMode <> "" And IsArray($aAvailableMode) Then
 				For $i = 0 To UBound($aAvailableMode, $UBOUND_ROWS) - 1
 					Local $aAvailableModeArray = $aAvailableMode[$i]
-					SetDebugLog("SelectWardenMode() $aAvailableMode[" & $i & "]: " & _ArrayToString($aAvailableModeArray))
+					;~ SetDebugLog("SelectWardenMode() $aAvailableMode[" & $i & "]: " & _ArrayToString($aAvailableModeArray))
 					If $aAvailableModeArray[0] = $aSelectSymbol[$iMode] Then
 						Local $aSymbolCoords = StringSplit($aAvailableModeArray[1], ",", $STR_NOCOUNT)
 						ClickP($aSymbolCoords, 1, 0)

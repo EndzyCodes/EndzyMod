@@ -70,16 +70,16 @@ Func IsNoxCommandLine($CommandLine)
 	If Not @error Then
 		Local $sInstance = $aRegexResult[0]
 		If $sInstance = $g_sAndroidInstance Or ($g_sAndroidInstance = $g_avAndroidAppConfig[$g_iAndroidConfig][1] And $sInstance = 'Nox_0') Then ; 'Nox_0' is MultiPlayerManager.exe launch support
-			SetDebugLog("IsNoxCommandLine, instance " & $g_sAndroidInstance & ", returns True for: " & $CommandLine)
+			;~ SetDebugLog("IsNoxCommandLine, instance " & $g_sAndroidInstance & ", returns True for: " & $CommandLine)
 			Return True
 		EndIf
 	Else
 		If $g_sAndroidInstance = $g_avAndroidAppConfig[$g_iAndroidConfig][1] Then
-			SetDebugLog("IsNoxCommandLine, instance " & $g_sAndroidInstance & ", returns True for: " & $CommandLine)
+			;~ SetDebugLog("IsNoxCommandLine, instance " & $g_sAndroidInstance & ", returns True for: " & $CommandLine)
 			Return True
 		EndIf
 	EndIf
-	SetDebugLog("IsNoxCommandLine, instance " & $g_sAndroidInstance & ", returns False for: " & $CommandLine)
+	;~ SetDebugLog("IsNoxCommandLine, instance " & $g_sAndroidInstance & ", returns False for: " & $CommandLine)
 	Return False
 EndFunc   ;==>IsNoxCommandLine
 
@@ -140,7 +140,7 @@ Func GetNoxBackgroundMode()
 	; hack for super strange Windows Fall Creator Update with OpenGL and DirectX problems
 	; doesn't have this issue with OSBuild : 17134
 	If @OSBuild >= 16299 And @OSBuild < 17134 Then
-		SetDebugLog("DirectX/OpenGL Fix applied for Windows Build 16299")
+		;~ SetDebugLog("DirectX/OpenGL Fix applied for Windows Build 16299")
 		$iDirectX = $g_iAndroidBackgroundModeOpenGL
 		$iOpenGL = $g_iAndroidBackgroundModeDirectX
 	EndIf
@@ -227,7 +227,7 @@ Func InitNox($bCheckOnly = False)
 		For $i = 0 To UBound($__Nox_Config) - 1
 			Local $v2 = GetVersionNormalized($__Nox_Config[$i][0])
 			If $v >= $v2 Then
-				SetDebugLog("Using Android Config of " & $g_sAndroidEmulator & " " & $__Nox_Config[$i][0])
+				;~ SetDebugLog("Using Android Config of " & $g_sAndroidEmulator & " " & $__Nox_Config[$i][0])
 				$g_sAppClassInstance = $__Nox_Config[$i][1]
 				$g_bAndroidControlUseParentPos = $__Nox_Config[$i][2]
 				$g_avAndroidAppConfig[$g_iAndroidConfig][3] = $g_sAppClassInstance
@@ -279,8 +279,8 @@ Func ConfigureSharedFolderNox($iMode = 0, $bSetLog = Default)
 						$bResult = True
 						$g_bAndroidSharedFolderAvailable = True
 						$g_sAndroidPicturesPath = "/data/media/0/Pictures/"
-						SetDebugLog("g_sAndroidPicturesHostPath = " & $g_sAndroidPicturesHostPath)
-						SetDebugLog("g_sAndroidPicturesPath = " & $g_sAndroidPicturesPath)
+						;~ SetDebugLog("g_sAndroidPicturesHostPath = " & $g_sAndroidPicturesHostPath)
+						;~ SetDebugLog("g_sAndroidPicturesPath = " & $g_sAndroidPicturesPath)
 					EndIf
 				EndIf
 			Next
@@ -305,7 +305,7 @@ Func SetScreenNox()
 	Local $sConfig = GetNoxConfigFile()
 	
 	If $sConfig Then
-		SetDebugLog("Configure Nox screen config: " & $sConfig)
+		;~ SetDebugLog("Configure Nox screen config: " & $sConfig)
 		IniWrite($sConfig, "setting", "h_resolution", $g_iAndroidClientWidth & "x" & $g_iAndroidClientHeight)
 		IniWrite($sConfig, "setting", "v_resolution", $g_iAndroidClientHeight & "x" & $g_iAndroidClientWidth)
 		IniWrite($sConfig, "setting", "h_dpi", "160")
@@ -320,7 +320,7 @@ Func SetScreenNox()
 		IniWrite($sConfig, "setting", "last_player_width", "864")
 		IniWrite($sConfig, "setting", "last_player_height", "770")
 	Else
-		SetDebugLog("Cannot find Nox config to cnfigure screen: " & $sConfig, $COLOR_ERROR)
+		;~ SetDebugLog("Cannot find Nox config to cnfigure screen: " & $sConfig, $COLOR_ERROR)
 	EndIf
 	Return True
 EndFunc   ;==>SetScreenNox
@@ -356,14 +356,14 @@ Func CheckScreenNox($bSetLog = True)
 				If $bSetLog Then
 					SetLog("Cannot validate " & $g_sAndroidEmulator & " property " & $aValues[$i][0], $COLOR_ERROR)
 				Else
-					SetDebugLog("Cannot validate " & $g_sAndroidEmulator & " property " & $aValues[$i][0], $COLOR_ERROR)
+					;~ SetDebugLog("Cannot validate " & $g_sAndroidEmulator & " property " & $aValues[$i][0], $COLOR_ERROR)
 				EndIF
 			Else
 				$Value = $aValues[$i][1]
 				If $bSetLog Then
 					SetLog("Cannot validate " & $g_sAndroidEmulator & " property " & $aValues[$i][0] & ", assuming " & $Value, $COLOR_ERROR)
 				Else
-					SetDebugLog("Cannot validate " & $g_sAndroidEmulator & " property " & $aValues[$i][0] & ", assuming " & $Value, $COLOR_ERROR)
+					;~ SetDebugLog("Cannot validate " & $g_sAndroidEmulator & " property " & $aValues[$i][0] & ", assuming " & $Value, $COLOR_ERROR)
 				EndIF
 			EndIf
 		EndIf
@@ -373,13 +373,13 @@ Func CheckScreenNox($bSetLog = True)
 				If $bSetLog Then
 					SetLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_ERROR)
 				Else
-					SetDebugLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_ERROR)
+					;~ SetDebugLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_ERROR)
 				EndIf
 			EndIf
 			If $bSetLog Then
 				SetLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_ERROR)
 			Else
-				SetDebugLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_ERROR)
+				;~ SetDebugLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_ERROR)
 			EndIf
 			$iErrCnt += 1
 		EndIf
@@ -395,17 +395,17 @@ EndFunc   ;==>CheckScreenNox
 
 Func GetNoxRunningInstance($bStrictCheck = True)
 	Local $a[2] = [0, ""]
-	SetDebugLog("GetAndroidRunningInstance: Try to find """ & $g_sAndroidProgramPath & """")
+	;~ SetDebugLog("GetAndroidRunningInstance: Try to find """ & $g_sAndroidProgramPath & """")
 	For $PID In ProcessesExist($g_sAndroidProgramPath, "", 1) ; find all process
 		Local $currentInstance = $g_sAndroidInstance
 		; assume last parameter is instance
 		Local $CommandLine = ProcessGetCommandLine($PID)
-		SetDebugLog("GetNoxRunningInstance: Found """ & $CommandLine & """ by PID=" & $PID)
+		;~ SetDebugLog("GetNoxRunningInstance: Found """ & $CommandLine & """ by PID=" & $PID)
 		Local $aRegexResult = StringRegExp($CommandLine, ".*""-clone:([^""]+)"".*|.*-clone:([\S]+).*", $STR_REGEXPARRAYMATCH)
 		If @error = 0 Then
 			$g_sAndroidInstance = $aRegexResult[0]
 			If $g_sAndroidInstance = "" Then $g_sAndroidInstance = $aRegexResult[1]
-			SetDebugLog("Running " & $g_sAndroidEmulator & " instance is """ & $g_sAndroidInstance & """")
+			;~ SetDebugLog("Running " & $g_sAndroidEmulator & " instance is """ & $g_sAndroidInstance & """")
 		EndIf
 		; validate
 		If WinGetAndroidHandle() <> 0 Then
@@ -472,19 +472,19 @@ Func EmbedNox($bEmbed = Default, $hHWndAfter = Default)
 	Next
 
 	If $hToolbar = 0 Then
-		SetDebugLog("EmbedNox(" & $bEmbed & "): toolbar Window not found, list of windows:" & $c) ;, Default, True
+		;~ SetDebugLog("EmbedNox(" & $bEmbed & "): toolbar Window not found, list of windows:" & $c) ;, Default, True
 		For $i = 1 To UBound($aWin) - 1
 			Local $h = $aWin[$i][0]
 			Local $c = $aWin[$i][1]
 			Local $aPos = WinGetPos($h)
 			If UBound($aPos) > 3 Then
-				SetDebugLog("EmbedNox(" & $bEmbed & "): Handle = " & $h & ", Class = " & $c & ", width=" & $aPos[2] & ", height=" & $aPos[3]) ;, Default, True
+				;~ SetDebugLog("EmbedNox(" & $bEmbed & "): Handle = " & $h & ", Class = " & $c & ", width=" & $aPos[2] & ", height=" & $aPos[3]) ;, Default, True
 			Else
-				SetDebugLog("EmbedNox(" & $bEmbed & "): Handle = " & $h & ", Class = " & $c) ;, Default, True
+				;~ SetDebugLog("EmbedNox(" & $bEmbed & "): Handle = " & $h & ", Class = " & $c) ;, Default, True
 			EndIf
 		Next
 	Else
-		SetDebugLog("EmbedNox(" & $bEmbed & "): $hToolbar=" & $hToolbar) ;, Default, True
+		;~ SetDebugLog("EmbedNox(" & $bEmbed & "): $hToolbar=" & $hToolbar) ;, Default, True
 		If $bEmbed Then
 			WinMove2($hToolbar, "", -1, -1, -1, -1, $HWND_NOTOPMOST, $SWP_HIDEWINDOW, False, False)
 		Else

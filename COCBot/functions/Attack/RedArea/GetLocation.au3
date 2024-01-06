@@ -179,7 +179,7 @@ EndFunc   ;==>GetLocationDarkElixirWithLevel
 ; ===============================================================================================================================
 Func GetLocationBuilding($iBuildingType, $iAttackingTH = 14, $bForceCaptureRegion = True)
 
-	SetDebugLog("Begin GetLocationBuilding: " & $g_sBldgNames[$iBuildingType], $COLOR_DEBUG1)
+	;~ SetDebugLog("Begin GetLocationBuilding: " & $g_sBldgNames[$iBuildingType], $COLOR_DEBUG1)
 	Local $hTimer = __TimerInit() ; timer to track image detection time
 
 	; Variables
@@ -267,7 +267,7 @@ Func GetLocationBuilding($iBuildingType, $iAttackingTH = 14, $bForceCaptureRegio
 				_ObjPutValue($g_oBldgAttackInfo, $eBldgRedLine & "_COUNT", $redlinesCount)
 				If @error Then _ObjErrMsg("_ObjSetValue $g_oBldgAttackInfo", @error)
 			Else
-				Setdebuglog("> Not enough red line points to save in building dictionary?", $COLOR_WARNING)
+				;~ SetDebugLog("> Not enough red line points to save in building dictionary?", $COLOR_WARNING)
 			EndIf
 		Else
 			SetLog("> DLL Error getting Red Lines in GetLocationBuilding", $COLOR_ERROR)
@@ -330,7 +330,7 @@ Func GetLocationBuilding($iBuildingType, $iAttackingTH = 14, $bForceCaptureRegio
 					If $iCountUpdate <> "" Then $TotalBuildings = $iCountUpdate
 				EndIf
 			Else
-				SetDebugLog("> no data in 'objectpoints' request?", $COLOR_WARNING)
+				;~ SetDebugLog("> no data in 'objectpoints' request?", $COLOR_WARNING)
 			EndIf
 		Next
 	EndIf
@@ -392,11 +392,11 @@ Func DebugImageGetLocation($sVector, $sType, $iBuildingENUM = "")
 					Local $aPixels = StringSplit($temp[1], "-", 2) ;PIXEL ["404","325"]
 					If UBound($aPixels) = 2 Then
 						If isInsideDiamondRedArea($aPixels) Then
-							SetDebugLog("coordinate inside village (" & $aPixels[0] & "," & $aPixels[1] & ")")
+							;~ SetDebugLog("coordinate inside village (" & $aPixels[0] & "," & $aPixels[1] & ")")
 							_CaptureRegion($aPixels[0] - 30, $aPixels[1] - 30, $aPixels[0] + 30, $aPixels[1] + 30)
 							SaveDebugImage("DebugImageGetLocation_" & $sType & "_", False)
 						Else
-							SetDebugLog("coordinate out of village (" & $aPixels[0] & "," & $aPixels[1] & ")")
+							;~ SetDebugLog("coordinate out of village (" & $aPixels[0] & "," & $aPixels[1] & ")")
 						EndIf
 					EndIf
 				EndIf
@@ -408,11 +408,11 @@ Func DebugImageGetLocation($sVector, $sType, $iBuildingENUM = "")
 				Local $aPixels = StringSplit($aVector[$i], "-", 2) ;PIXEL ["404","325"]
 				If UBound($aPixels) = 2 Then
 					If isInsideDiamondRedArea($aPixels) Then
-						SetDebugLog("coordinate inside village (" & $aPixels[0] & "," & $aPixels[1] & ")")
+						;~ SetDebugLog("coordinate inside village (" & $aPixels[0] & "," & $aPixels[1] & ")")
 						_CaptureRegion($aPixels[0] - 30, $aPixels[1] - 30, $aPixels[0] + 30, $aPixels[1] + 30)
 						SaveDebugImage("DebugImageGetLocation_" & $sType & "_", False)
 					Else
-						SetDebugLog("coordinate out of village (" & $aPixels[0] & "," & $aPixels[1] & ")")
+						;~ SetDebugLog("coordinate out of village (" & $aPixels[0] & "," & $aPixels[1] & ")")
 					EndIf
 				EndIf
 			Next
@@ -427,16 +427,16 @@ Func DebugImageGetLocation($sVector, $sType, $iBuildingENUM = "")
 				Local $aPixels = StringSplit($aVector[$i], ",", 2) ;PIXEL ["404","325"]
 				If UBound($aPixels) = 2 Then
 					If isInsideDiamondRedArea($aPixels) Then
-						SetDebugLog("coordinate inside village (" & $aPixels[0] & "," & $aPixels[1] & ")")
+						;~ SetDebugLog("coordinate inside village (" & $aPixels[0] & "," & $aPixels[1] & ")")
 						_CaptureRegion($aPixels[0] - 30, $aPixels[1] - 30, $aPixels[0] + 30, $aPixels[1] + 30)
 						SaveDebugImage("DebugImageGetLocation_" & StringStripWS($g_sBldgNames[$iBuildingENUM], $STR_STRIPALL) & "_", False)
 					Else
-						SetDebugLog("coordinate out of village (" & $aPixels[0] & "," & $aPixels[1] & ")")
+						;~ SetDebugLog("coordinate out of village (" & $aPixels[0] & "," & $aPixels[1] & ")")
 					EndIf
 				EndIf
 			Next
 		Case Else
-			SetDebugLog("Bad Input on DebugImageGetLocation(). $sType does not support: " & $sType)
+			;~ SetDebugLog("Bad Input on DebugImageGetLocation(). $sType does not support: " & $sType)
 	EndSwitch
 
 EndFunc   ;==>DebugImageGetLocation
@@ -465,7 +465,7 @@ Func ConvertImgloc2MBR($aArray, $iMaxPositions, $bLevel = False)
 	EndIf
 
 	$sStringConverted = StringTrimRight($sStringConverted, 1) ; remove the last " |" or "~"
-	SetDebugLog("$sStringConverted: " & $sStringConverted)
+	;~ SetDebugLog("$sStringConverted: " & $sStringConverted)
 
 	Return $sStringConverted ; xxx-yyy|xxx-yyy|n.... OR Lv#xxx-yyy~Lv#xxx-yyy
 EndFunc   ;==>ConvertImgloc2MBR

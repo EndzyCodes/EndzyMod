@@ -83,7 +83,7 @@ Func GoldElixirChangeEBO()
 	;MAIN LOOP
 	Local $iBegin = __TimerInit()
 	Local $iSuspendAndroidTimeOffset = SuspendAndroidTime()
-	SetDebugLog("GoldElixirChangeEBO: Start waiting for battle end, Wait: " & $z & ", Offset: " & $iSuspendAndroidTimeOffset)
+	;~ SetDebugLog("GoldElixirChangeEBO: Start waiting for battle end, Wait: " & $z & ", Offset: " & $iSuspendAndroidTimeOffset)
 
 	Local $iTime = 0
 	Local $bOneLoop = True
@@ -147,7 +147,7 @@ Func GoldElixirChangeEBO()
 			SetLog("Exit now, [G]: " & $Gold2 & " [E]: " & $Elixir2 & " [DE]: " & $DarkElixir2 & " [%]: " & $CurDamage, $COLOR_INFO)
 		Else
 			If $g_bDebugSetlog Then
-				SetDebugLog("Exit in " & $txtDiff & ", [G]: " & $Gold2 & " [E]: " & $Elixir2 & " [DE]: " & $DarkElixir2 & " [%]: " & $CurDamage & ", Suspend-Time: " & $g_iSuspendAndroidTime & ", Suspend-Count: " & $g_iSuspendAndroidTimeCount &  ", Offset: " & $iSuspendAndroidTimeOffset, $COLOR_INFO)
+				;~ SetDebugLog("Exit in " & $txtDiff & ", [G]: " & $Gold2 & " [E]: " & $Elixir2 & " [DE]: " & $DarkElixir2 & " [%]: " & $CurDamage & ", Suspend-Time: " & $g_iSuspendAndroidTime & ", Suspend-Count: " & $g_iSuspendAndroidTimeCount &  ", Offset: " & $iSuspendAndroidTimeOffset, $COLOR_INFO)
 			Else
 				SetLog("Exit in " & $txtDiff & ", [G]: " & $Gold2 & " [E]: " & $Elixir2 & " [DE]: " & $DarkElixir2 & " [%]: " & $CurDamage, $COLOR_INFO)
 			EndIf
@@ -289,9 +289,9 @@ Func GoldElixirChangeEBO()
 		EndIf
 	Else
 		If $g_bDebugSetlog Then
-			SetDebugLog("Gold1: " & Number($Gold1) & "  Gold2: " & Number($Gold2), $COLOR_DEBUG)
-			SetDebugLog("Elixir1: " & Number($Elixir1) & "  Elixir2: " & Number($Elixir2), $COLOR_DEBUG)
-			SetDebugLog("Dark Elixir1: " & Number($DarkElixir1) & "  Dark Elixir2: " & Number($DarkElixir2), $COLOR_DEBUG)
+			;~ SetDebugLog("Gold1: " & Number($Gold1) & "  Gold2: " & Number($Gold2), $COLOR_DEBUG)
+			;~ SetDebugLog("Elixir1: " & Number($Elixir1) & "  Elixir2: " & Number($Elixir2), $COLOR_DEBUG)
+			;~ SetDebugLog("Dark Elixir1: " & Number($DarkElixir1) & "  Dark Elixir2: " & Number($DarkElixir2), $COLOR_DEBUG)
 		EndIf
 	EndIf
 

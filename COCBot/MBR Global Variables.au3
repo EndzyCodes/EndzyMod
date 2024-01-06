@@ -785,7 +785,7 @@ Func TroopIndexLookup(Const $sName, Const $sSource = "")
 	; is the name "castle"?
 	If $sName = "castle" Then Return $eCastle
 
-	SetDebugLog("TroopIndexLookup() Error: Index for troop name '" & $sName & "' not found" & (($sSource) ? (" (" & $sSource & ").") : (".")))
+	;~ SetDebugLog("TroopIndexLookup() Error: Index for troop name '" & $sName & "' not found" & (($sSource) ? (" (" & $sSource & ").") : (".")))
 	Return -1
 EndFunc   ;==>TroopIndexLookup
 ;--------------------------------------------------------------------------

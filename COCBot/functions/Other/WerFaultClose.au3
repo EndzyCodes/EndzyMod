@@ -28,7 +28,7 @@ Func WerFaultClose($programFile, $tryCountMax = 10, $tryCount = 0)
 	Local $closed = 0
 	Local $i
 
-	SetDebugLog("Found " & $aList[0][0] & " WerFault Windows with title '" & $sTitle & "'")
+	;~ SetDebugLog("Found " & $aList[0][0] & " WerFault Windows with title '" & $sTitle & "'")
 
 	If $aList[0][0] > 0 Then
 		For $i = 1 To $aList[0][0]
@@ -43,23 +43,23 @@ Func WerFaultClose($programFile, $tryCountMax = 10, $tryCount = 0)
 				$werfault = StringMid($werfault, $iLastBS + 1)
 
 				If $werfault = "WerFault.exe" Then
-					SetDebugLog("Found WerFault Process " & $pid)
+					;~ SetDebugLog("Found WerFault Process " & $pid)
 					If WinClose($HWnD) Then
-						SetDebugLog("Closed " & $werfault & " Window " & $HWnD)
+						;~ SetDebugLog("Closed " & $werfault & " Window " & $HWnD)
 						$closed += 1
 					Else
 						If WinKill($HWnD) Then
-							SetDebugLog("Killed " & $werfault & " Window " & $HWnD)
+							;~ SetDebugLog("Killed " & $werfault & " Window " & $HWnD)
 							$closed += 1
 						Else
-							SetDebugLog("Cannot close " & $werfault & " Window " & $HWnD, $COLOR_ERROR)
+							;~ SetDebugLog("Cannot close " & $werfault & " Window " & $HWnD, $COLOR_ERROR)
 						EndIf
 					EndIf
 				Else
-					SetDebugLog("Process " & $pid & " is not WerFault, " & $process[2], $COLOR_ERROR)
+					;~ SetDebugLog("Process " & $pid & " is not WerFault, " & $process[2], $COLOR_ERROR)
 				EndIf
 			ELse
-				SetDebugLog("Wmi Object for process " & $pid & " not found")
+				;~ SetDebugLog("Wmi Object for process " & $pid & " not found")
 			EndIF
 
 		Next

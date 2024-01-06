@@ -37,7 +37,7 @@ Func StarLaboratory($bTestRun = False)
 	Local $iAvailElixir, $sElixirCount, $TimeDiff, $aArray, $Result
 	If $g_sStarLabUpgradeTime <> "" Then $TimeDiff = _DateDiff("n", _NowCalc(), $g_sStarLabUpgradeTime) ; what is difference between end time and now in minutes?
 	If @error Then _logErrorDateDiff(@error)
-	SetDebugLog($g_avStarLabTroops[$g_iCmbStarLaboratory][3] & " Lab end time: " & $g_sStarLabUpgradeTime & ", DIFF= " & $TimeDiff, $COLOR_DEBUG)
+	;~ SetDebugLog($g_avStarLabTroops[$g_iCmbStarLaboratory][3] & " Lab end time: " & $g_sStarLabUpgradeTime & ", DIFF= " & $TimeDiff, $COLOR_DEBUG)
 
 	If Not $g_bRunState Then Return
 	If $TimeDiff <= 0 Then
@@ -64,7 +64,7 @@ Func StarLaboratory($bTestRun = False)
 	
 	Local $bWindowOpened = False
 	For $i = 1 To 5
-		SetDebugLog("Waiting For Star Laboratory Window #" & $i)
+		;~ SetDebugLog("Waiting For Star Laboratory Window #" & $i)
 		If QuickMis("BC1", $g_sImgGeneralCloseButton, 760, 40, 820, 80) Then 
 			$bWindowOpened = True
 			ExitLoop
@@ -81,7 +81,7 @@ Func StarLaboratory($bTestRun = False)
 		SetLog("Laboratory Upgrade in progress, waiting for completion", $COLOR_INFO)
 		Local $sLabTimeOCR = getRemainTLaboratory(225, 202)
 		Local $iLabFinishTime = ConvertOCRTime("Lab Time", $sLabTimeOCR, False)
-		SetDebugLog("$sLabTimeOCR: " & $sLabTimeOCR & ", $iLabFinishTime = " & $iLabFinishTime & " m")
+		;~ SetDebugLog("$sLabTimeOCR: " & $sLabTimeOCR & ", $iLabFinishTime = " & $iLabFinishTime & " m")
 		If $iLabFinishTime > 0 Then
 			$g_sStarLabUpgradeTime = _DateAdd('n', Ceiling($iLabFinishTime), _NowCalc())
 			If @error Then _logErrorDateAdd(@error)
@@ -89,7 +89,7 @@ Func StarLaboratory($bTestRun = False)
 			ClickAway("Left")
 			Return True
 		Else
-			SetDebugLog("Invalid getRemainTLaboratory OCR", $COLOR_DEBUG)
+			;~ SetDebugLog("Invalid getRemainTLaboratory OCR", $COLOR_DEBUG)
 		EndIf
 		If Not $bTestRun Then
 			ClickAway("Left")
@@ -101,7 +101,7 @@ Func StarLaboratory($bTestRun = False)
 	Local $aTroopUpgrade = FindSLabTroopsUpgrade()
 	If IsArray($aTroopUpgrade) And UBound($aTroopUpgrade) > 0 Then
 		For $i = 0 To UBound($aTroopUpgrade) -1 
-			SetDebugLog("[" & $aTroopUpgrade[$i][0] & "]" & " Coord:[" & $aTroopUpgrade[$i][3] & "," & $aTroopUpgrade[$i][4] & "] Troop: " & $aTroopUpgrade[$i][2] & " Cost: " & $aTroopUpgrade[$i][5])
+			;~ SetDebugLog("[" & $aTroopUpgrade[$i][0] & "]" & " Coord:[" & $aTroopUpgrade[$i][3] & "," & $aTroopUpgrade[$i][4] & "] Troop: " & $aTroopUpgrade[$i][2] & " Cost: " & $aTroopUpgrade[$i][5])
 		Next
 		If $g_iCmbStarLaboratory = 0 And $g_bSLabUpgradeOrderEnable Then ;Any Upgrade, enable order
 			SetLog("StarLab Upgrade Order Enabled", $COLOR_INFO)
@@ -113,7 +113,7 @@ Func StarLaboratory($bTestRun = False)
 			For $z = 0 To UBound($g_aCmbSLabUpgradeOrder) - 1 ; list of lab upgrade order
 				If $g_aCmbSLabUpgradeOrder[$z] < 0 Then ContinueLoop
 				Local $Index = _ArraySearch($aTroopUpgrade, $g_aCmbSLabUpgradeOrder[$z]+1, 0, 0, 0, 0, 1, 0)
-				SetDebugLog("Search for : " & $g_aCmbSLabUpgradeOrder[$z]+1 & " And Found at :" & $Index)
+				;~ SetDebugLog("Search for : " & $g_aCmbSLabUpgradeOrder[$z]+1 & " And Found at :" & $Index)
 				If Not @error And $Index > -1 Then
 					SetLog("Try Upgrade [" & $z + 1 & "]: " & $aTroopUpgrade[$Index][2], $COLOR_ACTION)
 					If $aTroopUpgrade[$Index][5] = "MaxLevel" Then
@@ -164,7 +164,7 @@ Func StarLaboratory($bTestRun = False)
 		If $g_iCmbStarLaboratory > 0 Then ;selected upgrade
 			Local $Index = _ArraySearch($aTroopUpgrade, $g_iCmbStarLaboratory, 0, 0, 0, 0, 1, 0)
 			If Not @error And $Index > -1 Then
-				SetDebugLog("Search for : " & $g_iCmbStarLaboratory & " And Found at :" & $Index)
+				;~ SetDebugLog("Search for : " & $g_iCmbStarLaboratory & " And Found at :" & $Index)
 				SetLog("Try Upgrade: " & $aTroopUpgrade[$Index][2])
 				If $aTroopUpgrade[$Index][5] = "MaxLevel" Then
 					SetLog($aTroopUpgrade[$Index][2] & " at Max Level, skip!", $COLOR_INFO)
@@ -250,7 +250,7 @@ Func SLabUpgrade($UpgradeName, $x, $y, $bTest)
 	
 	If $bRet Then 
 		Local $StartTime = _NowCalc() ; what is date:time now
-		SetDebugLog($UpgradeName & " Upgrade Started @ " & $StartTime, $COLOR_SUCCESS)
+		;~ SetDebugLog($UpgradeName & " Upgrade Started @ " & $StartTime, $COLOR_SUCCESS)
 		If $iLabFinishTime > 0 Then
 			$g_sStarLabUpgradeTime = _DateAdd('n', Ceiling($iLabFinishTime), $StartTime)
 			SetLog($UpgradeName & " Upgrade Finishes @ " & $Result & " (" & $g_sStarLabUpgradeTime & ")", $COLOR_SUCCESS)
@@ -309,7 +309,7 @@ Func LocateStarLab()
 		Else
 			ClickAway("Left")
 			ZoomOutHelperBB("SwitchBetweenBases") ;go to BH LowerZone
-			SetDebugLog("Stored Star Laboratory Position is not valid.", $COLOR_ERROR)
+			;~ SetDebugLog("Stored Star Laboratory Position is not valid.", $COLOR_ERROR)
 			$g_aiStarLaboratoryPos[0] = -1
 			$g_aiStarLaboratoryPos[1] = -1
 		EndIf

@@ -110,7 +110,7 @@ Func smartZap($minDE = -1)
 	If $g_bDoneSmartZap = True Then Return $performedZap
 
 	Local $iTime = Int(AttackRemainingTime() / 1000)
-	SetDebugLog("Remain time in seconds is " & $iTime & "s", $COLOR_INFO)
+	;~ SetDebugLog("Remain time in seconds is " & $iTime & "s", $COLOR_INFO)
 	If $g_iRemainTimeToZap > $iTime And $g_iRemainTimeToZap <> 0 Or $bLastChance = True Then
 		SetLog("Let's ZAP, even with troops on the ground.", $COLOR_ACTION)
 		$g_bDoneSmartZap = True
@@ -441,7 +441,7 @@ Func smartZap($minDE = -1)
 		; No Dark Elixir Left
 		If Not $g_iSearchDark Or $g_iSearchDark = 0 Then
 			SetLog("No Dark Elixir left!", $COLOR_INFO)
-			SetDebugLog("$g_iSearchDark = " & Number($g_iSearchDark))
+			;~ SetDebugLog("$g_iSearchDark = " & Number($g_iSearchDark))
 			; Update statistics, if we zapped
 			If $skippedZap = False Then
 				If $Spellused = $eESpell  Then

@@ -105,7 +105,7 @@ Func InitiateLayout()
 		Local $BSx = $BSsize[2]
 		Local $BSy = $BSsize[3]
 
-		SetDebugLog("InitiateLayout: " & $g_sAndroidTitle & " Android-ClientSize: " & $BSx & " x " & $BSy, $COLOR_INFO)
+		;~ SetDebugLog("InitiateLayout: " & $g_sAndroidTitle & " Android-ClientSize: " & $BSx & " x " & $BSy, $COLOR_INFO)
 
 		If Not CheckScreenAndroid($BSx, $BSy) Then ; Is Client size now correct?
 			If $AdjustScreenIfNecessarry = True Then
@@ -216,7 +216,7 @@ EndFunc   ;==>btnAttackNowLB
 Func reHide()
 	WinGetAndroidHandle()
 	If $g_bIsHidden And $g_hAndroidWindow <> 0 And Not $g_bAndroidEmbedded Then
-		SetDebugLog("Hide " & $g_sAndroidEmulator & " Window after restart")
+		;~ SetDebugLog("Hide " & $g_sAndroidEmulator & " Window after restart")
 		Local $Result = HideAndroidWindow(True, Default, Default, "reHide") ;WinMove($g_hAndroidWindow, "", -32000, -32000)
 		updateBtnHideState()
 		Return $Result
@@ -387,9 +387,9 @@ Func ToggleGuiControls($bEnabled, $bOptimizedRedraw = True)
 	If $g_iGuiMode <> 1 Then Return
 	If $bOptimizedRedraw Then Local $bWasRedraw = SetRedrawBotWindow(False, Default, Default, Default, "ToggleGuiControls")
 	If Not $bEnabled Then
-		SetDebugLog("Disable GUI Controls")
+		;~ SetDebugLog("Disable GUI Controls")
 	Else
-		SetDebugLog("Enable GUI Controls")
+		;~ SetDebugLog("Enable GUI Controls")
 	EndIf
 	$g_bGUIControlDisabled = True
 	For $i = $g_hFirstControlToHide To $g_hLastControlToHide

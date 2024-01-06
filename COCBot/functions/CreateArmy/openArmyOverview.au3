@@ -62,7 +62,7 @@ EndFunc   ;==>OpenQuickTrainTab
 Func OpenTrainTab($sTab, $bSetLog = True, $sWhereFrom = "Undefined")
 
 	If Not IsTrainPage() Then
-		SetDebugLog("Error in OpenTrainTab: Cannot find the Army Overview Window", $COLOR_ERROR)
+		;~ SetDebugLog("Error in OpenTrainTab: Cannot find the Army Overview Window", $COLOR_ERROR)
 		SetError(1)
 		Return False
 	EndIf
@@ -82,7 +82,7 @@ Func OpenTrainTab($sTab, $bSetLog = True, $sWhereFrom = "Undefined")
 			EndIf
 		EndIf
 	Else
-		SetDebugLog("Error in OpenTrainTab: $aTabButton is no valid Array", $COLOR_ERROR)
+		;~ SetDebugLog("Error in OpenTrainTab: $aTabButton is no valid Array", $COLOR_ERROR)
 		SetError(1)
 		Return False
 	EndIf

@@ -215,11 +215,11 @@ Func CheckIfArmyIsReady()
 		$g_bIsFullArmywithHeroesAndSpells = True
 	Else
 		If $g_bDebugSetlog Then
-			SetDebugLog(" $g_bFullArmy: " & String($g_bFullArmy), $COLOR_DEBUG)
-			SetDebugLog(" $g_bCheckSpells: " & String($g_bCheckSpells), $COLOR_DEBUG)
-			SetDebugLog(" $bFullArmyHero: " & String($bFullArmyHero), $COLOR_DEBUG)
-			SetDebugLog(" $bFullSiege: " & String($bFullSiege), $COLOR_DEBUG)
-			SetDebugLog(" $bFullArmyCC: " & String($bFullArmyCC), $COLOR_DEBUG)
+			;~ SetDebugLog(" $g_bFullArmy: " & String($g_bFullArmy), $COLOR_DEBUG)
+			;~ SetDebugLog(" $g_bCheckSpells: " & String($g_bCheckSpells), $COLOR_DEBUG)
+			;~ SetDebugLog(" $bFullArmyHero: " & String($bFullArmyHero), $COLOR_DEBUG)
+			;~ SetDebugLog(" $bFullSiege: " & String($bFullSiege), $COLOR_DEBUG)
+			;~ SetDebugLog(" $bFullArmyCC: " & String($bFullArmyCC), $COLOR_DEBUG)
 		EndIf
 		$g_bIsFullArmywithHeroesAndSpells = False
 	EndIf
@@ -246,10 +246,10 @@ Func CheckIfArmyIsReady()
 	; Force to Request CC troops or Spells
 	If Not $bFullArmyCC Then $g_bCanRequestCC = True
 	If $g_bDebugSetlog Then
-		SetDebugLog(" $g_bFullArmy: " & String($g_bFullArmy), $COLOR_DEBUG)
-		SetDebugLog(" $bCheckCC: " & String($bFullArmyCC), $COLOR_DEBUG)
-		SetDebugLog(" $g_bIsFullArmywithHeroesAndSpells: " & String($g_bIsFullArmywithHeroesAndSpells), $COLOR_DEBUG)
-		SetDebugLog(" $g_iTownHallLevel: " & Number($g_iTownHallLevel), $COLOR_DEBUG)
+		;~ SetDebugLog(" $g_bFullArmy: " & String($g_bFullArmy), $COLOR_DEBUG)
+		;~ SetDebugLog(" $bCheckCC: " & String($bFullArmyCC), $COLOR_DEBUG)
+		;~ SetDebugLog(" $g_bIsFullArmywithHeroesAndSpells: " & String($g_bIsFullArmywithHeroesAndSpells), $COLOR_DEBUG)
+		;~ SetDebugLog(" $g_iTownHallLevel: " & Number($g_iTownHallLevel), $COLOR_DEBUG)
 	EndIf
 
 EndFunc   ;==>CheckIfArmyIsReady
@@ -897,7 +897,7 @@ Func CheckQueueTroops($bGetQuantity = True, $bSetLog = True, $x = 777, $bQtyWSlo
 				$aQueueTroop[$iTroopIndex] += $aQuantities[$i][1]
 			Else
 				; TODO check what to do with others
-				SetDebugLog("Unsupport troop index: " & $iTroopIndex)
+				;~ SetDebugLog("Unsupport troop index: " & $iTroopIndex)
 			EndIf
 		Next
 		If $bQtyWSlot Then Return $aQuantities
@@ -990,11 +990,11 @@ Func SearchArmy($sImageDir = "", $x = 0, $y = 0, $x1 = 0, $y1 = 0, $sArmyType = 
 			; Store the coords array as a sub-array
 			$aResult[$i + $iResultAddDup][1] = Number($aCoordArray[0][0])
 			$aResult[$i + $iResultAddDup][2] = Number($aCoordArray[0][1])
-			SetDebugLog($aResult[$i + $iResultAddDup][0] & " | $aCoordArray: " & $aCoordArray[0][0] & "-" & $aCoordArray[0][1])
+			;~ SetDebugLog($aResult[$i + $iResultAddDup][0] & " | $aCoordArray: " & $aCoordArray[0][0] & "-" & $aCoordArray[0][1])
 			; If 1 troop type appears at more than 1 slot
 			Local $iMultipleCoords = UBound($aCoords)
 			If $iMultipleCoords > 1 Then
-				SetDebugLog($aResult[$i + $iResultAddDup][0] & " detected " & $iMultipleCoords & " times!")
+				;~ SetDebugLog($aResult[$i + $iResultAddDup][0] & " detected " & $iMultipleCoords & " times!")
 				For $j = 1 To $iMultipleCoords - 1
 					Local $aCoordsSplit2 = $aCoords[$j]
 					If UBound($aCoordsSplit2) = 2 Then
@@ -1004,7 +1004,7 @@ Func SearchArmy($sImageDir = "", $x = 0, $y = 0, $x1 = 0, $y1 = 0, $sArmyType = 
 						$aResult[$i + $iResultAddDup][0] = $aResult[$i + $iResultAddDup - 1][0] ; same objectname
 						$aResult[$i + $iResultAddDup][1] = $aCoordsSplit2[0] + $x
 						$aResult[$i + $iResultAddDup][2] = $aCoordsSplit2[1]
-						SetDebugLog($aResult[$i + $iResultAddDup][0] & " | $aCoordArray: " & $aResult[$i + $iResultAddDup][1] & "-" & $aResult[$i + $iResultAddDup][2])
+						;~ SetDebugLog($aResult[$i + $iResultAddDup][0] & " | $aCoordArray: " & $aResult[$i + $iResultAddDup][1] & "-" & $aResult[$i + $iResultAddDup][2])
 					EndIf
 				Next
 			EndIf
@@ -1017,7 +1017,7 @@ Func SearchArmy($sImageDir = "", $x = 0, $y = 0, $x1 = 0, $y1 = 0, $sArmyType = 
 		If UBound($aResult) < 2 Then ExitLoop
 		For $i = 1 To UBound($aResult) - 1
 			If $aResult[$i][0] = $aResult[$i - 1][0] And Abs($aResult[$i][1] - $aResult[$i - 1][1]) <= 50 Then
-				SetDebugLog("Double detection " & $aResult[$i][0] & " at " & $i - 1 & ": " & $aResult[$i][1] & " & " & $aResult[$i - 1][1])
+				;~ SetDebugLog("Double detection " & $aResult[$i][0] & " at " & $i - 1 & ": " & $aResult[$i][1] & " & " & $aResult[$i - 1][1])
 				_ArrayDelete($aResult, $i)
 				ContinueLoop 2
 			EndIf
@@ -1063,7 +1063,7 @@ Func SearchArmy($sImageDir = "", $x = 0, $y = 0, $x1 = 0, $y1 = 0, $sArmyType = 
 		For $i = 0 To UBound($aResult) - 1
 			$xSlot = Int(Number($aResult[$i][1]) / 61) * 61 - 8
 			$aResult[$i][3] = Number(getQueueTroopsQuantity($xSlot, 190))
-			SetDebugLog($aResult[$i][0] & " (" & $xSlot & ") x" & $aResult[$i][3])
+			;~ SetDebugLog($aResult[$i][0] & " (" & $xSlot & ") x" & $aResult[$i][3])
 		Next
 	EndIf
 

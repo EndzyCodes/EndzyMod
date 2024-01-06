@@ -144,7 +144,7 @@ Func _CaptureGameScreen(ByRef $_hHBitmap, Const $iLeft = 0, Const $iTop = 0, Con
 			; save full screen
 			Local $sDateTime = @YEAR & "-" & @MON & "-" & @MDAY & "_" & @HOUR & "-" & @MIN & "-" & @SEC & "." & @MSEC
 			Local $hBitmap_full = _GDIPlus_BitmapCreateFromHBITMAP($_hHBitmap)
-			SetDebugLog("Save full screen: " & $g_sProfileTempDebugPath & "FullScreen_" & $sDateTime & ".png")
+			;~ SetDebugLog("Save full screen: " & $g_sProfileTempDebugPath & "FullScreen_" & $sDateTime & ".png")
 			_GDIPlus_ImageSaveToFile($hBitmap_full, $g_sProfileTempDebugPath & "FullScreen_" & $sDateTime & ".png")
 			_GDIPlus_BitmapDispose($hBitmap_full)
 			If $iLeft > 0 Or $iTop > 0 Or $iRight < $g_iGAME_WIDTH Or $iBottom < $g_iGAME_HEIGHT Then
@@ -376,7 +376,7 @@ Func debugGdiHandle(Const $sSource, Const $bLogAlways = False)
 				$g_iDebugGDICountMax = $g_iDebugGDICount
 				$sMsg &= " NEW MAX!"
 			EndIf
-			SetDebugLog($sMsg, Default, True)
+			;~ SetDebugLog($sMsg, Default, True)
 		EndIf
 	EndIf
 EndFunc   ;==>debugGdiHandle
@@ -384,7 +384,7 @@ EndFunc   ;==>debugGdiHandle
 Func GdiAddBitmap(Const ByRef $_hBitmap)
 	If $g_iDebugGDICount <> 0 Then
 		$g_oDebugGDIHandles("Bitmap:" & $_hBitmap) = Time()
-		SetDebugLog("GdiAddBitmap " & $_hBitmap, Default, True)
+		;~ SetDebugLog("GdiAddBitmap " & $_hBitmap, Default, True)
 	EndIf
 EndFunc   ;==>GdiAddBitmap
 
@@ -393,9 +393,9 @@ Func GdiDeleteBitmap(ByRef $_hBitmap)
 	Local $Result = _GDIPlus_BitmapDispose($_hBitmap)
 	If ($Result <> True Or @error) And $g_iDebugGDICount = 0 Then SetDebugLog("GdiDeleteBitmap not deleted: " & $_hBitmap, Default, True)
 	If $g_iDebugGDICount <> 0 Then
-		SetDebugLog("_GDIPlus_BitmapDispose<: " & $_hBitmap & " " & $Result & ", active: " & $g_oDebugGDIHandles.Count, Default, True)
+		;~ SetDebugLog("_GDIPlus_BitmapDispose<: " & $_hBitmap & " " & $Result & ", active: " & $g_oDebugGDIHandles.Count, Default, True)
 		$g_oDebugGDIHandles.Remove("Bitmap:" & $_hBitmap)
-		SetDebugLog("GdiDeleteBitmap " & $_hBitmap & ", active: " & $g_oDebugGDIHandles.Count, Default, True)
+		;~ SetDebugLog("GdiDeleteBitmap " & $_hBitmap & ", active: " & $g_oDebugGDIHandles.Count, Default, True)
 	EndIf
 	$_hBitmap = 0
 EndFunc   ;==>GdiDeleteBitmap
@@ -403,7 +403,7 @@ EndFunc   ;==>GdiDeleteBitmap
 Func GdiAddHBitmap(Const ByRef $_hHBitmap)
 	If $g_iDebugGDICount <> 0 Then
 		$g_oDebugGDIHandles("HBitmap:" & $_hHBitmap) = Time()
-		SetDebugLog("GdiAddHBitmap " & $_hHBitmap & ", active: " & $g_oDebugGDIHandles.Count, Default, True)
+		;~ SetDebugLog("GdiAddHBitmap " & $_hHBitmap & ", active: " & $g_oDebugGDIHandles.Count, Default, True)
 	EndIf
 EndFunc   ;==>GdiAddHBitmap
 

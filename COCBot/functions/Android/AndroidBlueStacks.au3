@@ -222,8 +222,8 @@ Func InitBlueStacksX($bCheckOnly = False, $bAdjustResolution = False, $bLegacyMo
 		If Not $bFileFound Then
 			If $plusMode And Not $bLegacyMode And $i = 0 Then
 				; try legacy mode
-				SetDebugLog("Cannot find " & $g_sAndroidEmulator & " file:" & $File, $COLOR_ACTION)
-				SetDebugLog("Try legacy mode", $COLOR_ACTION)
+				;~ SetDebugLog("Cannot find " & $g_sAndroidEmulator & " file:" & $File, $COLOR_ACTION)
+				;~ SetDebugLog("Try legacy mode", $COLOR_ACTION)
 				Return InitBlueStacksX($bCheckOnly, $bAdjustResolution, True)
 			EndIf
 			If Not $bCheckOnly Then
@@ -274,9 +274,9 @@ Func InitBlueStacksX($bCheckOnly = False, $bAdjustResolution = False, $bLegacyMo
 
 		ConfigureSharedFolderBlueStacksX(0) ; something like D:\ProgramData\BlueStacks\Engine\UserData\SharedFolder\
 
-		SetDebugLog($g_sAndroidEmulator & " Engine 'Plus'-Mode: " & $plusMode)
-		SetDebugLog($g_sAndroidEmulator & " OEM Features: " & $OEMFeatures)
-		SetDebugLog($g_sAndroidEmulator & " System Bar is " & ($g_bAndroidHasSystemBar ? "" : "not ") & "available")
+		;~ SetDebugLog($g_sAndroidEmulator & " Engine 'Plus'-Mode: " & $plusMode)
+		;~ SetDebugLog($g_sAndroidEmulator & " OEM Features: " & $OEMFeatures)
+		;~ SetDebugLog($g_sAndroidEmulator & " System Bar is " & ($g_bAndroidHasSystemBar ? "" : "not ") & "available")
 		#cs as of 2016-01-26 CoC release, system bar is transparent and should be closed when bot is running
 			If $bAdjustResolution Then
 			If $g_bAndroidHasSystemBar Then
@@ -300,7 +300,7 @@ Func InitBlueStacksX($bCheckOnly = False, $bAdjustResolution = False, $bLegacyMo
 		For $i = 0 To UBound($Values) - 1
 			If $Values[$i][1] <> $Values[$i][2] Then
 				$bChanged = True
-				SetDebugLog($g_sAndroidEmulator & " " & $Values[$i][0] & " updated from " & $Values[$i][1] & " to " & $Values[$i][2])
+				;~ SetDebugLog($g_sAndroidEmulator & " " & $Values[$i][0] & " updated from " & $Values[$i][1] & " to " & $Values[$i][2])
 			EndIf
 		Next
 
@@ -431,13 +431,13 @@ Func CheckBlueStacksVersionMod()
 		; Mouse clicks in Window are off by -13 on Y-axis, so set special value now
 		If $g_aiMouseOffsetWindowOnly[0] <> $aOff[0] Or $g_aiMouseOffsetWindowOnly[1] <> $aOff[1] Then
 			$g_aiMouseOffsetWindowOnly = $aOff
-			SetDebugLog("BlueStacks " & $__BlueStacks_Version & ": Adjust mouse clicks when running undocked by: " & $aOff[0] & ", " & $aOff[1])
+			;~ SetDebugLog("BlueStacks " & $__BlueStacks_Version & ": Adjust mouse clicks when running undocked by: " & $aOff[0] & ", " & $aOff[1])
 		EndIf
 	EndIf
 
 	;Zoomout Function when is not Docked
 	If $bsNow >= $bs3NWithFrame Or ($bsNow >= $bs3WithFrame And $bsNow < $bs3NNoFrame) Then
-		SetDebugLog("BlueStacks " & $__BlueStacks_Version & " adjustment on ZoomOut")
+		;~ SetDebugLog("BlueStacks " & $__BlueStacks_Version & " adjustment on ZoomOut")
 		$__BlueStacks2Version_2_5_or_later = True
 	EndIf
 
@@ -497,9 +497,9 @@ Func CheckScreenBlueStacksX($bSetLog = True)
 		$Value = RegRead($REGISTRY_KEY_DIRECTORY, $aValues[$i][0])
 		If $Value <> $aValues[$i][1] Then
 			If $iErrCnt = 0 Then
-				SetDebugLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_ERROR)
+				;~ SetDebugLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_ERROR)
 			EndIf
-			SetDebugLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_ERROR)
+			;~ SetDebugLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_ERROR)
 			$iErrCnt += 1
 		EndIf
 	Next
@@ -511,11 +511,11 @@ Func CheckScreenBlueStacksX($bSetLog = True)
 		; get last match!
 		$DPI = $aRegExResult[UBound($aRegExResult) - 1]
 		If $DPI <> 160 Then
-			SetDebugLog("DPI is " & $DPI & " and will be changed to 160", $COLOR_ERROR)
+			;~ SetDebugLog("DPI is " & $DPI & " and will be changed to 160", $COLOR_ERROR)
 			$iErrCnt += 1
 		EndIf
 	Else
-		SetDebugLog("DPI is missing and will be set to 160", $COLOR_ERROR)
+		;~ SetDebugLog("DPI is missing and will be set to 160", $COLOR_ERROR)
 		$iErrCnt += 1
 	EndIf
 	If $iErrCnt > 0 Then Return False
@@ -647,7 +647,7 @@ EndFunc   ;==>GetBlueStacks2ProgramParameter
 
 Func BlueStacksBotStartEvent()
 	If $g_bAndroidEmbedded = False Then
-		SetDebugLog("Disable " & $g_sAndroidEmulator & " minimize/maximize Window Buttons")
+		;~ SetDebugLog("Disable " & $g_sAndroidEmulator & " minimize/maximize Window Buttons")
 		DisableBS($g_hAndroidWindow, $SC_MINIMIZE)
 		DisableBS($g_hAndroidWindow, $SC_MAXIMIZE)
 	EndIf
@@ -656,7 +656,7 @@ EndFunc   ;==>BlueStacksBotStartEvent
 
 Func BlueStacksBotStopEvent()
 	If $g_bAndroidEmbedded = False Then
-		SetDebugLog("Enable " & $g_sAndroidEmulator & " minimize/maximize Window Buttons")
+		;~ SetDebugLog("Enable " & $g_sAndroidEmulator & " minimize/maximize Window Buttons")
 		EnableBS($g_hAndroidWindow, $SC_MINIMIZE)
 		EnableBS($g_hAndroidWindow, $SC_MAXIMIZE)
 	EndIf
@@ -665,7 +665,7 @@ EndFunc   ;==>BlueStacksBotStopEvent
 
 Func BlueStacks2BotStartEvent()
 	If $g_bAndroidEmbedded = False Then
-		SetDebugLog("Disable " & $g_sAndroidEmulator & " minimize/maximize Window Buttons")
+		;~ SetDebugLog("Disable " & $g_sAndroidEmulator & " minimize/maximize Window Buttons")
 		DisableBS($g_hAndroidWindow, $SC_MINIMIZE)
 		DisableBS($g_hAndroidWindow, $SC_MAXIMIZE)
 	EndIf
@@ -675,7 +675,7 @@ EndFunc   ;==>BlueStacks2BotStartEvent
 
 Func BlueStacks2BotStopEvent()
 	If $g_bAndroidEmbedded = False Then
-		SetDebugLog("Enable " & $g_sAndroidEmulator & " minimize/maximize Window Buttons")
+		;~ SetDebugLog("Enable " & $g_sAndroidEmulator & " minimize/maximize Window Buttons")
 		EnableBS($g_hAndroidWindow, $SC_MINIMIZE)
 		EnableBS($g_hAndroidWindow, $SC_MAXIMIZE)
 	EndIf
@@ -735,7 +735,7 @@ Func CloseBlueStacks()
 
 	If Not InitAndroid() Then Return
 
-	SetDebugLog("Closing BlueStacks: " & $__BlueStacks_Path & "HD-Quit.exe")
+	;~ SetDebugLog("Closing BlueStacks: " & $__BlueStacks_Path & "HD-Quit.exe")
 	RunWait($__BlueStacks_Path & "HD-Quit.exe")
 	If @error <> 0 Then
 		SetLog($g_sAndroidEmulator & " failed to quit", $COLOR_ERROR)
@@ -750,7 +750,7 @@ Func CloseBlueStacks()
 
 	If $bOops Then
 		$bOops = False
-		SetDebugLog("Failed to terminate HD-Frontend.exe with HD-Quit.exe, fallback to taskkill", $COLOR_ERROR)
+		;~ SetDebugLog("Failed to terminate HD-Frontend.exe with HD-Quit.exe, fallback to taskkill", $COLOR_ERROR)
 		KillBSProcess()
 		If _Sleep(1000) Then Return ; wait a bit
 
@@ -812,7 +812,7 @@ Func CloseBlueStacks2()
 		; also close vm
 		CloseVboxAndroidSvc()
 	Else
-		SetDebugLog("Closing BlueStacks: " & $__BlueStacks_Path & "HD-Quit.exe")
+		;~ SetDebugLog("Closing BlueStacks: " & $__BlueStacks_Path & "HD-Quit.exe")
 		RunWait($__BlueStacks_Path & "HD-Quit.exe")
 		If @error <> 0 Then
 			SetLog($g_sAndroidEmulator & " failed to quit", $COLOR_ERROR)

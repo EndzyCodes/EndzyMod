@@ -542,7 +542,7 @@ EndFunc   ;==>checkObstacles_Network
 Func CheckObstacles_SCIDPopup()
 	Local $ascidConnectButton = decodeSingleCoord(findImage("SCID", $g_sImgSupercellIDConnect, GetDiamondFromRect("100,20,700,100"), 1, True))
 	If IsArray($ascidConnectButton) And UBound($ascidConnectButton, 1) >= 2 Then
-		SetDebugLog("checkObstacles: Found SCID popup connect suggestion", $COLOR_ACTION)
+		;~ SetDebugLog("checkObstacles: Found SCID popup connect suggestion", $COLOR_ACTION)
 		Click($ascidConnectButton[0], $ascidConnectButton[1])
 		If _Sleep(1000) Then Return
 		Local $aSuperCellIDWindowsUI, $bSCIDWindowOpened = False
@@ -576,11 +576,11 @@ EndFunc
 Func SearchUnplacedBuilding()
 	Local $atmpInfo = getNameBuilding(330, 474)
 	If $atmpInfo = "" Then
-		SetDebugLog("Search: Unplaced Building Not Found!")
+		;~ SetDebugLog("Search: Unplaced Building Not Found!")
 		Return False
 	Else
 		If StringInStr($atmpInfo, "place") Or StringInStr($atmpInfo, "Items") Then
-			SetDebugLog("Search: Unplaced Building Found!", $COLOR_SUCCESS)
+			;~ SetDebugLog("Search: Unplaced Building Found!", $COLOR_SUCCESS)
 			Return True
 		EndIf
 	EndIf

@@ -53,7 +53,7 @@ Func OpenLeapDroid($bRestart = False)
 EndFunc   ;==>OpenLeapDroid
 
 Func IsLeapDroidCommandLine($CommandLine)
-	SetDebugLog("Check LeapDroid command line instance: " & $CommandLine)
+	;~ SetDebugLog("Check LeapDroid command line instance: " & $CommandLine)
 	Local $sInstance = ($g_sAndroidInstance = "" ? $g_avAndroidAppConfig[$g_iAndroidConfig][1] : $g_sAndroidInstance)
 	$CommandLine = StringReplace($CommandLine, GetLeapDroidPath(), "")
 	If StringRegExp($CommandLine, "-s " & $sInstance & "\b") = 1 Then Return True
@@ -107,7 +107,7 @@ Func GetLeapDroidBackgroundMode()
 	; Set width and height
 	For $f In $files
 		If FileExists($f) Then
-			SetDebugLog("Found LeapDroid settings file: " & $f)
+			;~ SetDebugLog("Found LeapDroid settings file: " & $f)
 			Local $sSettings = FileRead($f)
 			Local $aRegExResult = StringRegExp($sSettings, "RENDERER=(\d+)", $STR_REGEXPARRAYMATCH)
 			If Not @error Then
@@ -119,11 +119,11 @@ Func GetLeapDroidBackgroundMode()
 						Return $g_iAndroidBackgroundModeOpenGL
 				EndSwitch
 			Else
-				SetDebugLog("LeapDroid settings file has now RENDERE setting in: " & $f, $COLOR_ERROR)
+				;~ SetDebugLog("LeapDroid settings file has now RENDERE setting in: " & $f, $COLOR_ERROR)
 			EndIf
 			ExitLoop
 		Else
-			SetDebugLog("LeapDroid settings file not available: " & $f)
+			;~ SetDebugLog("LeapDroid settings file not available: " & $f)
 		EndIf
 	Next
 
@@ -144,7 +144,7 @@ Func InitLeapDroid($bCheckOnly = False)
 			SetLog("installation directory", $COLOR_ERROR)
 			SetError(1, @extended, False)
 		Else
-			SetDebugLog($g_sAndroidEmulator & ": Cannot find installation directory")
+			;~ SetDebugLog($g_sAndroidEmulator & ": Cannot find installation directory")
 		EndIf
 		Return False
 	EndIf
@@ -154,7 +154,7 @@ Func InitLeapDroid($bCheckOnly = False)
 			SetLog("Serious error has occurred: Cannot find " & $g_sAndroidEmulator & ":", $COLOR_ERROR)
 			SetLog($LeapDroid_Path & "LeapdroidVM.exe", $COLOR_ERROR)
 		Else
-			SetDebugLog($g_sAndroidEmulator & ": Cannot find " & $LeapDroid_Path & "LeapdroidVM.exe")
+			;~ SetDebugLog($g_sAndroidEmulator & ": Cannot find " & $LeapDroid_Path & "LeapdroidVM.exe")
 			SetError(1, @extended, False)
 		EndIf
 		Return False
@@ -167,7 +167,7 @@ Func InitLeapDroid($bCheckOnly = False)
 			SetLog($LeapDroid_Path & "adb.exe", $COLOR_ERROR)
 			SetError(1, @extended, False)
 		Else
-			SetDebugLog($g_sAndroidEmulator & ": Cannot find " & $LeapDroid_Path & "adb.exe")
+			;~ SetDebugLog($g_sAndroidEmulator & ": Cannot find " & $LeapDroid_Path & "adb.exe")
 		EndIf
 		Return False
 	EndIf
@@ -178,7 +178,7 @@ Func InitLeapDroid($bCheckOnly = False)
 			SetLog($LeapDroid_Manage_Path, $COLOR_ERROR)
 			SetError(1, @extended, False)
 		Else
-			SetDebugLog($g_sAndroidEmulator & ": Cannot find " & $LeapDroid_Manage_Path)
+			;~ SetDebugLog($g_sAndroidEmulator & ": Cannot find " & $LeapDroid_Manage_Path)
 		EndIf
 		Return False
 	EndIf
@@ -355,13 +355,13 @@ Func CheckScreenLeapDroid($bSetLog = True)
 		If $bSetLog Then
 		SetLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_ERROR)
 		Else
-		SetDebugLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_ERROR)
+		;~ SetDebugLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_ERROR)
 		EndIf
 		EndIf
 		If $bSetLog Then
 		SetLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_ERROR)
 		Else
-		SetDebugLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_ERROR)
+		;~ SetDebugLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_ERROR)
 		EndIf
 		$iErrCnt += 1
 		EndIf
@@ -401,14 +401,14 @@ Func EmbedLeapDroid($bEmbed = Default, $hHWndAfter = Default)
 	Next
 
 	If $hToolbar = 0 Then
-		SetDebugLog("EmbedLeapDroid(" & $bEmbed & "): QTool Window not found, list of windows:" & $c, Default, True)
+		;~ SetDebugLog("EmbedLeapDroid(" & $bEmbed & "): QTool Window not found, list of windows:" & $c, Default, True)
 		For $i = 1 To UBound($aWin) - 1
 			Local $h = $aWin[$i][0]
 			Local $c = $aWin[$i][1]
-			SetDebugLog("EmbedLeapDroid(" & $bEmbed & "): Handle = " & $h & ", Class = " & $c, Default, True)
+			;~ SetDebugLog("EmbedLeapDroid(" & $bEmbed & "): Handle = " & $h & ", Class = " & $c, Default, True)
 		Next
 	Else
-		SetDebugLog("EmbedLeapDroid(" & $bEmbed & "): $hToolbar=" & $hToolbar, Default, True)
+		;~ SetDebugLog("EmbedLeapDroid(" & $bEmbed & "): $hToolbar=" & $hToolbar, Default, True)
 		If $bEmbed Then WinMove2($hToolbar, "", -1, -1, -1, -1, $HWND_NOTOPMOST, 0, False)
 		_WinAPI_ShowWindow($hToolbar, ($bEmbed ? @SW_HIDE : @SW_SHOWNOACTIVATE))
 		If Not $bEmbed Then

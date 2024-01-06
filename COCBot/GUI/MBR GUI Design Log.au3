@@ -38,7 +38,7 @@ Func CreateLogTab($hWHndLogsOnly = False)
 	;GUISetBkColor($COLOR_WHITE, $g_hGUI_LOG)
 
 	If IsHWnd($g_hTxtLog) Then
-		SetDebugLog("Re-use existing bot log control")
+		;~ SetDebugLog("Re-use existing bot log control")
 		_WinAPI_SetParent($g_hTxtLog, $g_hGUI_LOG)
 		_WinAPI_SetWindowLong($g_hTxtLog, $GWL_HWNDPARENT, $g_hGUI_LOG)
 		WinSetState($g_hTxtLog, "", @SW_RESTORE)
@@ -53,7 +53,7 @@ Func CreateLogTab($hWHndLogsOnly = False)
 	;GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKBOTTOM + $GUI_DOCKWIDTH + $GUI_DOCKLEFT)
 
 	If IsHWnd($g_hTxtAtkLog) Then
-		SetDebugLog("Re-use existing attack log control")
+		;~ SetDebugLog("Re-use existing attack log control")
 		_WinAPI_SetParent($g_hTxtAtkLog, $g_hGUI_LOG)
 		_WinAPI_SetWindowLong($g_hTxtAtkLog, $GWL_HWNDPARENT, $g_hGUI_LOG)
 		WinSetState($g_hTxtAtkLog, "", @SW_RESTORE)

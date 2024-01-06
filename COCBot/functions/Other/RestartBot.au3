@@ -14,7 +14,7 @@
 ; Example .......: No
 ; ===============================================================================================================================
 Func RestartBot($bCloseAndroid = True, $bAutostart = True)
-	SetDebugLog("Restart " & $g_sBotTitle)
+	;~ SetDebugLog("Restart " & $g_sBotTitle)
 	Local $sCmdLine = ProcessGetCommandLine(@AutoItPID)
 	If @error <> 0 Then
 		SetLog("Cannot prepare to restart " & $g_sBotTitle & ", error code " & @error, $COLOR_RED)
@@ -40,18 +40,18 @@ Func RestartBot($bCloseAndroid = True, $bAutostart = True)
 	Local $sStartAccountName
 	If ProfileSwitchAccountEnabled() Then
 		For $i = 0 To Ubound($g_abAccountNo) - 1
-			SetDebugLog("Search: " & $g_asProfileName[$i] & " on " & $sCmdLine)
+			;~ SetDebugLog("Search: " & $g_asProfileName[$i] & " on " & $sCmdLine)
 			If StringInStr($sCmdLine, $g_asProfileName[$i]) Then
 				$sStartAccountName = $g_asProfileName[$i]
 				ExitLoop
 			EndIf
 		Next
 		StringReplace($sCmdLine, $sStartAccountName, $sCurrentAccountName)
-		SetDebugLog("Result: " & $sCmdLine)
+		;~ SetDebugLog("Result: " & $sCmdLine)
 	EndIf
 	
 	; Restart My Bot
-	SetDebugLog("sCmdLine= " & $sCmdLine)
+	;~ SetDebugLog("sCmdLine= " & $sCmdLine)
 	Local $pid = Run("cmd.exe /c start """" " & $sCmdLine, $g_sWorkingDir, @SW_HIDE) ; cmd.exe only used to support launch like "..\AutoIt3\autoit3.exe" from console
 	If @error = 0 Then
 		SetLog("Restarting " & $g_sBotTitle)

@@ -15,7 +15,7 @@
 ; ===============================================================================================================================
 Func WaitForClouds()
 
-	SetDebugLog("Begin WaitForClouds", $COLOR_DEBUG1)
+	;~ SetDebugLog("Begin WaitForClouds", $COLOR_DEBUG1)
 	$g_bCloudsActive = True
 	
 	Local $iCount = 0
@@ -39,7 +39,7 @@ Func WaitForClouds()
 		EndIf
 		
 		If QuickMIS("BC1", $g_sImgNextButton, 720, 510, 750, 535) Then 
-			SetDebugLog("Found Next Button, exitLoop")
+			;~ SetDebugLog("Found Next Button, exitLoop")
 			ExitLoop
 		EndIf
 		
@@ -68,5 +68,5 @@ Func WaitForClouds()
 		If _Sleep(500) Then Return
 	WEnd
 
-	SetDebugLog("End WaitForClouds", $COLOR_DEBUG1)
+	;~ SetDebugLog("End WaitForClouds", $COLOR_DEBUG1)
 EndFunc   ;==>WaitForClouds

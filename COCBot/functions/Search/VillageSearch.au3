@@ -299,7 +299,7 @@ Func _VillageSearch() ;Control for searching a village that meets conditions
 			For $i = 0 To $eHeroCount - 1 ; check all heros
 				If Not $abHeroUse[$i] Or Not _DateIsValid($g_asHeroHealTime[$i]) Then ContinueLoop
 				Local $iTimeTillHeroHealed = Int(_DateDiff('s', _NowCalc(), $g_asHeroHealTime[$i])) ; hero time in seconds
-				SetDebugLog($g_asHeroNames[$i] & " will be ready in " & $iTimeTillHeroHealed & " seconds")
+				;~ SetDebugLog($g_asHeroNames[$i] & " will be ready in " & $iTimeTillHeroHealed & " seconds")
 				If $iTimeTillHeroHealed <= 0 Then
 					$bReturnToPickupHero = True
 					$g_asHeroHealTime[$i] = ""
@@ -460,7 +460,7 @@ Func SearchLimit($iSkipped, $bReturnToPickupHero = False)
 		While _CheckPixel($aSurrenderButton, $g_bCapturePixel) = False
 			If _Sleep($DELAYSEARCHLIMIT) Then Return
 			$Wcount += 1
-			SetDebugLog("wait surrender button " & $Wcount, $COLOR_DEBUG)
+			;~ SetDebugLog("wait surrender button " & $Wcount, $COLOR_DEBUG)
 			If $Wcount >= 50 Or isProblemAffect(True) Then
 				checkMainScreen(True, $g_bStayOnBuilderBase, "SearchLimit")
 				$g_bIsClientSyncError = False ; reset OOS flag for long restart

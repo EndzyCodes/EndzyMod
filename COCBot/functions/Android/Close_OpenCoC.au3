@@ -122,7 +122,7 @@ Func _WaitnOpenCoC($iWaitTime, $bFullRestart = False, $bSuspendComputer = False,
 	If Not StartAndroidCoC() Then Return
 	If Not $g_bRunState Then Return
 
-	SetDebugLog("CoC Restarted, Waiting for completion", $COLOR_DEBUG)
+	;~ SetDebugLog("CoC Restarted, Waiting for completion", $COLOR_DEBUG)
 
 	If $bFullRestart Then
 		;Use checkMainScreen to restart CoC, and waitMainScreen to handle Take A Break wait, or other errors.
@@ -187,7 +187,7 @@ Func PoliteCloseCoC($sSource = "Unknown_", $bPoliteCloseCoC = $g_bPoliteCloseCoC
 						$btnExit = FindExitButton($g_sAndroidGameDistributor)
 						If IsArray($btnExit) Then
 							Click($btnExit[0] + 71, $btnExit[1] + 64) ; click offsets for the transparent window
-							SetDebugLog($g_sAndroidGameDistributor & " Click offset X|Y = 71|64", $COLOR_DEBUG)
+							;~ SetDebugLog($g_sAndroidGameDistributor & " Click offset X|Y = 71|64", $COLOR_DEBUG)
 							ExitLoop
 						EndIf
 					Case "VIVO", "Xiaomi"

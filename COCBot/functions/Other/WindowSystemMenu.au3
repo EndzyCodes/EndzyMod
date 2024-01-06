@@ -19,10 +19,10 @@ Func WindowSystemMenu($HWnD, $iButton, $Action = Default, $DebugInfo = "")
 			Local $id = _GUICtrlMenu_GetItemID($hSysMenu, $i)
 			If $id = $iButton Then
 				If $Action = False Then
-					SetDebugLog("Hide SystemMenu Item: " & $DebugInfo)
+					;~ SetDebugLog("Hide SystemMenu Item: " & $DebugInfo)
 					_GUICtrlMenu_RemoveMenu($hSysMenu, $i)
 				Else
-					SetDebugLog("Show SystemMenu Item: " & $DebugInfo)
+					;~ SetDebugLog("Show SystemMenu Item: " & $DebugInfo)
 				EndIf
 			ElseIf  _ArraySearch($aVisible, $id) = -1 Then
 				_GUICtrlMenu_RemoveMenu($hSysMenu, $i)

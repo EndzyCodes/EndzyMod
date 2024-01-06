@@ -42,7 +42,7 @@ Func chkShieldStatus($bChkShield = True, $bForceChkPBT = False)
 				$ichkTime = Abs(Int(_DateDiff('s', $g_asShieldStatus[2], $Result[2]))) ; compare old and new time
 				If $ichkTime > 60 Then ; test if more than 60 seconds different in case of attack while shield has reduced time
 					$bForceChkPBT = True ; update PB time
-					SetDebugLog("Shield time changed: " & $ichkTime & " Sec, Force PBT OCR: " & $bForceChkPBT, $COLOR_WARNING)
+					;~ SetDebugLog("Shield time changed: " & $ichkTime & " Sec, Force PBT OCR: " & $bForceChkPBT, $COLOR_WARNING)
 				EndIf
 			EndIf
 
@@ -62,12 +62,12 @@ Func chkShieldStatus($bChkShield = True, $bForceChkPBT = False)
 						$g_bDonationEnabled = True
 						$g_bMeetCondStop = False
 					Else
-						SetDebugLog("Halt With Shield: Shield not found...", $COLOR_DEBUG)
+						;~ SetDebugLog("Halt With Shield: Shield not found...", $COLOR_DEBUG)
 					EndIf
 				EndIf
 			EndIf
 		Else
-			SetDebugLog("Bad getShieldInfo() return value: " & $Result, $COLOR_ERROR)
+			;~ SetDebugLog("Bad getShieldInfo() return value: " & $Result, $COLOR_ERROR)
 			If _Sleep($DELAYRESPOND) Then Return
 
 			For $i = 0 To UBound($g_asShieldStatus) - 1 ; clear global shieldstatus if no shield data returned
@@ -83,7 +83,7 @@ Func chkShieldStatus($bChkShield = True, $bForceChkPBT = False)
 		$ichkPBTime = Int(_DateDiff('s', $g_sPBStartTime, _NowCalc())) ; compare existing shield date/time to now.
 		If $ichkPBTime >= 295 Then
 			$bForceChkPBT = True ; test if PBT date/time in more than 5 minutes past, force update
-			SetDebugLog("Found old PB time= " & $ichkPBTime & " Seconds, Force update:" & $bForceChkPBT, $COLOR_WARNING)
+			;~ SetDebugLog("Found old PB time= " & $ichkPBTime & " Seconds, Force update:" & $bForceChkPBT, $COLOR_WARNING)
 		EndIf
 	EndIf
 
@@ -114,7 +114,7 @@ Func chkShieldStatus($bChkShield = True, $bForceChkPBT = False)
 			Else
 				$g_sPBStartTime = "" ; clear value, can not log off ealy.
 			EndIf
-			SetDebugLog("Early Log Off time=" & $g_sPBStartTime & ", In " & _DateDiff('n', $g_sPBStartTime, _NowCalc()) & " Minutes", $COLOR_DEBUG)
+			;~ SetDebugLog("Early Log Off time=" & $g_sPBStartTime & ", In " & _DateDiff('n', $g_sPBStartTime, _NowCalc()) & " Minutes", $COLOR_DEBUG)
 		Else
 			If $Result = "Legend" Then 
 				SetLog("No PBT on Legend League", $COLOR_INFO)

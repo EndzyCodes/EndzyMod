@@ -27,7 +27,7 @@ Func setupProfileComboBox()
 		$profileString = _ArrayToString($aProfileList, "|")
 	EndIf
 	$g_asProfiles = $aProfileList
-	SetDebugLog("Profiles found: " & $profileString)
+	;~ SetDebugLog("Profiles found: " & $profileString)
 
 	; Clear the combo box current data in case profiles were deleted
 	GUICtrlSetData($g_hCmbProfile, "", "")
@@ -254,7 +254,7 @@ Func aquireProfileMutex($sProfile = Default, $bReturnOnlyMutex = Default, $bShow
 	EndIf
 
 	; add mutex to array
-	SetDebugLog("Aquire Mutex for Profile: " & $sProfile)
+	;~ SetDebugLog("Aquire Mutex for Profile: " & $sProfile)
 	$iProfile = UBound($g_ahMutex_Profile)
 	ReDim $g_ahMutex_Profile[$iProfile + 1][2]
 	$g_ahMutex_Profile[$iProfile][0] = $sProfile
@@ -267,7 +267,7 @@ Func releaseProfileMutex($sProfile = Default)
 	If $sProfile = Default Then $sProfile = $g_sProfileCurrentName
 	Local $iProfile = _ArraySearch($g_ahMutex_Profile, $sProfile, 0, 0, 0, 0, 1, 0)
 	If $iProfile >= 0 Then
-		SetDebugLog("Release Mutex for Profile: " & $sProfile)
+		;~ SetDebugLog("Release Mutex for Profile: " & $sProfile)
 		ReleaseMutex($g_ahMutex_Profile[$iProfile][1])
 		_ArrayDelete($g_ahMutex_Profile, $iProfile)
 		Return True

@@ -43,9 +43,9 @@ Func CleanYardCheckBuilder($bTest = False)
 	If $g_iFreeBuilderCount > 0 Then 
 		$bRet = True
 	Else
-		SetDebugLog("No More Builders available")
+		;~ SetDebugLog("No More Builders available")
 	EndIf
-	SetDebugLog("Free Builder : " & $g_iFreeBuilderCount, $COLOR_DEBUG)
+	;~ SetDebugLog("Free Builder : " & $g_iFreeBuilderCount, $COLOR_DEBUG)
 	Return $bRet
 EndFunc
 

@@ -106,7 +106,7 @@ Func GetMEmuBackgroundMode()
 	; hack for super strange Windows Fall Creator Update with OpenGL and DirectX problems
 	; doesn't have this issue with OSBuild : 17134
 	If @OSBuild >= 16299 And @OSBuild < 17134 Then
-		SetDebugLog("DirectX/OpenGL Fix applied for Windows Build 16299")
+		;~ SetDebugLog("DirectX/OpenGL Fix applied for Windows Build 16299")
 		$iDirectX = $g_iAndroidBackgroundModeOpenGL
 		$iOpenGL = $g_iAndroidBackgroundModeDirectX
 	EndIf
@@ -116,7 +116,7 @@ Func GetMEmuBackgroundMode()
 	Local $aRegExResult = StringRegExp($__VBoxGuestProperties, "Name: graphics_render_mode, value: (.+), timestamp:", $STR_REGEXPARRAYMATCH)
 	If @error = 0 Then
 		Local $graphics_render_mode = $aRegExResult[0]
-		SetDebugLog($g_sAndroidEmulator & " instance " & $g_sAndroidInstance & " rendering mode is " & $graphics_render_mode)
+		;~ SetDebugLog($g_sAndroidEmulator & " instance " & $g_sAndroidInstance & " rendering mode is " & $graphics_render_mode)
 		Switch $graphics_render_mode
 			Case "1" ; DirectX
 				Return $iDirectX
@@ -177,7 +177,7 @@ Func InitMEmu($bCheckOnly = False)
 		local $memuCurr = GetVersionNormalized($__MEmu_Version)
 		Local $memu6 = GetVersionNormalized("6.0")
 		If $memuCurr > $memu6 Then
-			;SetDebugLog("Disable ADB Mouse Click as not support for " & $g_sAndroidEmulator & " version " & $__MEmu_Version)
+			;;~ SetDebugLog("Disable ADB Mouse Click as not support for " & $g_sAndroidEmulator & " version " & $__MEmu_Version)
 			;AndroidSupportFeaturesRemove(4) ; disable ADB Mouse Click support
 		EndIf
 
@@ -285,13 +285,13 @@ Func CheckScreenMEmu($bSetLog = True)
 				If $bSetLog Then
 					SetLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_ERROR)
 				Else
-					SetDebugLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_ERROR)
+					;~ SetDebugLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_ERROR)
 				EndIf
 			EndIf
 			If $bSetLog Then
 				SetLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_ERROR)
 			Else
-				SetDebugLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_ERROR)
+				;~ SetDebugLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_ERROR)
 			EndIf
 			$iErrCnt += 1
 		EndIf
@@ -318,16 +318,16 @@ Func UpdateMEmuConfig()
 	If @error = 0 Then
 		$__MEmu_PhoneLayout = $aRegExResult[0]
 		If $iSizeConfig > -1 And $__MEmu_Window[$iSizeConfig][4] = "-1" Then
-			SetDebugLog($g_sAndroidEmulator & " phone_layout is " & $__MEmu_PhoneLayout & ", but set to -1 to disable screen compensation")
+			;~ SetDebugLog($g_sAndroidEmulator & " phone_layout is " & $__MEmu_PhoneLayout & ", but set to -1 to disable screen compensation")
 			$__MEmu_PhoneLayout = $__MEmu_Window[$iSizeConfig][4]
 		Else
-			SetDebugLog($g_sAndroidEmulator & " phone_layout is " & $__MEmu_PhoneLayout)
+			;~ SetDebugLog($g_sAndroidEmulator & " phone_layout is " & $__MEmu_PhoneLayout)
 		EndIf
 	Else
-		SetDebugLog("Cannot read " & $g_sAndroidEmulator & " guestproperty phone_layout!", $COLOR_ERROR)
+		;~ SetDebugLog("Cannot read " & $g_sAndroidEmulator & " guestproperty phone_layout!", $COLOR_ERROR)
 		If $iSizeConfig > -1 Then
 			$__MEmu_PhoneLayout = $__MEmu_Window[$iSizeConfig][4]
-			SetDebugLog("Using phone_layout " & $__MEmu_PhoneLayout)
+			;~ SetDebugLog("Using phone_layout " & $__MEmu_PhoneLayout)
 		EndIf
 	EndIf
 	SetError(0, 0, 0)
@@ -340,11 +340,11 @@ Func FindMEmuWindowConfig()
 	For $i = 0 To UBound($__MEmu_Window) - 1
 		Local $v2 = GetVersionNormalized($__MEmu_Window[$i][0])
 		If $v >= $v2 Then
-			SetDebugLog("Using Window sizes of " & $g_sAndroidEmulator & " " & $__MEmu_Window[$i][0])
+			;~ SetDebugLog("Using Window sizes of " & $g_sAndroidEmulator & " " & $__MEmu_Window[$i][0])
 			Return $i
 		EndIf
 	Next
-	SetDebugLog("Cannot find Window sizes of " & $g_sAndroidEmulator & " " & $g_sAndroidVersion)
+	;~ SetDebugLog("Cannot find Window sizes of " & $g_sAndroidEmulator & " " & $g_sAndroidVersion)
 	Return -1
 EndFunc   ;==>FindMEmuWindowConfig
 
@@ -385,17 +385,17 @@ Func UpdateMEmuWindowState()
 	If UBound($toolBarPos) = 4 Then
 		Local $tbw_using = $tbw
 		If $toolBarPos[2] > 20 And $toolBarPos[2] < 60 Then $tbw_using = $toolBarPos[2]
-		SetDebugLog($g_sAndroidEmulator & " Tool Bar found, width = " & $toolBarPos[2] & ", height = " & $toolBarPos[3] & ", expected width = " & $tbw & ", using width = " & $tbw_using)
+		;~ SetDebugLog($g_sAndroidEmulator & " Tool Bar found, width = " & $toolBarPos[2] & ", height = " & $toolBarPos[3] & ", expected width = " & $tbw & ", using width = " & $tbw_using)
 		$tbw = $tbw_using
 		;ConsoleWrite("Qt5QWindowIcon3=" & $toolBarPos[0] & "," & $toolBarPos[1] & "," & $toolBarPos[2] & "," & $toolBarPos[3] & ($isVisible = 1 ? " visible" : " hidden")) ; 863,33,45,732
 		;If $toolBarPos[2] = $tbw Then
 		$bToolBarVisible = ControlCommand($g_hAndroidWindow, "", "Qt5QWindowIcon3", "IsVisible", "") = 1
-		SetDebugLog($g_sAndroidEmulator & " Tool Bar is " & ($bToolBarVisible ? "visible" : "hidden"))
+		;~ SetDebugLog($g_sAndroidEmulator & " Tool Bar is " & ($bToolBarVisible ? "visible" : "hidden"))
 		$ok = True
 		;EndIf
 	EndIf
 	If Not $ok Then
-		SetDebugLog($g_sAndroidEmulator & " Tool Bar state is undetermined as treated as " & ($bToolBarVisible ? "visible" : "hidden"), $COLOR_ERROR)
+		;~ SetDebugLog($g_sAndroidEmulator & " Tool Bar state is undetermined as treated as " & ($bToolBarVisible ? "visible" : "hidden"), $COLOR_ERROR)
 	EndIf
 
 	Local $w = ($bToolBarVisible ? 0 : $tbw)
@@ -417,7 +417,7 @@ Func UpdateMEmuWindowState()
 			$Values[2][2] = $aww - $w
 			$Values[3][2] = $awh
 		Case Else ; Unexpected Value
-			SetDebugLog("Unsupported " & $g_sAndroidEmulator & " guestproperty phone_layout = " & $__MEmu_PhoneLayout, $COLOR_ERROR)
+			;~ SetDebugLog("Unsupported " & $g_sAndroidEmulator & " guestproperty phone_layout = " & $__MEmu_PhoneLayout, $COLOR_ERROR)
 	EndSwitch
 
 	$g_iAndroidClientWidth = $Values[0][2]
@@ -428,7 +428,7 @@ Func UpdateMEmuWindowState()
 	For $i = 0 To UBound($Values) - 1
 		If $Values[$i][1] <> $Values[$i][2] Then
 			$bChanged = True
-			SetDebugLog($g_sAndroidEmulator & " " & $Values[$i][0] & " updated from " & $Values[$i][1] & " to " & $Values[$i][2])
+			;~ SetDebugLog($g_sAndroidEmulator & " " & $Values[$i][0] & " updated from " & $Values[$i][1] & " to " & $Values[$i][2])
 		EndIf
 	Next
 

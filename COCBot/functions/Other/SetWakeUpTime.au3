@@ -25,7 +25,7 @@ Global $g_hWaitableTimerWakeUp = 0
 
 Func SetWakeUpTime($Hour, $Minute, $Second = 0, $Day = @MDAY, $Month = @MON, $Year = @YEAR)
 
-	SetDebugLog("SetWakeUpTime: " & $Hour & ":" & $Minute & "." & $Second & " " & $Day & "/" & $Month & "/" & $Year)
+	;~ SetDebugLog("SetWakeUpTime: " & $Hour & ":" & $Minute & "." & $Second & " " & $Day & "/" & $Month & "/" & $Year)
 
 	Local $SYSTEMTIME = DllStructCreate("word;word;word;word;word;word;word;word")
 	Local $lpSYSTEMTIME = DllStructGetPtr($SYSTEMTIME)
@@ -85,7 +85,7 @@ EndFunc   ;==>SetWakeUpTime
 
 Func SetWakeUpSeconds($iInSecs)
 
-	SetDebugLog("SetWakeUpTime: " & $iInSecs & " Seconds")
+	;~ SetDebugLog("SetWakeUpTime: " & $iInSecs & " Seconds")
 
 	If $g_hWaitableTimerWakeUp Then _WinAPI_CloseHandle($g_hWaitableTimerWakeUp)
 
@@ -142,18 +142,18 @@ EndFunc   ;==>SetSuspend
 Func SetDebugLog($Message)
 	ConsoleWrite(_NowCalc() & "." & @MSEC & ": " & $Message & @CRLF)
 EndFunc
-SetDebugLog("> SetWakeUpSeconds")
+;~ SetDebugLog("> SetWakeUpSeconds")
 SetWakeUpSeconds(60)
-SetDebugLog("< SetWakeUpSeconds " & @error & "," & @extended)
-SetDebugLog("> SetSuspend")
+;~ SetDebugLog("< SetWakeUpSeconds " & @error & "," & @extended)
+;~ SetDebugLog("> SetSuspend")
 SetSuspend()
-SetDebugLog("< SetSuspend " & @error & "," & @extended)
-SetDebugLog("Sleep 10000")
+;~ SetDebugLog("< SetSuspend " & @error & "," & @extended)
+;~ SetDebugLog("Sleep 10000")
 Sleep(10000)
-SetDebugLog("> SetWakeUpSeconds")
+;~ SetDebugLog("> SetWakeUpSeconds")
 SetWakeUpSeconds(120)
-SetDebugLog("< SetWakeUpSeconds " & @error & "," & @extended)
-SetDebugLog("> SetSuspend")
+;~ SetDebugLog("< SetWakeUpSeconds " & @error & "," & @extended)
+;~ SetDebugLog("> SetSuspend")
 SetSuspend()
-SetDebugLog("< SetSuspend " & @error & "," & @extended)
+;~ SetDebugLog("< SetSuspend " & @error & "," & @extended)
 #ce

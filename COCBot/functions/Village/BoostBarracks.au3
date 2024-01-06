@@ -48,7 +48,7 @@ Func BoostTrainBuilding($sName, $iCmbBoost, $iCmbBoostCtrl)
 			OpenSiegeMachinesTab(True, "BoostTrainBuilding()")
 			$sIsAre = "is"
 		Else
-			SetDebugLog("BoostTrainBuilding(): $sName called with a wrong Value.", $COLOR_ERROR)
+			;~ SetDebugLog("BoostTrainBuilding(): $sName called with a wrong Value.", $COLOR_ERROR)
 			ClickAway()
 			_Sleep($DELAYBOOSTBARRACKS2)
 			Return $bBoosted

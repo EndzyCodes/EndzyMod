@@ -23,7 +23,7 @@ Func ClickOkay($FeatureName = "Okay", $bCheckOneTime = False)
 			PureClick($aiOkayButton[0], $aiOkayButton[1], 2, 50, "#0117") ; Click Okay Button
 			ExitLoop
 		Else
-			SetDebugLog("Cannot Find Okay Button", $COLOR_ERROR)
+			;~ SetDebugLog("Cannot Find Okay Button", $COLOR_ERROR)
 		EndIf
 		If $bCheckOneTime Then Return False ; enable external control of loop count or follow on actions, return false if not clicked
 		If $i > 5 Then

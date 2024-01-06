@@ -41,7 +41,7 @@ Func _checkMainScreen($bSetLog = Default, $bBuilderBase = $g_bStayOnBuilderBase,
 		
 		If Mod($i, 10) = 0 Then RestartAndroidCoC() ; Force restart CoC we keep on restarting mainscreen
 		
-		SetDebugLog("checkMainScreen : " & ($bBuilderBase ? "BuilderBase" : "MainVillage"))
+		;~ SetDebugLog("checkMainScreen : " & ($bBuilderBase ? "BuilderBase" : "MainVillage"))
 		$bLocated = _checkMainScreenImage($aPixelToCheck)
 		If $bLocated Then ExitLoop
 		
@@ -50,7 +50,7 @@ Func _checkMainScreen($bSetLog = Default, $bBuilderBase = $g_bStayOnBuilderBase,
 		
 		;mainscreen not located, proceed to check if there is obstacle covering screen
 		$bObstacleResult = checkObstacles($bBuilderBase)
-		SetDebugLog("CheckObstacles[" & $i & "] Result = " & $bObstacleResult, $COLOR_DEBUG)
+		;~ SetDebugLog("CheckObstacles[" & $i & "] Result = " & $bObstacleResult, $COLOR_DEBUG)
 		
 		$bContinue = False
 		If Not $bObstacleResult And $i > 5 Then $bContinue = True ; 5 time no obstacle deteced but mainscreen not located, set continue true to proceed to waitMainScreen
@@ -117,12 +117,12 @@ Func checkChatTabPixel()
 	
 	If Not $bRet Then 
 		If _CheckPixel($aChatTab, True) Then
-			SetDebugLog("checkChatTabPixel: Found Chat Tab to close", $COLOR_ACTION)
+			;~ SetDebugLog("checkChatTabPixel: Found Chat Tab to close", $COLOR_ACTION)
 			PureClickP($aChatTab, 1, 0, "#0136") ;Clicks chat tab
 			If _Sleep(1000) Then Return
 			$bRet = True
 		Else
-			SetDebugLog("ChatTabPixel not found", $COLOR_ERROR)
+			;~ SetDebugLog("ChatTabPixel not found", $COLOR_ERROR)
 		EndIf
 	EndIf
 	
@@ -135,7 +135,7 @@ Func isOnMainVillage()
 	
 	$bRet = _checkMainScreenImage($aPixelToCheck)
 	If Not $bRet Then
-		SetDebugLog("Using Image to Check if isOnMainVillage")
+		;~ SetDebugLog("Using Image to Check if isOnMainVillage")
 		If QuickMIS("BC1", $g_sImgInfo, 369, 3, 392, 15) Then $bRet = True
 	EndIf
 	Return $bRet
@@ -152,7 +152,7 @@ Func isOnBuilderBase()
 	EndIf
 	
 	If Not $bRet Then
-		SetDebugLog("Using Image to Check if isOnBuilderBase")
+		;~ SetDebugLog("Using Image to Check if isOnBuilderBase")
 		If QuickMIS("BC1", $g_sImgInfo, 435, 1, 462, 22) Then $bRet = True
 	EndIf
 	

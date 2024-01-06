@@ -267,7 +267,7 @@ Func ParseAttackCSV($debug = False)
 									For $i = $index1 To $index2 ; check that all values are less 5?
 										If $indexArray[$i] < 1 Or $indexArray[$i] > 5 Then
 											$sErrorText &= "Invalid INDEX for near building DROP"
-											SetDebugLog("$index1: " & $index1 & ", $index2: " & $index2 & ", $indexArray[" & $i & "]: " & $indexArray[$i], $COLOR_ERROR)
+											;~ SetDebugLog("$index1: " & $index1 & ", $index2: " & $index2 & ", $indexArray[" & $i & "]: " & $indexArray[$i], $COLOR_ERROR)
 											ExitLoop
 										EndIf
 									Next
@@ -279,10 +279,10 @@ Func ParseAttackCSV($debug = False)
 											; do nothing valid index values for near location targets
 										Case Else
 											$sErrorText &= "Invalid INDEX for building target"
-											SetDebugLog("$index1: " & $index1 & ", $index2: " & $index2, $COLOR_ERROR)
+											;~ SetDebugLog("$index1: " & $index1 & ", $index2: " & $index2, $COLOR_ERROR)
 									EndSelect
 								Else
-									SetDebugLog("Monkey found a bad banana checking Bdlg target INDEX!", $COLOR_ERROR)
+									;~ SetDebugLog("Monkey found a bad banana checking Bdlg target INDEX!", $COLOR_ERROR)
 								EndIf
 							EndIf
 						Next
@@ -422,31 +422,31 @@ Func ParseAttackCSV($debug = False)
 										EndIf
 								EndSwitch
 							Next
-							SetDebugLog("$bBreakImmediately = " & $bBreakImmediately & ", $bBreakOnTH = " & $bBreakOnTH & ", $bBreakOnSiege = " & $bBreakOnSiege & ", $bBreakOnTHAndSiege = " & $bBreakOnTHAndSiege, $COLOR_INFO)
-							SetDebugLog("$bBreakOn50Percent = " & $bBreakOn50Percent & ", $bBreakOnAQAct = " & $bBreakOnAQAct & ", $bBreakOnBKAct = " & $bBreakOnBKAct & ", $bBreakOnGWAct = " & $bBreakOnGWAct & ", $bBreakOnRCAct = " & $bBreakOnRCAct, $COLOR_INFO)
+							;~ SetDebugLog("$bBreakImmediately = " & $bBreakImmediately & ", $bBreakOnTH = " & $bBreakOnTH & ", $bBreakOnSiege = " & $bBreakOnSiege & ", $bBreakOnTHAndSiege = " & $bBreakOnTHAndSiege, $COLOR_INFO)
+							;~ SetDebugLog("$bBreakOn50Percent = " & $bBreakOn50Percent & ", $bBreakOnAQAct = " & $bBreakOnAQAct & ", $bBreakOnBKAct = " & $bBreakOnBKAct & ", $bBreakOnGWAct = " & $bBreakOnGWAct & ", $bBreakOnRCAct = " & $bBreakOnRCAct, $COLOR_INFO)
 							If $bBreakOnSiege Or $bBreakOnTHAndSiege Then
 								debugAttackCSV("WAIT Condition Break on Siege Troop Drop set")
 								;Check if Siege is Available In Attackbar
 								For $i = 0 To UBound($g_avAttackTroops) - 1
 									If $g_avAttackTroops[$i][0] = $eCastle Then
-										SetDebugLog("WAIT Break on Siege Machine is set but Clan Castle Troop selected.", $COLOR_INFO)
+										;~ SetDebugLog("WAIT Break on Siege Machine is set but Clan Castle Troop selected.", $COLOR_INFO)
 										ExitLoop
 									ElseIf $g_avAttackTroops[$i][0] = $eWallW Or $g_avAttackTroops[$i][0] = $eBattleB Or $g_avAttackTroops[$i][0] = $eStoneS Or $g_avAttackTroops[$i][0] = $eSiegeB Or $g_avAttackTroops[$i][0] = $eLogL Or $g_avAttackTroops[$i][0] = $eFlameF Then
 										Local $sSiegeName = GetTroopName($g_avAttackTroops[$i][0])
-										SetDebugLog("	" & $sSiegeName & " found. Let's Check If is Dropped Or Not?", $COLOR_SUCCESS)
+										;~ SetDebugLog("	" & $sSiegeName & " found. Let's Check If is Dropped Or Not?", $COLOR_SUCCESS)
 										;Check Siege Slot Quantity If It's 0 Means Siege Is Dropped
 										If ReadTroopQuantity($i) = 0 Then
-											SetDebugLog("	" & $sSiegeName & " is dropped.", $COLOR_SUCCESS)
+											;~ SetDebugLog("	" & $sSiegeName & " is dropped.", $COLOR_SUCCESS)
 											;Get Siege Machine Slot For Checking Slot Grayed Out or Not
 											$aSiegeSlotPos = GetSlotPosition($i, True)
 										Else
-											SetDebugLog("	" & $sSiegeName & " is not dropped yet.", $COLOR_SUCCESS)
+											;~ SetDebugLog("	" & $sSiegeName & " is not dropped yet.", $COLOR_SUCCESS)
 										EndIf
 										ExitLoop
 									EndIf
 								Next
 								If $aSiegeSlotPos[0] = 0 And $aSiegeSlotPos[1] = 0 Then ; no dropped Siege found
-									SetDebugLog("WAIT no dropped Siege found, so unset Break on Siege.", $COLOR_INFO)
+									;~ SetDebugLog("WAIT no dropped Siege found, so unset Break on Siege.", $COLOR_INFO)
 									If $bBreakOnTHAndSiege Then $bBreakOnTH = True ; When "TH+Siege" is set, set it to only "TH"
 									$bBreakOnSiege = False
 									$bBreakOnTHAndSiege = False
@@ -505,23 +505,23 @@ Func ParseAttackCSV($debug = False)
 							; When Break on TH Kill And Siege is active, if both TH is destroyed and Siege troops are dropped, return ASAP
 							If $bBreakOnTHAndSiege And CheckIfSiegeDroppedTheTroops($hSleepTimer, $aSiegeSlotPos) And CheckIfTownHallGotDestroyed($hSleepTimer) Then ContinueLoop 2
 
-							SetDebugLog("detected [G]: " & $Gold & " [E]: " & $Elixir & " [DE]: " & $DarkElixir, $COLOR_INFO)
+							;~ SetDebugLog("detected [G]: " & $Gold & " [E]: " & $Elixir & " [DE]: " & $DarkElixir, $COLOR_INFO)
 							;EXIT IF RESOURCES = 0
 							If $g_abStopAtkNoResources[$g_iMatchMode] And Number($Gold) = 0 And Number($Elixir) = 0 And Number($DarkElixir) = 0 Then
 								If Not $g_bDebugSetlog Then SetDebugLog("detected [G]: " & $Gold & " [E]: " & $Elixir & " [DE]: " & $DarkElixir, $COLOR_INFO) ; log if not down above
-								SetDebugLog("From Attackcsv: Gold & Elixir & DE = 0, end battle ", $COLOR_DEBUG)
+								;~ SetDebugLog("From Attackcsv: Gold & Elixir & DE = 0, end battle ", $COLOR_DEBUG)
 								$exitNoResources = 1
 								ExitLoop
 							EndIf
 							;CALCULATE TWO STARS REACH
 							If $g_abStopAtkTwoStars[$g_iMatchMode] And _CheckPixel($aWonTwoStar, True) Then
-								SetDebugLog("From Attackcsv: Two Star Reach, exit", $COLOR_SUCCESS)
+								;~ SetDebugLog("From Attackcsv: Two Star Reach, exit", $COLOR_SUCCESS)
 								$exitTwoStars = 1
 								ExitLoop
 							EndIf
 							;CALCULATE ONE STARS REACH
 							If $g_abStopAtkOneStar[$g_iMatchMode] And _CheckPixel($aWonOneStar, True) Then
-								SetDebugLog("From Attackcsv: One Star Reach, exit", $COLOR_SUCCESS)
+								;~ SetDebugLog("From Attackcsv: One Star Reach, exit", $COLOR_SUCCESS)
 								$exitOneStar = 1
 								ExitLoop
 							EndIf
@@ -529,7 +529,7 @@ Func ParseAttackCSV($debug = False)
 								ExitLoop
 							EndIf
 							If _CheckPixel($aEndFightSceneBtn, True) And _CheckPixel($aEndFightSceneAvl, True) And _CheckPixel($aEndFightSceneReportGold, True) Then
-								SetDebugLog("From Attackcsv: Found End Fight Scene to close, exit", $COLOR_SUCCESS)
+								;~ SetDebugLog("From Attackcsv: Found End Fight Scene to close, exit", $COLOR_SUCCESS)
 								$exitAttackEnded = 1
 								ExitLoop
 							EndIf
@@ -576,7 +576,7 @@ EndFunc   ;==>ParseAttackCSV
 Func CheckIfSiegeDroppedTheTroops($hSleepTimer, $aSiegeSlotPos)
 	;Check Gray Pixel When Siege IS Dead.
 	If _ColorCheck(_GetPixelColor($aSiegeSlotPos[0] + 20, $aSiegeSlotPos[1] + 20, True, "WAIT--> IsSiegeDestroyed"), Hex(0x474747, 6), 10) Then
-		SetDebugLog("WAIT--> Siege Got Destroyed After " & Round(__TimerDiff($hSleepTimer)) & "ms.", $COLOR_SUCCESS)
+		;~ SetDebugLog("WAIT--> Siege Got Destroyed After " & Round(__TimerDiff($hSleepTimer)) & "ms.", $COLOR_SUCCESS)
 		Return True
 	EndIf
 	Return False
@@ -620,7 +620,7 @@ Func CheckIfTownHallGotDestroyed($hSleepTimer)
 	ElseIf $bWonTwoStar Then
 		$bIsTHDestroyed = True
 	EndIf
-	SetDebugLog("WAIT--> $iDamage: " & $iDamage & ", $bCentralStarPopup: " & $bCentralStarPopup & ", $bWonOneStar: " & $bWonOneStar & ", $bWonTwoStar: " & $bWonTwoStar & ", $bIsTHDestroyed: " & $bIsTHDestroyed, $COLOR_INFO)
+	;~ SetDebugLog("WAIT--> $iDamage: " & $iDamage & ", $bCentralStarPopup: " & $bCentralStarPopup & ", $bWonOneStar: " & $bWonOneStar & ", $bWonTwoStar: " & $bWonTwoStar & ", $bIsTHDestroyed: " & $bIsTHDestroyed, $COLOR_INFO)
 	If $bIsTHDestroyed Then SetDebugLog("WAIT--> Town Hall Got Destroyed After " & Round(__TimerDiff($hSleepTimer)) & "ms.", $COLOR_SUCCESS)
 	Return $bIsTHDestroyed
 EndFunc   ;==>CheckIfTownHallGotDestroyed

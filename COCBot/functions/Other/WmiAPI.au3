@@ -49,7 +49,7 @@ Func WmiQuery($sQuery)
 	EndIf
 
 	Local $aProcesses[0]
-	SetDebugLog("WMI Query: " & $sQuery)
+	;~ SetDebugLog("WMI Query: " & $sQuery)
 	Local $oObjc = GetWmiObject()
 	If $oObjc = -1 Or @error Then  Return 0
 	Local $oProcessColl = $oObjc.ExecQuery($sQuery, "WQL", 0x20 + 0x10)

@@ -154,8 +154,8 @@ Func ConfigureSharedFolderBlueStacks5($iMode = 0, $bSetLog = Default)
 						$bResult = True
 						$g_bAndroidSharedFolderAvailable = True
 						$g_sAndroidPicturesPath = "/mnt/windows/BstSharedFolder/"
-						SetDebugLog("g_sAndroidPicturesHostPath = " & $g_sAndroidPicturesHostPath)
-						SetDebugLog("g_sAndroidPicturesPath = " & $g_sAndroidPicturesPath)
+						;~ SetDebugLog("g_sAndroidPicturesHostPath = " & $g_sAndroidPicturesHostPath)
+						;~ SetDebugLog("g_sAndroidPicturesPath = " & $g_sAndroidPicturesPath)
 					EndIf
 				EndIf
 			Next
@@ -181,7 +181,7 @@ Func InitBlueStacks5($bCheckOnly = False)
 	For $i = 0 To $iLineCount - 1
 		If StringInStr($__Bluestacks5Conf[$i], "bst.instance." & $g_sAndroidInstance & ".") Then 
 			Local $propkey = StringReplace($__Bluestacks5Conf[$i], "bst.instance." & $g_sAndroidInstance & ".", "")
-			SetDebugLog($propkey)
+			;~ SetDebugLog($propkey)
 			Local $aProperty = StringSplit($propkey, "=", $STR_NOCOUNT)
 			If IsArray($aProperty) And UBound($aProperty) = 2 Then 
 				If StringInStr($aProperty[0], "adb_port") Then 
@@ -224,7 +224,7 @@ Func GetBlueStacks5BackgroundMode()
 	Next
 	
 	If IsArray($GlRenderMode) Then
-		SetDebugLog("GlRenderMode = " & $GlRenderMode[0])
+		;~ SetDebugLog("GlRenderMode = " & $GlRenderMode[0])
 		Switch $GlRenderMode[0]
 			Case "dx"
 				; DirectX
@@ -263,7 +263,7 @@ Func CheckScreenBlueStacks5($bSetLog = True)
 	For $i = 0 To $iLineCount - 1
 		For $iSearch = 0 To UBound($aiSearch) - 1
 			If StringInStr($__Bluestacks5Conf[$i], $aiSearch[$iSearch]) Then
-				SetDebugLog($__Bluestacks5Conf[$i])
+				;~ SetDebugLog($__Bluestacks5Conf[$i])
 				If StringInStr($__Bluestacks5Conf[$i], $aiMustBe[$iSearch]) = 0 Then
 					If $bSetLog = True Then SetLog("Please wait, Bot will configure your Bluestacks", $COLOR_ERROR)
 					Return False
@@ -400,7 +400,7 @@ Func CloseBlueStacks5()
 		; also close vm
 		CloseVboxAndroidSvc()
 	Else
-		SetDebugLog("Closing BlueStacks: " & $__BlueStacks_Path & "HD-Quit.exe")
+		;~ SetDebugLog("Closing BlueStacks: " & $__BlueStacks_Path & "HD-Quit.exe")
 		RunWait($__BlueStacks_Path & "HD-Quit.exe")
 		If @error <> 0 Then
 			SetLog($g_sAndroidEmulator & " failed to quit", $COLOR_ERROR)

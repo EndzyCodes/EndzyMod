@@ -107,7 +107,7 @@ Func WindowsArrange($position, $offsetX = 0, $offsetY = 0)
 				EndSwitch
 			EndIf
 			If $bAdjusted = True Then
-				SetDebugLog("WindowsArrange: " & $position & ", offsetX=" & $offsetX & ", offsetY=" & $offsetY & ", X=" & $x & ", Y=" & $y)
+				;~ SetDebugLog("WindowsArrange: " & $position & ", offsetX=" & $offsetX & ", offsetY=" & $offsetY & ", X=" & $x & ", Y=" & $y)
 				_Sleep($DELAYWINDOWSARRANGE1, True, False)
 			EndIf
 		EndIf
@@ -121,7 +121,7 @@ Func DisposeWindows()
 	Local $aPos = WinGetPos($g_hFrmBot)
 	If IsArray($aPos) Then
 		If _CheckWindowVisibility($g_hFrmBot, $aPos) Then
-			SetDebugLog("Bot Window '" & $g_sAndroidTitle & "' not visible, moving to position: " & $aPos[0] & ", " & $aPos[1])
+			;~ SetDebugLog("Bot Window '" & $g_sAndroidTitle & "' not visible, moving to position: " & $aPos[0] & ", " & $aPos[1])
 			WinMove($g_hFrmBot, "", $aPos[0], $aPos[1])
 		EndIf
 	EndIf
@@ -158,7 +158,7 @@ Func WinMove2($WinTitle, $WinText, $x = -1, $y = -1, $w = -1, $h = -1, $hAfter =
 
 	If $bIconCheck And _WinAPI_IsIconic($hWin) Then
 		; Window minimized, restore first
-		SetDebugLog("Window " & $WinTitle & (($WinTitle <> $hWin) ? "(" & $hWin & ")" : "") & " restored", $COLOR_ACTION)
+		;~ SetDebugLog("Window " & $WinTitle & (($WinTitle <> $hWin) ? "(" & $hWin & ")" : "") & " restored", $COLOR_ACTION)
 		WinSetState($hWin, "", @SW_RESTORE)
 	EndIf
 
@@ -240,7 +240,7 @@ Func ControlGetHandle2($title, $text, $controlID, $iMinWidth = Default, $iMinHei
 						Return $hCtrl
 					EndIf
 				Else
-					SetDebugLog("ControlGetHandle2 cannot validate window dimension")
+					;~ SetDebugLog("ControlGetHandle2 cannot validate window dimension")
 					$g_sControlGetHandle2_Classname = $sClass
 					Return $hCtrl
 				EndIf

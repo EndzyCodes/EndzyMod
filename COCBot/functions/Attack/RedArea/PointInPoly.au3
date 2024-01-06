@@ -91,7 +91,7 @@ EndFunc   ;==>IsPointOnSide
 ; ===============================================================================================================================
 Func RemoveDupNearby(ByRef $sLocCoord, $iDistance = 8)
 
-	SetDebugLog("Begin RemoveDupNearby", $COLOR_DEBUG1)
+	;~ SetDebugLog("Begin RemoveDupNearby", $COLOR_DEBUG1)
 
 	Local $aCoord = StringSplit($sLocCoord, "|")
 	Local $aLoc1, $aLoc2, $bRemovedDuplicate = False
@@ -119,7 +119,7 @@ Func RemoveDupNearby(ByRef $sLocCoord, $iDistance = 8)
 					If $aLoc2[0] = 2 Then
 						; is new location inside rectangle of existing location +/- $iDistance using WINAPI
 						If _WinAPI_PtInRectEx($aLoc2[1], $aLoc2[2], $aLoc1[1] - $iDistance, $aLoc1[2] - $iDistance, $aLoc1[1] + $iDistance, $aLoc1[2] + $iDistance) = True Then
-							SetDebugLog("Duplicate location found, skipping: " & $aLoc2[1] & "," & $aLoc2[2], $COLOR_INFO)
+							;~ SetDebugLog("Duplicate location found, skipping: " & $aLoc2[1] & "," & $aLoc2[2], $COLOR_INFO)
 							$aCoord[$np] = "" ; zero out location points
 							$bRemovedDuplicate = True
 						EndIf
@@ -145,27 +145,27 @@ Func RemoveDupNearby(ByRef $sLocCoord, $iDistance = 8)
 		Next
 
 		If StringLen($sTmpVector) > 0 Then $sTmpVector = StringLeft($sTmpVector, StringLen($sTmpVector) - 1) ; clean excess "|" from string
-		SetDebugLog("Return $sTmpVector= " & $sTmpVector, $COLOR_DEBUG)
+		;~ SetDebugLog("Return $sTmpVector= " & $sTmpVector, $COLOR_DEBUG)
 
 
 		If StringInStr($sTmpVector, "|", $STR_NOCASESENSEBASIC) > 0 Then ; have more than 1 location
 			Local $aCoord2 = StringSplit($sTmpVector, "|") ; split to obtain new coord count
 			If @error Then
-				SetDebugLog("$sTmpVector string split failed: " & $aCoord2[1] & " , skip duplicate removal", $COLOR_WARNING)
+				;~ SetDebugLog("$sTmpVector string split failed: " & $aCoord2[1] & " , skip duplicate removal", $COLOR_WARNING)
 				Return $aCoord[0] ; failsafe exit = always return same count as given
 			EndIf
 		Else ; have one location
 			If $sTmpVector <> "" then  ; if not empty
 				Local $aCoord2 = [ 1, $sTmpVector]
 			Else
-				SetDebugLog("Impossible error: RemoveDupNearby removed all points!", $COLOR_ERROR)
+				;~ SetDebugLog("Impossible error: RemoveDupNearby removed all points!", $COLOR_ERROR)
 				Return $aCoord[0]
 			EndIf
 		EndIf
 
 		If $g_bDebugSetlog And $aCoord[0] <> $aCoord2[0] Then
-			SetDebugLog("Duplicate objectpoints found, removed: " & $aCoord[0] - $aCoord2[0], $COLOR_INFO)
-			SetDebugLog("Final Coords count= " & $aCoord2[0], $COLOR_DEBUG)
+			;~ SetDebugLog("Duplicate objectpoints found, removed: " & $aCoord[0] - $aCoord2[0], $COLOR_INFO)
+			;~ SetDebugLog("Final Coords count= " & $aCoord2[0], $COLOR_DEBUG)
 		EndIf
 
 		$sLocCoord = $sTmpVector ; If no errors in count, change BYREF string to new one.
@@ -202,7 +202,7 @@ EndFunc   ;==>RemoveDupNearby
 ; ===============================================================================================================================
 Func AddPoints_RemoveDuplicate(ByRef $sLoc1Coord, $sLoc2Coord, $iReturnpoints, $iDistance = 8)
 
-	SetDebugLog("Begin AddPoints_RemoveDuplicate", $COLOR_DEBUG1)
+	;~ SetDebugLog("Begin AddPoints_RemoveDuplicate", $COLOR_DEBUG1)
 
 	Local $aCoord1 = StringSplit($sLoc1Coord, "|")
 	Local $aCoord2 = StringSplit($sLoc2Coord, "|")
@@ -234,7 +234,7 @@ Func AddPoints_RemoveDuplicate(ByRef $sLoc1Coord, $sLoc2Coord, $iReturnpoints, $
 					If $aLoc2[0] = 2 Then
 						; is new location inside rectangle of existing location +/- $iDistance using WINAPI
 						If _WinAPI_PtInRectEx($aLoc2[1], $aLoc2[2], $aLoc1[1] - $iDistance, $aLoc1[2] - $iDistance, $aLoc1[1] + $iDistance, $aLoc1[2] + $iDistance) = True Then
-							SetDebugLog("Duplicate location found, skipping: " & $aLoc2[1] & "," & $aLoc2[2], $COLOR_INFO)
+							;~ SetDebugLog("Duplicate location found, skipping: " & $aLoc2[1] & "," & $aLoc2[2], $COLOR_INFO)
 							$aCoord2[$np] = "" ; zero out location points
 						EndIf
 					Else
@@ -277,7 +277,7 @@ Func AddPoints_RemoveDuplicate(ByRef $sLoc1Coord, $sLoc2Coord, $iReturnpoints, $
 				EndIf
 			EndIf
 		Next
-		SetDebugLog("Final $sLoc1Coord= "& $sLoc1Coord, $COLOR_DEBUG)
+		;~ SetDebugLog("Final $sLoc1Coord= "& $sLoc1Coord, $COLOR_DEBUG)
 	Else
 		SetLog("RemoveDuplicatePoints location string paramenter error!", $COLOR_ERROR)
 	EndIf

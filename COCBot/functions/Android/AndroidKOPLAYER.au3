@@ -76,7 +76,7 @@ Func GetKOPLAYERProgramParameter($bAlternative = False)
 EndFunc   ;==>GetKOPLAYERProgramParameter
 
 Func IsKOPLAYERCommandLine($CommandLine)
-	SetDebugLog("IsKOPLAYERCommandLine: " & $CommandLine)
+	;~ SetDebugLog("IsKOPLAYERCommandLine: " & $CommandLine)
 	Local $param1 = GetKOPLAYERProgramParameter()
 	Local $param2 = GetKOPLAYERProgramParameter(True)
 	If StringInStr($CommandLine, $param1 & " ") > 0 Or StringRight($CommandLine, StringLen($param1)) = $param1 Then Return True
@@ -263,13 +263,13 @@ Func CheckScreenKOPLAYER($bSetLog = True)
 				If $bSetLog Then
 					SetLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_RED)
 				Else
-					SetDebugLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_RED)
+					;~ SetDebugLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_RED)
 				EndIf
 			EndIf
 			If $bSetLog Then
 				SetLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_RED)
 			Else
-				SetDebugLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_RED)
+				;~ SetDebugLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_RED)
 			EndIf
 			$iErrCnt += 1
 		EndIf
@@ -307,14 +307,14 @@ Func EmbedKOPLAYER($bEmbed = Default, $hHWndAfter = Default)
 	Next
 
 	If $hToolbar = 0 Then
-		SetDebugLog("EmbedKOPLAYER(" & $bEmbed & "): Qt5QWindowToolSaveBits Window not found, list of windows:" & $c, Default, True)
+		;~ SetDebugLog("EmbedKOPLAYER(" & $bEmbed & "): Qt5QWindowToolSaveBits Window not found, list of windows:" & $c, Default, True)
 		For $i = 1 To UBound($aWin) - 1
 			Local $h = $aWin[$i][0]
 			Local $c = $aWin[$i][1]
-			SetDebugLog("EmbedKOPLAYER(" & $bEmbed & "): Handle = " & $h & ", Class = " & $c, Default, True)
+			;~ SetDebugLog("EmbedKOPLAYER(" & $bEmbed & "): Handle = " & $h & ", Class = " & $c, Default, True)
 		Next
 	Else
-		SetDebugLog("EmbedKOPLAYER(" & $bEmbed & "): $hToolbar=" & $hToolbar, Default, True)
+		;~ SetDebugLog("EmbedKOPLAYER(" & $bEmbed & "): $hToolbar=" & $hToolbar, Default, True)
 		If $bEmbed Then WinMove2($hToolbar, "", -1, -1, -1, -1, $HWND_NOTOPMOST, 0, False)
 		_WinAPI_ShowWindow($hToolbar, ($bEmbed ? @SW_HIDE : @SW_SHOWNOACTIVATE))
 		If Not $bEmbed Then

@@ -59,11 +59,11 @@ Global $sWatchdogMutex = "MyBot.run/ManageFarm/" & $API_VERSION
 
 ; Register MyBot API Window Message
 Global $WM_MYBOTRUN_API = _WinAPI_RegisterWindowMessage("MyBot.run/API/" & $API_VERSION)
-SetDebugLog("MyBot.run/API/1.1 Message ID = " & $WM_MYBOTRUN_API)
+;~ SetDebugLog("MyBot.run/API/1.1 Message ID = " & $WM_MYBOTRUN_API)
 
 ; Register MyBot State Window Message
 Global $WM_MYBOTRUN_STATE = _WinAPI_RegisterWindowMessage("MyBot.run/STATE/" & $API_VERSION)
-SetDebugLog("MyBot.run/STATE/1.1 Message ID = " & $WM_MYBOTRUN_STATE)
+;~ SetDebugLog("MyBot.run/STATE/1.1 Message ID = " & $WM_MYBOTRUN_STATE)
 
 ; Struct helper methods
 Func _DllStructSetData(ByRef $Struct, $Element, $value, $index = Default)

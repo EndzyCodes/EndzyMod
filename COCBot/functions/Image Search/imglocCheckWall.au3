@@ -53,7 +53,7 @@ Func imglocCheckWall($LastWallLevel = 0)
 		SetLog("Looking further away.", $COLOR_SUCCESS)
 		_CaptureRegion2()
 		$FoundWalls = imglocFindWalls($levelWall, "ECD", "ECD", 10) ; lets get 10 points just to make sure we discard false positives
-		SetDebugLog("$FoundWalls = " & $FoundWalls)
+		;~ SetDebugLog("$FoundWalls = " & $FoundWalls)
 	EndIf
 
 	ClickAway()
@@ -91,10 +91,10 @@ Func imglocCheckWall($LastWallLevel = 0)
 						Else
 							ClickAway()
 							If $g_bDebugSetlog Then
-								SetDebugLog("Position : " & $aCoord[0] & ", " & $aCoord[1] & " is not a Wall Level: " & $levelWall & ". It was: " & $aResult[1] & ", " & $aResult[2] & " !", $COLOR_DEBUG) ;debug
+								;~ SetDebugLog("Position : " & $aCoord[0] & ", " & $aCoord[1] & " is not a Wall Level: " & $levelWall & ". It was: " & $aResult[1] & ", " & $aResult[2] & " !", $COLOR_DEBUG) ;debug
 							Else
 								SetLog("Position : " & $aCoord[0] & ", " & $aCoord[1] & " is not a Wall Level: " & $levelWall & ".", $COLOR_ERROR)
-								SetDebugLog("It was: " & $aResult[1] & ", " & $aResult[2], $COLOR_DEBUG, True) ; log actual wall values to file log only
+								;~ SetDebugLog("It was: " & $aResult[1] & ", " & $aResult[2], $COLOR_DEBUG, True) ; log actual wall values to file log only
 							EndIf
 						EndIf
 					Else
@@ -139,7 +139,7 @@ Func imglocFindWalls($walllevel, $searcharea = "DCD", $redline = "", $maxreturn 
 	; Process results
 	If $result[0] <> "" Then
 		; Get the keys for the dictionary item.
-		SetDebugLog(" imglocFindMyWall search returned : " & $result[0])
+		;~ SetDebugLog(" imglocFindMyWall search returned : " & $result[0])
 		Local $aKeys = StringSplit($result[0], "|", $STR_NOCOUNT)
 		; Loop through the array
 		ReDim $FoundWalls[UBound($aKeys)]

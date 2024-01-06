@@ -242,13 +242,13 @@ Func CheckScreenDroid4X($bSetLog = True)
 				If $bSetLog Then
 					SetLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_ERROR)
 				Else
-					SetDebugLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_ERROR)
+					;~ SetDebugLog("MyBot doesn't work with " & $g_sAndroidEmulator & " screen configuration!", $COLOR_ERROR)
 				EndIf
 			EndIf
 			If $bSetLog Then
 				SetLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_ERROR)
 			Else
-				SetDebugLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_ERROR)
+				;~ SetDebugLog("Setting of " & $aValues[$i][0] & " is " & $Value & " and will be changed to " & $aValues[$i][1], $COLOR_ERROR)
 			EndIf
 			$iErrCnt += 1
 		EndIf
@@ -284,7 +284,7 @@ Func UpdateDroid4XWindowState()
 	For $i = 0 To UBound($__Droid4X_Window) - 1
 		Local $v2 = GetVersionNormalized($__Droid4X_Window[$i][0])
 		If $v >= $v2 Then
-			SetDebugLog("Using Window sizes of " & $g_sAndroidEmulator & " " & $__Droid4X_Window[$i][0])
+			;~ SetDebugLog("Using Window sizes of " & $g_sAndroidEmulator & " " & $__Droid4X_Window[$i][0])
 			$aww = $__Droid4X_Window[$i][1]
 			$awh = $__Droid4X_Window[$i][2]
 			ExitLoop
@@ -312,7 +312,7 @@ Func UpdateDroid4XWindowState()
 	For $i = 0 To UBound($Values) - 1
 		If $Values[$i][1] <> $Values[$i][2] Then
 			$bChanged = True
-			SetDebugLog($g_sAndroidEmulator & " " & $Values[$i][0] & " updated from " & $Values[$i][1] & " to " & $Values[$i][2])
+			;~ SetDebugLog($g_sAndroidEmulator & " " & $Values[$i][0] & " updated from " & $Values[$i][1] & " to " & $Values[$i][2])
 		EndIf
 	Next
 

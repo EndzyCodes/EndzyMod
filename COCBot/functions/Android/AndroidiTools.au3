@@ -53,7 +53,7 @@ Func OpeniTools($bRestart = False)
 EndFunc   ;==>OpeniTools
 
 Func IsiToolsCommandLine($CommandLine)
-	SetDebugLog("Check iTools command line instance: " & $CommandLine)
+	;~ SetDebugLog("Check iTools command line instance: " & $CommandLine)
 	Local $sInstance = ($g_sAndroidInstance = "" ? $g_avAndroidAppConfig[$g_iAndroidConfig][1] : $g_sAndroidInstance)
 	$CommandLine = StringReplace($CommandLine, GetiToolsPath(), "")
 	If StringRegExp($CommandLine, "/start " & $sInstance & "\b") = 1 Then Return True
@@ -120,7 +120,7 @@ Func InitiTools($bCheckOnly = False)
 			SetLog("installation directory", $COLOR_ERROR)
 			SetError(1, @extended, False)
 		Else
-			SetDebugLog($g_sAndroidEmulator & ": Cannot find installation directory")
+			;~ SetDebugLog($g_sAndroidEmulator & ": Cannot find installation directory")
 		EndIf
 		Return False
 	EndIf
@@ -130,7 +130,7 @@ Func InitiTools($bCheckOnly = False)
 			SetLog("Serious error has occurred: Cannot find " & $g_sAndroidEmulator & ":", $COLOR_ERROR)
 			SetLog($iTools_Path & "iToolsAVM.exe", $COLOR_ERROR)
 		Else
-			SetDebugLog($g_sAndroidEmulator & ": Cannot find " & $iTools_Path & "iToolsAVM.exe")
+			;~ SetDebugLog($g_sAndroidEmulator & ": Cannot find " & $iTools_Path & "iToolsAVM.exe")
 			SetError(1, @extended, False)
 		EndIf
 		Return False
@@ -143,7 +143,7 @@ Func InitiTools($bCheckOnly = False)
 			SetLog($iTools_Path & "tools\adb.exe", $COLOR_ERROR)
 			SetError(1, @extended, False)
 		Else
-			SetDebugLog($g_sAndroidEmulator & ": Cannot find " & $iTools_Path & "tools\adb.exe")
+			;~ SetDebugLog($g_sAndroidEmulator & ": Cannot find " & $iTools_Path & "tools\adb.exe")
 		EndIf
 		Return False
 	EndIf
@@ -154,7 +154,7 @@ Func InitiTools($bCheckOnly = False)
 			SetLog($iTools_Manage_Path, $COLOR_ERROR)
 			SetError(1, @extended, False)
 		Else
-			SetDebugLog($g_sAndroidEmulator & ": Cannot find " & $iTools_Manage_Path)
+			;~ SetDebugLog($g_sAndroidEmulator & ": Cannot find " & $iTools_Manage_Path)
 		EndIf
 		Return False
 	EndIf
@@ -318,14 +318,14 @@ Func EmbediTools($bEmbed = Default, $hHWndAfter = Default)
 	Next
 
 	If $hToolbar = 0 Then
-		SetDebugLog("EmbediTools(" & $bEmbed & "): toolbar Window not found, list of windows:" & $c, Default, True)
+		;~ SetDebugLog("EmbediTools(" & $bEmbed & "): toolbar Window not found, list of windows:" & $c, Default, True)
 		For $i = 1 To UBound($aWin) - 1
 			Local $h = $aWin[$i][0]
 			Local $c = $aWin[$i][1]
-			SetDebugLog("EmbediTools(" & $bEmbed & "): Handle = " & $h & ", Class = " & $c, Default, True)
+			;~ SetDebugLog("EmbediTools(" & $bEmbed & "): Handle = " & $h & ", Class = " & $c, Default, True)
 		Next
 	Else
-		SetDebugLog("EmbediTools(" & $bEmbed & "): $hToolbar=" & $hToolbar, Default, True)
+		;~ SetDebugLog("EmbediTools(" & $bEmbed & "): $hToolbar=" & $hToolbar, Default, True)
 		If $bEmbed Then WinMove2($hToolbar, "", -1, -1, -1, -1, $HWND_NOTOPMOST, 0, False)
 		_WinAPI_ShowWindow($hToolbar, ($bEmbed ? @SW_HIDE : @SW_SHOWNOACTIVATE))
 		If Not $bEmbed Then

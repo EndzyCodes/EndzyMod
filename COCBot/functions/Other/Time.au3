@@ -107,7 +107,7 @@ Func _HPTimerInit()
 			Local $err = _WinAPI_GetLastError()
 			SetLog("QueryPerformanceFrequency error code: " & $err, $COLOR_ERROR)
 		Else
-			SetDebugLog("QueryPerformanceFrequency is: " & $g_iHPTimerFreq)
+			;~ SetDebugLog("QueryPerformanceFrequency is: " & $g_iHPTimerFreq)
 		EndIf
 	EndIf
 	Return $iTimerCount

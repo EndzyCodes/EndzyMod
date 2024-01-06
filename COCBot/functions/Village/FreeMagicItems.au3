@@ -84,7 +84,7 @@ Func GetFreeMagic()
 	For $i = 0 To UBound($aOcrPositions) - 1
 		Local $Read = getOcrAndCapture("coc-freemagicitems", $aOcrPositions[$i][0], $aOcrPositions[$i][1], 120, 25, True)
 		Local $Capa = getOcrAndCapture("coc-buildermenu-name", $aOcrPositions[$i][0], 197, 70, 25, True)
-		SetDebugLog("Magic Item Capacity: " & $Capa)
+		;~ SetDebugLog("Magic Item Capacity: " & $Capa)
 		$bClaimed = _ColorCheck(_GetPixelColor($aOcrPositions[$i][0], 297, True), Hex(0xAD5B0D, 6), 20)
 		$bFullStorage = _ColorCheck(_GetPixelColor($aOcrPositions[$i][0], $aOcrPositions[$i][1], True), Hex(0xA3A3A3, 6), 20)
 		;If $Read = "FREE" And StringLeft($Capa, 1) = "0" Then $Read = "Claimed"
@@ -139,7 +139,7 @@ Func IsTraderWindowOpen()
 			$bRet = True
 			ExitLoop
 		Else
-			SetDebugLog("Waiting for FreeMagicWindowOpen #" & $i, $COLOR_ACTION)
+			;~ SetDebugLog("Waiting for FreeMagicWindowOpen #" & $i, $COLOR_ACTION)
 		EndIf
 		If _Sleep(500) Then Return
 	Next
@@ -160,7 +160,7 @@ Func IsTraderWindowOpen()
 			$bRet = True
 			ExitLoop
 		Else
-			SetDebugLog("Waiting for Gems Tab #" & $i, $COLOR_ACTION)
+			;~ SetDebugLog("Waiting for Gems Tab #" & $i, $COLOR_ACTION)
 		EndIf
 		If _Sleep(500) Then Return
 	Next
@@ -251,7 +251,7 @@ Func SaleMagicItem($bTest = False)
 	Local $sReadItemCount, $asReadItemCount, $Count, $MaxCount
 	
 	For $i = 0 To UBound($g_aSaleMagicItem) - 1
-		SetDebugLog($g_aMagicItemName[$i] & " : " & $g_aSaleMagicItem[$i])
+		;~ SetDebugLog($g_aMagicItemName[$i] & " : " & $g_aSaleMagicItem[$i])
 		SetLog("Checking for sell " & $g_aMagicItemName[$i], $COLOR_INFO)
 		If $g_aSaleMagicItem[$i] Then
 			Local $aSearch = decodeSingleCoord(findImage($g_aMagicItemName[$i], $g_sImgTraderWindow & $g_aMagicItemName[$i] & "*", GetDiamondFromRect("160, 200, 700, 400")))
@@ -311,7 +311,7 @@ Func OpenMagicItemWindow()
 	If Not $g_bRunState Then Return
 	Local $BuildingInfo = BuildingInfo(245, 472)
 	If $BuildingInfo[1] = "Town Hall" Then
-		SetDebugLog("Opening Magic Item Window")
+		;~ SetDebugLog("Opening Magic Item Window")
 		If ClickB("MagicItem") Then
 			$bRet = True
 		EndIf
@@ -338,7 +338,7 @@ Func IsMagicItemWindowOpen()
 			$bRet = True
 			ExitLoop
 		Else
-			SetDebugLog("Waiting for FreeMagicWindowOpen #" & $i, $COLOR_ACTION)
+			;~ SetDebugLog("Waiting for FreeMagicWindowOpen #" & $i, $COLOR_ACTION)
 		EndIf
 		If _Sleep(250) Then Return
 	Next
@@ -349,7 +349,7 @@ EndFunc
 Func TestMagicItemImage()
 	For $i = 0 To UBound($g_aSaleMagicItem) - 1
 		Local $Count = 0, $MaxCount = 0
-		SetDebugLog($g_aMagicItemName[$i] & " sale enabled: " &$g_aSaleMagicItem[$i])
+		;~ SetDebugLog($g_aMagicItemName[$i] & " sale enabled: " &$g_aSaleMagicItem[$i])
 		SetLog("Checking " & $g_aMagicItemName[$i], $COLOR_INFO)
 		Local $aSearch = decodeSingleCoord(findImage($g_aMagicItemName[$i], $g_sImgTraderWindow & $g_aMagicItemName[$i] & "*", GetDiamondFromRect("160, 200, 700, 400")))
 		If IsArray($aSearch) And UBound($aSearch) = 2 Then 

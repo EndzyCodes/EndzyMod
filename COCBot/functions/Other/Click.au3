@@ -511,7 +511,7 @@ Func SendText($sText)
 			$shiftBits = @extended
 			If $vk = -1 And $shiftBits = -1 Then
 				; key not found, skip it
-				SetDebugLog("SendText cannot send character: " & $char)
+				;~ SetDebugLog("SendText cannot send character: " & $char)
 				$c += 1
 			Else
 				If BitAND($shiftBits, 1) > 0 Then $ascText &= "{LSHIFT down}"
@@ -521,7 +521,7 @@ Func SendText($sText)
 				If BitAND($shiftBits, 4) > 0 Then $ascText &= "{LALT up}"
 				If BitAND($shiftBits, 2) > 0 Then $ascText &= "{LCTRL up}"
 				If BitAND($shiftBits, 1) > 0 Then $ascText &= "{LSHIFT up}"
-				;SetDebugLog("SendText: " & $char & " as " & $ascText)
+				;;~ SetDebugLog("SendText: " & $char & " as " & $ascText)
 				$r = ControlSend($g_hAndroidWindow, "", "", $ascText, 0)
 				$ascText = ""
 				If $r = 1 Then

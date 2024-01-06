@@ -77,7 +77,7 @@ EndFunc   ;==>NotifyPendingActions
 ; ONLY PUSH TELEGRAM MSG
 Func NotifyPushToTelegram($pMessage)
 
-	SetDebugLog("NotifyPushToTelegram(" & $pMessage & " ): ")
+	;~ SetDebugLog("NotifyPushToTelegram(" & $pMessage & " ): ")
 
 	If Not $g_bNotifyTGEnable Or $g_sNotifyTGToken = "" Then Return
 
@@ -98,7 +98,7 @@ Func NotifyPushToTelegram($pMessage)
 		; Parse message id from Json Format , just to confirm if all are ok
 		Local $mdg = _StringBetween($sCorrectStdOut, '"message_id":', ',"from":')
 		If @error Or Not IsArray($mdg) Then SetDebugLog("NotifyPushToTelegram Send Error!: " & $sCorrectStdOut)
-		SetDebugLog("Telegram last sent msg number is '" & $mdg[0] & "'")
+		;~ SetDebugLog("Telegram last sent msg number is '" & $mdg[0] & "'")
 	EndIf
 EndFunc   ;==>NotifyPushToTelegram
 
@@ -128,7 +128,7 @@ Func NotifyPushFileToTelegram($File, $Folder, $FileType, $body)
 			; Convert Binary to String/Json Format
 			Local $sCorrectStdOut = BinaryToString($SdtOut)
 			If @error Or $sCorrectStdOut = "" Then Return
-			SetDebugLog("NotifyPushFileToTelegram(): " & $sCorrectStdOut)
+			;~ SetDebugLog("NotifyPushFileToTelegram(): " & $sCorrectStdOut)
 			; Parse The Json Format
 			Local $mdg = _StringBetween($sCorrectStdOut, '"message_id":', ',"from":')
 			If @error Or Not IsArray($mdg) Then SetDebugLog("NotifyPushFileToTelegram Send Error!")
@@ -166,17 +166,17 @@ Func NotifyGetLastMessageFromTelegram()
 	If $g_sTGChatID = "" Or $g_sTGChatID <> $chat_id[0] Then
 		$g_sTGChatID = $chat_id[0]
 		SaveConfig_600_18()
-		SetDebugLog("Saved a new Chat_ID/User_ID for Telegram as " & $g_sTGChatID)
+		;~ SetDebugLog("Saved a new Chat_ID/User_ID for Telegram as " & $g_sTGChatID)
 	Else
-		SetDebugLog("Telegram Chat_ID/User_ID:" & $g_sTGChatID)
+		;~ SetDebugLog("Telegram Chat_ID/User_ID:" & $g_sTGChatID)
 	EndIf
 	; Parse update_id from Json Format
 	Local $uid = _StringBetween($sCorrectStdOut, '"update_id":', ',') ;take update id
 	If @error Or Not IsArray($uid) Then Return
-	SetDebugLog("You have " & UBound($uid) & " update_id to confirm!")
+	;~ SetDebugLog("You have " & UBound($uid) & " update_id to confirm!")
 	$g_sTGLast_UID = $uid[UBound($uid) - 1]
-	SetDebugLog("Telegram getting update_ID: " & $g_sTGLast_UID)
-	SetDebugLog("Telegram last update_id was: " & $g_iTGLastRemote)
+	;~ SetDebugLog("Telegram getting update_ID: " & $g_sTGLast_UID)
+	;~ SetDebugLog("Telegram last update_id was: " & $g_iTGLastRemote)
 
 	; To confirm the last update_id is necessary send the last , to forget the last update is necessary send : update_id + 1
 	Local $SdtOut = InetRead("https://api.telegram.org/bot" & $g_sNotifyTGToken & "/getupdates?offset=" & $g_sTGLast_UID, $INET_FORCERELOAD)
@@ -188,9 +188,9 @@ Func NotifyGetLastMessageFromTelegram()
 	Local $msg = _StringBetween($sCorrectStdOut, '"text":"', '"')
 	If @error Or Not IsArray($msg) Then Return
 	; This array can be more than 1 , let's get the last!
-	SetDebugLog("You have " & UBound($msg) & " messages to read")
+	;~ SetDebugLog("You have " & UBound($msg) & " messages to read")
 	$TGLastMessage = String($msg[UBound($msg) - 1])
-	SetDebugLog("Telegram last message was '" & $TGLastMessage & "'")
+	;~ SetDebugLog("Telegram last message was '" & $TGLastMessage & "'")
 
 	Return $TGLastMessage
 

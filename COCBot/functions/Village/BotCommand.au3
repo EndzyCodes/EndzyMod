@@ -207,7 +207,7 @@ Func StopAndResumeTimer($bResume = False)
 	$iTimerStop = Number($g_iCmbTimeStop)
 	If $bResume Then $iTimerResume = Number($g_iResumeAttackTime)
 	Local $bCurrentStatus = $abStop[$g_iCurAccount]
-	SetDebugLog("$iTimerStop: " & $iTimerStop & ", $iTimerResume: " & $iTimerResume & ", Max: " & _Max($iTimerStop, $iTimerResume) & ", Min: " & _Min($iTimerStop, $iTimerResume) & ", $bCurrentStatus: " & $bCurrentStatus)
+	;~ SetDebugLog("$iTimerStop: " & $iTimerStop & ", $iTimerResume: " & $iTimerResume & ", Max: " & _Max($iTimerStop, $iTimerResume) & ", Min: " & _Min($iTimerStop, $iTimerResume) & ", $bCurrentStatus: " & $bCurrentStatus)
 
 	If @HOUR < _Min($iTimerStop, $iTimerResume) Then ; both timers are ahead.
 		;Do nothing
@@ -228,6 +228,6 @@ Func StopAndResumeTimer($bResume = False)
 			If Not $bCurrentStatus Then SetLog("Timer to stop is set at: " & $iTimerStop & ":00hrs. It's time to stop!", $COLOR_SUCCESS)
 		EndIf
 	EndIf
-	SetDebugLog("@HOUR: " & @HOUR & ", $bCurrentStatus: " & $bCurrentStatus & ", $abStop[$g_iCurAccount]: " & $abStop[$g_iCurAccount])
+	;~ SetDebugLog("@HOUR: " & @HOUR & ", $bCurrentStatus: " & $bCurrentStatus & ", $abStop[$g_iCurAccount]: " & $abStop[$g_iCurAccount])
 	Return $abStop[$g_iCurAccount]
 EndFunc   ;==>StopAndResumeTimer

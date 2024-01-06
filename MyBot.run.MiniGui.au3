@@ -146,7 +146,7 @@ Func UpdateBotTitle($sTitle = "My Bot " & $g_sBotVersion)
 	TraySetToolTip($g_sBotTitle)
 	GUISetIcon($g_sLibIconPath, $eIcnGUI)
 
-	SetDebugLog("Bot title updated to: " & $g_sBotTitle)
+	;~ SetDebugLog("Bot title updated to: " & $g_sBotTitle)
 EndFunc   ;==>UpdateBotTitle
 
 Func _SleepMilli($iMilliSec)
@@ -162,7 +162,7 @@ Func ProcessCommandLine()
 
 	; Handle Command Line Launch Options and fill $g_asCmdLine
 	If $CmdLine[0] > 0 Then
-		SetDebugLog("Full Command Line: " & _ArrayToString($CmdLine, " "))
+		;~ SetDebugLog("Full Command Line: " & _ArrayToString($CmdLine, " "))
 		For $i = 1 To $CmdLine[0]
 			Local $bOptionDetected = True
 			Switch $CmdLine[$i]
@@ -198,7 +198,7 @@ Func ProcessCommandLine()
 						If ProcessExists($guidpid) Then
 							$g_iGuiPID = $guidpid
 						Else
-							SetDebugLog("GUI Process doesn't exist: " & $guidpid)
+							;~ SetDebugLog("GUI Process doesn't exist: " & $guidpid)
 						EndIf
 					Else
 						$bOptionDetected = False
@@ -329,7 +329,7 @@ Func UpdateAndroidConfig($instance = Default, $emulator = Default)
 	If $emulator <> Default Then SetLog("Unknown Android Emulator " & $emulator, $COLOR_RED)
 	If $instance = "" Then $instance = Default
 	If $instance = Default Then $instance = $g_avAndroidAppConfig[$g_iAndroidConfig][1]
-	SetDebugLog("UpdateAndroidConfig(""" & $instance & """)")
+	;~ SetDebugLog("UpdateAndroidConfig(""" & $instance & """)")
 
 	InitAndroidConfig(False)
 	$g_sAndroidInstance = $instance ; Clone or instance of emulator or "" if not supported/default instance
@@ -344,7 +344,7 @@ Func UpdateAndroidConfig($instance = Default, $emulator = Default)
 	; validate install and initialize Android variables
 	Local $Result = InitAndroid(False, False)
 
-	SetDebugLog("UpdateAndroidConfig(""" & $instance & """) END")
+	;~ SetDebugLog("UpdateAndroidConfig(""" & $instance & """) END")
 	Return $Result
 EndFunc   ;==>UpdateAndroidConfig
 
@@ -383,7 +383,7 @@ Func InitAndroid($bCheckOnly = False, $bLogChangesOnly = True)
 			, ($g_bChkBackgroundMode = True ? "enabled" : "disabled") _
 			, $g_bNoFocusTampering _
 			]
-	SetDebugLog("InitAndroid(" & $bCheckOnly & "): " & $g_sAndroidEmulator)
+	;~ SetDebugLog("InitAndroid(" & $bCheckOnly & "): " & $g_sAndroidEmulator)
 
 	If Not $bCheckOnly Then
 		; Check that $g_sAndroidInstance default instance is used for ""
@@ -409,9 +409,9 @@ Func InitAndroid($bCheckOnly = False, $bLogChangesOnly = True)
 			Local $sFileOnly = StringMid($g_sAndroidProgramPath, StringInStr($g_sAndroidProgramPath, "\", 0, -1) + 1)
 			Local $aResult = DllCall("Wer.dll", "int", "WerAddExcludedApplication", "wstr", $sFileOnly, "bool", True)
 			If (UBound($aResult) > 0 And $aResult[0] = $S_OK) Or RegWrite($g_sHKLM & "\Software\Microsoft\Windows\Windows Error Reporting\ExcludedApplications", $sFileOnly, "REG_DWORD", "1") = 1 Then
-				SetDebugLog("Disabled WerFault for " & $sFileOnly)
+				;~ SetDebugLog("Disabled WerFault for " & $sFileOnly)
 			Else
-				SetDebugLog("Cannot disable WerFault for " & $sFileOnly)
+				;~ SetDebugLog("Cannot disable WerFault for " & $sFileOnly)
 			EndIf
 		EndIf
 
@@ -474,7 +474,7 @@ Func InitAndroid($bCheckOnly = False, $bLogChangesOnly = True)
 	Else
 		If $bCheckOnly = False Then $g_bInitAndroid = True
 	EndIf
-	SetDebugLog("InitAndroid(" & $bCheckOnly & "): " & $g_sAndroidEmulator & " END, initialization successful = " & $successful & ", result = " & $Result)
+	;~ SetDebugLog("InitAndroid(" & $bCheckOnly & "): " & $g_sAndroidEmulator & " END, initialization successful = " & $successful & ", result = " & $Result)
 	$g_bInitAndroidActive = False
 	Return $Result
 EndFunc   ;==>InitAndroid
@@ -545,7 +545,7 @@ Func BotMinimizeRestore($bMinimize, $sCaller, $iForceUpdatingWhenMinimized = Fal
 			;ReleaseMutex($hMutex)
 			Return False
 		EndIf
-		SetDebugLog("Minimize bot window, caller: " & $sCaller, Default, True)
+		;~ SetDebugLog("Minimize bot window, caller: " & $sCaller, Default, True)
 		$g_bFrmBotMinimized = True
 		If $g_bUpdatingWhenMinimized Or $iForceUpdatingWhenMinimized = True Then
 			If $g_bHideWhenMinimized Then
@@ -568,7 +568,7 @@ Func BotMinimizeRestore($bMinimize, $sCaller, $iForceUpdatingWhenMinimized = Fal
 	EndIf
 
 	If $siStayMinimizedMillis > 0 And __TimerDiff($shStayMinimizedTimer) < $siStayMinimizedMillis Then
-		SetDebugLog("Prevent Bot Window Restore")
+		;~ SetDebugLog("Prevent Bot Window Restore")
 		Return False
 	Else
 		$siStayMinimizedMillis = 0
@@ -580,7 +580,7 @@ Func BotMinimizeRestore($bMinimize, $sCaller, $iForceUpdatingWhenMinimized = Fal
 	Local $botPosX = ($g_bAndroidEmbedded = False ? $g_iFrmBotPosX : $g_iFrmBotDockedPosX)
 	Local $botPosY = ($g_bAndroidEmbedded = False ? $g_iFrmBotPosY : $g_iFrmBotDockedPosY)
 	Local $aPos = [$botPosX, $botPosY]
-	SetDebugLog("Restore bot window to " & $botPosX & ", " & $botPosY & ", caller: " & $sCaller, Default, True)
+	;~ SetDebugLog("Restore bot window to " & $botPosX & ", " & $botPosY & ", caller: " & $sCaller, Default, True)
 	Local $iExStyle = _WinAPI_GetWindowLong($g_hFrmBot, $GWL_EXSTYLE)
 	If BitAND($iExStyle, $WS_EX_TOOLWINDOW) Then
 		WinMove2($g_hFrmBot, "", -1, -1, -1, -1, 0, $SWP_HIDEWINDOW, False)
@@ -592,7 +592,7 @@ Func BotMinimizeRestore($bMinimize, $sCaller, $iForceUpdatingWhenMinimized = Fal
 	_WinAPI_SetActiveWindow($g_hFrmBot)
 	_WinAPI_SetFocus($g_hFrmBot)
 	If _CheckWindowVisibility($g_hFrmBot, $aPos) Then
-		SetDebugLog("Bot Window '" & $g_sAndroidTitle & "' not visible, moving to position: " & $aPos[0] & ", " & $aPos[1])
+		;~ SetDebugLog("Bot Window '" & $g_sAndroidTitle & "' not visible, moving to position: " & $aPos[0] & ", " & $aPos[1])
 		WinMove2($g_hFrmBot, "", $aPos[0], $aPos[1])
 	EndIf
 	WinSetTrans($g_hFrmBot, "", 255) ; is set to 1 when "Hide when minimized" is enabled after some time, so restore it
@@ -703,10 +703,10 @@ Func OpenURL_Label($LabelCtrlID)
 		$url = _GUIToolTip_GetText($g_hToolTip, 0, GUICtrlGetHandle($LabelCtrlID))
 	EndIf
 	If StringInStr($url, "http") = 1 Then
-		SetDebugLog("Open URL: " & $url)
+		;~ SetDebugLog("Open URL: " & $url)
 		ShellExecute($url) ;open web site when clicking label
 	Else
-		SetDebugLog("Cannot open URL for Control ID " & $LabelCtrlID, $COLOR_ERROR)
+		;~ SetDebugLog("Cannot open URL for Control ID " & $LabelCtrlID, $COLOR_ERROR)
 	EndIf
 EndFunc   ;==>OpenURL_Label
 
@@ -720,7 +720,7 @@ Func GUIEvents()
 	Local $wasAllowed = $g_bTogglePauseAllowed
 	$g_bTogglePauseAllowed = False
 	Local $GUI_CtrlId = @GUI_CtrlId
-	SetDebugLog("GUIEvents: " & $GUI_CtrlId, Default, True)
+	;~ SetDebugLog("GUIEvents: " & $GUI_CtrlId, Default, True)
 	If $g_bFrmBotMinimized And $GUI_CtrlId = $GUI_EVENT_MINIMIZE Then
 		; restore
 		If $g_iDebugWindowMessages Then SetDebugLog("$GUI_EVENT_MINIMIZE changed to $GUI_EVENT_RESTORE", Default, True)
@@ -841,12 +841,12 @@ Func GUIControl_WM_MOVE($hWind, $iMsg, $wParam, $lParam)
 			EndIf
 			If $g_iDebugWindowMessages Then
 				Local $a = $g_iFrmBotPos
-				SetDebugLog("Bot Position: " & $a[0] & "," & $a[1] & " " & $a[2] & "x" & $a[3])
+				;~ SetDebugLog("Bot Position: " & $a[0] & "," & $a[1] & " " & $a[2] & "x" & $a[3])
 				$a = WinGetPos($g_hAndroidWindow)
-				SetDebugLog("Android Position: " & $a[0] & "," & $a[1] & " " & $a[2] & "x" & $a[3])
+				;~ SetDebugLog("Android Position: " & $a[0] & "," & $a[1] & " " & $a[2] & "x" & $a[3])
 				If $g_hFrmBotEmbeddedMouse <> 0 Then
 					$a = WinGetPos($g_hFrmBotEmbeddedMouse)
-					SetDebugLog("Mouse Window Position: " & $a[0] & "," & $a[1] & " " & $a[2] & "x" & $a[3])
+					;~ SetDebugLog("Mouse Window Position: " & $a[0] & "," & $a[1] & " " & $a[2] & "x" & $a[3])
 				EndIf
 			EndIf
 		EndIf
@@ -1025,7 +1025,7 @@ Func tiExit()
 EndFunc   ;==>tiExit
 
 Func BotStarted()
-	SetDebugLog("Bot started")
+	;~ SetDebugLog("Bot started")
 	GUICtrlSetState($g_hBtnStart, $GUI_HIDE)
 	GUICtrlSetState($g_hBtnStop, $GUI_SHOW)
 	GUICtrlSetState($g_hBtnPause, $g_bBotPaused ? $GUI_HIDE : $GUI_SHOW)
@@ -1050,7 +1050,7 @@ Func BotStarted()
 EndFunc   ;==>BotStarted
 
 Func BotStopped()
-	SetDebugLog("Bot stopped")
+	;~ SetDebugLog("Bot stopped")
 	GUICtrlSetState($g_hChkBackgroundMode, $GUI_ENABLE)
 	GUICtrlSetState($g_hBtnStart, $GUI_SHOW)
 	GUICtrlSetState($g_hBtnStop, $GUI_HIDE)
@@ -1083,7 +1083,7 @@ Func BotStopped()
 EndFunc   ;==>BotStopped
 
 Func BotPaused()
-	SetDebugLog("Bot paused")
+	;~ SetDebugLog("Bot paused")
 	GUICtrlSetState($g_hBtnPause, $GUI_HIDE)
 	GUICtrlSetState($g_hBtnResume, $GUI_SHOW)
 	TrayItemSetText($g_hTiPause, GetTranslatedFileIni("MBR GUI Design - Loading", "StatusBar_Item_Resume", "Resume bot"))
@@ -1092,7 +1092,7 @@ Func BotPaused()
 EndFunc   ;==>BotPaused
 
 Func BotResumed()
-	SetDebugLog("Bot resumed")
+	;~ SetDebugLog("Bot resumed")
 	GUICtrlSetState($g_hBtnPause, $GUI_SHOW)
 	GUICtrlSetState($g_hBtnResume, $GUI_HIDE)
 	TrayItemSetText($g_hTiPause, GetTranslatedFileIni("MBR GUI Design - Loading", "StatusBar_Item_Pause", "Pause bot"))
@@ -1252,14 +1252,14 @@ Func LaunchBotBackend($bNoGUI = True)
 		If $g_WatchOnlyClientPID = Default And __TimerDiff($hTimer) > $g_iBotBackendFindTimeout Then
 			$bCheck = False
 			SetLog("My Bot backend process not found, launching now...")
-			SetDebugLog("My Bot backend process launching: " & $cmd)
+			;~ SetDebugLog("My Bot backend process launching: " & $cmd)
 			$pid = Run($cmd, @ScriptDir)
 			If $pid = 0 Then
 				SetLog("Cannot launch My Bot backend process", $COLOR_RED)
 				Return 0
 			EndIf
 			If $g_iDebugSetlog Then
-				SetDebugLog("My Bot backend process launched, PID = " & $pid)
+				;~ SetDebugLog("My Bot backend process launched, PID = " & $pid)
 			Else
 				SetLog("My Bot backend process launched")
 			EndIf
@@ -1277,7 +1277,7 @@ Func LaunchBotBackend($bNoGUI = True)
 			EndIf
 		Else
 			If $g_WatchOnlyClientPID <> Default And ProcessExists($g_WatchOnlyClientPID) = 0 Then
-				SetDebugLog("My Bot backend process not launched, PID = " & $g_WatchOnlyClientPID)
+				;~ SetDebugLog("My Bot backend process not launched, PID = " & $g_WatchOnlyClientPID)
 				$g_WatchOnlyClientPID = Default
 			EndIf
 		EndIf

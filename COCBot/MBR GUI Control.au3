@@ -152,10 +152,10 @@ Func UpdateFrmBotStyle()
 		$bChanged = True
 		If $ShowMinimize Then
 			$lNewStyle = BitOR($lCurStyle, $lStyle)
-			SetDebugLog("Show Bot Minimize Button")
+			;~ SetDebugLog("Show Bot Minimize Button")
 		Else
 			$lNewStyle = BitAND($lCurStyle, BitNOT($lStyle))
-			SetDebugLog("Hide Bot Minimize Button")
+			;~ SetDebugLog("Hide Bot Minimize Button")
 		EndIf
 		_WinAPI_SetWindowLong($g_hFrmBot, $GWL_STYLE, $lNewStyle)
 	EndIf
@@ -331,7 +331,7 @@ Func GUIControl_WM_MOUSE($hWin, $iMsg, $wParam, $lParam)
 			EndIf
 		Case $WM_LBUTTONUP, $WM_RBUTTONUP
 			If $g_iDebugWindowMessages Then
-				SetDebugLog("GUIControl_WM_MOUSE: " & ($iMsg = $WM_LBUTTONUP ? "$WM_LBUTTONUP" : "$WM_RBUTTONUP") & " $hWin=" & $hWin & ",$iMsg=" & $iMsg & ",$wParam=" & $wParam & ",$lParam=" & $lParam & ", X=" & $x & ", Y=" & $y, Default, True)
+				;~ SetDebugLog("GUIControl_WM_MOUSE: " & ($iMsg = $WM_LBUTTONUP ? "$WM_LBUTTONUP" : "$WM_RBUTTONUP") & " $hWin=" & $hWin & ",$iMsg=" & $iMsg & ",$wParam=" & $wParam & ",$lParam=" & $lParam & ", X=" & $x & ", Y=" & $y, Default, True)
 			EndIf
 			If AndroidShieldHasFocus() = False Then
 				; set focus to text box
@@ -463,16 +463,16 @@ Func GUIControl_WM_COMMAND($hWind, $iMsg, $wParam, $lParam)
 			$Focused = ControlGetFocus($hWind)
 			If $Focused = "Edit15" Then
 				HotKeySet("{enter}", "btnRunFunction")
-				;SetDebugLog("inputRunFunction Focused", Default, True)
+				;;~ SetDebugLog("inputRunFunction Focused", Default, True)
 			Else
 				HotKeySet("{enter}")
-				;SetDebugLog("inputRunFunction not Focused: " & $Focused, Default, True)
+				;;~ SetDebugLog("inputRunFunction not Focused: " & $Focused, Default, True)
 			EndIf
 
 		Case $g_hDivider
 			;MoveDivider()
 			$g_bMoveDivider = True
-			SetDebugLog("MoveDivider active", Default, True)
+			;~ SetDebugLog("MoveDivider active", Default, True)
 		Case $g_hLblBotShrink, $g_hLblBotExpand
 			BotShrinkExpandToggle()
 		Case $g_hLblBotMinimize
@@ -684,12 +684,12 @@ Func GUIControl_WM_MOVE($hWind, $iMsg, $wParam, $lParam)
 			EndIf
 			If $g_iDebugWindowMessages Then
 				Local $a = $g_iFrmBotPos
-				SetDebugLog("Bot Position: " & $a[0] & "," & $a[1] & " " & $a[2] & "x" & $a[3])
+				;~ SetDebugLog("Bot Position: " & $a[0] & "," & $a[1] & " " & $a[2] & "x" & $a[3])
 				$a = WinGetPos($g_hAndroidWindow)
-				SetDebugLog("Android Position: " & $a[0] & "," & $a[1] & " " & $a[2] & "x" & $a[3])
+				;~ SetDebugLog("Android Position: " & $a[0] & "," & $a[1] & " " & $a[2] & "x" & $a[3])
 				If $g_hFrmBotEmbeddedMouse <> 0 Then
 					$a = WinGetPos($g_hFrmBotEmbeddedMouse)
-					SetDebugLog("Mouse Window Position: " & $a[0] & "," & $a[1] & " " & $a[2] & "x" & $a[3])
+					;~ SetDebugLog("Mouse Window Position: " & $a[0] & "," & $a[1] & " " & $a[2] & "x" & $a[3])
 				EndIf
 			EndIf
 		EndIf
@@ -822,10 +822,10 @@ Func OpenURL_Label($LabelCtrlID)
 		$url = _GUIToolTip_GetText($g_hToolTip, 0, GUICtrlGetHandle($LabelCtrlID))
 	EndIf
 	If StringInStr($url, "http") = 1 Then
-		SetDebugLog("Open URL: " & $url)
+		;~ SetDebugLog("Open URL: " & $url)
 		ShellExecute($url) ;open web site when clicking label
 	Else
-		SetDebugLog("Cannot open URL for Control ID " & $LabelCtrlID, $COLOR_ERROR)
+		;~ SetDebugLog("Cannot open URL for Control ID " & $LabelCtrlID, $COLOR_ERROR)
 	EndIf
 EndFunc   ;==>OpenURL_Label
 
@@ -846,7 +846,7 @@ Func CheckBotZOrder($bCheckOnly = False, $bForceZOrder = False)
 			Local $bCheck = ($bForceZOrder Or _WinAPI_GetWindow($hCtrlTarget, $GW_HWNDNEXT) <>  $g_hAndroidWindow)
 			If $bCheckOnly Then Return $bCheck
 			If $bCheck Then
-				SetDebugLog("CheckBotZOrder: Ajust docked Android Window")
+				;~ SetDebugLog("CheckBotZOrder: Ajust docked Android Window")
 				WinMove2($g_hAndroidWindow, "", -1, -1, -1, -1, $hCtrlTarget, 0, False) ; place URL Small Window after (behind) bot
 			EndIf
 			Return $bCheck
@@ -858,7 +858,7 @@ Func CheckBotZOrder($bCheckOnly = False, $bForceZOrder = False)
 		Local $bCheck = $hWinBehindButtons And ($bForceZOrder Or _WinAPI_GetWindow($g_hFrmBotLogoUrlSmall, $GW_HWNDNEXT) <> $g_hFrmBotButtons Or _WinAPI_GetWindow($g_hFrmBotButtons, $GW_HWNDNEXT) <> $hWinBehindButtons)
 		If $bCheckOnly Then Return $bCheck
 		If $bCheck Then
-			SetDebugLog("CheckBotZOrder: Ajust windows Z Order for custom window")
+			;~ SetDebugLog("CheckBotZOrder: Ajust windows Z Order for custom window")
 			; ensure buttons are visible in in right Z Order
 			If $bForceZOrder Then
 				WinMove2($g_hFrmBot, "", -1, -1, -1, -1, $HWND_TOPMOST, 0, False)
@@ -881,7 +881,7 @@ Func CheckBotZOrder($bCheckOnly = False, $bForceZOrder = False)
 		Local $bCheck = $hTopWin And ($bForceZOrder Or _WinAPI_GetWindow($hTopWin, $GW_HWNDNEXT) <> $g_hFrmBot)
 		If $bCheckOnly Then Return $bCheck
 		If $bCheck Then
-			SetDebugLog("CheckBotZOrder: Ajust windows Z Order for standard window")
+			;~ SetDebugLog("CheckBotZOrder: Ajust windows Z Order for standard window")
 			; ensure buttons are visible in in right Z Order
 			If $bForceZOrder Then
 				WinMove2($g_hFrmBot, "", -1, -1, -1, -1, $HWND_TOPMOST, 0, False)
@@ -903,7 +903,7 @@ Func CheckBotShrinkExpandButton($bCheckOnlyParent = False)
 	Local $bInconsistent = False
 	If $g_bAndroidEmbedded = False And $g_bBotDockedShrinked Then
 		; inconsistent state
-		SetDebugLog("Bot Buttons inconsistent state", $COLOR_ERROR)
+		;~ SetDebugLog("Bot Buttons inconsistent state", $COLOR_ERROR)
 		$bInconsistent = True
 		$bCheckOnlyParent = False
 		$g_bBotDockedShrinked = False
@@ -934,7 +934,7 @@ Func CheckBotShrinkExpandButton($bCheckOnlyParent = False)
 					$x = $abs_x
 					$y = $abs_y
 					If BitAND($iStyle, $WS_POPUP) <> $WS_POPUP Then
-						SetDebugLog("Detach Bot Buttons")
+						;~ SetDebugLog("Detach Bot Buttons")
 						;_WinAPI_SetParent($g_hFrmBotButtons, 0)
 						$bBottonsHidden = True
 						GUISetState(@SW_HIDE, $g_hFrmBotButtons)
@@ -961,7 +961,7 @@ Func CheckBotShrinkExpandButton($bCheckOnlyParent = False)
 			EndIf
 		EndIf
 		If (Not $g_bAndroidEmbedded Or Not $g_bBotDockedShrinked) And BitAND($iStyle, $WS_POPUP) = $WS_POPUP Then
-			SetDebugLog("Integrate Bot Buttons")
+			;~ SetDebugLog("Integrate Bot Buttons")
 			$bBottonsHidden = True
 			If Not $bInconsistent Then GUISetState(@SW_HIDE, $g_hFrmBotButtons)
 			_WinAPI_SetParent($g_hFrmBotButtons, $g_hFrmBot)
@@ -985,7 +985,7 @@ Func CheckBotShrinkExpandButton($bCheckOnlyParent = False)
 		EndIf
 		If $bCheckOnlyParent Then Return False
 		If $x <> $aPos[0] Or $y <> $aPos[1] Or $bInconsistent Then
-			SetDebugLog("Move Bot Buttons: " & $x & ", " & $y)
+			;~ SetDebugLog("Move Bot Buttons: " & $x & ", " & $y)
 			If $bDetached Then
 				WinMove2($g_hFrmBotButtons, "", $x, $y, -1, -1, $HWND_TOPMOST, 0, False)
 				WinMove2($g_hFrmBotButtons, "", $x, $y, -1, -1, $HWND_NOTOPMOST, 0, False)
@@ -1021,13 +1021,13 @@ Func BotShrinkExpandToggleExecute()
 	If $g_hFrmBotButtons = 0 Then Return False
 	If $g_iBotAction = $eBotClose Then Return False
 	If $g_bAndroidEmbedded = False Then
-		SetDebugLog("BotShrinkExpandToggle: Android not docked")
+		;~ SetDebugLog("BotShrinkExpandToggle: Android not docked")
 		$g_bBotShrinkExpandToggleRequested = False
 		Return False
 	EndIf
 	Local $aPos = WinGetPos($g_hFrmBot)
 	If UBound($aPos) < 4 Then
-		SetDebugLog("BotShrinkExpandToggle: Bot Window not accessible")
+		;~ SetDebugLog("BotShrinkExpandToggle: Bot Window not accessible")
 		$g_bBotShrinkExpandToggleRequested = False
 		Return False
 	EndIf
@@ -1092,7 +1092,7 @@ Func BotShrinkExpandToggleExecute()
 	GUISetState(@SW_SHOWNOACTIVATE, $g_hFrmBotEx)
 	GUISetState(@SW_SHOWNOACTIVATE, $g_hFrmBotBottom)
 	If $g_bBotDockedShrinked Then CheckBotShrinkExpandButton()
-	SetDebugLog("BotShrinkExpandToggle: Bot " & (($g_bBotDockedShrinked) ? ("collapsed") : ("expanded")))
+	;~ SetDebugLog("BotShrinkExpandToggle: Bot " & (($g_bBotDockedShrinked) ? ("collapsed") : ("expanded")))
 	$g_bAndroidShieldEnabled = $bAndroidShieldEnabled
 	$g_bBotShrinkExpandToggleRequested = False
 	Return True
@@ -1180,7 +1180,7 @@ Func BotGuiModeToggle()
 
 			; destroy windows
 			For $hGUI In $g_oGuiNotInMini
-				SetDebugLog("GUIDelete: " & $hGUI)
+				;~ SetDebugLog("GUIDelete: " & $hGUI)
 				GUIDelete($hGUI)
 			Next
 			$g_oGuiNotInMini.RemoveAll
@@ -1269,7 +1269,7 @@ Func GUIControl_WM_MPAINT($hWin, $iMsg, $wParam, $lParam)
 	Local $wasCritical = SetCriticalMessageProcessing(True)
 	Local $wasAllowed = $g_bTogglePauseAllowed
 	$g_bTogglePauseAllowed = False
-	SetDebugLog("GUIControl_WM_MPAINT: $hWin=" & $hWin & ",$iMsg=" & $iMsg & ",$wParam=" & $wParam & ",$lParam=" & $lParam, Default, True)
+	;~ SetDebugLog("GUIControl_WM_MPAINT: $hWin=" & $hWin & ",$iMsg=" & $iMsg & ",$wParam=" & $wParam & ",$lParam=" & $lParam, Default, True)
 
 	$g_bTogglePauseAllowed = $wasAllowed
 	SetCriticalMessageProcessing($wasCritical)
@@ -1382,7 +1382,7 @@ Func BotMinimizeRestore($bMinimize, $sCaller, $iForceUpdatingWhenMinimized = Fal
 			;ReleaseMutex($hMutex)
 			Return False
 		EndIf
-		SetDebugLog("Minimize bot window, caller: " & $sCaller, Default, True)
+		;~ SetDebugLog("Minimize bot window, caller: " & $sCaller, Default, True)
 		$g_bFrmBotMinimized = True
 		If $g_bUpdatingWhenMinimized Or $iForceUpdatingWhenMinimized = True Then
 			If $g_bHideWhenMinimized Then
@@ -1409,7 +1409,7 @@ Func BotMinimizeRestore($bMinimize, $sCaller, $iForceUpdatingWhenMinimized = Fal
 	; Restore Bot
 
 	If $siStayMinimizedMillis > 0 And __TimerDiff($shStayMinimizedTimer) < $siStayMinimizedMillis Then
-		SetDebugLog("Prevent Bot Window Restore")
+		;~ SetDebugLog("Prevent Bot Window Restore")
 		Return False
 	Else
 		$siStayMinimizedMillis = 0
@@ -1421,7 +1421,7 @@ Func BotMinimizeRestore($bMinimize, $sCaller, $iForceUpdatingWhenMinimized = Fal
 	Local $botPosX = ($g_bAndroidEmbedded = False ? $g_iFrmBotPosX : $g_iFrmBotDockedPosX)
 	Local $botPosY = ($g_bAndroidEmbedded = False ? $g_iFrmBotPosY : $g_iFrmBotDockedPosY)
 	Local $aPos = [$botPosX, $botPosY]
-	SetDebugLog("Restore bot window to " & $botPosX & ", " & $botPosY & ", caller: " & $sCaller, Default, True)
+	;~ SetDebugLog("Restore bot window to " & $botPosX & ", " & $botPosY & ", caller: " & $sCaller, Default, True)
 	Local $iExStyle = _WinAPI_GetWindowLong($g_hFrmBot, $GWL_EXSTYLE)
 	If BitAND($iExStyle, $WS_EX_TOOLWINDOW) Then
 		WinMove2($g_hFrmBot, "", -1, -1, -1, -1, 0, $SWP_HIDEWINDOW, False)
@@ -1433,7 +1433,7 @@ Func BotMinimizeRestore($bMinimize, $sCaller, $iForceUpdatingWhenMinimized = Fal
 	;_WinAPI_SetActiveWindow($g_hFrmBot)
 	;_WinAPI_SetFocus($g_hFrmBot)
 	If _CheckWindowVisibility($g_hFrmBot, $aPos) Then
-		SetDebugLog("Bot Window '" & $g_sAndroidTitle & "' not visible, moving to position: " & $aPos[0] & ", " & $aPos[1])
+		;~ SetDebugLog("Bot Window '" & $g_sAndroidTitle & "' not visible, moving to position: " & $aPos[0] & ", " & $aPos[1])
 		WinMove2($g_hFrmBot, "", $aPos[0], $aPos[1])
 	EndIf
 	WinSetTrans($g_hFrmBot, "", 255) ; is set to 1 when "Hide when minimized" is enabled after some time, so restore it
@@ -1547,7 +1547,7 @@ Func SetRedrawBotWindow($bEnableRedraw, $bCheckRedrawBotWindow = Default, $bForc
 			CheckRedrawBotWindow($bForceRedraw, $RedrawControlIDs, $sSource)
 		EndIf
 	Else
-		SetDebugLog("Disable MyBot Window Redraw" & (($sSource <> "") ? (": " & $sSource) : ("")))
+		;~ SetDebugLog("Disable MyBot Window Redraw" & (($sSource <> "") ? (": " & $sSource) : ("")))
 		; set dirty redraw flag
 		$g_bRedrawBotWindow[1] = True
 	EndIf
@@ -1572,12 +1572,12 @@ Func CheckRedrawBotWindow($bForceRedraw = Default, $RedrawControlIDs = Default, 
 		; Redraw bot window
 		If $RedrawControlIDs = Default Then
 			; redraw entire window
-			SetDebugLog("Redraw MyBot Window" & ($bForceRedraw ? " (forced)" : "") & (($sSource <> "") ? (": " & $sSource) : (""))) ; enable logging to debug GUI redraw
+			;~ SetDebugLog("Redraw MyBot Window" & ($bForceRedraw ? " (forced)" : "") & (($sSource <> "") ? (": " & $sSource) : (""))) ; enable logging to debug GUI redraw
 			_WinAPI_RedrawWindow($g_hFrmBotEx, 0, 0, BitOR($RDW_INVALIDATE, $RDW_ALLCHILDREN, $RDW_ERASE))
 		Else
 			; redraw only specified control(s)
 			If IsArray($RedrawControlIDs) Then
-				SetDebugLog("Redraw MyBot ControlIds" & ($bForceRedraw ? " (forced)" : "") & ": " & _ArrayToString($RedrawControlIDs, ", "))
+				;~ SetDebugLog("Redraw MyBot ControlIds" & ($bForceRedraw ? " (forced)" : "") & ": " & _ArrayToString($RedrawControlIDs, ", "))
 				Local $c
 				For $c In $RedrawControlIDs
 					If ControlRedraw($g_hFrmBot, $c) = 0 Then
@@ -1586,7 +1586,7 @@ Func CheckRedrawBotWindow($bForceRedraw = Default, $RedrawControlIDs = Default, 
 					EndIf
 				Next
 			Else
-				SetDebugLog("Redraw MyBot ControlId" & ($bForceRedraw ? " (forced)" : "") & ": " & $RedrawControlIDs)
+				;~ SetDebugLog("Redraw MyBot ControlId" & ($bForceRedraw ? " (forced)" : "") & ": " & $RedrawControlIDs)
 				If ControlRedraw($g_hFrmBot, $RedrawControlIDs) = 0 Then
 					_WinAPI_RedrawWindow($g_hFrmBotEx, 0, 0, BitOR($RDW_INVALIDATE, $RDW_ALLCHILDREN, $RDW_ERASE))
 				EndIf
@@ -1615,7 +1615,7 @@ EndFunc   ;==>CheckRedrawControls
 
 ; Just redraw the bot window with using any dedicated global variables... Use it only in special cases!
 Func RedrawBotWindowNow()
-	SetDebugLog("Redraw MyBot Window Now")
+	;~ SetDebugLog("Redraw MyBot Window Now")
 	_WinAPI_RedrawWindow($g_hFrmBot, 0, 0, BitOR($RDW_INVALIDATE, $RDW_ALLCHILDREN, $RDW_ERASE))
 	_WinAPI_UpdateWindow($g_hFrmBot)
 EndFunc   ;==>RedrawBotWindowNow
@@ -1624,12 +1624,12 @@ EndFunc   ;==>RedrawBotWindowNow
 Func ControlRedraw($hWin, $ConrolId)
 	Local $a = ControlGetPos($hWin, "", $ConrolId)
 	If IsArray($a) = 0 Then
-		SetDebugLog("ControlRedraw: Invalid ControlId: " & $ConrolId)
+		;~ SetDebugLog("ControlRedraw: Invalid ControlId: " & $ConrolId)
 		Return 0
 	EndIf
 	Local $hCtrl = (IsHWnd($ConrolId) ? $ConrolId : GUICtrlGetHandle($ConrolId))
 	Local $hWinParent = _WinAPI_GetParent($hCtrl)
-	SetDebugLog("Control ID " & $ConrolId & " handle: " & $hCtrl & " parent: " & $hWinParent & " $g_hFrmBot: " & $g_hFrmBot & " $g_hFrmBotEx: " & $g_hFrmBotEx & " Pos: " & $a[0] & ", " & $a[1] & ", " & $a[2] & ", " & $a[3], Default, True)
+	;~ SetDebugLog("Control ID " & $ConrolId & " handle: " & $hCtrl & " parent: " & $hWinParent & " $g_hFrmBot: " & $g_hFrmBot & " $g_hFrmBotEx: " & $g_hFrmBotEx & " Pos: " & $a[0] & ", " & $a[1] & ", " & $a[2] & ", " & $a[3], Default, True)
 	Local $left = $a[0]
 	Local $top = $a[1]
 	Local $width = $a[2]
@@ -1639,7 +1639,7 @@ Func ControlRedraw($hWin, $ConrolId)
 	DllStructSetData($tRECT, "Top", $top)
 	DllStructSetData($tRECT, "Right", $left + $width)
 	DllStructSetData($tRECT, "Bottom", $top + $height)
-	SetDebugLog("Control ID " & $ConrolId & " RedrawWindow Pos: " & $left & ", " & $top & ", " & $left + $width & ", " & $top + $height, Default, True)
+	;~ SetDebugLog("Control ID " & $ConrolId & " RedrawWindow Pos: " & $left & ", " & $top & ", " & $left + $width & ", " & $top + $height, Default, True)
 	_WinAPI_RedrawWindow($hWin, $tRECT, 0, BitOR($RDW_INVALIDATE, $RDW_ALLCHILDREN))
 	$tRECT = 0
 	Return 1
@@ -2297,9 +2297,9 @@ Func ConsoleWindow($bShow = Default)
 		_WinAPI_AllocConsole()
 		_WinAPI_SetConsoleIcon($g_sLibIconPath, $eIcnGUI)
 		$bConsoleAllocated = True
-		SetDebugLog("Allocate Console Window")
+		;~ SetDebugLog("Allocate Console Window")
 	Else
-		SetDebugLog("Free Console Window")
+		;~ SetDebugLog("Free Console Window")
 		_WinAPI_FreeConsole()
 		$bConsoleAllocated = False
 	EndIf

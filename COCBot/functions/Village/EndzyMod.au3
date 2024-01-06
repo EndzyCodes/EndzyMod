@@ -35,7 +35,7 @@ Func TestAttack() ;Endzy
 	$g_bAttackActive = True
 	SetLog(" ====== Start Attack ====== ", $COLOR_SUCCESS)
 	If ($g_iMatchMode = $DB And $g_aiAttackAlgorithm[$DB] = 1) Or ($g_iMatchMode = $LB And $g_aiAttackAlgorithm[$LB] = 1) Then
-		SetDebugLog("start scripted attack", $COLOR_ERROR)
+		;~ SetDebugLog("start scripted attack", $COLOR_ERROR)
 		Algorithm_AttackCSV()
 		If Not $g_bRunState Then Return
 		If _Sleep(20000) Then Return
@@ -46,13 +46,13 @@ Func TestAttack() ;Endzy
 		PureClick(440,480)
 		If _Sleep(1000) Then Return
 	ElseIf $g_iMatchMode = $DB And $g_aiAttackAlgorithm[$DB] = 2 Then
-		SetDebugLog("start smart farm attack", $COLOR_ERROR)
+		;~ SetDebugLog("start smart farm attack", $COLOR_ERROR)
 		; Variable to return : $Return[3]  [0] = To attack InSide  [1] = Quant. Sides  [2] = Name Sides
 		Local $Nside = ChkSmartFarm()
 		If Not $g_bRunState Then Return
 		AttackSmartFarm($Nside[1], $Nside[2])
 	Else
-		SetDebugLog("start standard attack", $COLOR_ERROR)
+		;~ SetDebugLog("start standard attack", $COLOR_ERROR)
 		algorithm_AllTroops()
 		If Not $g_bRunState Then Return
 		If _Sleep(15000) Then Return
@@ -383,7 +383,7 @@ Func SearchNoLeague($bCheckOneTime = False)
 	$bReturn = _WaitForCheckImg($g_sImgNoLeague, "3,4,47,53", Default, ($bCheckOneTime = False) ? (500) : (0))
 
 	If $g_bDebugSetlog Then
-		SetDebugLog("SearchNoLeague: Is no league? " & $bReturn, $COLOR_DEBUG)
+		;~ SetDebugLog("SearchNoLeague: Is no league? " & $bReturn, $COLOR_DEBUG)
 	EndIf
 
 	Return $bReturn

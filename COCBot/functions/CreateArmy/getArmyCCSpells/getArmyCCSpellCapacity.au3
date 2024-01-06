@@ -16,7 +16,7 @@
 
 Func getArmyCCSpellCapacity($bOpenArmyWindow = False, $bCloseArmyWindow = False, $bCheckWindow = True, $bSetLog = True, $bNeedCapture = True)
 	If $g_iTownHallLevel < 8 And $g_iTownHallLevel <> -1 Then
-		SetDebugLog("getArmyCCSpellCapacity(): Early exit because clan castle cannot fit spells", $COLOR_DEBUG)
+		;~ SetDebugLog("getArmyCCSpellCapacity(): Early exit because clan castle cannot fit spells", $COLOR_DEBUG)
 		Return
 	EndIf
 

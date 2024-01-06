@@ -22,13 +22,13 @@ Func MBRFunc($Start = True)
 				SetLog($g_sMBRLib & " not found.", $COLOR_ERROR)
 				Return False
 			EndIf
-			SetDebugLog($g_sMBRLib & " opened.")
+			;~ SetDebugLog($g_sMBRLib & " opened.")
 			; set processing pool size immediately
 			setProcessingPoolSize($g_iGlobalThreads)
 			setMaxDegreeOfParallelism($g_iThreads)
 		Case False
 			DllClose($g_hLibMyBot)
-			SetDebugLog($g_sMBRLib & " closed.")
+			;~ SetDebugLog($g_sMBRLib & " closed.")
 	EndSwitch
 EndFunc   ;==>MBRFunc
 
@@ -74,7 +74,7 @@ Func DllCallMyBot($sFunc, $sType1 = Default, $vParam1 = Default, $sType2 = Defau
 	While Not $error And $aResult[0] = "<GetAsyncResult>"
 		; when receiving "<GetAsyncResult>", dll waited already 100ms, and android should be resumed after 500ms for 100ms
 		If Mod($i + 5, 10) = 0 Then
-			SetDebugLog("Waiting for DLL async function " & $sFunc & " ...")
+			;~ SetDebugLog("Waiting for DLL async function " & $sFunc & " ...")
 			ResumeAndroid()
 		EndIf
 		$i += 1
@@ -96,7 +96,7 @@ Func DllCallMyBot($sFunc, $sType1 = Default, $vParam1 = Default, $sType2 = Defau
 EndFunc   ;==>DllCallMyBot
 
 Func debugMBRFunctions($iDebugSearchArea = 0, $iDebugRedArea = 0, $iDebugOcr = 0)
-	SetDebugLog("debugMBRFunctions: $iDebugSearchArea=" & $iDebugSearchArea & ", $iDebugRedArea=" & $iDebugRedArea & ", $giDebugOcr=" & $iDebugOcr)
+	;~ SetDebugLog("debugMBRFunctions: $iDebugSearchArea=" & $iDebugSearchArea & ", $iDebugRedArea=" & $iDebugRedArea & ", $giDebugOcr=" & $iDebugOcr)
 	Local $activeHWnD = WinGetHandle("")
 	Local $result = DllCall($g_hLibMyBot, "str", "setGlobalVar", "int", $iDebugSearchArea, "int", $iDebugRedArea, "int", $iDebugOcr)
 	If @error Then
@@ -107,14 +107,14 @@ Func debugMBRFunctions($iDebugSearchArea = 0, $iDebugRedArea = 0, $iDebugOcr = 0
 	If IsArray($result) Then
 		If $g_bDebugSetlog And $result[0] = -1 Then SetLog($g_sMBRLib & " error setting Global vars.", $COLOR_DEBUG)
 	Else
-		SetDebugLog($g_sMBRLib & " not found.", $COLOR_ERROR)
+		;~ SetDebugLog($g_sMBRLib & " not found.", $COLOR_ERROR)
 	EndIf
 	WinActivate($activeHWnD) ; restore current active window
 EndFunc   ;==>debugMBRFunctions
 
 Func setAndroidPID($pid = GetAndroidPid())
 	If $g_hLibMyBot = -1 Then Return ; Bot didn't finish launch yet
-	SetDebugLog("setAndroidPID: $pid=" & $pid)
+	;~ SetDebugLog("setAndroidPID: $pid=" & $pid)
 	Local $result = DllCall($g_hLibMyBot, "str", "setAndroidPID", "int", $pid, "str", $g_sBotVersion, "str", $g_sAndroidEmulator, "str", $g_sAndroidVersion, "str", $g_sAndroidInstance)
 	If @error Then
 		_logErrorDLLCall($g_sLibMyBotPath & ", setAndroidPID:", @error)
@@ -123,19 +123,19 @@ Func setAndroidPID($pid = GetAndroidPid())
 	;dll return 0 on success, -1 on error
 	If IsArray($result) Then
 		If $result[0] = "" Then
-			SetDebugLog($g_sMBRLib & " error setting Android PID.")
+			;~ SetDebugLog($g_sMBRLib & " error setting Android PID.")
 		Else
-			SetDebugLog("Android PID=" & $pid & " initialized: " & $result[0])
+			;~ SetDebugLog("Android PID=" & $pid & " initialized: " & $result[0])
 			debugMBRFunctions(0, $g_bDebugRedArea ? 1 : 0, $g_bDebugOcr ? 1 : 0) ; set debug levels
 		EndIf
 	Else
-		SetDebugLog($g_sMBRLib & " not found.", $COLOR_ERROR)
+		;~ SetDebugLog($g_sMBRLib & " not found.", $COLOR_ERROR)
 	EndIf
 EndFunc   ;==>setAndroidPID
 
 Func SetBotGuiPID($pid = $g_iGuiPID)
 	If $g_hLibMyBot = -1 Then Return ; Bot didn't finish launch yet
-	SetDebugLog("SetBotGuiPID: $pid=" & $pid)
+	;~ SetDebugLog("SetBotGuiPID: $pid=" & $pid)
 	Local $result = DllCall($g_hLibMyBot, "str", "SetBotGuiPID", "int", $pid)
 	If @error Then
 		_logErrorDLLCall($g_sLibMyBotPath & ", SetBotGuiPID:", @error)
@@ -144,13 +144,13 @@ Func SetBotGuiPID($pid = $g_iGuiPID)
 	;dll return 0 on success, -1 on error
 	If IsArray($result) Then
 		If $result[0] = "" Then
-			SetDebugLog($g_sMBRLib & " error setting Android PID.")
+			;~ SetDebugLog($g_sMBRLib & " error setting Android PID.")
 		Else
-			SetDebugLog("Bot GUI PID=" & $pid & " initialized: " & $result[0])
+			;~ SetDebugLog("Bot GUI PID=" & $pid & " initialized: " & $result[0])
 			;debugMBRFunctions($g_iDebugSearchArea, $g_iDebugRedArea, $g_iDebugOcr) ; set debug levels
 		EndIf
 	Else
-		SetDebugLog($g_sMBRLib & " not found.", $COLOR_ERROR)
+		;~ SetDebugLog($g_sMBRLib & " not found.", $COLOR_ERROR)
 	EndIf
 EndFunc   ;==>SetBotGuiPID
 
@@ -178,7 +178,7 @@ Func CheckForumAuthentication()
 			EndIf
 		EndIf
 	Else
-		SetDebugLog($g_sMBRLib & " not found.", $COLOR_ERROR)
+		;~ SetDebugLog($g_sMBRLib & " not found.", $COLOR_ERROR)
 	EndIf
 	Return $iAuthenticated
 EndFunc   ;==>CheckForumAuthentication
@@ -193,14 +193,14 @@ Func ForumLogin($sUsername, $sPassword)
 	;dll return string including access_token
 	If IsArray($result) Then
 		If StringInStr($result[0], '"access_token"') > 0 Then
-			SetDebugLog("Forum login successful, message length: " & StringLen($result[0]))
+			;~ SetDebugLog("Forum login successful, message length: " & StringLen($result[0]))
 			Return $result[0]
 		Else
-			SetDebugLog("Forum login failed, message: " & $result[0])
+			;~ SetDebugLog("Forum login failed, message: " & $result[0])
 			Return $result[0]
 		EndIf
 	Else
-		SetDebugLog($g_sMBRLib & " not found.", $COLOR_ERROR)
+		;~ SetDebugLog($g_sMBRLib & " not found.", $COLOR_ERROR)
 	EndIf
 EndFunc   ;==>ForumLogin
 
@@ -214,7 +214,7 @@ EndFunc   ;==>setVillageOffset
 Func setMaxDegreeOfParallelism($iMaxDegreeOfParallelism = 0)
 	Local $i = Int($iMaxDegreeOfParallelism)
 	If $i < 1 Then $i = 0
-	SetDebugLog("Threading: Using " & $i & " threads for parallelism")
+	;~ SetDebugLog("Threading: Using " & $i & " threads for parallelism")
 	If $i < 1 Then $i = -1
 	DllCall($g_hLibMyBot, "none", "setMaxDegreeOfParallelism", "int", $i) ;set PARALLELOPTIONS.MaxDegreeOfParallelism for multi-threaded operations
 EndFunc   ;==>setMaxDegreeOfParallelism
@@ -222,7 +222,7 @@ EndFunc   ;==>setMaxDegreeOfParallelism
 Func setProcessingPoolSize($iProcessingPoolSize = 0)
 	Local $i = Int($iProcessingPoolSize)
 	If $i < 1 Then $i = 0
-	SetDebugLog("Threading: Using " & $i & " threads shared across all bot instances")
+	;~ SetDebugLog("Threading: Using " & $i & " threads shared across all bot instances")
 	If $i < 1 Then $i = -1
 	DllCall($g_hLibMyBot, "none", "setProcessingPoolSize", "int", $i) ;set ProcessingPoolSize for multi-threaded operations (global number of used threads for ImgLoc for all bot instances)
 EndFunc   ;==>setProcessingPoolSize
@@ -235,7 +235,7 @@ Func ConvertVillagePos(ByRef $x, ByRef $y, $zoomfactor = 0)
 	If $g_hLibMyBot = -1 Then Return ; Bot didn't finish launch yet
 	Local $result = DllCall($g_hLibMyBot, "str", "ConvertVillagePos", "int", $x, "int", $y, "float", $zoomfactor)
 	If IsArray($result) = False Then
-		SetDebugLog("ConvertVillagePos result error", $COLOR_ERROR)
+		;~ SetDebugLog("ConvertVillagePos result error", $COLOR_ERROR)
 		Return ;exit if
 	EndIf
 	Local $a = StringSplit($result[0], "|")
@@ -249,7 +249,7 @@ Func ConvertToVillagePos(ByRef $x, ByRef $y, $zoomfactor = 0)
 	If $g_hLibMyBot = -1 Then Return ; Bot didn't finish launch yet
 	Local $result = DllCall($g_hLibMyBot, "str", "ConvertToVillagePos", "int", $x, "int", $y, "float", $zoomfactor)
 	If IsArray($result) = False Then
-		SetDebugLog("ConvertToVillagePos result error", $COLOR_ERROR)
+		;~ SetDebugLog("ConvertToVillagePos result error", $COLOR_ERROR)
 		Return ;exit if
 	EndIf
 	Local $a = StringSplit($result[0], "|")
@@ -263,7 +263,7 @@ Func ConvertFromVillagePos(ByRef $x, ByRef $y)
 	If $g_hLibMyBot = -1 Then Return ; Bot didn't finish launch yet
 	Local $result = DllCall($g_hLibMyBot, "str", "ConvertFromVillagePos", "int", $x, "int", $y)
 	If IsArray($result) = False Then
-		SetDebugLog("ConvertVillagePos result error", $COLOR_ERROR)
+		;~ SetDebugLog("ConvertVillagePos result error", $COLOR_ERROR)
 		Return ;exit if
 	EndIf
 	Local $a = StringSplit($result[0], "|")
@@ -292,9 +292,9 @@ Func RemoveZoneIdentifiers()
 				If $h Then
 					_WinAPI_CloseHandle($h)
 					If _WinAPI_DeleteFile($sStream) Then
-						SetDebugLog("Removed Zone.Identifier from file: " & $sStream)
+						;~ SetDebugLog("Removed Zone.Identifier from file: " & $sStream)
 					Else
-						SetDebugLog("Failed to remove Zone.Identifier from file: " & $sStream, $COLOR_ERROR)
+						;~ SetDebugLog("Failed to remove Zone.Identifier from file: " & $sStream, $COLOR_ERROR)
 					EndIf
 				EndIf
 			EndIf

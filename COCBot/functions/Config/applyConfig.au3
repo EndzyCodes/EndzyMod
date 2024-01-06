@@ -18,11 +18,11 @@ Func applyConfig($bRedrawAtExit = True, $TypeReadSave = "Read") ;Applies the dat
 	Static $iApplyConfigCount = 0
 	$iApplyConfigCount += 1
 	If $g_bApplyConfigIsActive Then
-		SetDebugLog("applyConfig(), already running, exit")
+		;~ SetDebugLog("applyConfig(), already running, exit")
 		Return
 	EndIf
 	$g_bApplyConfigIsActive = True
-	SetDebugLog("applyConfig(), " & $TypeReadSave & ", call number " & $iApplyConfigCount)
+	;~ SetDebugLog("applyConfig(), " & $TypeReadSave & ", call number " & $iApplyConfigCount)
 
 	setMaxDegreeOfParallelism($g_iThreads)
 	setProcessingPoolSize($g_iGlobalThreads)
@@ -1082,7 +1082,7 @@ Func ApplyConfig_600_16($TypeReadSave)
 	Switch $TypeReadSave
 		Case "Read"
 			For $iz = 0 To UBound($g_avBuildingUpgrades, 1) - 1 ; Apply the buildings upgrade variable to GUI
-				;SetDebugLog("Setting image to " & $g_aiPicUpgradeStatus[$iz])
+				;;~ SetDebugLog("Setting image to " & $g_aiPicUpgradeStatus[$iz])
 				;$eIcnTroops=43, $eIcnGreenLight=69, $eIcnRedLight=71 or $eIcnYellowLight=73
 				;I have no idea why this crap is necessary...
 				$j=$eIcnRedLight

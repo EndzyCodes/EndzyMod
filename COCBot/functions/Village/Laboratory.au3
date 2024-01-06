@@ -65,7 +65,7 @@ Func Laboratory($bDebug = False)
 			WEnd
 
 			; Get coords of upgrade the user wants
-			SetDebugLog("FindImage: " & $g_avLabTroops[$g_iCmbLaboratory][2])
+			;~ SetDebugLog("FindImage: " & $g_avLabTroops[$g_iCmbLaboratory][2])
 			Local $aCoords = decodeSingleCoord(findImage($g_avLabTroops[$g_iCmbLaboratory][2], $g_sImgLabResearch & $g_avLabTroops[$g_iCmbLaboratory][2] & "*", $sLabTroopsSectionDiam, 1, True))
 			If IsArray($aCoords) And UBound($aCoords) = 2 Then
 				If QuickMIS("BC1", $g_sImgResIcon, $aCoords[0], $aCoords[1], $aCoords[0] + 60, $aCoords[1] + 70) Then 
@@ -80,7 +80,7 @@ Func Laboratory($bDebug = False)
 					EndIf
 				EndIf
 			Else
-				SetDebugLog("Image " & $g_avLabTroops[$g_iCmbLaboratory][2] & " not found")
+				;~ SetDebugLog("Image " & $g_avLabTroops[$g_iCmbLaboratory][2] & " not found")
 			EndIf
 
 			If Not $bUpgradeFound Then
@@ -108,7 +108,7 @@ Func Laboratory($bDebug = False)
 						; Get coords of upgrade the user wants
 						If $iTmpCmbLaboratory < 47 Then ;all normal upgrade not AnySpell or AnySiege
 							$iPage = Ceiling($iTmpCmbLaboratory / $iPicsPerPage) ; page # of user choice
-							SetDebugLog("CurrentPage:" & $iCurPage & ", Go to Page:" & $iPage, $COLOR_INFO)
+							;~ SetDebugLog("CurrentPage:" & $iCurPage & ", Go to Page:" & $iPage, $COLOR_INFO)
 							While ($iCurPage > $iPage)
 								LabPrevPage($iCurPage)
 								$iCurPage -= 1 ;Prev Page
@@ -123,7 +123,7 @@ Func Laboratory($bDebug = False)
 								If $iPage = 4 Then _Sleep(1000)
 							WEnd
 						
-							SetDebugLog("FindImage: " & $g_avLabTroops[$iTmpCmbLaboratory][2])
+							;~ SetDebugLog("FindImage: " & $g_avLabTroops[$iTmpCmbLaboratory][2])
 							$aCoords = decodeSingleCoord(findImage($g_avLabTroops[$iTmpCmbLaboratory][2], $g_sImgLabResearch & $g_avLabTroops[$iTmpCmbLaboratory][2] & "*", $sLabTroopsSectionDiam, 1, True))
 							Local $aSiege = ["WallW", "BattleB", "StoneS", "SiegeB", "LogL", "FlameF", "BattleD"]
 							If IsArray($aCoords) And UBound($aCoords) = 2 Then
@@ -149,13 +149,13 @@ Func Laboratory($bDebug = False)
 									EndIf
 								EndIf
 							Else
-								SetDebugLog("Image " & $g_avLabTroops[$iTmpCmbLaboratory][2] & " not found")
+								;~ SetDebugLog("Image " & $g_avLabTroops[$iTmpCmbLaboratory][2] & " not found")
 							EndIf
 						Else
 							If $iTmpCmbLaboratory = 47 Then ;Any Spell
 								$iPage = 2
 								$bUpgradeFound = False
-								SetDebugLog("CurrentPage:" & $iCurPage & ", Go to Page:" & $iPage, $COLOR_INFO)
+								;~ SetDebugLog("CurrentPage:" & $iCurPage & ", Go to Page:" & $iPage, $COLOR_INFO)
 								While ($iCurPage > $iPage)
 									LabPrevPage($iCurPage)
 									$iCurPage -= 1 ;Prev Page
@@ -200,7 +200,7 @@ Func Laboratory($bDebug = False)
 							
 							If $iTmpCmbLaboratory = 48 Then ;Any Siege
 								$iPage = 4
-								SetDebugLog("CurrentPage:" & $iCurPage & ", Go to Page:" & $iPage, $COLOR_INFO)
+								;~ SetDebugLog("CurrentPage:" & $iCurPage & ", Go to Page:" & $iPage, $COLOR_INFO)
 								While ($iCurPage > $iPage)
 									LabPrevPage($iCurPage)
 									$iCurPage -= 1 ;Prev Page
@@ -257,11 +257,11 @@ Func Laboratory($bDebug = False)
 					If IsArray($Upgrades) And UBound($Upgrades) > 0 Then
 						For $i = 0 To UBound($Upgrades) - 1
 							If $Upgrades[$i][0] = "SKIP" Then ContinueLoop
-							SetDebugLog("LabUpgrade:" & $Upgrades[$i][4] & " Cost:" & $Upgrades[$i][3], $COLOR_INFO)	
+							;~ SetDebugLog("LabUpgrade:" & $Upgrades[$i][4] & " Cost:" & $Upgrades[$i][3], $COLOR_INFO)	
 							If Not IsLabUpgradeResourceEnough($Upgrades[$i][4], $Upgrades[$i][3]) Then
-								SetDebugLog($Upgrades[$i][4] & " Skip, Not Enough Resource", $COLOR_INFO)
+								;~ SetDebugLog($Upgrades[$i][4] & " Skip, Not Enough Resource", $COLOR_INFO)
 							Else
-								SetDebugLog("LabUpgrade:" & $Upgrades[$i][4] & " Cost:" & $Upgrades[$i][3], $COLOR_SUCCESS)
+								;~ SetDebugLog("LabUpgrade:" & $Upgrades[$i][4] & " Cost:" & $Upgrades[$i][3], $COLOR_SUCCESS)
 								$bUpgradeFound = True
 								$sUpgrade = $Upgrades[$i][4]
 								$aUpgradeCoord[0] = $Upgrades[$i][1] - 35
@@ -333,7 +333,7 @@ Func SetLabUpgradeTime($sTrooopName)
 	Local $iLabFinishTime = ConvertOCRTime("Lab Time", $Result, False)
 	SetLog($sTrooopName & " Upgrade OCR Time = " & $Result & ", $iLabFinishTime = " & $iLabFinishTime & " m", $COLOR_INFO)
 	Local $StartTime = _NowCalc() ; what is date:time now
-	SetDebugLog($sTrooopName & " Upgrade Started @ " & $StartTime, $COLOR_SUCCESS)
+	;~ SetDebugLog($sTrooopName & " Upgrade Started @ " & $StartTime, $COLOR_SUCCESS)
 	If $iLabFinishTime > 0 Then
 		$g_sLabUpgradeTime = _DateAdd('n', Ceiling($iLabFinishTime), $StartTime)
 		SetLog($sTrooopName & " Upgrade Finishes @ " & $Result & " (" & $g_sLabUpgradeTime & ")", $COLOR_SUCCESS)
@@ -350,7 +350,7 @@ Func LabNextPage($iPage = 1)
 	Else
 		ClickDrag(720, 500, 82, 500, 500)
 	EndIf
-	SetDebugLog("CurrentPage:" & $iPage + 1)
+	;~ SetDebugLog("CurrentPage:" & $iPage + 1)
 EndFunc
 
 Func LabPrevPage($iPage = 1)
@@ -359,7 +359,7 @@ Func LabPrevPage($iPage = 1)
 	Else
 		ClickDrag(130, 500, 768, 500, 500) ;600
 	EndIf
-	SetDebugLog("CurrentPage:" & $iPage - 1)
+	;~ SetDebugLog("CurrentPage:" & $iPage - 1)
 EndFunc
 
 ; check the lab to see if something is upgrading in the lab already
@@ -376,7 +376,7 @@ Func ChkLabUpgradeInProgress($bDebug = False, $name = "")
 		If _Sleep($DELAYLABORATORY2) Then Return
 		Local $sLabTimeOCR = getRemainTLaboratory(258, 211)
 		Local $iLabFinishTime = ConvertOCRTime("Lab Time", $sLabTimeOCR, False)
-		SetDebugLog("$sLabTimeOCR: " & $sLabTimeOCR & ", $iLabFinishTime = " & $iLabFinishTime & " m")
+		;~ SetDebugLog("$sLabTimeOCR: " & $sLabTimeOCR & ", $iLabFinishTime = " & $iLabFinishTime & " m")
 		If $iLabFinishTime > 0 Then
 			$g_sLabUpgradeTime = _DateAdd('n', Ceiling($iLabFinishTime), _NowCalc())
 			SetLog("Research will finish in " & $sLabTimeOCR & " (" & $g_sLabUpgradeTime & ")")
@@ -489,7 +489,7 @@ Func ChkUpgradeInProgress($bDebug = False)
 	Local $TimeDiff ; time remaining on lab upgrade
 	If $g_sLabUpgradeTime <> "" Then $TimeDiff = _DateDiff("n", _NowCalc(), $g_sLabUpgradeTime) ; what is difference between end time and now in minutes?
 	If @error Then _logErrorDateDiff(@error)
-	SetDebugLog("Lab Endtime: " & $g_sLabUpgradeTime, $COLOR_DEBUG)
+	;~ SetDebugLog("Lab Endtime: " & $g_sLabUpgradeTime, $COLOR_DEBUG)
 
 	If Not $g_bRunState Then Return
 	If $TimeDiff <= 0 Then
@@ -546,8 +546,8 @@ Func IsLabUpgradeResourceEnough($TroopOrSpell, $Cost)
 	For $j = 0 To UBound($aSiege) - 1
 		If StringInStr($TroopOrSpell, $aSiege[$j]) Then
 			If $g_aiCurrentLoot[$eLootElixir] > ($g_iTxtSmartMinElixir + $Cost) Then
-				SetDebugLog($g_iTxtSmartMinElixir & " + " & $Cost & " = " & $g_iTxtSmartMinElixir + $Cost)
-				SetDebugLog("Elixir = " & $g_aiCurrentLoot[$eLootElixir])
+				;~ SetDebugLog($g_iTxtSmartMinElixir & " + " & $Cost & " = " & $g_iTxtSmartMinElixir + $Cost)
+				;~ SetDebugLog("Elixir = " & $g_aiCurrentLoot[$eLootElixir])
 				Return True
 			Else
 				Return False
@@ -557,28 +557,28 @@ Func IsLabUpgradeResourceEnough($TroopOrSpell, $Cost)
 	If StringInStr($TroopOrSpell, "Spell") Then
 		If IsDarkSpell($TroopOrSpell) Then ;DE Spell
 			If $g_aiCurrentLoot[$eLootDarkElixir] > ($g_iTxtSmartMinDark + $Cost) Then
-				SetDebugLog($g_iTxtSmartMinDark & " + " & $Cost & " = " & $g_iTxtSmartMinDark + $Cost)
-				SetDebugLog("DE = " & $g_aiCurrentLoot[$eLootDarkElixir])
+				;~ SetDebugLog($g_iTxtSmartMinDark & " + " & $Cost & " = " & $g_iTxtSmartMinDark + $Cost)
+				;~ SetDebugLog("DE = " & $g_aiCurrentLoot[$eLootDarkElixir])
 				$bRet = True
 			EndIf
 		Else ;Elixir Spell
 			If $g_aiCurrentLoot[$eLootElixir] > ($g_iTxtSmartMinElixir + $Cost) Then
-				SetDebugLog($g_iTxtSmartMinElixir & " + " & $Cost & " = " & $g_iTxtSmartMinElixir + $Cost)
-				SetDebugLog("Elixir = " & $g_aiCurrentLoot[$eLootElixir])
+				;~ SetDebugLog($g_iTxtSmartMinElixir & " + " & $Cost & " = " & $g_iTxtSmartMinElixir + $Cost)
+				;~ SetDebugLog("Elixir = " & $g_aiCurrentLoot[$eLootElixir])
 				$bRet = True
 			EndIf
 		EndIf
 	Else
 		If IsDarkTroop($TroopOrSpell) Then ;DE Troop
 			If $g_aiCurrentLoot[$eLootDarkElixir] > ($g_iTxtSmartMinDark + $Cost) Then
-				SetDebugLog($g_iTxtSmartMinDark & " + " & $Cost & " = " & $g_iTxtSmartMinDark + $Cost)
-				SetDebugLog("DE = " & $g_aiCurrentLoot[$eLootDarkElixir])
+				;~ SetDebugLog($g_iTxtSmartMinDark & " + " & $Cost & " = " & $g_iTxtSmartMinDark + $Cost)
+				;~ SetDebugLog("DE = " & $g_aiCurrentLoot[$eLootDarkElixir])
 				$bRet = True
 			EndIf
 		Else ;Elixir Troop
 			If $g_aiCurrentLoot[$eLootElixir] > ($g_iTxtSmartMinElixir + $Cost) Then
-				SetDebugLog($g_iTxtSmartMinElixir & " + " & $Cost & " = " & $g_iTxtSmartMinElixir + $Cost)
-				SetDebugLog("Elixir = " & $g_aiCurrentLoot[$eLootElixir])
+				;~ SetDebugLog($g_iTxtSmartMinElixir & " + " & $Cost & " = " & $g_iTxtSmartMinElixir + $Cost)
+				;~ SetDebugLog("Elixir = " & $g_aiCurrentLoot[$eLootElixir])
 				$bRet = True
 			EndIf
 		EndIf
@@ -666,11 +666,11 @@ Func UpgradeLabAny($bDebug = False)
 		If IsArray($Upgrades) And UBound($Upgrades) > 0 Then
 			For $i = 0 To UBound($Upgrades) - 1
 				If $Upgrades[$i][0] = "SKIP" Then ContinueLoop
-				SetDebugLog("LabUpgrade:" & $Upgrades[$i][4] & " Cost:" & $Upgrades[$i][3] & " " & $Upgrades[$i][0], $COLOR_INFO)
+				;~ SetDebugLog("LabUpgrade:" & $Upgrades[$i][4] & " Cost:" & $Upgrades[$i][3] & " " & $Upgrades[$i][0], $COLOR_INFO)
 				If Not IsLabUpgradeResourceEnough($Upgrades[$i][4], $Upgrades[$i][3]) Then
-					SetDebugLog("LabUpgrade:" & $Upgrades[$i][4] & " Skip, Not Enough Resource", $COLOR_INFO)
+					;~ SetDebugLog("LabUpgrade:" & $Upgrades[$i][4] & " Skip, Not Enough Resource", $COLOR_INFO)
 				Else
-					SetDebugLog("LabUpgrade:" & $Upgrades[$i][4] & " Cost:" & $Upgrades[$i][3], $COLOR_SUCCESS)
+					;~ SetDebugLog("LabUpgrade:" & $Upgrades[$i][4] & " Cost:" & $Upgrades[$i][3], $COLOR_SUCCESS)
 					$bUpgradeFound = True
 					$sUpgrade = $Upgrades[$i][4]
 					$aUpgradeCoord[0] = $Upgrades[$i][1] - 35 
@@ -686,7 +686,7 @@ Func UpgradeLabAny($bDebug = False)
 		If $bUpgradeFound Then
 			Return LaboratoryUpgrade($sUpgrade, $aUpgradeCoord, $sCostResult, $bDebug) ; return whether or not we successfully upgraded
 		EndIf
-		SetDebugLog("CurrentPage=" & $iCurPage)
+		;~ SetDebugLog("CurrentPage=" & $iCurPage)
 		$iCurPage += 1 ; Next page
 		LabNextPage($iCurPage) ; go to next page of upgrades
 		If Number($iCurPage) = 4 Then _Sleep(2000)

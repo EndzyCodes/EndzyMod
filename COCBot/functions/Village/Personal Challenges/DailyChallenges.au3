@@ -43,7 +43,7 @@ Func OpenPersonalChallenges()
 
 	Local $counter = 0
 	While Not IsChallengeWindowOpen() ; test for Personal Challenge Close Button
-		SetDebugLog("Wait for Personal Challenge Close Button to appear #" & $counter)
+		;~ SetDebugLog("Wait for Personal Challenge Close Button to appear #" & $counter)
 		If _Sleep(250) Then Return
 		$counter += 1
 		If $counter > 8 Then Return False

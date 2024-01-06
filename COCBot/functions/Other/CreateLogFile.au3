@@ -37,45 +37,45 @@ Func CreateLogFile()
 		$g_sLogFileName = $aOldLogs[1]
 		$sLogPath = $g_sProfileLogsPath & $g_sLogFileName
 		$g_hLogFile = FileOpen($sLogPath, $FO_APPEND)
-		SetDebugLog("Append to log file: " & $sLogPath)
+		;~ SetDebugLog("Append to log file: " & $sLogPath)
 	Else
 		$g_sLogFileName = @YEAR & "-" & @MON & "-" & @MDAY & "_" & @HOUR & "." & @MIN & "." & @SEC & ".log"
 		$sLogPath = $g_sProfileLogsPath & $g_sLogFileName
 		$g_hLogFile = FileOpen($sLogPath, $FO_APPEND)
-		SetDebugLog("Created log file: " & $sLogPath)
+		;~ SetDebugLog("Created log file: " & $sLogPath)
 	EndIf
 
 	If IsBotLaunched() Then
 		; Android info
-		SetDebugLog("Android: " & $g_sAndroidEmulator)
-		SetDebugLog("Android Instance: " & $g_sAndroidInstance)
-		SetDebugLog("Android Version: " & $g_sAndroidVersion)
-		SetDebugLog("Android Version API: " & $g_iAndroidVersionAPI)
-		SetDebugLog("Android ADB Device: " & $g_sAndroidAdbDevice)
-		SetDebugLog("Android Program Path: " & $g_sAndroidProgramPath)
-		SetDebugLog("Android Program FileVersionInfo: " & ((IsArray($g_avAndroidProgramFileVersionInfo) ? _ArrayToString($g_avAndroidProgramFileVersionInfo, ",", 1) : "not available")))
-		SetDebugLog("Android ADB Path: " & $g_sAndroidAdbPath)
-		SetDebugLog("Android ADB Global Options: " & $g_sAndroidAdbGlobalOptions)
-		SetDebugLog("Android VBoxManage Path: " & $__VBoxManage_Path)
-		SetDebugLog("Android ADB Shared Folder: " & $g_sAndroidPicturesPath)
+		;~ SetDebugLog("Android: " & $g_sAndroidEmulator)
+		;~ SetDebugLog("Android Instance: " & $g_sAndroidInstance)
+		;~ SetDebugLog("Android Version: " & $g_sAndroidVersion)
+		;~ SetDebugLog("Android Version API: " & $g_iAndroidVersionAPI)
+		;~ SetDebugLog("Android ADB Device: " & $g_sAndroidAdbDevice)
+		;~ SetDebugLog("Android Program Path: " & $g_sAndroidProgramPath)
+		;~ SetDebugLog("Android Program FileVersionInfo: " & ((IsArray($g_avAndroidProgramFileVersionInfo) ? _ArrayToString($g_avAndroidProgramFileVersionInfo, ",", 1) : "not available")))
+		;~ SetDebugLog("Android ADB Path: " & $g_sAndroidAdbPath)
+		;~ SetDebugLog("Android ADB Global Options: " & $g_sAndroidAdbGlobalOptions)
+		;~ SetDebugLog("Android VBoxManage Path: " & $__VBoxManage_Path)
+		;~ SetDebugLog("Android ADB Shared Folder: " & $g_sAndroidPicturesPath)
 	EndIf
 
 	; Debug Output of launch parameter
-	SetDebugLog("Full Command Line: " & _ArrayToString($CmdLine, " "))
-	SetDebugLog("@AutoItExe: " & @AutoItExe)
-	SetDebugLog("@ScriptFullPath: " & @ScriptFullPath)
-	SetDebugLog("@WorkingDir: " & @WorkingDir)
-	SetDebugLog("@AutoItPID: " & @AutoItPID)
-	SetDebugLog("@OSArch: " & @OSArch)
-	SetDebugLog("@OSVersion: " & @OSVersion)
-	SetDebugLog("@OSBuild: " & @OSBuild)
-	SetDebugLog("@OSServicePack: " & @OSServicePack)
-	SetDebugLog("@AutoItVersion: " & @AutoItVersion)
-	SetDebugLog("xbebenkMod Version: " & $g_sXModversion)
-	SetDebugLog("Emulator: " & $g_sAndroidEmulator, $COLOR_SUCCESS)
-	SetDebugLog("Emulator Version: " & $g_sAndroidVersion, $COLOR_SUCCESS)
-	SetDebugLog("Android Version: " & GetAndroidCodeName(), $COLOR_SUCCESS)
-	SetDebugLog("Primary Display: " & @DesktopWidth & " x " & @DesktopHeight & " - " & @DesktopDepth & "bit")
+	;~ SetDebugLog("Full Command Line: " & _ArrayToString($CmdLine, " "))
+	;~ SetDebugLog("@AutoItExe: " & @AutoItExe)
+	;~ SetDebugLog("@ScriptFullPath: " & @ScriptFullPath)
+	;~ SetDebugLog("@WorkingDir: " & @WorkingDir)
+	;~ SetDebugLog("@AutoItPID: " & @AutoItPID)
+	;~ SetDebugLog("@OSArch: " & @OSArch)
+	;~ SetDebugLog("@OSVersion: " & @OSVersion)
+	;~ SetDebugLog("@OSBuild: " & @OSBuild)
+	;~ SetDebugLog("@OSServicePack: " & @OSServicePack)
+	;~ SetDebugLog("@AutoItVersion: " & @AutoItVersion)
+	;~ SetDebugLog("xbebenkMod Version: " & $g_sXModversion)
+	;~ SetDebugLog("Emulator: " & $g_sAndroidEmulator, $COLOR_SUCCESS)
+	;~ SetDebugLog("Emulator Version: " & $g_sAndroidVersion, $COLOR_SUCCESS)
+	;~ SetDebugLog("Android Version: " & GetAndroidCodeName(), $COLOR_SUCCESS)
+	;~ SetDebugLog("Primary Display: " & @DesktopWidth & " x " & @DesktopHeight & " - " & @DesktopDepth & "bit")
 
 	FlushGuiLog($g_hTxtLog, $g_oTxtLogInitText)
 EndFunc   ;==>CreateLogFile
@@ -103,7 +103,7 @@ Func CreateAttackLogFile()
 	Local $sAttackLogFName = "AttackLog" & "-" & @YEAR & "-" & @MON & ".log"
 	Local $sAttackLogPath = $g_sProfileLogsPath & $sAttackLogFName
 	$g_hAttackLogFile = FileOpen($sAttackLogPath, $FO_APPEND)
-	SetDebugLog("Created attack log file: " & $sAttackLogPath)
+	;~ SetDebugLog("Created attack log file: " & $sAttackLogPath)
 EndFunc   ;==>CreateAttackLogFile
 
 ; #FUNCTION# ====================================================================================================================
@@ -129,5 +129,5 @@ Func CreateSwitchLogFile()
 	Local $sSwitchLogFName = "SwitchAccLog" & "-" & @YEAR & "-" & @MON & ".log"
 	Local $sSwitchLogPath = $g_sProfilePath & "\" & $sSwitchLogFName
 	$g_hSwitchLogFile = FileOpen($sSwitchLogPath, $FO_APPEND)
-	SetDebugLog("Created switch log file: " & $sSwitchLogPath)
+	;~ SetDebugLog("Created switch log file: " & $sSwitchLogPath)
 EndFunc   ;==>CreateSwitchLogFile

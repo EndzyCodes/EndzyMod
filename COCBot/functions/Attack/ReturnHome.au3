@@ -14,7 +14,7 @@
 ; Example .......: No
 ; ===============================================================================================================================
 Func ReturnHome($TakeSS = 1, $GoldChangeCheck = True) ;Return main screen
-	SetDebugLog("ReturnHome function... (from matchmode=" & $g_iMatchMode & " - " & $g_asModeText[$g_iMatchMode] & ")", $COLOR_DEBUG)
+	;~ SetDebugLog("ReturnHome function... (from matchmode=" & $g_iMatchMode & " - " & $g_asModeText[$g_iMatchMode] & ")", $COLOR_DEBUG)
 	Local $counter = 0
 	Local $hBitmap_Scaled
 	Local $i, $j
@@ -63,7 +63,7 @@ Func ReturnHome($TakeSS = 1, $GoldChangeCheck = True) ;Return main screen
 			EndIf
 			#comments-end
 		Else
-			SetDebugLog("Battle already over", $COLOR_DEBUG)
+			;~ SetDebugLog("Battle already over", $COLOR_DEBUG)
 		EndIf
 	EndIf
 
@@ -109,7 +109,7 @@ Func ReturnHome($TakeSS = 1, $GoldChangeCheck = True) ;Return main screen
 				Local $j = 0
 				Local $OKCancel = False
 				While 1 ; dynamic wait for Okay button
-					SetDebugLog("Wait for OK button to appear #" & $j)
+					;~ SetDebugLog("Wait for OK button to appear #" & $j)
 					If IsOKCancelPage(True) Then
 						Click(510, 400); Click Okay to Confirm surrender
 						If _Sleep(1000) Then Return
@@ -168,7 +168,7 @@ Func ReturnHome($TakeSS = 1, $GoldChangeCheck = True) ;Return main screen
 	If $GoldChangeCheck Then PushMsg("LastRaid")
 
 	For $i = 1 To 5
-		SetDebugLog("Wait for End Fight Scene to appear #" & $i)
+		;~ SetDebugLog("Wait for End Fight Scene to appear #" & $i)
 		If IsReturnHomeBattlePage(True) Then
 			ClickP($aReturnHomeButton, 1, 0, "#0101") ;Click Return Home Button
 			; sometimes 1st click is not closing, so try again
@@ -208,10 +208,10 @@ EndFunc   ;==>ReturnHomeMainPage
 
 Func ReturnfromDropTrophies($AttackLog = False)
 	Local $aiSurrenderButton
-	SetDebugLog(" -- ReturnfromDropTrophies -- ")
+	;~ SetDebugLog(" -- ReturnfromDropTrophies -- ")
 	
 	For $i = 1 To 10 
-		SetDebugLog("Waiting Surrender button #" & $i, $COLOR_ACTION)
+		;~ SetDebugLog("Waiting Surrender button #" & $i, $COLOR_ACTION)
 		If IsAttackPage() Then
 			Click(65, 540) ;click surrender
 			_Sleep(1000)
@@ -221,7 +221,7 @@ Func ReturnfromDropTrophies($AttackLog = False)
 	Next
 	Local $OKCancel = False
 	For $i = 1 To 10
-		SetDebugLog("Wait for OK button to appear #" & $i)
+		;~ SetDebugLog("Wait for OK button to appear #" & $i)
 		If IsOKCancelPage(True) Then
 			Click(510, 400); Click Okay to Confirm surrender
 			If _Sleep(1000) Then Return
@@ -237,7 +237,7 @@ Func ReturnfromDropTrophies($AttackLog = False)
 	EndIf
 
 	For $i = 1 To 5
-		SetDebugLog("Wait for End Fight Scene to appear #" & $i)
+		;~ SetDebugLog("Wait for End Fight Scene to appear #" & $i)
 		If IsReturnHomeBattlePage(True) Then
 			If $AttackLog Then
 				$g_iMatchMode = $DT

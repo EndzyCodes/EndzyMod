@@ -37,14 +37,14 @@ Func PrepareSearch($Mode = $DB) ;Click attack button and find match button, will
 	
 	For $i = 1 To 5
 		If ClickB("AttackButton") Then
-			SetDebugLog("Opening Multiplayer Tab!", $COLOR_ACTION)
+			;~ SetDebugLog("Opening Multiplayer Tab!", $COLOR_ACTION)
 		Else
 			SetLog("PrepareSearch Failed: MainPage Not Found!", $COLOR_ERROR)
 		EndIf
 		
 		If _Sleep(1000) Then Return
 		If IsMultiplayerTabOpen() Then 
-			SetDebugLog("Multiplayer Tab is Opened", $COLOR_DEBUG)
+			;~ SetDebugLog("Multiplayer Tab is Opened", $COLOR_DEBUG)
 			ExitLoop
 		Else
 			If $i = 5 Then 
@@ -61,15 +61,15 @@ Func PrepareSearch($Mode = $DB) ;Click attack button and find match button, will
 	For $s = 1 To 20
 		If Not $g_bRunState Then ExitLoop
 		If _Sleep(1500) Then Return
-		SetDebugLog("Search for attack Button #" & $s, $COLOR_ACTION)
+		;~ SetDebugLog("Search for attack Button #" & $s, $COLOR_ACTION)
 		$aButton = QuickMIS("CNX", $g_sImgPrepareLegendLeagueSearch, 275,190,835,545)
 		If IsArray($aButton) And UBound($aButton) > 0 Then
 			$bAttackButtonFound = True
 			For $i = 0 To UBound($aButton) - 1
-				SetDebugLog("Found Attack Button: " & $aButton[$i][0], $COLOR_DEBUG)
+				;~ SetDebugLog("Found Attack Button: " & $aButton[$i][0], $COLOR_DEBUG)
 				If StringInStr($aButton[$i][0], "Normal") Then
 					$g_bLeagueAttack = False
-					SetDebugLog("Click " & $aButton[$i][0] & " Attack Button", $COLOR_ACTION)
+					;~ SetDebugLog("Click " & $aButton[$i][0] & " Attack Button", $COLOR_ACTION)
 					Click($aButton[$i][1], $aButton[$i][2])
 					For $k = 1 To 10 
 						If _Sleep(1000) Then Return
@@ -77,7 +77,7 @@ Func PrepareSearch($Mode = $DB) ;Click attack button and find match button, will
 							SetLog("Still see " & $aButton[$i][0], $COLOR_DEBUG)
 							If $k > 5 Then ContinueLoop 2
 						Else
-							SetDebugLog("Attack Button" & $aButton[$i][0] & " is Gone", $COLOR_DEBUG)
+							;~ SetDebugLog("Attack Button" & $aButton[$i][0] & " is Gone", $COLOR_DEBUG)
 							ExitLoop
 						EndIf
 					Next
@@ -158,7 +158,7 @@ Func PrepareSearch($Mode = $DB) ;Click attack button and find match button, will
 	If IsAttackWhileShieldPage(False) Then ; check for shield window and then button to lose time due attack and click okay
 		If WaitforPixel(435, 480, 438, 484, Hex(0x6DBC1F, 6), 6, 1) Then
 			If $g_bDebugClick Or $g_bDebugSetlog Then
-				SetDebugLog("Shld Btn Pixel color found: " & _GetPixelColor(436, 482, True), $COLOR_DEBUG)
+				;~ SetDebugLog("Shld Btn Pixel color found: " & _GetPixelColor(436, 482, True), $COLOR_DEBUG)
 			EndIf
 			Click(436, 482)
 		EndIf
@@ -179,7 +179,7 @@ Func PrepareSearch($Mode = $DB) ;Click attack button and find match button, will
 
 	checkAttackDisable($g_iTaBChkAttack, $Result) ;See If TakeABreak msg on screen
 
-	SetDebugLog("PrepareSearch exit check $g_bRestart= " & $g_bRestart & ", $g_bOutOfGold= " & $g_bOutOfGold, $COLOR_DEBUG)
+	;~ SetDebugLog("PrepareSearch exit check $g_bRestart= " & $g_bRestart & ", $g_bOutOfGold= " & $g_bOutOfGold, $COLOR_DEBUG)
 
 	If $g_bRestart Or $g_bOutOfGold Then ; If we have one or both errors, then return
 		$g_bIsClientSyncError = False ; reset fast restart flag to stop OOS mode, collecting resources etc.

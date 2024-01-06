@@ -93,7 +93,7 @@ Func UpgradeBuilding($bTest = False)
 		EndIf
 
 		SetLog("Upgrade #" & $iz + 1 & " " & $g_avBuildingUpgrades[$iz][4] & " Selected", $COLOR_SUCCESS) ; Tell logfile which upgrade working on.
-		SetDebugLog("-Upgrade location =  " & "(" & $g_avBuildingUpgrades[$iz][0] & "," & $g_avBuildingUpgrades[$iz][1] & ")", $COLOR_DEBUG) ;Debug
+		;~ SetDebugLog("-Upgrade location =  " & "(" & $g_avBuildingUpgrades[$iz][0] & "," & $g_avBuildingUpgrades[$iz][1] & ")", $COLOR_DEBUG) ;Debug
 		If _Sleep($DELAYUPGRADEBUILDING1) Then Return
 
 		Switch $g_avBuildingUpgrades[$iz][3] ;Change action based on upgrade type!
@@ -142,7 +142,7 @@ Func UpgradeBuilding($bTest = False)
 		EndSwitch
 
 		$g_avBuildingUpgrades[$iz][7] = _NowCalc() ; what is date:time now
-		SetDebugLog("Upgrade #" & $iz + 1 & " " & $g_avBuildingUpgrades[$iz][4] & " Started @ " & $g_avBuildingUpgrades[$iz][7], $COLOR_SUCCESS)
+		;~ SetDebugLog("Upgrade #" & $iz + 1 & " " & $g_avBuildingUpgrades[$iz][4] & " Started @ " & $g_avBuildingUpgrades[$iz][7], $COLOR_SUCCESS)
 		Local $aArray = StringSplit($g_avBuildingUpgrades[$iz][6], ' ', BitOR($STR_CHRSPLIT, $STR_NOCOUNT)) ;separate days, hours
 		If IsArray($aArray) Then
 			Local $iRemainingTimeMin = 0
@@ -161,7 +161,7 @@ Func UpgradeBuilding($bTest = False)
 					Case Else
 						SetLog("Upgrade #" & $iz + 1 & " OCR time invalid" & $aArray[$i], $COLOR_WARNING)
 				EndSelect
-				SetDebugLog("Upgrade Time: " & $aArray[$i] & ", Minutes= " & $iRemainingTimeMin, $COLOR_DEBUG)
+				;~ SetDebugLog("Upgrade Time: " & $aArray[$i] & ", Minutes= " & $iRemainingTimeMin, $COLOR_DEBUG)
 			Next
 			$g_avBuildingUpgrades[$iz][7] = _DateAdd('n', Floor($iRemainingTimeMin), _NowCalc()) ; add the time required to NOW to finish the upgrade
 			If @error Then _logErrorDateAdd(@error)
@@ -204,7 +204,7 @@ Func UpgradeNormal($bTest, $iUpgradeNumber)
 		Local $aGearUp[3][2] = [["Mortar", 8], ["Archer T", 10], ["Cannon", 7]]
 		For $i = 0 To UBound($aGearUp) - 1 
 			If StringInStr($aResult[1], $aGearUp[$i][0]) Then
-				SetDebugLog("Matched with : " & $i)
+				;~ SetDebugLog("Matched with : " & $i)
 				If Number($aResult[2]) >= $aGearUp[$i][1] Then
 					SetLog("Building : " & $aResult[1] & " Level: " & $aResult[2] & " >= " & $aGearUp[$i][1], $COLOR_INFO)
 					SetLog("OptimizeOTTO enabled, should skip this Building", $COLOR_INFO)
@@ -259,7 +259,7 @@ Func UpgradeNormal($bTest, $iUpgradeNumber)
 				Local $aGearUp[3][2] = [["Mortar", 8], ["Archer T", 10], ["Cannon", 7]]
 				For $i = 0 To UBound($aGearUp) - 1 
 					If StringInStr($aResult[1], $aGearUp[$i][0]) Then
-						SetDebugLog("Matched with : " & $i)
+						;~ SetDebugLog("Matched with : " & $i)
 						If Number($aResult[2]) >= $aGearUp[$i][1] Then
 							SetLog("Building : " & $aResult[1] & " Level: " & $aResult[2] & " >= " & $aGearUp[$i][1], $COLOR_INFO)
 							SetLog("OptimizeOTTO enabled, should skip this Building", $COLOR_INFO)

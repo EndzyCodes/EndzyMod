@@ -24,7 +24,7 @@ Func FuncEnter($fFunc, $bLog = $g_bDebugFuncCall)
 	$g_oFuncCall("__CURRENT_FUNC__" & $iLevel) = $sFunc
 	$g_oFuncCall("__CURRENT_FUNC_LEVEL__") = $iLevel + 1
 	If $bLog Then
-		SetDebugLog(">>> Enter Func: " & $sFunc & ", call-hierarchy: " & FuncCallHierarchy(False), $COLOR_WARNING)
+		;~ SetDebugLog(">>> Enter Func: " & $sFunc & ", call-hierarchy: " & FuncCallHierarchy(False), $COLOR_WARNING)
 	EndIf
 	Return $iLevel
 EndFunc   ;==>FuncEnter
@@ -59,14 +59,14 @@ Func FuncReturn($Result = "__No_Result", $bLog = $g_bDebugFuncCall)
 	Local $bNoResult = (IsString($Result) And $Result = "__No_Result")
 	Local $iLevel = FuncCallLevel() - 1
 	If $iLevel < 0 Then
-		SetDebugLog("FuncReturn improper use", $COLOR_ERROR)
+		;~ SetDebugLog("FuncReturn improper use", $COLOR_ERROR)
 	Else
 		$g_oFuncCall("__CURRENT_FUNC_LEVEL__") = $iLevel
 		Local $sTag = "__CURRENT_FUNC__" & $iLevel
 		Local $sFunc = $g_oFuncCall($sTag)
 		$g_oFuncCall.remove($sTag)
 		If $bLog Then
-			SetDebugLog("<<< Return Func: " & $sFunc & (($bNoResult) ? (", no result") : (", Result: " & $Result)) & ", call-hierarchy: " & FuncCallHierarchy(True), $COLOR_WARNING)
+			;~ SetDebugLog("<<< Return Func: " & $sFunc & (($bNoResult) ? (", no result") : (", Result: " & $Result)) & ", call-hierarchy: " & FuncCallHierarchy(True), $COLOR_WARNING)
 		EndIf
 	EndIf
 	If $bNoResult Then Return

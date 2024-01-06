@@ -30,7 +30,7 @@ Func CollectCCGold($bTest = False)
 	If QuickMIS("BC1", $g_sImgCCGoldCollect, 250, 550, 400, 670) Then
 		Click($g_iQuickMISX, $g_iQuickMISY + 20)
 		For $i = 1 To 5
-			SetDebugLog("Waiting for Forge Window #" & $i, $COLOR_ACTION)
+			;~ SetDebugLog("Waiting for Forge Window #" & $i, $COLOR_ACTION)
 			If QuickMis("BC1", $g_sImgGeneralCloseButton, 768, 136, 812, 179) Then
 				$bWindowOpened = True
 				ExitLoop
@@ -126,12 +126,12 @@ EndFunc
 
 Func StartRaidWeekend()
 	If _ColorCheck(_GetPixelColor(835, 640, True), Hex(0x85B525, 6), 20) Then ;Check Green Color on StartRaid Button
-		SetDebugLog("ClanCapital: Found Start Raid Weekend Button")
+		;~ SetDebugLog("ClanCapital: Found Start Raid Weekend Button")
 		Click(800, 620) ;Click start Raid Button
 		Local $bWindowOpened = False
 		For $i = 1 To 5
 			_Sleep(1000)
-			SetDebugLog("Waiting for Start Raid Window #" & $i, $COLOR_ACTION)
+			;~ SetDebugLog("Waiting for Start Raid Window #" & $i, $COLOR_ACTION)
 			If QuickMis("BC1", $g_sImgGeneralCloseButton, 645, 255, 700, 310 ) Then
 				$bWindowOpened = True
 				ExitLoop
@@ -163,7 +163,7 @@ Func OpenForgeWindow()
 	If QuickMIS("BC1", $g_sImgForgeHouse, 260, 560, 460, 660) Then
 		Click($g_iQuickMISX + 10, $g_iQuickMISY + 10)
 		For $i = 1 To 5
-			SetDebugLog("Waiting for Forge Window #" & $i, $COLOR_ACTION)
+			;~ SetDebugLog("Waiting for Forge Window #" & $i, $COLOR_ACTION)
 			If QuickMis("BC1", $g_sImgGeneralCloseButton, 715, 160, 760, 200) Then
 				$bRet = True
 				ExitLoop
@@ -177,7 +177,7 @@ EndFunc
 Func WaitStartCraftWindow()
 	Local $bRet = False
 	For $i = 1 To 5
-		SetDebugLog("Waiting for StartCraft Window #" & $i, $COLOR_ACTION)
+		;~ SetDebugLog("Waiting for StartCraft Window #" & $i, $COLOR_ACTION)
 		If QuickMis("BC1", $g_sImgGeneralCloseButton, 620, 180, 670, 220) Then
 			$bRet = True
 			ExitLoop
@@ -193,18 +193,18 @@ Func RemoveDupCNX(ByRef $arr, $sortBy = 1, $distance = 10)
 	Local $tmpCoord = 0
 	_ArraySort($arr, 0, 0, 0, $sortBy) ;sort by 1 = , 2 = y
 	For $i = 0 To UBound($arr) - 1
-		SetDebugLog("SortBy:" & $arr[$i][$sortBy])
-		SetDebugLog("tmpCoord:" & $tmpCoord)
+		;~ SetDebugLog("SortBy:" & $arr[$i][$sortBy])
+		;~ SetDebugLog("tmpCoord:" & $tmpCoord)
 		If $arr[$i][$sortBy] >= $tmpCoord + $distance Then
 			_ArrayAdd($atmparray, $arr[$i][0] & "|" & $arr[$i][1] & "|" & $arr[$i][2] & "|" & $arr[$i][3])
 			$tmpCoord = $arr[$i][$sortBy] + $distance
 		Else
-			SetDebugLog("Skip this dup: " & $arr[$i][$sortBy] & " is near " & $tmpCoord, $COLOR_INFO)
+			;~ SetDebugLog("Skip this dup: " & $arr[$i][$sortBy] & " is near " & $tmpCoord, $COLOR_INFO)
 			ContinueLoop
 		EndIf
 	Next
 	$arr = $atmparray
-	SetDebugLog(_ArrayToString($arr))
+	;~ SetDebugLog(_ArrayToString($arr))
 EndFunc
 
 Func ForgeClanCapitalGold($bTest = False)
@@ -275,11 +275,11 @@ Func ForgeClanCapitalGold($bTest = False)
 	Local $aResource[5][2] = [["Gold", 240], ["Elixir", 330], ["Dark Elixir", 425], ["Builder Base Gold", 520], ["Builder Base Elixir", 610]]
 	Local $aCraft = QuickMIS("CNX", $g_sImgCCGoldCraft, 120, 230, 740, 450)
 	_ArraySort($aCraft, 0, 0, 0, 1) ;sort by column 1 (x coord)
-	SetDebugLog("Count of Craft Button: " & UBound($aCraft))
+	;~ SetDebugLog("Count of Craft Button: " & UBound($aCraft))
 	SetLog("Available Builder for forge = " & $iBuilderToAssign, $COLOR_INFO)
 	If IsArray($aCraft) And UBound($aCraft) > 0 Then
 		For $j = 1 To $iBuilderToAssign
-			SetDebugLog("Proceed with builder #" & $j)
+			;~ SetDebugLog("Proceed with builder #" & $j)
 			Click($aCraft[$j-1][1], $aCraft[$j-1][2])
 			_Sleep(500)
 			If Not WaitStartCraftWindow() Then
@@ -337,7 +337,7 @@ Func SwitchToClanCapital($bTest = False)
 		Click($g_iQuickMISX, $g_iQuickMISY)
 		SetLog("Click AirShip at " & $g_iQuickMISX & "," & $g_iQuickMISY, $COLOR_ACTION)
 		For $i = 1 To 10
-			SetDebugLog("Waiting for Travel to Clan Capital Map #" & $i, $COLOR_ACTION)
+			;~ SetDebugLog("Waiting for Travel to Clan Capital Map #" & $i, $COLOR_ACTION)
 			If QuickMis("BC1", $g_sImgGeneralCloseButton, 705, 230, 755, 300) Then ; check if we have window covering map, close it!
 				Click($g_iQuickMISX, $g_iQuickMISY)
 				SetLog("Found Next Raid Window covering map, close it!", $COLOR_INFO)
@@ -362,7 +362,7 @@ EndFunc
 
 Func SwitchToCapitalMain()
 	Local $bRet = False
-	SetDebugLog("Going to Clan Capital", $COLOR_ACTION)
+	;~ SetDebugLog("Going to Clan Capital", $COLOR_ACTION)
 	For $i = 1 To 5
 		If QuickMIS("BC1", $g_sImgCCMap, 15, 610, 115, 670) Then
 			If $g_iQuickMISName = "MapButton" Then
@@ -372,7 +372,7 @@ Func SwitchToCapitalMain()
 		EndIf
 		If QuickMIS("BC1", $g_sImgCCMap, 15, 610, 115, 670) Then
 			If $g_iQuickMISName = "ReturnHome" Then
-				SetDebugLog("We are on Clan Capital", $COLOR_ACTION)
+				;~ SetDebugLog("We are on Clan Capital", $COLOR_ACTION)
 				$bRet = True
 				ExitLoop
 			EndIf
@@ -384,7 +384,7 @@ EndFunc
 
 Func SwitchToMainVillage($caller = "Default")
 	Local $bRet = False
-	SetDebugLog("[" & $caller & "] Going To MainVillage", $COLOR_ACTION)
+	;~ SetDebugLog("[" & $caller & "] Going To MainVillage", $COLOR_ACTION)
 	For $i = 1 To 10
 		If QuickMIS("BC1", $g_sImgCCMap, 300, 10, 430, 40) Then
 			Click(60, 610) ;Click ReturnHome/Map
@@ -409,23 +409,23 @@ EndFunc
 Func WaitForMap($sMapName = "Capital Peak")
 	Local $bRet
 	For $i = 1 To 10
-		SetDebugLog("Waiting for " & $sMapName & "#" & $i, $COLOR_ACTION)
+		;~ SetDebugLog("Waiting for " & $sMapName & "#" & $i, $COLOR_ACTION)
 		_Sleep(2000)
 		If QuickMIS("BC1", $g_sImgCCMap, 300, 10, 430, 40) Then ExitLoop
 	Next
 	Local $aMapName = StringSplit($sMapName, " ", $STR_NOCOUNT)
 	Local $Text = getOcrAndCapture("coc-mapname", $g_iQuickMISX, $g_iQuickMISY - 12, 230, 35)
-	SetDebugLog("$Text: " & $Text)
+	;~ SetDebugLog("$Text: " & $Text)
 	For $i In $aMapName
 		If StringInStr($Text, $i) Then
-			SetDebugLog("Match with: " & $i)
+			;~ SetDebugLog("Match with: " & $i)
 			$bRet = True
 			SetLog("We are on " & $sMapName, $COLOR_INFO)
 			ExitLoop
 		EndIf
 	Next
 	If Not $bRet Then
-		SetDebugLog("checking with image")
+		;~ SetDebugLog("checking with image")
 		Local $ccMap = QuickMIS("CNX", $g_sImgCCMapName, $g_iQuickMISX, $g_iQuickMISY - 10, $g_iQuickMISX + 200, $g_iQuickMISY + 50)
 		If IsArray($ccMap) And UBound($ccMap) > 0 Then
 			Local $mapName = "dummyName"
@@ -433,7 +433,7 @@ Func WaitForMap($sMapName = "Capital Peak")
 				$mapName = String($ccMap[$z][0])
 				For $i In $aMapName
 					If StringInStr($mapName, $i) Then
-						SetDebugLog("Match with: " & $i)
+						;~ SetDebugLog("Match with: " & $i)
 						$bRet = True
 						SetLog("We are on " & $sMapName, $COLOR_INFO)
 						ExitLoop
@@ -457,15 +457,15 @@ Func IsCCBuilderMenuOpen()
 		;SetDebugLog("Found Border Color: " & _GetPixelColor($aBorder0[0], $aBorder0[1], True), $COLOR_ACTION)
 		$bRet = True ;got correct color for border
 	Else
-		SetDebugLog("Border Color Not Matched: " & _GetPixelColor($aBorder0[0], $aBorder0[1], True), $COLOR_ACTION)
+		;~ SetDebugLog("Border Color Not Matched: " & _GetPixelColor($aBorder0[0], $aBorder0[1], True), $COLOR_ACTION)
 	EndIf
 
 	If Not $bRet Then ;lets re check if border color check not success
 		$sTriangle = getOcrAndCapture("coc-buildermenu-cc", 350, 55, 200, 25)
-		SetDebugLog("$sTriangle: " & $sTriangle)
+		;~ SetDebugLog("$sTriangle: " & $sTriangle)
 		If $sTriangle = "^" Or $sTriangle = "~" Or $sTriangle = "@" Or $sTriangle = "#" Or $sTriangle = "%" Or $sTriangle = "$" Or $sTriangle = "&" Then $bRet = True
 	EndIf
-	SetDebugLog("IsCCBuilderMenuOpen : " & String($bRet))
+	;~ SetDebugLog("IsCCBuilderMenuOpen : " & String($bRet))
 	Return $bRet
 EndFunc
 
@@ -515,7 +515,7 @@ Func FindCCSuggestedUpgrade()
 	If IsArray($aUpgrade) And UBound($aUpgrade) > 0 Then
 		_ArraySort($aUpgrade, 0, 0, 0, 2) ;sort by Y coord
 		For $i = 0 To UBound($aUpgrade) - 1
-			SetDebugLog("Pixel on " & $aUpgrade[$i][1] - 61 & "," & $aUpgrade[$i][2] + 3 & ": " & _GetPixelColor($aUpgrade[$i][1] - 61, $aUpgrade[$i][2] + 3, True), $COLOR_INFO)
+			;~ SetDebugLog("Pixel on " & $aUpgrade[$i][1] - 61 & "," & $aUpgrade[$i][2] + 3 & ": " & _GetPixelColor($aUpgrade[$i][1] - 61, $aUpgrade[$i][2] + 3, True), $COLOR_INFO)
 			If _ColorCheck(_GetPixelColor($aUpgrade[$i][1] - 61, $aUpgrade[$i][2] + 3, True), Hex(0xC9F659, 6), 20) Then ;check if we have progressbar
 				$name = getCCBuildingName($aUpgrade[$i][1] - 250, $aUpgrade[$i][2] - 11)
 			Else
@@ -661,7 +661,7 @@ Func AutoUpgradeCC($bTest = False)
 		Local $aUpgrade = FindCCExistingUpgrade() ;Find on Capital Map, should only find currently on progress building
 		If IsArray($aUpgrade) And UBound($aUpgrade) > 0 Then
 			For $i = 0 To UBound($aUpgrade) - 1
-				SetDebugLog("CCExistingUpgrade: " & $aUpgrade[$i][0])
+				;~ SetDebugLog("CCExistingUpgrade: " & $aUpgrade[$i][0])
 				Click($aUpgrade[$i][1], $aUpgrade[$i][2]) ;click building on builder menu list
 				_Sleep(2000)
 				$aRet = WaitUpgradeButtonCC()
@@ -777,7 +777,7 @@ Func AutoUpgradeCC($bTest = False)
 					Local $bAllDone = False
 					For $z In $aDone
 						If StringInStr($Text, $z) Then
-							SetDebugLog("Match with: " & $z)
+							;~ SetDebugLog("Match with: " & $z)
 							SetLog("All Possible Upgrades Done", $COLOR_INFO)
 						EndIf
 					Next
@@ -795,7 +795,7 @@ Func IsUpgradeCCIgnore()
 	Local $UpgradeName = getOcrAndCapture("coc-build", 200, 494, 400, 30)
 	If $g_bChkAutoUpgradeCCWallIgnore Then ; Filter for wall
 		If StringInStr($UpgradeName, "Wall") Then
-				SetDebugLog($UpgradeName & " Match with: Wall")
+				;~ SetDebugLog($UpgradeName & " Match with: Wall")
 				SetLog("Upgrade for wall Ignored, Skip!!", $COLOR_ACTION)
 				$bRet = True
 		EndIf
@@ -803,12 +803,12 @@ Func IsUpgradeCCIgnore()
 	If $g_bChkAutoUpgradeCCIgnore And Not $bRet Then
 		For $y In $aCCBuildingIgnore
 			If StringInStr($UpgradeName, $y) Then
-				SetDebugLog($UpgradeName & " Match with: " & $y)
+				;~ SetDebugLog($UpgradeName & " Match with: " & $y)
 				SetLog("Upgrade for " & $y & " Ignored, Skip!!", $COLOR_ACTION)
 				$bRet = True
 				ExitLoop
 			Else
-				SetDebugLog("OCR: " & $UpgradeName & " compare with: " & $y)
+				;~ SetDebugLog("OCR: " & $UpgradeName & " compare with: " & $y)
 			EndIf
 		Next
 	EndIf

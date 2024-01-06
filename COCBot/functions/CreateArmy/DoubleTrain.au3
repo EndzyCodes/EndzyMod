@@ -322,7 +322,7 @@ Func BrewFullSpell($bQueue = False)
 	If Not OpenSpellsTab(True, "BrewFullSpell()") Then Return
 	Local $CampOCR = GetCurrentSpell(95, 163)
 	If Not $g_bRunState Then Return
-	SetDebugLog("Checking spell tab: " & $CampOCR[0] & "/" & $CampOCR[1] * 2)
+	;~ SetDebugLog("Checking spell tab: " & $CampOCR[0] & "/" & $CampOCR[1] * 2)
 	If $g_bIgnoreIncorrectSpellCombo And $g_bDoubleTrain Then
 		FillIncorrectSpellCombo($bQueue, $CampOCR)
 	EndIf

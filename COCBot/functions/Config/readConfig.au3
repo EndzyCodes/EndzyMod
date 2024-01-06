@@ -16,12 +16,12 @@
 Func readConfig($inputfile = $g_sProfileConfigPath) ;Reads config and sets it to the variables
 	Static $iReadConfigCount = 0
 	If $g_bReadConfigIsActive Then
-		SetDebugLog("readConfig(), already running, exit")
+		;~ SetDebugLog("readConfig(), already running, exit")
 		Return
 	EndIf
 	$g_bReadConfigIsActive = True
 	$iReadConfigCount += 1
-	SetDebugLog("readConfig(), call number " & $iReadConfigCount)
+	;~ SetDebugLog("readConfig(), call number " & $iReadConfigCount)
 
 	; Read the stats files into arrays, will create the files if necessary
 	$g_aiWeakBaseStats = readWeakBaseStats()
@@ -43,13 +43,13 @@ Func ReadProfileConfig($sIniFile = $g_sProfilePath & "\profile.ini")
 	$g_iGlobalActiveBotsAllowed = Int(IniRead($sIniFile, "general", "globalactivebotsallowed", $g_iGlobalActiveBotsAllowed))
 	If $g_iGlobalActiveBotsAllowed < 1 Then $g_iGlobalActiveBotsAllowed = 2 ; ensure that multiple bots can run
 	If $iValue <> $g_iGlobalActiveBotsAllowed Then
-		SetDebugLog("Maximum of " & $iValue & " bots running at same time changed to " & $g_iGlobalActiveBotsAllowed)
+		;~ SetDebugLog("Maximum of " & $iValue & " bots running at same time changed to " & $g_iGlobalActiveBotsAllowed)
 	EndIf
 
 	$iValue = $g_iGlobalThreads
 	$g_iGlobalThreads = Int(IniRead($sIniFile, "general", "globalthreads", $g_iGlobalThreads))
 	If $iValue <> $g_iGlobalThreads Then
-		SetDebugLog("Threading: Using " & $g_iGlobalThreads & " threads shared across all bot instances changed to " & $iValue)
+		;~ SetDebugLog("Threading: Using " & $g_iGlobalThreads & " threads shared across all bot instances changed to " & $iValue)
 	EndIf
 
 	; Not used anymore since MBR v7.6.7
@@ -60,7 +60,7 @@ Func ReadProfileConfig($sIniFile = $g_sProfilePath & "\profile.ini")
 EndFunc   ;==>ReadProfileConfig
 
 Func ReadBuildingConfig()
-	SetDebugLog("Read Building Config " & $g_sProfileBuildingPath)
+	;~ SetDebugLog("Read Building Config " & $g_sProfileBuildingPath)
 	Local $locationsInvalid = False
 	Local $buildingVersion = "0.0.0"
 	IniReadS($buildingVersion, $g_sProfileBuildingPath, "general", "version", $buildingVersion)
@@ -151,7 +151,7 @@ Func ReadBuildingConfig()
 EndFunc   ;==>ReadBuildingConfig
 
 Func ReadRegularConfig()
-	SetDebugLog("Read Config " & $g_sProfileConfigPath)
+	;~ SetDebugLog("Read Config " & $g_sProfileConfigPath)
 
 	; <><><><> Bot / Debug <><><><>
 	ReadConfig_Debug()
@@ -344,12 +344,12 @@ Func ReadConfig_Android()
 				If $g_asCmdLine[0] > 1 Then
 				If $g_asCmdLine[1] <> $sAndroidEmulator Then
 				$sAndroidEmulator = $g_asCmdLine[1]
-				SetDebugLog("Override Android Emulator by command line: " & $sAndroidEmulator)
+				;~ SetDebugLog("Override Android Emulator by command line: " & $sAndroidEmulator)
 				EndIf
 				If $g_asCmdLine[0] > 2 Then
 				If $g_asCmdLine[2] <> $sAndroidInstance Then
 				$sAndroidInstance = $g_asCmdLine[2]
-				SetDebugLog("Override Android Instance by command line: " & $sAndroidInstance)
+				;~ SetDebugLog("Override Android Instance by command line: " & $sAndroidInstance)
 				EndIf
 				EndIf
 				EndIf

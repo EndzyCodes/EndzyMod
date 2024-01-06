@@ -85,7 +85,7 @@ Func TreasuryCollect()
 				SetLog("Cannot Click Okay Button on Treasury Collect screen", $COLOR_ERROR)
 			EndIf
 		Else
-			SetDebugLog("Error in TreasuryCollect(): Cannot find the Collect Button", $COLOR_ERROR)
+			;~ SetDebugLog("Error in TreasuryCollect(): Cannot find the Collect Button", $COLOR_ERROR)
 		EndIf
 	Else
 		ClickAway()
@@ -130,7 +130,7 @@ Func AutoLocateCC()
 EndFunc
 
 Func SetCCSleep()
-	SetDebugLog("Check: Set Clan Castle")
+	;~ SetDebugLog("Check: Set Clan Castle")
 	Local $aCCDefense = findButton("CCGuard")
 	If IsArray($aCCDefense) And UBound($aCCDefense, 1) = 2 Then
 		SetLog("Set Clan Castle to Sleep Mode", $COLOR_INFO)

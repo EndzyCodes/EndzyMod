@@ -28,11 +28,11 @@ Func FindExitButton($sButtonName)
 		$aPosXY = StringSplit(($result[0])[0], ",", $STR_NOCOUNT)
 		$aPosXY[0] += $aCoor[0]
 		$aPosXY[1] += $aCoor[1]
-		SetDebugLog("FindExitButton: " & $sButtonName & " Button X|Y = " & $aPosXY[0] & "|" & $aPosXY[1], $COLOR_DEBUG)
+		;~ SetDebugLog("FindExitButton: " & $sButtonName & " Button X|Y = " & $aPosXY[0] & "|" & $aPosXY[1], $COLOR_DEBUG)
 		Return $aPosXY
 	EndIf
 
-	SetDebugLog("FindExitButton: " & $sButtonName & " NOT Found" , $COLOR_DEBUG)
+	;~ SetDebugLog("FindExitButton: " & $sButtonName & " NOT Found" , $COLOR_DEBUG)
 	Return $aPosXY
 EndFunc   ;==>FindExitButton
 

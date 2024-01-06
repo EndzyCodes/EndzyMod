@@ -176,7 +176,7 @@ Func getAndroidPos($FastCheck = False, $RetryCount1 = 0, $RetryCount2 = 0, $bWid
 			EndIf
 			;DisposeWindows()
 			;WinActivate($g_hAndroidWindow)
-			SetDebugLog($sPre & "Unsupported " & $g_sAndroidEmulator & " screen size of " & $aControlSize[2] & " x " & $aControlSize[3] & " at " & $aControlSize[0] & ", " & $aControlSize[1]  & " (expect " & $g_iAndroidClientWidth & " x " & $g_iAndroidClientHeight & ")", $COLOR_ACTION)
+			;~ SetDebugLog($sPre & "Unsupported " & $g_sAndroidEmulator & " screen size of " & $aControlSize[2] & " x " & $aControlSize[3] & " at " & $aControlSize[0] & ", " & $aControlSize[1]  & " (expect " & $g_iAndroidClientWidth & " x " & $g_iAndroidClientHeight & ")", $COLOR_ACTION)
 			Local $aAdj0 = [0, 0]
 			If $RetryCount1 = 0 And $RetryCount2 = 0 Then
 				; resize window first to an invalid size
@@ -221,7 +221,7 @@ Func getAndroidPos($FastCheck = False, $RetryCount1 = 0, $RetryCount2 = 0, $bWid
 						$aAdj[0] = $WinWidth - (DllStructGetData($tRECT, "Right") - DllStructGetData($tRECT, "Left"))
 						$aAdj[1] = $WinHeight - (DllStructGetData($tRECT, "Bottom") - DllStructGetData($tRECT, "Top"))
 					Else
-						SetDebugLog($sPre & "WARNING: Cannot determine " & $g_sAndroidEmulator & " Window Client Area!", $COLOR_ERROR)
+						;~ SetDebugLog($sPre & "WARNING: Cannot determine " & $g_sAndroidEmulator & " Window Client Area!", $COLOR_ERROR)
 					EndIf
 				Case 1
 					; do both
@@ -254,7 +254,7 @@ Func getAndroidPos($FastCheck = False, $RetryCount1 = 0, $RetryCount2 = 0, $bWid
 
 			$aAndroidWindow[0] += $aAdj[0]
 			$aAndroidWindow[1] += $aAdj[1]
-			SetDebugLog($sPre & $g_sAndroidTitle & " Adjusted Window Size: " & $aAndroidWindow[0] & " x " & $aAndroidWindow[1] & " (by " & $aAdj[0] + $aAdj0[0] & ", " & $aAdj[1] + $aAdj0[1] & ")", $COLOR_INFO)
+			;~ SetDebugLog($sPre & $g_sAndroidTitle & " Adjusted Window Size: " & $aAndroidWindow[0] & " x " & $aAndroidWindow[1] & " (by " & $aAdj[0] + $aAdj0[0] & ", " & $aAdj[1] + $aAdj0[1] & ")", $COLOR_INFO)
 
 			If $bExpectControlResize And $RetryCount1 < 6 Then
 				WinMove($g_hAndroidWindow, "", $AndroidWinPos[0], $AndroidWinPos[1], $aAndroidWindow[0] - 2, $aAndroidWindow[1] - 2) ; force invalid resize (triggers Android rendering control resize)
@@ -274,7 +274,7 @@ Func getAndroidPos($FastCheck = False, $RetryCount1 = 0, $RetryCount2 = 0, $bWid
 				Local $aNewControlSize = getAndroidPos(True)
 				If UBound($aNewControlSize) > 2 Then
 					;ControlMove($g_hAndroidWindow, $g_sAppPaneName, $g_sAppClassInstance, 0, 0, $g_iAndroidClientWidth, $g_iAndroidClientHeight)
-					SetDebugLog($sPre & $g_sAndroidEmulator & " window resized to " & $aAndroidWindow[0] & " x " & $aAndroidWindow[1], $COLOR_SUCCESS)
+					;~ SetDebugLog($sPre & $g_sAndroidEmulator & " window resized to " & $aAndroidWindow[0] & " x " & $aAndroidWindow[1], $COLOR_SUCCESS)
 
 					RedrawAndroidWindow()
 					If $bExpectControlResize Then
@@ -288,7 +288,7 @@ Func getAndroidPos($FastCheck = False, $RetryCount1 = 0, $RetryCount2 = 0, $bWid
 						If $aControlSize[2] <> $g_iAndroidClientWidth Or $aControlSize[3] <> $g_iAndroidClientHeight Then
 							If $bExpectControlResize = True Then
 								If $g_bDebugSetlog Then
-									SetDebugLog($sPre & $g_sAndroidEmulator & " window resize didn't work, screen is " & $aControlSize[2] & " x " & $aControlSize[3], $COLOR_ERROR)
+									;~ SetDebugLog($sPre & $g_sAndroidEmulator & " window resize didn't work, screen is " & $aControlSize[2] & " x " & $aControlSize[3], $COLOR_ERROR)
 								Else
 									SetLog($g_sAndroidEmulator & " window resize didn't work, screen is " & $aControlSize[2] & " x " & $aControlSize[3], $COLOR_ERROR)
 								EndIf
@@ -318,7 +318,7 @@ Func getAndroidPos($FastCheck = False, $RetryCount1 = 0, $RetryCount2 = 0, $bWid
 						EndIf
 					EndIf
 				Else
-					SetDebugLog($sPre & "WARNING: Cannot resize " & $g_sAndroidEmulator & " window to " & $aAndroidWindow[0] & " x " & $aAndroidWindow[1], $COLOR_ERROR)
+					;~ SetDebugLog($sPre & "WARNING: Cannot resize " & $g_sAndroidEmulator & " window to " & $aAndroidWindow[0] & " x " & $aAndroidWindow[1], $COLOR_ERROR)
 				EndIf
 
 			Else
@@ -334,13 +334,13 @@ Func getAndroidPos($FastCheck = False, $RetryCount1 = 0, $RetryCount2 = 0, $bWid
 		EndIf
 
 	Else
-		SetDebugLog($sPre & "WARNING: Cannot resize " & $g_sAndroidEmulator & " window, control '" & $g_sAppClassInstance & "' not available", $COLOR_ERROR)
+		;~ SetDebugLog($sPre & "WARNING: Cannot resize " & $g_sAndroidEmulator & " window, control '" & $g_sAppClassInstance & "' not available", $COLOR_ERROR)
 	EndIf
 
 	If $bResizedOK Then
 		;RedrawAndroidWindow()
 		If $g_bDebugSetlog Then
-			SetDebugLog($sPre & $g_sAndroidEmulator & " window resized to work with MyBot", $COLOR_SUCCESS)
+			;~ SetDebugLog($sPre & $g_sAndroidEmulator & " window resized to work with MyBot", $COLOR_SUCCESS)
 		Else
 			SetLog($g_sAndroidEmulator & " window resized to work with MyBot", $COLOR_SUCCESS)
 		EndIf
@@ -359,7 +359,7 @@ Func getAndroidPos($FastCheck = False, $RetryCount1 = 0, $RetryCount2 = 0, $bWid
 			;WinMove2($hCtrlTarget, "", -1, -1, $aCtrlTargetPos[2], $aCtrlTargetPos[3], 0, 0, False)
 			SetLog($sPre & $g_sAndroidEmulator & " window resized to work with MyBot", $COLOR_SUCCESS)
 		Else
-			SetDebugLog($sPre & "WARNING: Cannot resize " & $g_sAndroidEmulator & " window, control is not available", $COLOR_ERROR)
+			;~ SetDebugLog($sPre & "WARNING: Cannot resize " & $g_sAndroidEmulator & " window, control is not available", $COLOR_ERROR)
 		EndIf
 		#ce
 	EndIf

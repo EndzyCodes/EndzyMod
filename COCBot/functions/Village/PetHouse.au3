@@ -78,7 +78,7 @@ Func PetHouse($test = False)
 		SetLog("Click on PetHouse, Level:" & $BuildingName[2])
 		$g_iPetHouseLevel = Number($BuildingName[2])
 	Else
-		SetDebugLog("Wrong Click on PetHouse, its a " & $BuildingName[1])
+		;~ SetDebugLog("Wrong Click on PetHouse, its a " & $BuildingName[1])
 		ClickAway()
 		If Not LocatePetHouse() Then
 			SetLog("Cannot Find PetHouse, please locate manually")
@@ -168,7 +168,7 @@ Func PetHouse($test = False)
 		EndSwitch
 	EndIf
 	
-	SetDebugLog(_ArrayToString($aPet))
+	;~ SetDebugLog(_ArrayToString($aPet))
 	Local $bSecondPage = False
 	For $i = 0 to UBound($aPet) - 1
 		If $g_bUpgradePetsEnable[$aPet[$i][0]] And $aPet[$i][2] = "True" Then
@@ -203,7 +203,7 @@ Func PetHouse($test = False)
 					
 					; Just incase the buy Gem Window pop up!
 					If isGemOpen(True) Then
-						SetDebugLog("Not enough DE for to upgrade: " & $g_asPetNames[$i], $COLOR_DEBUG)
+						;~ SetDebugLog("Not enough DE for to upgrade: " & $g_asPetNames[$i], $COLOR_DEBUG)
 						ClickAway()
 						Return False
 					EndIf
@@ -221,7 +221,7 @@ Func PetHouse($test = False)
 					SetLog("Started upgrade for: " & $aPet[$i][1], $COLOR_SUCCESS)
 					Local $sPetTimeOCR = getRemainTPetHouse(274, 244)
 					Local $iPetFinishTime = ConvertOCRTime("PetHouse Time", $sPetTimeOCR, False)
-					SetDebugLog("$sPetTimeOCR: " & $sPetTimeOCR & ", $iPetFinishTime = " & $iPetFinishTime & " m")
+					;~ SetDebugLog("$sPetTimeOCR: " & $sPetTimeOCR & ", $iPetFinishTime = " & $iPetFinishTime & " m")
 					If $iPetFinishTime > 0 Then
 						$g_sPetUpgradeTime = _DateAdd('n', Ceiling($iPetFinishTime), _NowCalc())
 						SetLog("Pet House will finish in " & $sPetTimeOCR & " (" & $g_sPetUpgradeTime & ")", $COLOR_SUCCESS)
@@ -233,7 +233,7 @@ Func PetHouse($test = False)
 				ClickAway()
 				Return True
 			Else
-				SetDebugLog("DE:" & $g_aiCurrentLoot[$eLootDarkElixir] & " - " & $iDarkElixirReq & " = " & $g_aiCurrentLoot[$eLootDarkElixir] - $iDarkElixirReq)
+				;~ SetDebugLog("DE:" & $g_aiCurrentLoot[$eLootDarkElixir] & " - " & $iDarkElixirReq & " = " & $g_aiCurrentLoot[$eLootDarkElixir] - $iDarkElixirReq)
 				SetLog("Upgrade Failed - Not enough Dark Elixir", $COLOR_ERROR)
 				ClickAway()
 				If $g_bChkSortPetUpgrade Then Return False
@@ -256,7 +256,7 @@ Func CheckPetUpgrade()
 		; upgrade in process and time not recorded so update completion time!
 		Local $sPetTimeOCR = getRemainTPetHouse(240, 244)
 		Local $iPetFinishTime = ConvertOCRTime("Lab Time", $sPetTimeOCR, False)
-		SetDebugLog("$sPetTimeOCR: " & $sPetTimeOCR & ", $iPetFinishTime = " & $iPetFinishTime & " m")
+		;~ SetDebugLog("$sPetTimeOCR: " & $sPetTimeOCR & ", $iPetFinishTime = " & $iPetFinishTime & " m")
 		If $iPetFinishTime > 0 Then
 			$g_sPetUpgradeTime = _DateAdd('n', Ceiling($iPetFinishTime), _NowCalc())
 			If @error Then _logErrorDateAdd(@error)

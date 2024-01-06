@@ -36,7 +36,7 @@ Func QuickMIS($ValueReturned, $directory, $Left = 0, $Top = 0, $Right = $g_iGAME
 			EndIf
 			Local $files = _FileListToArray($dir, $pat, $FLTA_FILES, True)
 			If @error Or UBound($files) < 2 Then
-				SetDebugLog("findImage files not found : " & $directory, $COLOR_ERROR)
+				;~ SetDebugLog("findImage files not found : " & $directory, $COLOR_ERROR)
 				SetError(1, 0, $aCoords) ; Set external error code = 1 for bad input values
 				Return
 			EndIf
@@ -49,7 +49,7 @@ Func QuickMIS($ValueReturned, $directory, $Left = 0, $Top = 0, $Right = $g_iGAME
 						$g_iQuickMISX = $coord[0]
 						$g_iQuickMISY = $coord[1]
 						$g_iQuickMISName = $files[$i]
-						If $g_bDebugSetlog THen SetDebugLog("BFI Found : " & $g_iQuickMISName & " [" & $g_iQuickMISX & "," & $g_iQuickMISY & "]")
+						If $g_bDebugSetlog Then SetDebugLog("BFI Found : " & $g_iQuickMISName & " [" & $g_iQuickMISX & "," & $g_iQuickMISY & "]")
 						Return True
 					EndIf
 				Else
@@ -65,7 +65,7 @@ Func QuickMIS($ValueReturned, $directory, $Left = 0, $Top = 0, $Right = $g_iGAME
 	$extError = @extended
 	If $error Then
 		_logErrorDLLCall($g_sLibMyBotPath, $error)
-		SetDebugLog(" QuickMIS DLL Error : " & $error & " --- " & $extError)
+		;~ SetDebugLog(" QuickMIS DLL Error : " & $error & " --- " & $extError)
 		Return -1
 	EndIf
 	If $g_bDebugImageSave Then SaveDebugImage("QuickMIS_" & $ValueReturned, False)
@@ -125,7 +125,7 @@ Func QuickMIS($ValueReturned, $directory, $Left = 0, $Top = 0, $Right = $g_iGAME
 					$g_iQuickMISLevel = $Level
 
 					If $g_bDebugSetlog Or $Debug Then
-						SetDebugLog($ValueReturned & " Found: " & $Name & " Level:" & $Level & ", using " & $g_iQuickMISX & "," & $g_iQuickMISY, $COLOR_PURPLE)
+						;~ SetDebugLog($ValueReturned & " Found: " & $Name & " Level:" & $Level & ", using " & $g_iQuickMISX & "," & $g_iQuickMISY, $COLOR_PURPLE)
 						If $g_bDebugImageSave Then DebugQuickMIS($Left, $Top, "BC1_detected[" & $Name & "_" & $g_iQuickMISX & "x" & $g_iQuickMISY & "]")
 					EndIf
 
@@ -162,7 +162,7 @@ Func QuickMIS($ValueReturned, $directory, $Left = 0, $Top = 0, $Right = $g_iGAME
 						Next
 					Next
 					If $g_bDebugSetlog Or $Debug Then 
-						SetDebugLog($ValueReturned & " Found: " & $sResult)
+						;~ SetDebugLog($ValueReturned & " Found: " & $sResult)
 						If $g_bDebugImageSave Then DebugQuickMISCNX($Result, "CNX")
 					EndIf
 					Return $Result

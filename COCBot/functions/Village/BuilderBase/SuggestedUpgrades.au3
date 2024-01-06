@@ -273,7 +273,7 @@ Func SearchNewBuilding($bTest = False)
 
 		If Not $g_bRunState Then Return
 		$TmpUpgradeCost = getMostBottomCostBB() ;check most bottom upgrade cost
-		SetDebugLog("TmpUpgradeCost = " & $TmpUpgradeCost & " UpgradeCost = " & $UpgradeCost, $COLOR_INFO)
+		;~ SetDebugLog("TmpUpgradeCost = " & $TmpUpgradeCost & " UpgradeCost = " & $UpgradeCost, $COLOR_INFO)
 		If $UpgradeCost = $TmpUpgradeCost Then $sameCost += 1
 		If Not ($UpgradeCost = $TmpUpgradeCost) Then $sameCost = 0
 		If $sameCost > 1 Then $NeedDrag = False
@@ -362,7 +362,7 @@ Func SearchExistingBuilding($bTest = False)
 		EndIf
 		If Not $g_bRunState Then Return
 		$TmpUpgradeCost = getMostBottomCostBB() ;check most bottom upgrade cost
-		SetDebugLog("TmpUpgradeCost = " & $TmpUpgradeCost & " UpgradeCost = " & $UpgradeCost, $COLOR_INFO)
+		;~ SetDebugLog("TmpUpgradeCost = " & $TmpUpgradeCost & " UpgradeCost = " & $UpgradeCost, $COLOR_INFO)
 		If $UpgradeCost = $TmpUpgradeCost Then $sameCost += 1
 		If Not ($UpgradeCost = $TmpUpgradeCost) Then $sameCost = 0
 		If $sameCost > 1 Then $NeedDrag = False
@@ -471,7 +471,7 @@ Func ClickDragAutoUpgradeBB($Direction = "up", $YY = Default, $DragCount = 1)
 		Local $Tmp = QuickMIS("CNX", $g_sImgBBResourceIcon, 400, 73, 500, 370)
 		If IsArray($Tmp) And UBound($Tmp) > 0 Then
 			$YY = _ArrayMax($Tmp, 1, 0, -1, 2)
-			SetDebugLog("DragUpY = " & $YY)
+			;~ SetDebugLog("DragUpY = " & $YY)
 			If Number($YY) < 300 Then
 				SetLog("No need to dragUp!", $COLOR_INFO)
 				Return False
@@ -594,7 +594,7 @@ Func SearchGreenZoneBB($Region = 0, $ZoomIn = True)
 	
 	Local $aAll[4][2] = [["Top", $aTop[0]], ["Left", $aLeft[0]], ["Bottom", $aBottom[0]], ["Right", $aRight[0]]]
 	_ArraySort($aAll,1,0,0,1)
-	SetDebugLog($aAll[0][0] & ":" & $aAll[0][1] & "|" & $aAll[1][0] & ":" & $aAll[1][1] & "|" & $aAll[2][0] & ":" & $aAll[2][1] & "|" & $aAll[3][0] & ":" & $aAll[3][1] & "|", $COLOR_DEBUG)
+	;~ SetDebugLog($aAll[0][0] & ":" & $aAll[0][1] & "|" & $aAll[1][0] & ":" & $aAll[1][1] & "|" & $aAll[2][0] & ":" & $aAll[2][1] & "|" & $aAll[3][0] & ":" & $aAll[3][1] & "|", $COLOR_DEBUG)
 	
 	If $aAll[0][1] > 0 Then
 		SetLog("Found GreenZone, On " & $aAll[0][0] & " Region", $COLOR_SUCCESS)
@@ -685,14 +685,14 @@ Func FindBBNewBuilding()
 			$aBuilding[$j][4] = $aUpgradeName[0]
 			$aBuilding[$j][5] = $aUpgradeName[1]
 			$aBuilding[$j][6] = Number($UpgradeCost)
-			SetDebugLog("[" & $j & "] Building: " & $aBuilding[$j][4] & ", Cost=" & $aBuilding[$j][6] & " Coord [" &  $aBuilding[$j][1] & "," & $aBuilding[$j][2] & "]", $COLOR_DEBUG)
+			;~ SetDebugLog("[" & $j & "] Building: " & $aBuilding[$j][4] & ", Cost=" & $aBuilding[$j][6] & " Coord [" &  $aBuilding[$j][1] & "," & $aBuilding[$j][2] & "]", $COLOR_DEBUG)
 		Next
 	EndIf
 	
 	Local $iIndex = _ArraySearch($aBuilding, "", 0, 0, 0, 0, 0, 5)
 	If $iIndex > -1 Then 
-		SetDebugLog(_ArrayToString($aBuilding))
-		SetDebugLog("Found Building with Zero cost, remove it", $COLOR_INFO)
+		;~ SetDebugLog(_ArrayToString($aBuilding))
+		;~ SetDebugLog("Found Building with Zero cost, remove it", $COLOR_INFO)
 		_ArrayDelete($aBuilding, $iIndex)
 	EndIf
 	
@@ -748,7 +748,7 @@ Func FindBBExistingBuilding($bTest = False)
 				If $g_bisMegaTeslaMaxed And $aTmpCoord[$i][0] = "Gold" Then $bFoundOptimizeOTTO = True ;assign gold upgrade if mega tesla already maxed
 				
 				If Not $bFoundOptimizeOTTO Then
-					SetDebugLog("Building:" & $UpgradeName[0] & ", not OptimizeOTTO building")
+					;~ SetDebugLog("Building:" & $UpgradeName[0] & ", not OptimizeOTTO building")
 					ContinueLoop
 				EndIf
 			EndIf
@@ -772,14 +772,14 @@ Func FindBBExistingBuilding($bTest = False)
 					EndIf
 				Next
 			EndIf
-			SetDebugLog("[" & $j & "] Building: " & $BuildingName & ", Cost=" & $UpgradeCost & " Coord [" &  $aBuilding[$j][1] & "," & $aBuilding[$j][2] & "]", $COLOR_DEBUG)
+			;~ SetDebugLog("[" & $j & "] Building: " & $BuildingName & ", Cost=" & $UpgradeCost & " Coord [" &  $aBuilding[$j][1] & "," & $aBuilding[$j][2] & "]", $COLOR_DEBUG)
 		Next
 	EndIf
 	
 	Local $iIndex = _ArraySearch($aBuilding, "", 0, 0, 0, 0, 0, 5)
 	If $iIndex > -1 Then 
-		SetDebugLog(_ArrayToString($aBuilding))
-		SetDebugLog("Found Building with Zero cost, remove it", $COLOR_INFO)
+		;~ SetDebugLog(_ArrayToString($aBuilding))
+		;~ SetDebugLog("Found Building with Zero cost, remove it", $COLOR_INFO)
 		_ArrayDelete($aBuilding, $iIndex)
 	EndIf
 	
@@ -825,21 +825,21 @@ Func IsBBBuilderMenuOpen()
 	Local $aBorder1[4] = [560, 73, 0xFFFFFF, 40]
 	Local $sTriangle
 	If _CheckPixel($aBorder, True) Then
-		SetDebugLog("Found Border Color: " & _GetPixelColor($aBorder[0], $aBorder[1], True), $COLOR_ACTION)
+		;~ SetDebugLog("Found Border Color: " & _GetPixelColor($aBorder[0], $aBorder[1], True), $COLOR_ACTION)
 		$bRet = True ;got correct color for border
 	EndIf
 	
 	If Not $bRet Then 
 		If _CheckPixel($aBorder1, True) Then
-			SetDebugLog("Found Border1 Color: " & _GetPixelColor($aBorder1[0], $aBorder1[1], True), $COLOR_ACTION)
+			;~ SetDebugLog("Found Border1 Color: " & _GetPixelColor($aBorder1[0], $aBorder1[1], True), $COLOR_ACTION)
 			$bRet = True ;got correct color for border
 		EndIf
 	EndIf
 	
 	If Not $bRet Then ;lets re check if border color check not success
-		SetDebugLog("Border Color: " & _GetPixelColor($aBorder[0], $aBorder[1], True), $COLOR_ACTION)
+		;~ SetDebugLog("Border Color: " & _GetPixelColor($aBorder[0], $aBorder[1], True), $COLOR_ACTION)
 		$sTriangle = getOcrAndCapture("coc-buildermenu-main", 495, 60, 50, 17)
-		SetDebugLog("$sTriangle: " & $sTriangle)
+		;~ SetDebugLog("$sTriangle: " & $sTriangle)
 		If $sTriangle = "^" Or $sTriangle = "~" Then $bRet = True
 	EndIf
 
@@ -863,7 +863,7 @@ Func CheckResourceForDoUpgradeBB($BuildingName, $Cost, $CostType)
 
 	Local $Gold = getResourcesMainScreen(695, 23)
 	Local $Elix = getResourcesMainScreen(695, 72)
-	SetDebugLog("Gold:" & $Gold & " Elix:" & $Elix)
+	;~ SetDebugLog("Gold:" & $Gold & " Elix:" & $Elix)
 
 	; initiate a False boolean, that firstly says that there is no sufficent resource to launch upgrade
 	Local $bSafeToUpgrade = False
@@ -974,7 +974,7 @@ Func IsGreenCheck()
 		If QuickMIS("BC1", $g_sImgAutoUpgradeGreenCheck, 80, 80, 780, 600) Then
 			$bRet = True ;quickmis found a check mark, lets check the color
 			Local $color = _GetPixelColor($g_iQuickMISX, $g_iQuickMISY, 1)
-			SetDebugLog("GreenCheck Color: " & $color)
+			;~ SetDebugLog("GreenCheck Color: " & $color)
 			If _ColorCheck($color, Hex(0xF2F2F2, 6), 16) Or _ColorCheck($color, Hex(0xFDFDFD, 6), 10) Or _
 				_ColorCheck($color, Hex(0xC3C3C8, 6), 10) Or _ColorCheck($color, Hex(0xA3A3AE, 6), 10) Then
 				$bRet = True

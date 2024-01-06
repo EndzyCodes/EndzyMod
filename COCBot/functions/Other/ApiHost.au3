@@ -76,11 +76,11 @@ Func WM_MYBOTRUN_STATE($hWind, $iMsg, $wParam, $lParam)
 			Local $_bLaunched = DllStructGetData($tBotState, "Launched")
 			GetManagedMyBotDetails($_frmBot, $g_WatchOnlyClientPID, $_RunState, $_TPaused, $_bLaunched, Default, $tBotState, $hMem)
 		Else
-			SetDebugLog("API-HOST-STATE: Cannot read memory from process: " & $pid)
+			;~ SetDebugLog("API-HOST-STATE: Cannot read memory from process: " & $pid)
 		EndIf
 		_MemoryClose($hMem)
 	Else
-		SetDebugLog("API-HOST-STATE: Cannot access PID for Window Handle: " & $lParam)
+		;~ SetDebugLog("API-HOST-STATE: Cannot access PID for Window Handle: " & $lParam)
 	EndIf
 
 EndFunc   ;==>WM_MYBOTRUN_STATE
@@ -156,7 +156,7 @@ Func GetManagedMyBotDetails($hFrmBot = Default, $iFilterPID = Default, $_RunStat
 		EndIf
 
 		If ($sProfile And $a[$g_eBotDetailsProfile] = $sProfile) Or (Not $sProfile And $a[$g_eBotDetailsTitle] = $sTitle) Then
-			SetDebugLog("Remove registered Bot Window Handle " & $a[$g_eBotDetailsBotForm] & ", as new instance detected")
+			;~ SetDebugLog("Remove registered Bot Window Handle " & $a[$g_eBotDetailsBotForm] & ", as new instance detected")
 			_ArrayDelete($g_ahManagedMyBotDetails, $i)
 			$i -= 1
 		EndIf
@@ -171,7 +171,7 @@ Func GetManagedMyBotDetails($hFrmBot = Default, $iFilterPID = Default, $_RunStat
 		ReDim $g_ahManagedMyBotDetails[$i + 1]
 		If $aNew[$g_eBotDetailsCommandLine] = -1 Then SetLog("Command line not found for Window Handle/PID: " & $hFrmBot & "/" & $pid)
 		$g_ahManagedMyBotDetails[$i] = $aNew
-		SetDebugLog("New Bot Window Handle registered: " & GetManagedMyBotInfoString($aNew))
+		;~ SetDebugLog("New Bot Window Handle registered: " & GetManagedMyBotInfoString($aNew))
 	EndIf
 	Return $aNew
 EndFunc   ;==>GetManagedMyBotDetails
@@ -190,7 +190,7 @@ EndFunc   ;==>ClearManagedMyBotDetails
 
 Func UnregisterManagedMyBotClient($hFrmBot)
 
-	SetDebugLog("Try to un-register Bot Window Handle: " & $hFrmBot)
+	;~ SetDebugLog("Try to un-register Bot Window Handle: " & $hFrmBot)
 
 	For $i = 0 To UBound($g_ahManagedMyBotDetails) - 1
 		Local $a = $g_ahManagedMyBotDetails[$i]
@@ -198,9 +198,9 @@ Func UnregisterManagedMyBotClient($hFrmBot)
 			_ArrayDelete($g_ahManagedMyBotDetails, $i)
 			Local $Result = 1
 			If IsHWnd($hFrmBot) Then
-				SetDebugLog("Bot Window Handle un-registered: " & $hFrmBot)
+				;~ SetDebugLog("Bot Window Handle un-registered: " & $hFrmBot)
 			Else
-				SetDebugLog("Inaccessible Bot Window Handle un-registered: " & $hFrmBot)
+				;~ SetDebugLog("Inaccessible Bot Window Handle un-registered: " & $hFrmBot)
 				$Result = -1
 			EndIf
 			If $bCloseWhenAllBotsUnregistered = True And UBound($g_ahManagedMyBotDetails) = 0 Then
@@ -211,7 +211,7 @@ Func UnregisterManagedMyBotClient($hFrmBot)
 		EndIf
 	Next
 
-	SetDebugLog("Bot Window Handle not un-registered: " & $hFrmBot, $COLOR_RED)
+	;~ SetDebugLog("Bot Window Handle not un-registered: " & $hFrmBot, $COLOR_RED)
 
 	Return 0
 
@@ -237,7 +237,7 @@ Func CheckManagedMyBot($iTimeout)
 			For $j = 0 To UBound($g_ahManagedMyBotDetails) - 1
 				$a = $g_ahManagedMyBotDetails[$j]
 				If $a[$g_eBotDetailsTitle] = $g_sBotTitle Then
-					SetDebugLog("Bot already restarted, window title: " & $g_sBotTitle)
+					;~ SetDebugLog("Bot already restarted, window title: " & $g_sBotTitle)
 					Return WinGetProcess($a[$g_eBotDetailsBotForm])
 				EndIf
 			Next
@@ -246,7 +246,7 @@ Func CheckManagedMyBot($iTimeout)
 				; bot was started, autostart again
 				If StringInStr($cmd, " /autostart") = 0 Then $cmd &= " /autostart"
 			EndIf
-			SetDebugLog("Restarting bot: " & $cmd)
+			;~ SetDebugLog("Restarting bot: " & $cmd)
 			Return Run($cmd)
 		EndIf
 	Next
@@ -262,7 +262,7 @@ Func GetActiveMyBotCount($iTimeout)
 		If __TimerDiff($a[$g_eBotDetailsTimer]) <= $iTimeout Then
 			$iCount += 1
 		Else
-			SetDebugLog("Bot not responding with Window Handle: " & $a[$g_eBotDetailsBotForm])
+			;~ SetDebugLog("Bot not responding with Window Handle: " & $a[$g_eBotDetailsBotForm])
 		EndIf
 	Next
 

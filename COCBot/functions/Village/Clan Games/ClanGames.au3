@@ -601,7 +601,7 @@ Func IsEventRunning($bOpenWindow = False)
 						If QuickMIS("BC1", $g_sImgTrashPurge, 100, 100, 700, 550, True) Then
 							ExitLoop
 						Else
-							SetDebugLog("waiting for trash #" & $i)
+							;~ SetDebugLog("waiting for trash #" & $i)
 						EndIf
 						_Sleep(500)
 					Next
@@ -680,7 +680,7 @@ Func StartsEvent($sEventName, $g_bPurgeJob = False, $OnlyPurge = False)
 					SetLog("Click Trash", $COLOR_INFO)
 					ExitLoop
 				Else
-					SetDebugLog("waiting for trash #" & $i)
+					;~ SetDebugLog("waiting for trash #" & $i)
 				EndIf
 				_Sleep(1000)
 			Next
@@ -695,7 +695,7 @@ Func StartsEvent($sEventName, $g_bPurgeJob = False, $OnlyPurge = False)
 					CloseClangamesWindow()
 					Return True
 				Else
-					SetDebugLog("waiting for OK #" & $i)
+					;~ SetDebugLog("waiting for OK #" & $i)
 				EndIf
 				_Sleep(1000)
 			Next
@@ -714,7 +714,7 @@ Func StartsEvent($sEventName, $g_bPurgeJob = False, $OnlyPurge = False)
 				If QuickMIS("BC1", $g_sImgTrashPurge, 100, 100, 700, 550, True) Then
 					ExitLoop
 				Else
-					SetDebugLog("waiting for trash #" & $i)
+					;~ SetDebugLog("waiting for trash #" & $i)
 				EndIf
 				_Sleep(500)
 			Next
@@ -754,7 +754,7 @@ Func ForcePurgeEvent($bTest = False, $startFirst = True)
 	Else
 		SetLog("ForcePurgeEvent: Purge a Wrong Challenge", $COLOR_INFO)
 		While Not WaitforPixel(580, 323, 582, 324, "F71E22", 10, 1)
-			SetDebugLog("Waiting for trash Button", $COLOR_DEBUG)
+			;~ SetDebugLog("Waiting for trash Button", $COLOR_DEBUG)
 			$count1 += 1
 			If _Sleep(500) Then Return
 			If $count1 > 10 Then ExitLoop
@@ -763,7 +763,7 @@ Func ForcePurgeEvent($bTest = False, $startFirst = True)
 			Click($g_iQuickMISX, $g_iQuickMISY)
 			SetLog("Click Trash", $COLOR_INFO)
 			While Not IsOKCancelPage()
-				SetDebugLog("Waiting for trash Confirm OK", $COLOR_DEBUG)
+				;~ SetDebugLog("Waiting for trash Confirm OK", $COLOR_DEBUG)
 				$count2 += 1
 				If _Sleep(500) Then Return
 				If $count2 > 10 Then ExitLoop
@@ -801,7 +801,7 @@ Func StartAndPurgeEvent($bTest = False)
 		_FileWriteLog($g_sProfileLogsPath & "\ClanGames.log", " [" & $g_sProfileCurrentName & "] - Starting Purge [score:" & $aTimer[0] & ", " & $aTimer[1] & " min]")
 
 		While Not WaitforPixel(570, 285, 571, 286, "F51D20", 10, 1)
-			SetDebugLog("Waiting for trash Button", $COLOR_DEBUG)
+			;~ SetDebugLog("Waiting for trash Button", $COLOR_DEBUG)
 			$count1 += 1
 			If _Sleep(500) Then Return
 			If $count1 > 10 Then ExitLoop
@@ -811,7 +811,7 @@ Func StartAndPurgeEvent($bTest = False)
 			Click($g_iQuickMISX, $g_iQuickMISY)
 			SetLog("Click Trash", $COLOR_INFO)
 			While Not IsOKCancelPage()
-				SetDebugLog("Waiting for trash Confirm OK", $COLOR_DEBUG)
+				;~ SetDebugLog("Waiting for trash Confirm OK", $COLOR_DEBUG)
 				$count2 += 1
 				If _Sleep(500) Then Return
 				If $count2 > 10 Then ExitLoop
@@ -989,7 +989,7 @@ Func CollectCGReward($bTest = False)
 
 	$sYourGameScore = getOcrYourCGScore(48, 560) ;  Read your Score
 	$aiScoreLimit = StringSplit($sYourGameScore, "#", $STR_NOCOUNT)
-	SetDebugLog(_ArrayToString($aiScoreLimit))
+	;~ SetDebugLog(_ArrayToString($aiScoreLimit))
 	If UBound($aiScoreLimit) < 2 Then  ;error read score, leave
 		SetLog("Fail reading Score", $COLOR_ERROR)
 		Return
@@ -1017,14 +1017,14 @@ Func CollectCGReward($bTest = False)
 	For $i = 0 To 7
 		If $OnlyClaimMax Then ExitLoop
 		If Not $g_bRunState Then Return
-		SetDebugLog("CHECK #" & $i+1, $COLOR_ACTION)
+		;~ SetDebugLog("CHECK #" & $i+1, $COLOR_ACTION)
 		If _CheckPixel($aRewardButton, True) Then ExitLoop
 
 		If $i < 3 Then
 			Local $aTile = GetCGRewardList()
 			If IsArray($aTile) And UBound($aTile) > 0 Then
 				For $j = 0 To UBound($aTile) -1
-					SetDebugLog("Items: " & $aTile[$j][0] & " Value: " & $aTile[$j][3])
+					;~ SetDebugLog("Items: " & $aTile[$j][0] & " Value: " & $aTile[$j][3])
 				Next
 				Click($aTile[0][1], $aTile[0][2]+10)
 				SetLog("Selecting Magic Items:" & $aTile[0][0], $COLOR_INFO)
@@ -1049,7 +1049,7 @@ Func CollectCGReward($bTest = False)
 		Local $aTile = GetCGRewardList()
 		If IsArray($aTile) And UBound($aTile) > 0 Then
 			For $j = 0 To UBound($aTile) -1
-				SetDebugLog("Items: " & $aTile[$j][0] & " Value: " & $aTile[$j][3])
+				;~ SetDebugLog("Items: " & $aTile[$j][0] & " Value: " & $aTile[$j][3])
 			Next
 			Click($aTile[0][1], $aTile[0][2]+10)
 			SetLog("Selecting Magic Items:" & $aTile[0][0], $COLOR_INFO)

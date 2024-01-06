@@ -158,7 +158,7 @@ Local $iExitCode = 0
 Local $iActiveBots = 0
 While 1
 	$iActiveBots = UBound(GetManagedMyBotDetails())
-	SetDebugLog("Broadcast query bot state, registered bots: " & $iActiveBots)
+	;~ SetDebugLog("Broadcast query bot state, registered bots: " & $iActiveBots)
 	_WinAPI_BroadcastSystemMessage($WM_MYBOTRUN_API, 0x0100 + $iActiveBots, $g_hFrmBot, $BSF_POSTMESSAGE + $BSF_IGNORECURRENTTASK, $BSM_APPLICATIONS)
 
 	Local $hLoopTimer = __TimerInit()
@@ -174,7 +174,7 @@ While 1
 
 	; log active bots
 	$iActiveBots = GetActiveMyBotCount($iTimeoutBroadcast * 2)
-	SetDebugLog("Active bots: " & $iActiveBots)
+	;~ SetDebugLog("Active bots: " & $iActiveBots)
 
 	; automatically close watchdog when no bot available
 	If $iTimeoutAutoClose > -1 And __TimerDiff($hTimeoutAutoClose) > $iTimeoutAutoClose Then

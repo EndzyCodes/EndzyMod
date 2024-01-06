@@ -18,7 +18,7 @@ Func saveConfig()
 	If $g_iGuiMode = 0 Then Return
 
 	If $g_bSaveConfigIsActive Then
-		SetDebugLog("saveConfig(), already running, exit")
+		;~ SetDebugLog("saveConfig(), already running, exit")
 		Return
 	EndIf
 	$g_bSaveConfigIsActive = True
@@ -27,7 +27,7 @@ Func saveConfig()
 
 	Static $iSaveConfigCount = 0
 	$iSaveConfigCount += 1
-	SetDebugLog("saveConfig(), call number " & $iSaveConfigCount)
+	;~ SetDebugLog("saveConfig(), call number " & $iSaveConfigCount)
 
 	SaveProfileConfig()
 
@@ -40,7 +40,7 @@ Func saveConfig()
 	SaveRegularConfig()
 	;SetDebugLog("SaveRegularConfig(), time = " & Round(__TimerDiff($t)/1000, 2) & " sec")
 
-	SetDebugLog("SaveConfig(), time = " & Round(__TimerDiff($t) / 1000, 2) & " sec")
+	;~ SetDebugLog("SaveConfig(), time = " & Round(__TimerDiff($t) / 1000, 2) & " sec")
 
 	$g_bSaveConfigIsActive = False
 EndFunc   ;==>saveConfig
@@ -76,7 +76,7 @@ Func SaveWeakBaseStats()
 EndFunc   ;==>SaveWeakBaseStats
 
 Func SaveBuildingConfig()
-	SetDebugLog("Save Building Config " & $g_sProfileBuildingPath)
+	;~ SetDebugLog("Save Building Config " & $g_sProfileBuildingPath)
 	_Ini_Clear()
 
 	_Ini_Add("general", "version", GetVersionNormalized($g_sBotVersion))
@@ -177,7 +177,7 @@ Func SaveBuildingConfig()
 EndFunc   ;==>SaveBuildingConfig
 
 Func SaveRegularConfig()
-	SetDebugLog("Save Config " & $g_sProfileConfigPath)
+	;~ SetDebugLog("Save Config " & $g_sProfileConfigPath)
 	_Ini_Clear()
 
 	; General information
@@ -277,7 +277,7 @@ Func SaveRegularConfig()
 	; <><><><> Bot / Stats <><><><>
 	; <<< nothing here >>>
 
-	;SetDebugLog("saveConfig: Wrote " & $g_iIniLineCount & " ini lines.")
+	;;~ SetDebugLog("saveConfig: Wrote " & $g_iIniLineCount & " ini lines.")
 	_Ini_Save($g_sProfileConfigPath)
 EndFunc   ;==>SaveRegularConfig
 

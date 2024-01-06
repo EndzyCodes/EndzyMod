@@ -166,7 +166,7 @@ Func IsUseCustomDropOrder()
 EndFunc   ;==>IsUseCustomDropOrder
 
 Func ChangeDropOrder()
-	SetDebugLog("Begin Func ChangeDropOrder()", $COLOR_DEBUG) ;Debug
+	;~ SetDebugLog("Begin Func ChangeDropOrder()", $COLOR_DEBUG) ;Debug
 	Local $iUpdateCount = 0, $aUnique
 
 	If Not IsUseCustomDropOrder() Then ; check if no custom troop values saved yet.

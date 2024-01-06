@@ -116,7 +116,7 @@ EndFunc   ;==>ShowControlHelp
 
 Func ShowHelp($Source = Default)
 
-	SetDebugLog ("Help File called from: " & $source)
+	;~ SetDebugLog ("Help File called from: " & $source)
 
 	Local $PathHelp = "CommandLineParameter"
 
@@ -140,7 +140,7 @@ Func ShowHelp($Source = Default)
 		If FileExists($sHelpFile & "_" & $g_sLanguage & ".rtf") Then
 			$sHelpFile &= "_" & $g_sLanguage
 		Else
-			SetDebugLog("Help file not available: " & $sHelpFile & "_" & $g_sLanguage & ".rtf")
+			;~ SetDebugLog("Help file not available: " & $sHelpFile & "_" & $g_sLanguage & ".rtf")
 		EndIf
 	EndIf
 	_GUICtrlRichEdit_StreamFromFile($hRichEdit, $sHelpFile & ".rtf")

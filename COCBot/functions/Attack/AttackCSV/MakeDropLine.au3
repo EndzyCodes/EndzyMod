@@ -16,10 +16,10 @@
 ; ===============================================================================================================================
 Func MakeDropLine($searchvect, $startpoint, $endpoint, $iLineDistanceThreshold = 75, $bLineToCorner = False)
 
-	SetDebugLog("MakeDropLine for " & UBound($searchvect) & " points")
+	;~ SetDebugLog("MakeDropLine for " & UBound($searchvect) & " points")
 	If $bLineToCorner = False And UBound($searchvect) > 0 Then $startpoint = $searchvect[0]
 	If $bLineToCorner = False And UBound($searchvect) > 0 Then $endpoint = $searchvect[UBound($searchvect) - 1]
-	SetDebugLog("MakeDropLine: Start = " & PixelToString($startpoint) & ", End = " & PixelToString($endpoint) & ": " & PixelArrayToString($searchvect, ","))
+	;~ SetDebugLog("MakeDropLine: Start = " & PixelToString($startpoint) & ", End = " & PixelToString($endpoint) & ": " & PixelArrayToString($searchvect, ","))
 
 	Local $startX = $startpoint[0]
 	Local $startY = $startpoint[1]
@@ -70,14 +70,14 @@ Func MakeDropLine($searchvect, $startpoint, $endpoint, $iLineDistanceThreshold =
 	Next
 
 	;$ReturnVect &= "|" & $endX & "," & $endY
-	SetDebugLog("MakeDropLine: Done: " & $ReturnVect)
+	;~ SetDebugLog("MakeDropLine: Done: " & $ReturnVect)
 
 	Return GetListPixel($ReturnVect, ",")
 EndFunc   ;==>MakeDropLine
 
 Func MakeDropLineOriginal($searchvect, $startpoint, $endpoint)
 
-	SetDebugLog("MakeDropLine for " & UBound($searchvect) & " points")
+	;~ SetDebugLog("MakeDropLine for " & UBound($searchvect) & " points")
 
 	Local $startX = $startpoint[0]
 	Local $startY = $startpoint[1]

@@ -65,9 +65,9 @@ Func picUpgradeTypeLocation()
 			Local $x = $g_avBuildingUpgrades[$inum][0]
 			Local $y = $g_avBuildingUpgrades[$inum][1]
 			Local $n = $g_avBuildingUpgrades[$inum][4]
-			SetDebugLog("Selecting #" & $inum + 1 & ": " & $n & ", (" & $x & "," & $y & ")")
+			;~ SetDebugLog("Selecting #" & $inum + 1 & ": " & $n & ", (" & $x & "," & $y & ")")
 			If isInsideDiamondXY($x, $y) Then ; check for valid location
-				SetDebugLog("Building Location : " & $x & "," & $y)
+				;~ SetDebugLog("Building Location : " & $x & "," & $y)
 				BuildingClick($g_avBuildingUpgrades[$inum][0], $g_avBuildingUpgrades[$inum][1], "Select", $g_avBuildingUpgrades[$inum][8])
 				Sleep(100)
 				If StringInStr($n, "collect", $STR_NOCASESENSEBASIC) Or _
@@ -424,7 +424,7 @@ Func ResetLabUpgradeTime()
 			GetTranslatedFileIni("MBR Func_Village_Upgrade", "Lab_GUIUpdate_Info_08", "Click OK to reset") & @CRLF & GetTranslatedFileIni("MBR Func_Village_Upgrade", "Lab_GUIUpdate_Info_09", "Or Click Cancel to exit") & @CRLF
 	Local $MsgBox = _ExtMsgBox(0, GetTranslatedFileIni("MBR Func_Village_Upgrade", "Lab_GUIUpdate_Info_10", "Reset timer") & "|" & GetTranslatedFileIni("MBR Func_Village_Upgrade", "Lab_GUIUpdate_Info_11", "Cancel and Return"), _
 							   GetTranslatedFileIni("MBR Func_Village_Upgrade", "Lab_GUIUpdate_Info_12", "Reset laboratory upgrade timer?"), $stext, 120, $g_hFrmBot)
-	SetDebugLog("$MsgBox= " & $MsgBox, $COLOR_DEBUG)
+	;~ SetDebugLog("$MsgBox= " & $MsgBox, $COLOR_DEBUG)
 	If $MsgBox = 1 Then
 		$g_sLabUpgradeTime = ""
 		_GUICtrlSetTip($g_hBtnResetLabUpgradeTime, GetTranslatedFileIni("MBR Func_Village_Upgrade", "BtnResetLabUpgradeTime_Info_01", "Visible Red button means that laboratory upgrade in process") & @CRLF & _
@@ -449,7 +449,7 @@ Func ResetStarLabUpgradeTime()
 			GetTranslatedFileIni("MBR Func_Village_Upgrade", "Lab_GUIUpdate_Info_08", "Click OK to reset") & @CRLF & GetTranslatedFileIni("MBR Func_Village_Upgrade", "Lab_GUIUpdate_Info_09", "Or Click Cancel to exit") & @CRLF
 	Local $MsgBox = _ExtMsgBox(0, GetTranslatedFileIni("MBR Func_Village_Upgrade", "Lab_GUIUpdate_Info_10", "Reset timer") & "|" & GetTranslatedFileIni("MBR Func_Village_Upgrade", "Lab_GUIUpdate_Info_11", "Cancel and Return"), _
 							   GetTranslatedFileIni("MBR Func_Village_Upgrade", "Lab_GUIUpdate_Info_12", "Reset laboratory upgrade timer?"), $stext, 120, $g_hFrmBot)
-	SetDebugLog("$MsgBox= " & $MsgBox, $COLOR_DEBUG)
+	;~ SetDebugLog("$MsgBox= " & $MsgBox, $COLOR_DEBUG)
 	If $MsgBox = 1 Then
 		$g_sStarLabUpgradeTime = ""
 		_GUICtrlSetTip($g_hBtnResetStarLabUpgradeTime, GetTranslatedFileIni("MBR Func_Village_Upgrade", "BtnResetLabUpgradeTime_Info_01", "Visible Red button means that laboratory upgrade in process") & @CRLF & _
@@ -804,10 +804,10 @@ Func chkUpgradePets()
 	For $i = 0 to $ePetCount - 1
 		If GUICtrlRead($g_hChkUpgradePets[$i]) = $GUI_CHECKED Then
 			$g_bUpgradePetsEnable[$i] = True
-			SetDebugLog("Upgrade: " & $g_asPetNames[$i] & " enabled")
+			;~ SetDebugLog("Upgrade: " & $g_asPetNames[$i] & " enabled")
 		Else
 			$g_bUpgradePetsEnable[$i] = False
-			SetDebugLog("Upgrade: " & $g_asPetNames[$i] & " disabled")
+			;~ SetDebugLog("Upgrade: " & $g_asPetNames[$i] & " disabled")
 		EndIf
 	Next
 EndFunc

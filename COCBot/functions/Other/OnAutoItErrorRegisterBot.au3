@@ -189,7 +189,7 @@ Func __OAER_OnErrorCallback($nCode, $wParam, $lParam)
 			EndIf
 
 			;_WinAPI_DestroyWindow($hError_Wnd)
-			SetDebugLog($g_sBotTitle & " AutoIt Error: " & $sError_Msg, Default, True)
+			;~ SetDebugLog($g_sBotTitle & " AutoIt Error: " & $sError_Msg, Default, True)
 
 			BotClose(Default, False)
 

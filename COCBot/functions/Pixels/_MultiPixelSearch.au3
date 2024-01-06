@@ -78,7 +78,7 @@ Func _MultiPixelSearchDebug($iLeft, $iTop, $iRight, $iBottom, $xSkip, $ySkip, $f
 		For $y = 0 To $yRange Step $ySkip
 			$sPixelColor = _GetPixelColor($x, $y, $g_bNoCapturePixel)
 			If _ColorCheck($sPixelColor , $firstColor, $iColorVariation) Then
-				SetDebugLog("Search At Loc: " & $x+$iLeft & " , " & $y+$iTop & ", MPSDebug Pix#1: " & $sPixelColor)
+				;~ SetDebugLog("Search At Loc: " & $x+$iLeft & " , " & $y+$iTop & ", MPSDebug Pix#1: " & $sPixelColor)
 				Local $allchecked = True
 				Local $iCV = $iColorVariation
 				For $i = 0 To UBound($offColor) - 1
@@ -90,7 +90,7 @@ Func _MultiPixelSearchDebug($iLeft, $iTop, $iRight, $iBottom, $xSkip, $ySkip, $f
 				Next
 				If $allchecked Then
 					Local $Pos[2] = [$iLeft + $x, $iTop + $y]
-					SetDebugLog("MSPDebug loc found: " & $iLeft + $x & " , " & $iTop + $y, $COLOR_DEBUG)
+					;~ SetDebugLog("MSPDebug loc found: " & $iLeft + $x & " , " & $iTop + $y, $COLOR_DEBUG)
 					Return $Pos
 				EndIf
 			EndIf
@@ -103,7 +103,7 @@ Func WaitforPixel($iLeft, $iTop, $iRight, $iBottom, $firstColor, $iColorVariatio
 	For $i = 1 To $maxDelay * 2
 		Local $result = _PixelSearch($iLeft, $iTop, $iRight, $iBottom, $firstColor, $iColorVariation)
 		If IsArray($result) Then 
-			SetDebugLog("WaitforPixel Result: True ["  & _ArrayToString($result) & "]")
+			;~ SetDebugLog("WaitforPixel Result: True ["  & _ArrayToString($result) & "]")
 			Return True
 		EndIf
 		If _Sleep(250) Then Return

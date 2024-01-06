@@ -415,12 +415,12 @@ Func CreateMainGUIControls($bGuiModeUpdate = False)
 	cmbLog()
 
 ;~ -------------------------------------------------------------
-	SetDebugLog("$g_hFrmBot=" & $g_hFrmBot, Default, True)
-	SetDebugLog("$g_hFrmBotEx=" & $g_hFrmBotEx, Default, True)
-	SetDebugLog("$g_hFrmBotBottom=" & $g_hFrmBotBottom, Default, True)
-	SetDebugLog("$g_hFrmBotEmbeddedShield=" & $g_hFrmBotEmbeddedShield, Default, True)
-	SetDebugLog("$g_hFrmBotEmbeddedShieldInput=" & $g_hFrmBotEmbeddedShieldInput, Default, True)
-	SetDebugLog("$g_hFrmBotEmbeddedGraphics=" & $g_hFrmBotEmbeddedGraphics, Default, True)
+	;~ SetDebugLog("$g_hFrmBot=" & $g_hFrmBot, Default, True)
+	;~ SetDebugLog("$g_hFrmBotEx=" & $g_hFrmBotEx, Default, True)
+	;~ SetDebugLog("$g_hFrmBotBottom=" & $g_hFrmBotBottom, Default, True)
+	;~ SetDebugLog("$g_hFrmBotEmbeddedShield=" & $g_hFrmBotEmbeddedShield, Default, True)
+	;~ SetDebugLog("$g_hFrmBotEmbeddedShieldInput=" & $g_hFrmBotEmbeddedShieldInput, Default, True)
+	;~ SetDebugLog("$g_hFrmBotEmbeddedGraphics=" & $g_hFrmBotEmbeddedGraphics, Default, True)
 
 EndFunc   ;==>CreateMainGUIControls
 
@@ -524,13 +524,13 @@ Func CheckDpiAwareness($bCheckOnlyIfAlreadyAware = False, $bForceDpiAware = Fals
 				Local $g_iDpiAwarenessYcomp = _WinAPI_GetSystemMetrics($SM_CYCAPTION)
 				Local $aResult = DllCall("user32.dll", "boolean", "SetProcessDPIAware")
 				$g_aFrmBotPosInit[7] = _WinAPI_GetSystemMetrics($SM_CYCAPTION) - $g_iDpiAwarenessYcomp
-				SetDebugLog("Enabled DPI Awareness, height compensation: " & $g_aFrmBotPosInit[7])
+				;~ SetDebugLog("Enabled DPI Awareness, height compensation: " & $g_aFrmBotPosInit[7])
 				;DllCall("user32.dll", "dword", "SetProcessDpiAwareness", "dword", 0)
 			Else
 				; Custom Title Bar
 				Local $aResult = DllCall("user32.dll", "boolean", "SetProcessDPIAware")
 			EndIf
-			SetDebugLog("SetProcessDPIAware called: " & @error & ((UBound($aResult) = 0) ? ("") : (", " & $aResult[0])))
+			;~ SetDebugLog("SetProcessDPIAware called: " & @error & ((UBound($aResult) = 0) ? ("") : (", " & $aResult[0])))
 			If $bWasEmbedded Then AndroidEmbed(True)
 		EndIf
 
@@ -654,9 +654,9 @@ Func _GUICtrlSetImage($controlID, $filename, $iconName = -1, $iconType = 1)
 
 	Local $aIconData = $g_oCtrlIconData("Icon:" & GUICtrlGetHandle($controlID))
 
-	;SetDebugLog("_GUICtrlSetImage pass $iconName=" & $iconName)
+	;;~ SetDebugLog("_GUICtrlSetImage pass $iconName=" & $iconName)
 	If IsArray($aIconData) = 0 Then
-		;SetDebugLog("Control is an array, returning.")
+		;;~ SetDebugLog("Control is an array, returning.")
 		Return GUICtrlSetImage($controlID, $filename, $iconName, $iconType)
 	EndIf
 
@@ -667,7 +667,7 @@ Func _GUICtrlSetImage($controlID, $filename, $iconName = -1, $iconType = 1)
 			$s_hLibIcon = _WinAPI_LoadLibraryEx($filename, $LOAD_LIBRARY_AS_DATAFILE)
 		EndIf
 		$hLib = $s_hLibIcon
-		;SetDebugLog("$hlib set to " & $hlib)
+		;;~ SetDebugLog("$hlib set to " & $hlib)
 	Else
 		$hLib = _WinAPI_LoadLibraryEx($filename, $LOAD_LIBRARY_AS_DATAFILE)
 	EndIf
@@ -675,12 +675,12 @@ Func _GUICtrlSetImage($controlID, $filename, $iconName = -1, $iconType = 1)
 	If $hLib = 0 Then Return 0
 	Local $width = $aIconData[0], $height = $aIconData[1]
 	Local $hIcon = _WinAPI_LoadImage($hLib, $iconName, $IMAGE_ICON, $width, $height, $LR_DEFAULTCOLOR)
-	;SetDebugLog("width, height:" & $width & ", " & $height)
-	;SetDebugLog("$hIcon=" & $hIcon)
-	;SetDebugLog("$s_hlibIcon=" & $s_hLibIcon)
+	;;~ SetDebugLog("width, height:" & $width & ", " & $height)
+	;;~ SetDebugLog("$hIcon=" & $hIcon)
+	;;~ SetDebugLog("$s_hlibIcon=" & $s_hLibIcon)
 	If $hLib <> $s_hLibIcon Then
 		_WinAPI_FreeLibrary($hLib)
-		;SetDebugLog("Freed $hlib=" & $hlib)
+		;;~ SetDebugLog("Freed $hlib=" & $hlib)
 	EndIf
 	;If $hIcon = 0 Then SetDebugLog("hIcon is zero.  Returning.")
 	If $hIcon = 0 Then Return 0

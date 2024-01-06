@@ -223,7 +223,7 @@ Func GetManagedMyBotHost($hFrmHost = Default, $bUpdateTime = False, $bRegisterHo
 		Local $i = UBound($g_ahManagedMyBotHosts)
 		ReDim $g_ahManagedMyBotHosts[$i + 1]
 		$g_ahManagedMyBotHosts[$i] = $a
-		SetDebugLog("New Bot Host Window Handle registered: " & $hFrmHost)
+		;~ SetDebugLog("New Bot Host Window Handle registered: " & $hFrmHost)
 	EndIf
 	Return $a
 EndFunc   ;==>GetManagedMyBotHost
@@ -232,7 +232,7 @@ Func LaunchWatchdog()
 	Local $hMutex = CreateMutex($sWatchdogMutex)
 	If $hMutex = 0 Then
 		; already running
-		SetDebugLog("Watchdog already running")
+		;~ SetDebugLog("Watchdog already running")
 		Return 0
 	EndIf
 	ReleaseMutex($hMutex)
@@ -245,7 +245,7 @@ Func LaunchWatchdog()
 		Return 0
 	EndIf
 	If $g_bDebugSetlog Then
-		SetDebugLog("Watchdog launched, PID = " & $pid)
+		;~ SetDebugLog("Watchdog launched, PID = " & $pid)
 	Else
 		SetLog("Watchdog launched")
 	EndIf
@@ -309,7 +309,7 @@ EndFunc   ;==>UpdateStatsManagedMyBotHost
 
 Func PrepareUnregisterManagedMyBotHost($hFrmHost, ByRef $iMsg, ByRef $wParam, ByRef $lParam)
 	$wParam = 0x1040 + 2
-	SetDebugLog("Bot Host Window Handle un-registered: " & $hFrmHost)
+	;~ SetDebugLog("Bot Host Window Handle un-registered: " & $hFrmHost)
 	Return True
 EndFunc   ;==>PrepareUnregisterManagedMyBotHost
 
@@ -357,7 +357,7 @@ Func ManagedMyBotHostsPostMessage($sExecutePrepare, $Value1 = Default, $Value2 =
 					$bPostMessage = Execute($sExecute)
 			EndSwitch
 			If @error <> 0 And $bPostMessage = "" Then
-				SetDebugLog("ManagedMyBotHostsPostMessage: Error executing " & $sExecute)
+				;~ SetDebugLog("ManagedMyBotHostsPostMessage: Error executing " & $sExecute)
 			ElseIf $bPostMessage = False Then
 				If $g_iDebugWindowMessages Then SetDebugLog("ManagedMyBotHostsPostMessage: Not posting message to " & $hFrmHost)
 			Else

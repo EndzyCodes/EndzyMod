@@ -42,7 +42,7 @@ Func _LocateQueenAltar($bCollect = True)
 			Local $aPos = FindPos()
 			$g_aiQueenAltarPos[0] = $aPos[0]
 			$g_aiQueenAltarPos[1] = $aPos[1]
-			SetDebugLog(_ArrayToString($aPos))
+			;~ SetDebugLog(_ArrayToString($aPos))
 			If Not isInsideDiamond($g_aiQueenAltarPos) Then
 				$iStupid += 1
 				Select
@@ -89,7 +89,7 @@ Func _LocateQueenAltar($bCollect = True)
 			$CountGetInfo += 1
 			If $CountGetInfo = 50 Then Return
 		WEnd
-		SetDebugLog($sInfo[1] & $sInfo[2])
+		;~ SetDebugLog($sInfo[1] & $sInfo[2])
 		If @error Then Return SetError(0, 0, 0)
 
 		If $sInfo[0] > 1 Or $sInfo[0] = "" Then
@@ -171,7 +171,7 @@ Func _LocateKingAltar($bCollect = True)
 			Local $aPos = FindPos()
 			$g_aiKingAltarPos[0] = $aPos[0]
 			$g_aiKingAltarPos[1] = $aPos[1]
-			SetDebugLog(_ArrayToString($aPos))
+			;~ SetDebugLog(_ArrayToString($aPos))
 			If Not isInsideDiamond($g_aiKingAltarPos) Then
 				$iStupid += 1
 				Select
@@ -218,7 +218,7 @@ Func _LocateKingAltar($bCollect = True)
 			$CountGetInfo += 1
 			If $CountGetInfo = 50 Then Return
 		WEnd
-		SetDebugLog($sInfo[1] & $sInfo[2])
+		;~ SetDebugLog($sInfo[1] & $sInfo[2])
 		If @error Then Return SetError(0, 0, 0)
 
 		If $sInfo[0] > 1 Or $sInfo[0] = "" Then
@@ -303,7 +303,7 @@ Func _LocateWardenAltar($bCollect = True)
 			Local $aPos = FindPos()
 			$g_aiWardenAltarPos[0] = $aPos[0]
 			$g_aiWardenAltarPos[1] = $aPos[1]
-			SetDebugLog(_ArrayToString($aPos))
+			;~ SetDebugLog(_ArrayToString($aPos))
 			If Not isInsideDiamond($g_aiWardenAltarPos) Then
 				$iStupid += 1
 				Select
@@ -350,7 +350,7 @@ Func _LocateWardenAltar($bCollect = True)
 			$CountGetInfo += 1
 			If $CountGetInfo = 50 Then Return
 		WEnd
-		SetDebugLog($sInfo[1] & $sInfo[2])
+		;~ SetDebugLog($sInfo[1] & $sInfo[2])
 		If @error Then Return SetError(0, 0, 0)
 
 		If $sInfo[0] > 1 Or $sInfo[0] = "" Then
@@ -436,7 +436,7 @@ Func _LocateChampionAltar($bCollect = True)
 			Local $aPos = FindPos()
 			$g_aiChampionAltarPos[0] = $aPos[0]
 			$g_aiChampionAltarPos[1] = $aPos[1]
-			SetDebugLog(_ArrayToString($aPos))
+			;~ SetDebugLog(_ArrayToString($aPos))
 			If Not isInsideDiamond($g_aiChampionAltarPos) Then
 				$iStupid += 1
 				Select
@@ -483,7 +483,7 @@ Func _LocateChampionAltar($bCollect = True)
 			$CountGetInfo += 1
 			If $CountGetInfo = 50 Then Return
 		WEnd
-		SetDebugLog($sInfo[1] & $sInfo[2])
+		;~ SetDebugLog($sInfo[1] & $sInfo[2])
 		If @error Then Return SetError(0, 0, 0)
 
 		If $sInfo[0] > 1 Or $sInfo[0] = "" Then

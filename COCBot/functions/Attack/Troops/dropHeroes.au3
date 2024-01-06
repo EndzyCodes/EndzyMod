@@ -17,7 +17,7 @@
 ; Example .......: No
 ; ===============================================================================================================================
 Func dropHeroes($iX, $iY, $iKingSlotNumber = -1, $iQueenSlotNumber = -1, $iWardenSlotNumber = -1, $iChampionSlotNumber = -1) ;Drops for All Heroes
-	SetDebugLog("dropHeroes $iKingSlotNumber " & $iKingSlotNumber & " $iQueenSlotNumber " & $iQueenSlotNumber & " $iWardenSlotNumber " & $iWardenSlotNumber & " $iChampionSlotNumber " & $iChampionSlotNumber & " matchmode " & $g_iMatchMode, $COLOR_DEBUG)
+	;~ SetDebugLog("dropHeroes $iKingSlotNumber " & $iKingSlotNumber & " $iQueenSlotNumber " & $iQueenSlotNumber & " $iWardenSlotNumber " & $iWardenSlotNumber & " $iChampionSlotNumber " & $iChampionSlotNumber & " matchmode " & $g_iMatchMode, $COLOR_DEBUG)
 	If _Sleep($DELAYDROPHEROES1) Then Return
 	Local $bDropKing = False
 	Local $bDropQueen = False
@@ -30,10 +30,10 @@ Func dropHeroes($iX, $iY, $iKingSlotNumber = -1, $iQueenSlotNumber = -1, $iWarde
 	If $iWardenSlotNumber <> -1 And (($g_iMatchMode <> $DB And $g_iMatchMode <> $LB) Or BitAND($g_aiAttackUseHeroes[$g_iMatchMode], $eHeroWarden) = $eHeroWarden) Then $bDropWarden = True
 	If $iChampionSlotNumber <> -1 And (($g_iMatchMode <> $DB And $g_iMatchMode <> $LB) Or BitAND($g_aiAttackUseHeroes[$g_iMatchMode], $eHeroChampion) = $eHeroChampion) Then $bDropChampion = True
 
-	SetDebugLog("drop KING = " & $bDropKing, $COLOR_DEBUG)
-	SetDebugLog("drop QUEEN = " & $bDropQueen, $COLOR_DEBUG)
-	SetDebugLog("drop WARDEN = " & $bDropWarden, $COLOR_DEBUG)
-	SetDebugLog("drop CHAMPION = " & $bDropChampion, $COLOR_DEBUG)
+	;~ SetDebugLog("drop KING = " & $bDropKing, $COLOR_DEBUG)
+	;~ SetDebugLog("drop QUEEN = " & $bDropQueen, $COLOR_DEBUG)
+	;~ SetDebugLog("drop WARDEN = " & $bDropWarden, $COLOR_DEBUG)
+	;~ SetDebugLog("drop CHAMPION = " & $bDropChampion, $COLOR_DEBUG)
 
 	If $bDropKing Then
 		SetLog("Dropping King at " & $iX & ", " & $iY, $COLOR_INFO)
@@ -43,7 +43,7 @@ Func dropHeroes($iX, $iY, $iKingSlotNumber = -1, $iQueenSlotNumber = -1, $iWarde
 		If Not $g_bDropKing Then ; check global flag, only begin hero health check on 1st hero drop as flag is reset to false after activation
 			$g_bCheckKingPower = True
 		Else
-			SetDebugLog("King dropped 2nd time, Check Power flag not changed") ; do nothing as hero already dropped
+			;~ SetDebugLog("King dropped 2nd time, Check Power flag not changed") ; do nothing as hero already dropped
 		EndIf
 		$g_bDropKing = True ; Set global flag hero dropped
 		$g_aHeroesTimerActivation[$eHeroBarbarianKing] = __TimerInit() ; initialize fixed activation timer
@@ -60,7 +60,7 @@ Func dropHeroes($iX, $iY, $iKingSlotNumber = -1, $iQueenSlotNumber = -1, $iWarde
 		If Not $g_bDropQueen Then ; check global flag, only begin hero health check on 1st hero drop as flag is reset to false after activation
 			$g_bCheckQueenPower = True
 		Else
-			SetDebugLog("Queen dropped 2nd time, Check Power flag not changed") ; do nothing as hero already dropped
+			;~ SetDebugLog("Queen dropped 2nd time, Check Power flag not changed") ; do nothing as hero already dropped
 		EndIf
 		$g_bDropQueen = True ; Set global flag hero dropped
 		$g_aHeroesTimerActivation[$eHeroArcherQueen] = __TimerInit() ; initialize fixed activation timer
@@ -77,7 +77,7 @@ Func dropHeroes($iX, $iY, $iKingSlotNumber = -1, $iQueenSlotNumber = -1, $iWarde
 		If Not $g_bDropWarden Then ; check global flag, only begin hero health check on 1st hero drop as flag is reset to false after activation
 			$g_bCheckWardenPower = True
 		Else
-			SetDebugLog("Warden dropped 2nd time, Check Power flag not changed") ; do nothing as hero already dropped
+			;~ SetDebugLog("Warden dropped 2nd time, Check Power flag not changed") ; do nothing as hero already dropped
 		EndIf
 		$g_bDropWarden = True ; Set global flag hero dropped
 		$g_aHeroesTimerActivation[$eHeroGrandWarden] = __TimerInit() ; initialize fixed activation timer
@@ -94,7 +94,7 @@ Func dropHeroes($iX, $iY, $iKingSlotNumber = -1, $iQueenSlotNumber = -1, $iWarde
 		If Not $g_bDropChampion Then ; check global flag, only begin hero health check on 1st hero drop as flag is reset to false after activation
 			$g_bCheckChampionPower = True
 		Else
-			SetDebugLog("Royal Champion dropped 2nd time, Check Power flag not changed") ; do nothing as hero already dropped
+			;~ SetDebugLog("Royal Champion dropped 2nd time, Check Power flag not changed") ; do nothing as hero already dropped
 		EndIf
 		$g_bDropChampion = True ; Set global flag hero dropped
 		$g_aHeroesTimerActivation[$eHeroRoyalChampion] = __TimerInit() ; initialize fixed activation timer

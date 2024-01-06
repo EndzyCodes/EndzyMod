@@ -37,7 +37,7 @@ Func DoAttackBB($g_iBBAttackCount = $g_iBBAttackCount)
 		While PrepareAttackBB()
 			If Not $g_bRunState Then Return
 			If IsProblemAffect(True) Then Return
-			SetDebugLog("PrepareAttackBB(): Success.", $COLOR_SUCCESS)
+			;~ SetDebugLog("PrepareAttackBB(): Success.", $COLOR_SUCCESS)
 			SetLog("Attack #" & $count & "/~", $COLOR_INFO)
 			_AttackBB()
 			If Not $g_bRunState Then Return
@@ -67,7 +67,7 @@ Func DoAttackBB($g_iBBAttackCount = $g_iBBAttackCount)
 			If Not $g_bRunState Then Return
 			If IsProblemAffect(True) Then Return
 			If PrepareAttackBB() Then
-				SetDebugLog("PrepareAttackBB(): Success.", $COLOR_SUCCESS)
+				;~ SetDebugLog("PrepareAttackBB(): Success.", $COLOR_SUCCESS)
 				SetLog("Attack #" & $i & "/" & $g_iBBAttackCount, $COLOR_INFO)
 				_AttackBB()
 				If Not $g_bRunState Then Return
@@ -284,9 +284,9 @@ Func AttackBB($aBBAttackBar = Default, $bSecondAttack = False)
 	If $g_bChkDebugAttackBB Then SetLog("AltSide = " & $AltSide)
 
 	If $acountDP[$iSide-1][1] < 1 Then
-		SetDebugLog("Side " & $iSide & " have no DP found, fallback to most reliable DP Side")
+		;~ SetDebugLog("Side " & $iSide & " have no DP found, fallback to most reliable DP Side")
 		$iSide = $acountDP[0][0]
-		SetDebugLog("Side Change to " & $iSide)
+		;~ SetDebugLog("Side Change to " & $iSide)
 	EndIf
 
 	Local $DP[0][3]
@@ -385,7 +385,7 @@ EndFunc   ;==>AttackBB
 Func DeployBBTroop($sName, $x, $y, $iAmount, $iSide, $AltSide, $aDP)
 	If isProblemAffect(True) Then Return
     SetLog("Deploying " & $sName & " x" & String($iAmount), $COLOR_ACTION)
-	SetDebugLog("countDP = " & UBound($aDP))
+	;~ SetDebugLog("countDP = " & UBound($aDP))
 	If _Sleep($g_iBBSameTroopDelay) Then Return ; slow down dropping of troops
     PureClick($x, $y) ; select troop
 	Local $iPoint = 0
@@ -571,7 +571,7 @@ Func SetVersusBHToMid()
 			If _Sleep(1500) Then Return
 			$aRet[0] = True
 		Else
-			SetDebugLog("SetVersusBHToMid(): Versus BH Not Found", $COLOR_INFO)
+			;~ SetDebugLog("SetVersusBHToMid(): Versus BH Not Found", $COLOR_INFO)
 		EndIf
 	EndIf
 	Return $aRet
@@ -612,7 +612,7 @@ Func SearchRedLinesBB($bSecondAttack = False)
 	
 	For $i = 1 To $SearchRedLinesBBMultipleTime
 		Local $aTmp = QuickMIS("CNX", $sDir, $aDiamond[0], $aDiamond[2], $aDiamond[1], $aDiamond[3])
-		SetDebugLog("aTmp" & $i & ": " & UBound($aTmp) & " Coords", $COLOR_INFO)
+		;~ SetDebugLog("aTmp" & $i & ": " & UBound($aTmp) & " Coords", $COLOR_INFO)
 		For $j = 0 To UBound($aTmp) - 1
 			Local $aCoord[2] = [$aTmp[$j][1], $aTmp[$j][2]]
 			If Not isInsideDiamondAttackBB($aCoord, $aDiamond) Then ContinueLoop
@@ -702,7 +702,7 @@ Func SortBBDP($aDropPoints)
 				$TmpYMaxTL = $aDropPoints[$i][2]
 				$TmpYMaxTLFound = True
 			EndIf
-			SetDebugLog("Side:" & $aDropPoints[$i][0] & " $TmpXMinTL:" & $TmpXMinTL & " TmpYMaxTL:" & $TmpYMaxTL)
+			;~ SetDebugLog("Side:" & $aDropPoints[$i][0] & " $TmpXMinTL:" & $TmpXMinTL & " TmpYMaxTL:" & $TmpYMaxTL)
 			_ArrayAdd($aResult, $aDropPoints[$i][0] & "|" & $aDropPoints[$i][1] - $DPChange & "|" & $aDropPoints[$i][2] - $DPChange & "|" & $aDropPoints[$i][3])
 			$iTL += 1
 		EndIf
@@ -723,7 +723,7 @@ Func SortBBDP($aDropPoints)
 				$TmpYMinBLFound = True
 			EndIf
 	
-			SetDebugLog("Side:" & $aDropPoints[$i][0] & " $TmpXMinBL:" & $TmpXMinBL & " TmpYMinBL:" & $TmpYMinBL)
+			;~ SetDebugLog("Side:" & $aDropPoints[$i][0] & " $TmpXMinBL:" & $TmpXMinBL & " TmpYMinBL:" & $TmpYMinBL)
 			_ArrayAdd($aResult, $aDropPoints[$i][0] & "|" & $aDropPoints[$i][1] - $DPChange & "|" & $aDropPoints[$i][2] + $DPChange & "|" & $aDropPoints[$i][3])
 			$iBL += 1
 		EndIf
@@ -742,7 +742,7 @@ Func SortBBDP($aDropPoints)
 				$TmpYMinBRLFound = True
 			EndIf
 	
-			SetDebugLog("Side:" & $aDropPoints[$i][0] & " $TmpXMinBR:" & $TmpXMinBR & " TmpYMinBR:" & $TmpYMinBR)
+			;~ SetDebugLog("Side:" & $aDropPoints[$i][0] & " $TmpXMinBR:" & $TmpXMinBR & " TmpYMinBR:" & $TmpYMinBR)
 			_ArrayAdd($aResult, $aDropPoints[$i][0] & "|" & $aDropPoints[$i][1] + $DPChange & "|" & $aDropPoints[$i][2] + $DPChange & "|" & $aDropPoints[$i][3])
 			$iBR += 1
 		EndIf
@@ -761,7 +761,7 @@ Func SortBBDP($aDropPoints)
 				$TmpYMinTR = $aDropPoints[$i][2]
 				$TmpYMaxTRFound = True
 			EndIf
-			SetDebugLog("Side:" & $aDropPoints[$i][0] & " $TmpXMinTR:" & $TmpXMinTR & " TmpYMinTR:" & $TmpYMinTR)
+			;~ SetDebugLog("Side:" & $aDropPoints[$i][0] & " $TmpXMinTR:" & $TmpXMinTR & " TmpYMinTR:" & $TmpYMinTR)
 			_ArrayAdd($aResult, $aDropPoints[$i][0] & "|" & $aDropPoints[$i][1] + $DPChange & "|" & $aDropPoints[$i][2] - $DPChange & "|" & $aDropPoints[$i][3])
 			$iTR += 1
 		EndIf
@@ -769,7 +769,7 @@ Func SortBBDP($aDropPoints)
 	Local $aCount[4][2] = [[1, $iTL], [2, $iBL], [3, $iBR], [4, $iTR]]
 	_ArraySort($aCount, 1, 0, 0, 1)
 	$g_BBDPSide = $aCount[0][0]
-	SetDebugLog("Original MainSide = " & $g_BBDPSide)
+	;~ SetDebugLog("Original MainSide = " & $g_BBDPSide)
 	Return $aResult
 EndFunc
 
@@ -850,7 +850,7 @@ Func DebugAttackBBImage($aCoords, $g_BBDPSide = 1)
 			EndIf
 		Next
 	Else
-		SetDebugLog("DebugAttackBBImage: No Array")
+		;~ SetDebugLog("DebugAttackBBImage: No Array")
 	EndIf
 
 	Switch $g_BBDPSide
@@ -869,7 +869,7 @@ Func DebugAttackBBImage($aCoords, $g_BBDPSide = 1)
 	Local $filename = $g_sProfileTempDebugPath & String("AttackBBDebug_" & $Date & "_" & $Time) & ".png"
 	_GDIPlus_ImageSaveToFile($EditedImage, $filename)
 	If @error Then SetLog("Debug Image save error: " & @extended, $COLOR_ERROR)
-	SetDebugLog("DebugAttackBBImage: " & $filename)
+	;~ SetDebugLog("DebugAttackBBImage: " & $filename)
 
 	_GDIPlus_PenDispose($hPenYellow)
 	_GDIPlus_GraphicsDispose($hGraphic)

@@ -144,7 +144,7 @@ EndFunc   ;==>_Ini_Delete
 
 Func _Ini_AddNewKeyValue($section, $key, $value)
 	If UBound($g_asIniTable) < $g_iIniLineCount + 1 Or UBound($g_asIniTable, 2) < 2 Then
-		SetDebugLog("_Ini_AddNewKeyValue: Incorrect Array size on section '" & $section & "' for key '" & $key & "' value '" & $value & "'")
+		;~ SetDebugLog("_Ini_AddNewKeyValue: Incorrect Array size on section '" & $section & "' for key '" & $key & "' value '" & $value & "'")
 		Return
 	EndIf
 	$g_asIniTable[$g_iIniLineCount][0] = $section & "|" & $key

@@ -58,14 +58,14 @@ Func waitMainScreenMini()
 	If Not $g_bRunState Then Return
 	Local $iCount = 0
 	Local $hTimer = __TimerInit()
-	SetDebugLog("waitMainScreenMini")
+	;~ SetDebugLog("waitMainScreenMini")
 	If TestCapture() = False Then getBSPos() ; Update Android Window Positions
 	SetLog("Waiting for Main Screen after " & $g_sAndroidEmulator & "/CoC restart", $COLOR_INFO)
 	Local $aPixelToCheck = $g_bStayOnBuilderBase ? $aIsOnBuilderBase : $aIsMain
 	For $i = 0 To 60 ;30*2000 = 1 Minutes
 		If Not $g_bRunState Then Return
 		If Not TestCapture() And WinGetAndroidHandle() = 0 Then ExitLoop ; sets @error to 1
-		SetDebugLog("waitMainScreenMini ChkObstl Loop = " & $i & " ExitLoop = " & $iCount, $COLOR_DEBUG) ; Debug stuck loop
+		;~ SetDebugLog("waitMainScreenMini ChkObstl Loop = " & $i & " ExitLoop = " & $iCount, $COLOR_DEBUG) ; Debug stuck loop
 		$iCount += 1
 		_CaptureRegion()
 		If Not _CheckPixel($aPixelToCheck, $g_bNoCapturePixel) Then ;Checks for Main Screen

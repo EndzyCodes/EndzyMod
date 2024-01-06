@@ -185,7 +185,7 @@ Func txtGlobalActiveBotsAllowed()
 	EndIf
 	If $g_iGlobalActiveBotsAllowed <> $iValue Then
 		; value changed... for globally changed values, save immediately
-		SetDebugLog("Maximum of " & $g_iGlobalActiveBotsAllowed & " bots running at same time changed to " & $iValue)
+		;~ SetDebugLog("Maximum of " & $g_iGlobalActiveBotsAllowed & " bots running at same time changed to " & $iValue)
 		$g_iGlobalActiveBotsAllowed = $iValue
 		SaveProfileConfig(Default, True)
 	EndIf
@@ -195,7 +195,7 @@ Func txtGlobalThreads()
 	Local $iValue = Int(GUICtrlRead($g_hTxtGlobalThreads))
 	If $g_iGlobalThreads <> $iValue Then
 		; value changed... for globally changed values, save immediately
-		SetDebugLog("Threading: Using " & $g_iGlobalThreads & " threads shared across all bot instances changed to " & $iValue)
+		;~ SetDebugLog("Threading: Using " & $g_iGlobalThreads & " threads shared across all bot instances changed to " & $iValue)
 		$g_iGlobalThreads = $iValue
 		SaveProfileConfig(Default, True)
 	EndIf
@@ -205,7 +205,7 @@ Func txtThreads()
 	Local $iValue = Int(GUICtrlRead($g_hTxtThreads))
 	If $g_iThreads <> $iValue Then
 		; value changed...
-		SetDebugLog("Threading: Using " & $g_iThreads & " threads for parallelism changedd to " & $iValue)
+		;~ SetDebugLog("Threading: Using " & $g_iThreads & " threads for parallelism changedd to " & $iValue)
 		$g_iThreads = $iValue
 		setMaxDegreeOfParallelism($g_iThreads)
 	EndIf
@@ -438,74 +438,74 @@ EndFunc   ;==>cmbSwitchAccProfileX
 
 Func chkDebugSetLog()
 	$g_bDebugSetlog = (GUICtrlRead($g_hChkDebugSetlog) = $GUI_CHECKED) ;
-	SetDebugLog("DebugSetlog " & ($g_bDebugSetlog ? "enabled" : "disabled"))
+	;~ SetDebugLog("DebugSetlog " & ($g_bDebugSetlog ? "enabled" : "disabled"))
 EndFunc   ;==>chkDebugSetLog
 
 Func chkDebugAndroid()
 	$g_bDebugAndroid = (GUICtrlRead($g_hChkDebugAndroid) = $GUI_CHECKED)
-	SetDebugLog("DebugAndroid " & ($g_bDebugAndroid ? "enabled" : "disabled"))
+	;~ SetDebugLog("DebugAndroid " & ($g_bDebugAndroid ? "enabled" : "disabled"))
 EndFunc   ;==>chkDebugAndroid
 
 Func chkDebugClick()
 	$g_bDebugClick = (GUICtrlRead($g_hChkDebugClick) = $GUI_CHECKED)
-	SetDebugLog("DebugClick " & ($g_bDebugClick ? "enabled" : "disabled"))
+	;~ SetDebugLog("DebugClick " & ($g_bDebugClick ? "enabled" : "disabled"))
 EndFunc   ;==>chkDebugClick
 
 Func chkDebugFunc()
 	Local $bDebugFunc = (GUICtrlRead($g_hChkDebugFunc) = $GUI_CHECKED)
 	$g_bDebugFuncTime = $bDebugFunc
 	$g_bDebugFuncCall = $bDebugFunc
-	SetDebugLog("DebugFunc " & ($bDebugFunc ? "enabled" : "disabled"))
+	;~ SetDebugLog("DebugFunc " & ($bDebugFunc ? "enabled" : "disabled"))
 EndFunc   ;==>chkDebugFunc
 
 Func chkDebugDisableZoomout()
 	$g_bDebugDisableZoomout = (GUICtrlRead($g_hChkDebugDisableZoomout) = $GUI_CHECKED)
-	SetDebugLog("DebugDisableZoomout " & ($g_bDebugDisableZoomout ? "enabled" : "disabled"))
+	;~ SetDebugLog("DebugDisableZoomout " & ($g_bDebugDisableZoomout ? "enabled" : "disabled"))
 EndFunc   ;==>chkDebugDisableZoomout
 
 Func chkDebugDisableVillageCentering()
 	$g_bDebugDisableVillageCentering = (GUICtrlRead($g_hChkDebugDisableVillageCentering) = $GUI_CHECKED)
-	SetDebugLog("DebugDisableVillageCentering " & ($g_bDebugDisableVillageCentering ? "enabled" : "disabled"))
+	;~ SetDebugLog("DebugDisableVillageCentering " & ($g_bDebugDisableVillageCentering ? "enabled" : "disabled"))
 EndFunc   ;==>chkDebugDisableVillageCentering
 
 Func chkDebugDeadbaseImage()
 	$g_bDebugDeadBaseImage = (GUICtrlRead($g_hChkDebugDeadbaseImage) = $GUI_CHECKED)
-	SetDebugLog("DebugDeadbaseImage " & ($g_bDebugDeadBaseImage ? "enabled" : "disabled"))
+	;~ SetDebugLog("DebugDeadbaseImage " & ($g_bDebugDeadBaseImage ? "enabled" : "disabled"))
 EndFunc   ;==>chkDebugDeadbaseImage
 
 Func chkDebugOcr()
 	$g_bDebugOcr = (GUICtrlRead($g_hChkDebugOCR) = $GUI_CHECKED)
-	SetDebugLog("DebugOcr " & ($g_bDebugOcr ? "enabled" : "disabled"))
+	;~ SetDebugLog("DebugOcr " & ($g_bDebugOcr ? "enabled" : "disabled"))
 EndFunc   ;==>chkDebugOcr
 
 Func chkDebugImageSave()
 	$g_bDebugImageSave = (GUICtrlRead($g_hChkDebugImageSave) = $GUI_CHECKED)
-	SetDebugLog("DebugImageSave " & ($g_bDebugImageSave ? "enabled" : "disabled"))
+	;~ SetDebugLog("DebugImageSave " & ($g_bDebugImageSave ? "enabled" : "disabled"))
 EndFunc   ;==>chkDebugImageSave
 
 Func chkDebugBuildingPos()
 	$g_bDebugBuildingPos = (GUICtrlRead($g_hChkdebugBuildingPos) = $GUI_CHECKED)
-	SetDebugLog("DebugBuildingPos " & ($g_bDebugBuildingPos ? "enabled" : "disabled"))
+	;~ SetDebugLog("DebugBuildingPos " & ($g_bDebugBuildingPos ? "enabled" : "disabled"))
 EndFunc   ;==>chkDebugBuildingPos
 
 Func chkDebugTrain()
 	$g_bDebugSetlogTrain = (GUICtrlRead($g_hChkdebugTrain) = $GUI_CHECKED)
-	SetDebugLog("DebugTrain " & ($g_bDebugSetlogTrain ? "enabled" : "disabled"))
+	;~ SetDebugLog("DebugTrain " & ($g_bDebugSetlogTrain ? "enabled" : "disabled"))
 EndFunc   ;==>chkDebugTrain
 
 Func chkdebugOCRDonate()
 	$g_bDebugOCRdonate = (GUICtrlRead($g_hChkDebugOCRDonate) = $GUI_CHECKED)
-	SetDebugLog("DebugOCRDonate " & ($g_bDebugOCRdonate ? "enabled" : "disabled"))
+	;~ SetDebugLog("DebugOCRDonate " & ($g_bDebugOCRdonate ? "enabled" : "disabled"))
 EndFunc   ;==>chkdebugOCRDonate
 
 Func chkdebugAttackCSV()
 	$g_bDebugAttackCSV = (GUICtrlRead($g_hChkdebugAttackCSV) = $GUI_CHECKED)
-	SetDebugLog("DebugAttackCSV " & ($g_bDebugAttackCSV ? "enabled" : "disabled"))
+	;~ SetDebugLog("DebugAttackCSV " & ($g_bDebugAttackCSV ? "enabled" : "disabled"))
 EndFunc   ;==>chkdebugAttackCSV
 
 Func chkmakeIMGCSV()
 	$g_bDebugMakeIMGCSV = (GUICtrlRead($g_hChkMakeIMGCSV) = $GUI_CHECKED)
-	SetDebugLog("MakeIMGCSV " & ($g_bDebugMakeIMGCSV ? "enabled" : "disabled"))
+	;~ SetDebugLog("MakeIMGCSV " & ($g_bDebugMakeIMGCSV ? "enabled" : "disabled"))
 EndFunc   ;==>chkmakeIMGCSV
 
 Func btnTestTrain()

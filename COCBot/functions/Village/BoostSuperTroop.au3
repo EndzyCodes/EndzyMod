@@ -52,7 +52,7 @@ Func BoostSuperTroop($bTest = False)
 					EndSelect
 
 					Local $iRow = Ceiling($g_iCmbSuperTroops[$i] / $iPicsPerRow) ; get row Stroop
-					SetDebugLog("curRow = " & $curRow & ", iRow = " & $iRow, $COLOR_DEBUG)
+					;~ SetDebugLog("curRow = " & $curRow & ", iRow = " & $iRow, $COLOR_DEBUG)
 					StroopNextPage($iRow) ; go directly to the needed Row
 					$curRow = $iRow
 
@@ -64,11 +64,11 @@ Func BoostSuperTroop($bTest = False)
 					If _Sleep(1500) Then Return
 					If QuickMIS("BC1", $g_sImgBoostTroopsClock, $iColumnX, $iColumnY1, $iColumnX + $picswidth, $iColumnY2, True, False) Then ;find pics Clock on spesific row / column (if clock found = troops already boosted)
 						SetLog($sTroopName & ", Troops Already boosted", $COLOR_INFO)
-						SetDebugLog("Found Clock Image", $COLOR_DEBUG)
+						;~ SetDebugLog("Found Clock Image", $COLOR_DEBUG)
 						ContinueLoop
 					Else
 						If _Sleep(1500) Then Return
-						SetDebugLog("Clock Image Not Found", $COLOR_DEBUG)
+						;~ SetDebugLog("Clock Image Not Found", $COLOR_DEBUG)
 						SetLog($sTroopName & ", Currently is not boosted", $COLOR_INFO)
 						If FindStroopIcons($g_iCmbSuperTroops[$i], $iColumnX, $iColumnY1, $iColumnX + $picswidth, $iColumnY2) Then
 							;SetLog("QuickMIS(" & "BC1" & ", " & $g_sImgBoostTroopsIcons & "," & $iColumnX & "," & $iColumnY1 & "," & $iColumnX + $picswidth & "," & $iColumnY2 & ")", $COLOR_DEBUG );
@@ -208,34 +208,34 @@ Func OpenBarrel()
 				$EnabledStroop += 1
 			EndIf
 		Next
-		SetDebugLog("Enabled boost count: " & $EnabledStroop)
+		;~ SetDebugLog("Enabled boost count: " & $EnabledStroop)
 		If $EnabledStroop = 1 Then
 			Local $Color = _GetPixelColor($g_iQuickMISX - 9, $g_iQuickMISY - 18, True)
-			SetDebugLog("[" & $g_iQuickMISX - 9 &","& $g_iQuickMISY - 18 & "] Color:" & $Color)
+			;~ SetDebugLog("[" & $g_iQuickMISX - 9 &","& $g_iQuickMISY - 18 & "] Color:" & $Color)
 			If _ColorCheck($Color, Hex(0xEB7100, 6), 50) Or _ColorCheck($Color, Hex(0xF3C127, 6), 50) Or _ColorCheck($Color, Hex(0xC26B00, 6), 10) Then
 				SetLog("1 Boost Detected, troops already boosted", $COLOR_SUCCESS)
 				$bOpenBarrel = False
 			Else
-				SetDebugLog("Pixel Color on [" & $g_iQuickMISX - 9 & "," & $g_iQuickMISY - 18 & "] are : " & _GetPixelColor($g_iQuickMISX - 9, $g_iQuickMISY - 18, True))
+				;~ SetDebugLog("Pixel Color on [" & $g_iQuickMISX - 9 & "," & $g_iQuickMISY - 18 & "] are : " & _GetPixelColor($g_iQuickMISX - 9, $g_iQuickMISY - 18, True))
 			EndIf
 		EndIf
 
 		If $EnabledStroop = 2 Then
 			Local $Color = _GetPixelColor($g_iQuickMISX - 9, $g_iQuickMISY - 18, True)
 			Local $Color1 = _GetPixelColor($g_iQuickMISX - 9, $g_iQuickMISY - 18 - 11, True)
-			SetDebugLog("Color:" &$Color & ", Color1:" & $Color1)
+			;~ SetDebugLog("Color:" &$Color & ", Color1:" & $Color1)
 			If _ColorCheck($Color, Hex(0xF3C427, 6), 50) And _ColorCheck($Color1, Hex(0xF2C227, 6), 50) Then
 				SetLog("2 Boost Detected, troops already boosted", $COLOR_SUCCESS)
 				$bOpenBarrel = False
 			Else
-				SetDebugLog("Pixel Color on [" & $g_iQuickMISX - 9 & "," & $g_iQuickMISY - 18 & "] are : " & _GetPixelColor($g_iQuickMISX - 9, $g_iQuickMISY - 18, True))
-				SetDebugLog("Pixel Color on [" & $g_iQuickMISX - 9 & "," & $g_iQuickMISY - 18 - 11 & "] are : " & _GetPixelColor($g_iQuickMISX - 9, $g_iQuickMISY - 18 - 11, True))
+				;~ SetDebugLog("Pixel Color on [" & $g_iQuickMISX - 9 & "," & $g_iQuickMISY - 18 & "] are : " & _GetPixelColor($g_iQuickMISX - 9, $g_iQuickMISY - 18, True))
+				;~ SetDebugLog("Pixel Color on [" & $g_iQuickMISX - 9 & "," & $g_iQuickMISY - 18 - 11 & "] are : " & _GetPixelColor($g_iQuickMISX - 9, $g_iQuickMISY - 18 - 11, True))
 			EndIf
 		EndIf
 
 		If $bOpenBarrel Then
 			CheckSuperTroopPotion()
-			SetDebugLog("Found Barrel at " & $xBarrel & "," & $yBarrel)
+			;~ SetDebugLog("Found Barrel at " & $xBarrel & "," & $yBarrel)
 			Click($xBarrel, $yBarrel)
 			If IsBoostWindowOpened() Then
 				Return True
@@ -290,7 +290,7 @@ EndFunc
 
 Func StroopNextPage($iRow)
 	Local $iXMidPoint = 425
-	SetDebugLog("Goto Row: " & $iRow, $COLOR_DEBUG)
+	;~ SetDebugLog("Goto Row: " & $iRow, $COLOR_DEBUG)
 	For $i = 1 To $iRow - 1
 		ClickDrag($iXMidPoint, 250, $iXMidPoint, 65, 500)
 		If _Sleep(1000) Then Return
@@ -305,7 +305,7 @@ Func FindStroopIcons($iIndex, $iColumnX, $iColumnY1, $iColumnX1, $iColumnY2)
 
 	Local $FullTemp
 	$FullTemp = SearchImgloc($g_sImgBoostTroopsIcons, $iColumnX, $iColumnY1, $iColumnX1, $iColumnY2)
-	SetDebugLog("Troop SearchImgloc returned:" & $FullTemp[0] & ".", $COLOR_DEBUG)
+	;~ SetDebugLog("Troop SearchImgloc returned:" & $FullTemp[0] & ".", $COLOR_DEBUG)
 	SetLog("Trying to find" & "[" & $iIndex & "] " & GetSTroopName($iIndex - 1), $COLOR_DEBUG)
 	If StringInStr($FullTemp[0] & " ", "empty") > 0 Then Return
 
@@ -313,12 +313,12 @@ Func FindStroopIcons($iIndex, $iColumnX, $iColumnY1, $iColumnX1, $iColumnY2)
 		Local $iFoundTroopIndex = TroopIndexLookup($FullTemp[0])
 		For $i = $eTroopBarbarian To $eTroopCount - 1
 			If $iFoundTroopIndex = $i Then
-				SetDebugLog("Detected " & "[" & $iFoundTroopIndex & "] " & $g_asTroopNames[$i], $COLOR_DEBUG)
+				;~ SetDebugLog("Detected " & "[" & $iFoundTroopIndex & "] " & $g_asTroopNames[$i], $COLOR_DEBUG)
 				If $g_asTroopNames[$i] = GetSTroopName($iIndex - 1) Then Return True
 				ExitLoop
 			EndIf
 			If $i = $eTroopCount - 1 Then ; detection failed
-				SetDebugLog("Troop Troop Detection Failed", $COLOR_DEBUG)
+				;~ SetDebugLog("Troop Troop Detection Failed", $COLOR_DEBUG)
 			EndIf
 		Next
 	EndIf

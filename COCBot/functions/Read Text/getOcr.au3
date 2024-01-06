@@ -283,9 +283,9 @@ Func getOcrReloadMessage($x_start, $y_start, $sLogText = Default, $LogTextColor 
 		$String = $sLogText & " " & $result
 	EndIf
 	If $g_bDebugSetlog Then ; if enabled generate debug log message
-		SetDebugLog($String, $LogTextColor, $bSilentSetLog)
+		;~ SetDebugLog($String, $LogTextColor, $bSilentSetLog)
 	ElseIf $result <> "" Then ;
-		SetDebugLog($String, $LogTextColor, True) ; if result found, add to log file
+		;~ SetDebugLog($String, $LogTextColor, True) ; if result found, add to log file
 	EndIf
 	Return $result
 EndFunc   ;==>getOcrReloadMessage
@@ -300,9 +300,9 @@ Func getOcrMaintenanceTime($x_start, $y_start, $sLogText = Default, $LogTextColo
 		$String = $sLogText & " " & $result
 	EndIf
 	If $g_bDebugSetlog Then ; if enabled generate debug log message
-		SetDebugLog($String, $LogTextColor, $bSilentSetLog)
+		;~ SetDebugLog($String, $LogTextColor, $bSilentSetLog)
 	ElseIf $result <> "" Then ;
-		SetDebugLog($String, $LogTextColor, True) ; if result found, add to log file
+		;~ SetDebugLog($String, $LogTextColor, True) ; if result found, add to log file
 	EndIf
 	Return $result
 EndFunc   ;==>getOcrMaintenanceTime
@@ -448,7 +448,7 @@ Func getOcrImgLoc(ByRef Const $_hHBitmap, $sLanguage)
 	Local $extError = @extended
 	If $error Then
 		_logErrorDLLCall($g_hLibMyBot, $error)
-		SetDebugLog(" imgloc DLL Error : " & $error & " --- " & $extError)
+		;~ SetDebugLog(" imgloc DLL Error : " & $error & " --- " & $extError)
 		Return SetError(2, $extError, "") ; Set external error code = 2 for DLL error
 	EndIf
 	If $g_bDebugImageSave Then SaveDebugImage($sLanguage, False)

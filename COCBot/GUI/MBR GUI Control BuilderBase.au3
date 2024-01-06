@@ -45,19 +45,19 @@ EndFunc
 
 Func cmbBBAttackCount()
 	$g_iBBAttackCount = _GUICtrlComboBox_GetCurSel($g_hCmbBBAttackCount)
-	SetDebugLog("BB Attack Count: " & $g_iBBAttackCount, $COLOR_DEBUG)
+	;~ SetDebugLog("BB Attack Count: " & $g_iBBAttackCount, $COLOR_DEBUG)
 EndFunc
 
 Func cmbBBNextTroopDelay()
 	$g_iBBNextTroopDelay = $g_iBBNextTroopDelayDefault + ((_GUICtrlComboBox_GetCurSel($g_hCmbBBNextTroopDelay) + 1) - 5) * $g_iBBNextTroopDelayIncrement ; +- n*increment
-	SetDebugLog("Next Troop Delay: " & $g_iBBNextTroopDelay)
-	SetDebugLog((_GUICtrlComboBox_GetCurSel($g_hCmbBBNextTroopDelay) + 1) - 5)
+	;~ SetDebugLog("Next Troop Delay: " & $g_iBBNextTroopDelay)
+	;~ SetDebugLog((_GUICtrlComboBox_GetCurSel($g_hCmbBBNextTroopDelay) + 1) - 5)
 EndFunc   ;==>cmbBBNextTroopDelay
 
 Func cmbBBSameTroopDelay()
 	$g_iBBSameTroopDelay = $g_iBBSameTroopDelayDefault + ((_GUICtrlComboBox_GetCurSel($g_hCmbBBSameTroopDelay) + 1) - 5) * $g_iBBSameTroopDelayIncrement ; +- n*increment
-	SetDebugLog("Same Troop Delay: " & $g_iBBSameTroopDelay)
-	SetDebugLog((_GUICtrlComboBox_GetCurSel($g_hCmbBBSameTroopDelay) + 1) - 5)
+	;~ SetDebugLog("Same Troop Delay: " & $g_iBBSameTroopDelay)
+	;~ SetDebugLog((_GUICtrlComboBox_GetCurSel($g_hCmbBBSameTroopDelay) + 1) - 5)
 EndFunc   ;==>cmbBBSameTroopDelay
 
 Func chkBBDropTrophy()
@@ -183,7 +183,7 @@ Func BtnBBDropOrderSet()
 				Local $k = 0
 				While $k < $g_iBBTroopCount And Not $bFound ; loop through handles
 					If $g_ahCmbBBDropOrder[$i] <> $g_ahCmbBBDropOrder[$k] Then
-						SetDebugLog("Word: " & $asDefaultOrderSplit[$j + 1] & " " & " Word in slot: " & GUICtrlRead($g_ahCmbBBDropOrder[$k]))
+						;~ SetDebugLog("Word: " & $asDefaultOrderSplit[$j + 1] & " " & " Word in slot: " & GUICtrlRead($g_ahCmbBBDropOrder[$k]))
 						If $asDefaultOrderSplit[$j + 1] = GUICtrlRead($g_ahCmbBBDropOrder[$k]) Then $bFound = True
 					EndIf
 					$k += 1
@@ -198,7 +198,7 @@ Func BtnBBDropOrderSet()
 			WEnd
 		EndIf
 		$g_sBBDropOrder &= (GUICtrlRead($g_ahCmbBBDropOrder[$i]) & "|")
-		SetDebugLog("DropOrder: " & $g_sBBDropOrder)
+		;~ SetDebugLog("DropOrder: " & $g_sBBDropOrder)
 	Next
 	$g_sBBDropOrder = StringTrimRight($g_sBBDropOrder, 1) ; Remove last '|'
 	GUICtrlSetBkColor($g_hBtnBBDropOrder, $COLOR_GREEN)

@@ -145,11 +145,11 @@ Func AcquireMutexTicket($sMutexName, $iMinTicketNo, $sWaitMessage = Default, $bC
 	EndIf
 
 	If $iTicket <= $iMinTicketNo Then
-		SetDebugLog("Aquired mutex ticket: " & $sTicketMutex & ", " & $hTicketMutex)
+		;~ SetDebugLog("Aquired mutex ticket: " & $sTicketMutex & ", " & $hTicketMutex)
 		Return $hTicketMutex
 	EndIf
 
-	SetDebugLog("Wait mutex ticket: " & $sTicketMutex)
+	;~ SetDebugLog("Wait mutex ticket: " & $sTicketMutex)
 
 	; wait for ticket to get to counter
 	If $sWaitMessage = Default Then $sWaitMessage = "Waiting for slot to become available..."
@@ -165,7 +165,7 @@ Func AcquireMutexTicket($sMutexName, $iMinTicketNo, $sWaitMessage = Default, $bC
 				Local $hFinalTicketMutex = AcquireMutex($sTicketMutex, "Global", 0)
 				If $hFinalTicketMutex Then
 					; found slot
-					SetDebugLog("Aquired mutex ticket: " & $sTicketMutex & ", " & $hFinalTicketMutex)
+					;~ SetDebugLog("Aquired mutex ticket: " & $sTicketMutex & ", " & $hFinalTicketMutex)
 					Return ReleaseMutex($hTicketMutex, $hFinalTicketMutex)
 				EndIf
 			Next
@@ -175,7 +175,7 @@ Func AcquireMutexTicket($sMutexName, $iMinTicketNo, $sWaitMessage = Default, $bC
 			Local $hNextTicketMutex = AcquireMutex($sTicketMutex, "Global", 0)
 			If $hNextTicketMutex Then
 				; move one slot closer
-				SetDebugLog("New mutex ticket: " & $sTicketMutex)
+				;~ SetDebugLog("New mutex ticket: " & $sTicketMutex)
 				$iTicket -= 1
 				$hTicketMutex = ReleaseMutex($hTicketMutex, $hNextTicketMutex)
 			EndIf
@@ -208,7 +208,7 @@ Func LockBotSlot($bLock = True)
 		;If LockSemaphore($g_hMutextOrSemaphoreGlobalActiveBots, GetTranslatedFileIni("MBR GUI Design - Loading", "SplashStep_09", "Waiting for bot slot...")) Then $bBotIsLocked = $bLock
 		If $g_hMutextOrSemaphoreGlobalActiveBots Then
 			; should not happen
-			SetDebugLog("LockBotSlot not released: " & $g_hMutextOrSemaphoreGlobalActiveBots)
+			;~ SetDebugLog("LockBotSlot not released: " & $g_hMutextOrSemaphoreGlobalActiveBots)
 			ReleaseMutex($g_hMutextOrSemaphoreGlobalActiveBots)
 			$g_hMutextOrSemaphoreGlobalActiveBots = 0
 		EndIf
@@ -218,7 +218,7 @@ Func LockBotSlot($bLock = True)
 		;Semaphores here don't support FIFO, use AcquireMutexTicket
 		;UnlockSemaphore($g_hMutextOrSemaphoreGlobalActiveBots)
 		ReleaseMutex($g_hMutextOrSemaphoreGlobalActiveBots)
-		SetDebugLog("Released Bot slot mutex: " & $g_hMutextOrSemaphoreGlobalActiveBots)
+		;~ SetDebugLog("Released Bot slot mutex: " & $g_hMutextOrSemaphoreGlobalActiveBots)
 		$g_hMutextOrSemaphoreGlobalActiveBots = 0
 		$bBotIsLocked = $bLock
 	EndIf

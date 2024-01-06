@@ -65,8 +65,8 @@ Func CheckVersion()
 		EndIf
 		Local $version = GetLastVersion($Temp)
 		$g_sBotGitVersion = StringReplace($version[0], "MBR_v", "")
-		SetDebugLog("Last GitHub version is " & $g_sBotGitVersion )
-		SetDebugLog("Your version is " & $g_iBotVersionN )
+		;~ SetDebugLog("Last GitHub version is " & $g_sBotGitVersion )
+		;~ SetDebugLog("Your version is " & $g_iBotVersionN )
 
 		If _VersionCompare($g_iBotVersionN, $g_sBotGitVersion) = -1 Then
 			SetLog("WARNING, YOUR VERSION (" & $g_iBotVersionN & ") IS OUT OF DATE.", $COLOR_INFO)
@@ -107,7 +107,7 @@ Func CheckVersion()
 			SetLog("##############################################", $COLOR_INFO)
 		EndIf
 	Else
-		SetDebugLog($Temp)
+		;~ SetDebugLog($Temp)
 	EndIf
 	#ce
 EndFunc   ;==>CheckVersion

@@ -196,8 +196,8 @@ Func Algorithm_AttackCSV($testattack = False, $captureredarea = True)
 	;02.01 - REDAREA -----------------------------------------------------------------------------------------------------------------------------------------
 	Local $hTimer = __timerinit()
 
-	SetDebugLog("Redline mode: " & $g_aiAttackScrRedlineRoutine[$g_iMatchMode])
-	SetDebugLog("Dropline mode: " & $g_aiAttackScrDroplineEdge[$g_iMatchMode])
+	;~ SetDebugLog("Redline mode: " & $g_aiAttackScrRedlineRoutine[$g_iMatchMode])
+	;~ SetDebugLog("Dropline mode: " & $g_aiAttackScrDroplineEdge[$g_iMatchMode])
 
 	_CaptureRegion2() ; ensure full screen is captured (not ideal for debugging as clean image was already saved, but...)
 	If $captureredarea Then _GetRedArea($g_aiAttackScrRedlineRoutine[$g_iMatchMode])
@@ -242,10 +242,10 @@ Func Algorithm_AttackCSV($testattack = False, $captureredarea = True)
 				Local $StartEndBottomRight = [$coordBottom, $coordRight]
 		EndSwitch
 
-		SetDebugLog("MakeDropLines, StartEndTopLeft     = " & PixelArrayToString($StartEndTopLeft, ","))
-		SetDebugLog("MakeDropLines, StartEndTopRight    = " & PixelArrayToString($StartEndTopRight, ","))
-		SetDebugLog("MakeDropLines, StartEndBottomLeft  = " & PixelArrayToString($StartEndBottomLeft, ","))
-		SetDebugLog("MakeDropLines, StartEndBottomRight = " & PixelArrayToString($StartEndBottomRight, ","))
+		;~ SetDebugLog("MakeDropLines, StartEndTopLeft     = " & PixelArrayToString($StartEndTopLeft, ","))
+		;~ SetDebugLog("MakeDropLines, StartEndTopRight    = " & PixelArrayToString($StartEndTopRight, ","))
+		;~ SetDebugLog("MakeDropLines, StartEndBottomLeft  = " & PixelArrayToString($StartEndBottomLeft, ","))
+		;~ SetDebugLog("MakeDropLines, StartEndBottomRight = " & PixelArrayToString($StartEndBottomRight, ","))
 
 		Switch $g_aiAttackScrDroplineEdge[$g_iMatchMode]
 			Case $DROPLINE_EDGE_FIXED, $DROPLINE_EDGE_FIRST ; default drop line
@@ -276,7 +276,7 @@ Func Algorithm_AttackCSV($testattack = False, $captureredarea = True)
 			Case "5"
 				$tempvectstr2 &= $pixel[0] & "," & $pixel[1] & "|"
 			Case Else
-				SetDebugLog("TOP LEFT: Skip slice " & $slice & " at " & $pixel[0] & ", " & $pixel[1])
+				;~ SetDebugLog("TOP LEFT: Skip slice " & $slice & " at " & $pixel[0] & ", " & $pixel[1])
 		EndSwitch
 	Next
 	If StringLen($tempvectstr1) > 0 Then $tempvectstr1 = StringLeft($tempvectstr1, StringLen($tempvectstr1) - 1)
@@ -296,7 +296,7 @@ Func Algorithm_AttackCSV($testattack = False, $captureredarea = True)
 			Case "4"
 				$tempvectstr2 &= $pixel[0] & "," & $pixel[1] & "|"
 			Case Else
-				SetDebugLog("TOP RIGHT: Skip slice " & $slice & " at " & $pixel[0] & ", " & $pixel[1])
+				;~ SetDebugLog("TOP RIGHT: Skip slice " & $slice & " at " & $pixel[0] & ", " & $pixel[1])
 		EndSwitch
 	Next
 	If StringLen($tempvectstr1) > 0 Then $tempvectstr1 = StringLeft($tempvectstr1, StringLen($tempvectstr1) - 1)
@@ -316,7 +316,7 @@ Func Algorithm_AttackCSV($testattack = False, $captureredarea = True)
 			Case "7"
 				$tempvectstr2 &= $pixel[0] & "," & $pixel[1] & "|"
 			Case Else
-				SetDebugLog("BOTTOM LEFT: Skip slice " & $slice & " at " & $pixel[0] & ", " & $pixel[1])
+				;~ SetDebugLog("BOTTOM LEFT: Skip slice " & $slice & " at " & $pixel[0] & ", " & $pixel[1])
 		EndSwitch
 	Next
 	If StringLen($tempvectstr1) > 0 Then $tempvectstr1 = StringLeft($tempvectstr1, StringLen($tempvectstr1) - 1)
@@ -336,7 +336,7 @@ Func Algorithm_AttackCSV($testattack = False, $captureredarea = True)
 			Case "2"
 				$tempvectstr2 &= $pixel[0] & "," & $pixel[1] & "|"
 			Case Else
-				SetDebugLog("BOTTOM RIGHT: Skip slice " & $slice & " at " & $pixel[0] & ", " & $pixel[1])
+				;~ SetDebugLog("BOTTOM RIGHT: Skip slice " & $slice & " at " & $pixel[0] & ", " & $pixel[1])
 		EndSwitch
 	Next
 	If StringLen($tempvectstr1) > 0 Then $tempvectstr1 = StringLeft($tempvectstr1, StringLen($tempvectstr1) - 1)
@@ -586,7 +586,7 @@ Func Algorithm_AttackCSV($testattack = False, $captureredarea = True)
 			SetLog("> TH Level to low for Eagle, skip detection", $COLOR_INFO)
 		EndIf
 	Else
-		SetDebugLog("> Eagle Artillery detection not needed, skipping", $COLOR_DEBUG)
+		;~ SetDebugLog("> Eagle Artillery detection not needed, skipping", $COLOR_DEBUG)
 	EndIf
 
 	; 07 - Scatter Shot ------------------------------------------------------------------------
@@ -610,7 +610,7 @@ Func Algorithm_AttackCSV($testattack = False, $captureredarea = True)
 			SetLog("> TH Level to low for Scatter Shot, skip detection", $COLOR_INFO)
 		EndIf
 	Else
-		SetDebugLog("> Scatter Shot detection not needed, skipping", $COLOR_DEBUG)
+		;~ SetDebugLog("> Scatter Shot detection not needed, skipping", $COLOR_DEBUG)
 	EndIf
 
 	; 08 - Inferno ------------------------------------------------------------------------
@@ -634,7 +634,7 @@ Func Algorithm_AttackCSV($testattack = False, $captureredarea = True)
 			SetLog("> TH Level to low for Inferno, ignore location", $COLOR_INFO)
 		EndIf
 	Else
-		SetDebugLog("> Inferno detection not needed, skipping", $COLOR_DEBUG)
+		;~ SetDebugLog("> Inferno detection not needed, skipping", $COLOR_DEBUG)
 	EndIf
 
 	; 09 - X-Bow ------------------------------------------------------------------------
@@ -658,7 +658,7 @@ Func Algorithm_AttackCSV($testattack = False, $captureredarea = True)
 			SetLog("> TH Level to low for " & $g_sBldgNames[$eBldgXBow] & " , ignore location", $COLOR_INFO)
 		EndIf
 	Else
-		SetDebugLog("> " & $g_sBldgNames[$eBldgXBow] & " detection not needed, skipping", $COLOR_DEBUG)
+		;~ SetDebugLog("> " & $g_sBldgNames[$eBldgXBow] & " detection not needed, skipping", $COLOR_DEBUG)
 	EndIf
 
 
@@ -679,7 +679,7 @@ Func Algorithm_AttackCSV($testattack = False, $captureredarea = True)
 			If IsArray($aResult) Then $g_aiCSVWizTowerPos = $aResult
 		EndIf
 	Else
-		SetDebugLog("> " & $g_sBldgNames[$eBldgWizTower] & " detection not needed, skipping", $COLOR_DEBUG)
+		;~ SetDebugLog("> " & $g_sBldgNames[$eBldgWizTower] & " detection not needed, skipping", $COLOR_DEBUG)
 	EndIf
 
 	; 11 - Mortar ------------------------------------------------------------------------
@@ -699,7 +699,7 @@ Func Algorithm_AttackCSV($testattack = False, $captureredarea = True)
 			If IsArray($aResult) Then $g_aiCSVMortarPos = $aResult
 		EndIf
 	Else
-		SetDebugLog("> " & $g_sBldgNames[$eBldgMortar] & " detection not needed, skipping", $COLOR_DEBUG)
+		;~ SetDebugLog("> " & $g_sBldgNames[$eBldgMortar] & " detection not needed, skipping", $COLOR_DEBUG)
 	EndIf
 
 	; 12 - Air Defense ------------------------------------------------------------------------
@@ -719,7 +719,7 @@ Func Algorithm_AttackCSV($testattack = False, $captureredarea = True)
 			If IsArray($aResult) Then $g_aiCSVAirDefensePos = $aResult
 		EndIf
 	Else
-		SetDebugLog("> " & $g_sBldgNames[$eBldgAirDefense] & " detection not needed, skipping", $COLOR_DEBUG)
+		;~ SetDebugLog("> " & $g_sBldgNames[$eBldgAirDefense] & " detection not needed, skipping", $COLOR_DEBUG)
 	EndIf
 
 	; Calculate main attack side
@@ -747,7 +747,7 @@ Func Algorithm_AttackCSV($testattack = False, $captureredarea = True)
 	SetSlotSpecialTroops()
 	If _Sleep($DELAYRESPOND) Then Return
 	If $sMainSide = "BOTTOM-RIGHT" Or $sMainSide = "BOTTOM-LEFT" Then
-		SetDebugLog("BOTTOM LEFT/RIGHT as MainSide, checking boost button")
+		;~ SetDebugLog("BOTTOM LEFT/RIGHT as MainSide, checking boost button")
 		For $i = 1 To 15
 			If QuickMIS("BFI", $g_sImgImgLocButtons & "\BoostButton*.xml", 300,520,390,550) Then
 				If _Sleep(2000) Then Return
@@ -805,11 +805,11 @@ Func FindWallCSV(ByRef $aCSVExternalWall, ByRef $aCSVInternalWall)
 		If $g_bDebugImageSave Then _GDIPlus_GraphicsDrawRect($hGraphic, _Min($X1, $X2), _Min($Y1, $Y2), Abs($X1 - $X2), Abs ($Y1 - $Y2), $hPenBLUE)
 
 		If $FoundWalls[0] = "" Then ; nothing found
-			SetDebugLog("No wall(s) found in section " & $i + 1)
+			;~ SetDebugLog("No wall(s) found in section " & $i + 1)
 		Else
 			Local $sWallString = _ArrayToString($FoundWalls)
 			Local $aWallCoordsArray = decodeMultipleCoords($sWallString, 7, 7)
-			SetDebugLog("Found " & UBound($aWallCoordsArray) & " walls in section " & $i + 1 & ": " & $sWallString)
+			;~ SetDebugLog("Found " & UBound($aWallCoordsArray) & " walls in section " & $i + 1 & ": " & $sWallString)
 
 			For $j = 0 To UBound($aWallCoordsArray) - 1
 				Local $aTempPos = $aWallCoordsArray[$j]
@@ -826,7 +826,7 @@ Func FindWallCSV(ByRef $aCSVExternalWall, ByRef $aCSVInternalWall)
 	If UBound($aiWallPos) > 1 And $aiWallPos[0][0] <> "" Then
 		_ArraySort($aiWallPos, 0, 0, 0, 2)
 		_ArrayDelete($aiWallPos, 0) ; remove 1st "" element
-		SetDebugLog(@CRLF & _ArrayToString($aiWallPos))
+		;~ SetDebugLog(@CRLF & _ArrayToString($aiWallPos))
 
 		$aOuterWall[0] = $aiWallPos[0][0]
 		$aOuterWall[1] = $aiWallPos[0][1]
@@ -874,8 +874,8 @@ Func TestDropLine($SearchRedLine = False)
 	If $SearchRedLine And IsAttackPage(True) Then 
 		Local $hTimer = __timerinit()
 
-		SetDebugLog("Redline mode: " & $g_aiAttackScrRedlineRoutine[$g_iMatchMode])
-		SetDebugLog("Dropline mode: " & $g_aiAttackScrDroplineEdge[$g_iMatchMode])
+		;~ SetDebugLog("Redline mode: " & $g_aiAttackScrRedlineRoutine[$g_iMatchMode])
+		;~ SetDebugLog("Dropline mode: " & $g_aiAttackScrDroplineEdge[$g_iMatchMode])
 
 		_CaptureRegion2()
 		_GetRedArea($g_aiAttackScrRedlineRoutine[$g_iMatchMode])

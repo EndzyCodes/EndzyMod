@@ -49,7 +49,7 @@ Func GetCOCDistributors()
 	FuncEnter(GetCOCDistributors)
 	Static $s_asDistributorsLoaded = -1
 	If $s_asDistributorsLoaded <> -1 And Not IsBotLaunched() Then Return FuncReturn($s_asDistributorsLoaded) ; retutn cached list only during bot launch to prevent rare freeze due to CTRITICAL_SECTION deack lock
-	SetDebugLog("Retrieving CoC distributors")
+	;~ SetDebugLog("Retrieving CoC distributors")
 	Local $sPkgList = StringReplace(AndroidAdbSendShellCommand("pm list packages clashofclans;pm list packages clashofmagic"), "package:", "")
 	If @error <> 0 Or $sPkgList = "" Then Return FuncReturn(SetError(1, 0, "")) ; ADB error or No COC installed error
 

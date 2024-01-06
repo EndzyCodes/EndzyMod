@@ -78,7 +78,7 @@ Func ForumAuthentication()
 		If _Sleep($g_iForumRetryOnErrorDelay) Then ExitLoop
 		$iAuthenticated = CheckForumAuthentication()
 		If $iAuthenticated = 1 Then $bOk = True
-		SetDebugLog("ForumAuthentication: Result=" & $bOk & ", retry=" & $iRetry & ", authenticated=" & $iAuthenticated)
+		;~ SetDebugLog("ForumAuthentication: Result=" & $bOk & ", retry=" & $iRetry & ", authenticated=" & $iAuthenticated)
 		$iRetry -= 1
 	WEnd
 	If UBound($aBtnStates) > 1 Then
@@ -139,7 +139,7 @@ Func ForumAuthentication()
 						If $sUser = "" Or $sPass = "" Then
 							GUICtrlSetData($hText, $sPleaseEnter)
 						Else
-							;SetDebugLog("ForumAuthentication: username=" & $sUser & ", password=" & $sPass) ; ONLY ENABLE WHEN YOU REALLY NEED TO VALIDATE YOUR INPUT
+							;;~ SetDebugLog("ForumAuthentication: username=" & $sUser & ", password=" & $sPass) ; ONLY ENABLE WHEN YOU REALLY NEED TO VALIDATE YOUR INPUT
 							Local $json = ForumLogin($sUser, $sPass)
 							If StringInStr($json, '"access_token"') And CheckForumAuthentication() Then
 								GUICtrlSetData($hText, $sWelcome)

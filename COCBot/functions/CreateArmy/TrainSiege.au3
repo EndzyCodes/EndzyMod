@@ -163,7 +163,7 @@ Func CheckQueueSieges($bGetQuantity = True, $bSetLog = True, $x = 778, $bQtyWSlo
 				$aQueueTroop[$iSiegeIndex] += $aQuantities[$i][1]
 			Else
 				; TODO check what to do with others
-				SetDebugLog("Unsupport siege index: " & $iSiegeIndex)
+				;~ SetDebugLog("Unsupport siege index: " & $iSiegeIndex)
 			EndIf
 		Next
 		If $bQtyWSlot Then Return $aQuantities

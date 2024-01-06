@@ -14,7 +14,7 @@
 ; ===============================================================================================================================
 
 Func algorithm_AllTroops() ;Attack Algorithm for all existing troops
-	SetDebugLog("algorithm_AllTroops()", $COLOR_DEBUG)
+	;~ SetDebugLog("algorithm_AllTroops()", $COLOR_DEBUG)
 	SetSlotSpecialTroops()
 
 	If _Sleep($DELAYALGORITHM_ALLTROOPS1) Then Return
@@ -349,7 +349,7 @@ Func algorithm_AllTroops() ;Attack Algorithm for all existing troops
 	SetLog("Dropping left over troops", $COLOR_INFO)
 	For $x = 0 To 1
 		If PrepareAttack($g_iMatchMode, True) = 0 Then
-			SetDebugLog("No Wast time... exit, no troops usable left", $COLOR_DEBUG)
+			;~ SetDebugLog("No Wast time... exit, no troops usable left", $COLOR_DEBUG)
 			ExitLoop ;Check remaining quantities
 		EndIf
 		For $i = $eBarb To $eHunt ; launch all remaining troops
@@ -387,11 +387,11 @@ Func SetSlotSpecialTroops()
 	Next
 
 	If $g_bDebugSetlog Then
-		SetDebugLog("SetSlotSpecialTroops() King Slot: " & $g_iKingSlot, $COLOR_DEBUG)
-		SetDebugLog("SetSlotSpecialTroops() Queen Slot: " & $g_iQueenSlot, $COLOR_DEBUG)
-		SetDebugLog("SetSlotSpecialTroops() Warden Slot: " & $g_iWardenSlot, $COLOR_DEBUG)
-		SetDebugLog("SetSlotSpecialTroops() Champion Slot: " & $g_iChampionSlot, $COLOR_DEBUG)
-		SetDebugLog("SetSlotSpecialTroops() Clan Castle Slot: " & $g_iClanCastleSlot, $COLOR_DEBUG)
+		;~ SetDebugLog("SetSlotSpecialTroops() King Slot: " & $g_iKingSlot, $COLOR_DEBUG)
+		;~ SetDebugLog("SetSlotSpecialTroops() Queen Slot: " & $g_iQueenSlot, $COLOR_DEBUG)
+		;~ SetDebugLog("SetSlotSpecialTroops() Warden Slot: " & $g_iWardenSlot, $COLOR_DEBUG)
+		;~ SetDebugLog("SetSlotSpecialTroops() Champion Slot: " & $g_iChampionSlot, $COLOR_DEBUG)
+		;~ SetDebugLog("SetSlotSpecialTroops() Clan Castle Slot: " & $g_iClanCastleSlot, $COLOR_DEBUG)
 	EndIf
 
 EndFunc   ;==>SetSlotSpecialTroops

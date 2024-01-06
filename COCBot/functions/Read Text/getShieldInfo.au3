@@ -49,11 +49,11 @@ Func getShieldInfo()
 	EndIf
 	
 	$sTimeResult = getOcrGuardShield(540, 21) ; read Shield time
-	SetDebugLog("OCR Shield Time= " & $sTimeResult, $COLOR_DEBUG)
+	;~ SetDebugLog("OCR Shield Time= " & $sTimeResult, $COLOR_DEBUG)
 	If $sTimeResult = "" Then ; try a 2nd time after a short delay if slow PC and null read
 		If _Sleep($DELAYPERSONALSHIELD2) Then Return $aPBReturnResult ; pause for slow PC
 		$sTimeResult = getOcrGuardShield(540, 21) ; read Shield time
-		SetDebugLog("OCR2 Shield Time= " & $sTimeResult, $COLOR_DEBUG)
+		;~ SetDebugLog("OCR2 Shield Time= " & $sTimeResult, $COLOR_DEBUG)
 		If $sTimeResult = "" Then ; error if no read value
 			$aPBReturnResult[1] = '00:00:00'
 			Return $aPBReturnResult ; return zero value
@@ -95,14 +95,14 @@ Func getShieldInfo()
 	EndSwitch
 
 	$aPBReturnResult[1] = StringFormat("%02s", ($iDay * 24) + $iHour) & ":" & StringFormat("%02s", $iMin) & ":" & StringFormat("%02s", $iSec)
-	SetDebugLog("Shield Time String = " & $aPBReturnResult[1], $COLOR_DEBUG)
+	;~ SetDebugLog("Shield Time String = " & $aPBReturnResult[1], $COLOR_DEBUG)
 
 	$iShieldSeconds = ($iDay * 86400) + ($iHour * 3600) + ($iMin * 60) + $iSec ; add time into total seconds
-	SetDebugLog("Computed Shield Seconds = " & $iShieldSeconds, $COLOR_DEBUG)
+	;~ SetDebugLog("Computed Shield Seconds = " & $iShieldSeconds, $COLOR_DEBUG)
 
 	$aPBReturnResult[2] = _DateAdd('s', Int($iShieldSeconds), _NowCalc()) ; Find actual expire time from NOW.
 	If @error Then SetLog("_DateAdd error= " & @error, $COLOR_ERROR)
-	SetDebugLog("Shield expires at: " & $aPBReturnResult[2], $COLOR_INFO)
+	;~ SetDebugLog("Shield expires at: " & $aPBReturnResult[2], $COLOR_INFO)
 
 	Return $aPBReturnResult
 

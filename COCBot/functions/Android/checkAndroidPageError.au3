@@ -52,7 +52,7 @@ Func CheckAndroidPageError($bRebootAndroid = True)
 	If $bResetTimer = True Then
 
 		If $g_aiAndroidPageError[0] > 0 Then
-			SetDebugLog("Cleared " & $g_aiAndroidPageError[0] & " " & $g_sAndroidEmulator & " page errors")
+			;~ SetDebugLog("Cleared " & $g_aiAndroidPageError[0] & " " & $g_sAndroidEmulator & " page errors")
 		EndIf
 
 		InitAndroidPageError()
@@ -67,7 +67,7 @@ EndFunc   ;==>CheckAndroidPageError
 Func AndroidPageError($sSource)
 
 	$g_aiAndroidPageError[0] += 1
-	SetDebugLog("Page error count increased to " & $g_aiAndroidPageError[0] & ", source: " & $sSource, $COLOR_ERROR)
+	;~ SetDebugLog("Page error count increased to " & $g_aiAndroidPageError[0] & ", source: " & $sSource, $COLOR_ERROR)
 	If $g_aiAndroidPageError[1] = 0 Then $g_aiAndroidPageError[1] = __TimerInit()
 	Return $g_aiAndroidPageError[0]
 

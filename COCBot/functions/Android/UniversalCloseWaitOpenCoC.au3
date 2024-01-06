@@ -19,7 +19,7 @@
 ; ===============================================================================================================================
 Func UniversalCloseWaitOpenCoC($iWaitTime = 0, $sSource = "Unknown", $StopEmulator = False, $bFullRestart = False, $bSuspendComputer = False)
 
-	SetDebugLog("Begin UniversalCloseWaitOpenCoC:", $COLOR_DEBUG1)
+	;~ SetDebugLog("Begin UniversalCloseWaitOpenCoC:", $COLOR_DEBUG1)
 
 	Local $sWaitTime = ""
 	Local $iMin, $iSec, $iHour, $iWaitSec, $StopAndroidFlag
@@ -59,7 +59,7 @@ Func UniversalCloseWaitOpenCoC($iWaitTime = 0, $sSource = "Unknown", $StopEmulat
 			$StopAndroidFlag = 1
 			SetLog("Code Monkey provided bad stop emulator flag value", $COLOR_ERROR)
 	EndSelect
-	SetDebugLog("Stop Android flag : Input flag " & $StopAndroidFlag & " : " & $StopEmulator, $COLOR_DEBUG)
+	;~ SetDebugLog("Stop Android flag : Input flag " & $StopAndroidFlag & " : " & $StopEmulator, $COLOR_DEBUG)
 	If _Sleep($DELAYRESPOND) Then Return False
 
 	If $g_bUpdateSharedPrefs Then PullSharedPrefs()
@@ -143,7 +143,7 @@ EndFunc   ;==>UniversalCloseWaitOpenCoC
 
 Func SuspendComputer($iMilliseconds)
 
-	SetDebugLog("Trying to suspend computer")
+	;~ SetDebugLog("Trying to suspend computer")
 	If $g_BotInstanceCount > 1 Then
 		SetLog($g_BotInstanceCount & " bot instances detected, will not suspend computer", $COLOR_ERROR)
 		Return False

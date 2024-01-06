@@ -29,7 +29,7 @@ Func ProfileReport()
 	While Not IsFullScreenWindow() ; wait for Info Profile to open
 		$iCount += 1
 		If _Sleep(250) Then Return
-		SetDebugLog("[" & $iCount & "] Waiting Profile window open", $COLOR_ACTION)
+		;~ SetDebugLog("[" & $iCount & "] Waiting Profile window open", $COLOR_ACTION)
 		If $iCount >= 20 Then 
 			SetLog("Profile window doesnt exist, exiting...", $COLOR_ERROR)
 			ClickAway()
@@ -63,17 +63,17 @@ Func ProfileReport()
 	$iAttacksWon = ""
 
 	If _ColorCheck(_GetPixelColor($aProfileReport[0], $aProfileReport[1], True), Hex($aProfileReport[2], 6), $aProfileReport[3]) Then
-		SetDebugLog("Profile seems to be currently unranked", $COLOR_DEBUG)
+		;~ SetDebugLog("Profile seems to be currently unranked", $COLOR_DEBUG)
 		$iAttacksWon = 0
 		$iDefensesWon = 0
 	Else
 		$iAttacksWon = getProfile(562, 377)
-		SetDebugLog("$iAttacksWon: " & $iAttacksWon, $COLOR_DEBUG)
+		;~ SetDebugLog("$iAttacksWon: " & $iAttacksWon, $COLOR_DEBUG)
 		$iCount = 0
 		While $iAttacksWon = "" ; Wait for $attacksWon to be readable in case of slow PC
 			If _Sleep($DELAYPROFILEREPORT1) Then Return
 			$iAttacksWon = getProfile(562, 377)
-			SetDebugLog("Read Loop $iAttacksWon: " & $iAttacksWon & ", Count: " & $iCount, $COLOR_DEBUG)
+			;~ SetDebugLog("Read Loop $iAttacksWon: " & $iAttacksWon & ", Count: " & $iCount, $COLOR_DEBUG)
 			$iCount += 1
 			If $iCount >= 20 Then ExitLoop
 		WEnd

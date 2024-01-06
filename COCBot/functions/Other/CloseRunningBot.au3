@@ -55,29 +55,29 @@ Func CloseRunningBot($sBotWindowTitle = $g_sBotTitle, $bCheckOnly = False, $bGui
 			If $bCheckOnly = True Then
 				Return True
 			EndIf
-			SetDebugLog("Found existing " & $sBotWindowTitle & " instance to close, PID " & $otherPID & ", HWnD " & $otherHWnD)
+			;~ SetDebugLog("Found existing " & $sBotWindowTitle & " instance to close, PID " & $otherPID & ", HWnD " & $otherHWnD)
 			; close any related WerFault Window as well
 			WerFaultClose("AutoIt v3 Script")
 			WerFaultClose(@AutoItExe)
 			; using PostMessage as SendMessageTimeout (used by WinClose) can freeze
-			SetDebugLog("Send close message...")
+			;~ SetDebugLog("Send close message...")
 			_WinAPI_PostMessage($otherHWnD, $WM_CLOSE, 0, 0)
 			#cs
 			If WinClose($otherHWnD) = 1 Then
-				SetDebugLog("Existing bot window closed")
+				;~ SetDebugLog("Existing bot window closed")
 			EndIf
 			#ce
 			If ProcessWaitClose($otherPID, 30) = 0 Then
 				; bot didn't close in 30 secodns, force close now
-				SetDebugLog("Existing bot window still there...")
+				;~ SetDebugLog("Existing bot window still there...")
 				WinKill($otherHWnD)
-				SetDebugLog("Existing bot window killed")
+				;~ SetDebugLog("Existing bot window killed")
 			EndIf
 			; paranoia section...
 			If ProcessExists($otherPID) = $otherPID Then
-				SetDebugLog("Existing bot process still there...")
+				;~ SetDebugLog("Existing bot process still there...")
 				If KillProcess($otherPID, "CloseRunningBot") = True Then
-					SetDebugLog("Existing bot process now closed")
+					;~ SetDebugLog("Existing bot process now closed")
 					Return True
 				EndIf
 				Return False

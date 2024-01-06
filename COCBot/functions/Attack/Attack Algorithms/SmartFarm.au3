@@ -68,7 +68,7 @@ Func ChkSmartFarm($TypeResources = "All")
 	; TL , TR , BL , BR
 	Local $aMainSide[4] = [0, 0, 0, 0]
 
-	SetDebugLog(" - INI|SmartFarm detection.", $COLOR_INFO)
+	;~ SetDebugLog(" - INI|SmartFarm detection.", $COLOR_INFO)
 	; Local $aCollectores = SmartFarmDetection("Collectors")
 	; Local $aMines = SmartFarmDetection("Mines")
 	; Local $aDrills = SmartFarmDetection("Drills")
@@ -82,7 +82,7 @@ Func ChkSmartFarm($TypeResources = "All")
 
 	; [0] = x , [1] = y , [2] = Distance to Redline ,[3] = In/Out, [4] = Side,  [5]= Is array Dim[2] with 5 coordinates to deploy
 	Local $aAll = SmartFarmDetection($TypeResources)
-	SetDebugLog(" TOTAL detection Calculated  (in " & Round(TimerDiff($hTimer) / 1000, 2) & " seconds)", $COLOR_INFO)
+	;~ SetDebugLog(" TOTAL detection Calculated  (in " & Round(TimerDiff($hTimer) / 1000, 2) & " seconds)", $COLOR_INFO)
 
 	; Let's determinate what resource is out or in side the village
 	; Collectors
@@ -122,12 +122,12 @@ Func ChkSmartFarm($TypeResources = "All")
 	If $g_bDebugSmartFarm Then
 		For $i = 0 To UBound($aResourcesIN) - 1
 			For $x = 0 To 4
-				SetDebugLog("$aResourcesIN[" & $i & "][" & $x & "]: " & $aResourcesIN[$i][$x], $COLOR_INFO)
+				;~ SetDebugLog("$aResourcesIN[" & $i & "][" & $x & "]: " & $aResourcesIN[$i][$x], $COLOR_INFO)
 			Next
 		Next
 		For $i = 0 To UBound($aResourcesOUT) - 1
 			For $x = 0 To 4
-				SetDebugLog("$aResourcesOUT[" & $i & "][" & $x & "]: " & $aResourcesOUT[$i][$x], $COLOR_INFO)
+				;~ SetDebugLog("$aResourcesOUT[" & $i & "][" & $x & "]: " & $aResourcesOUT[$i][$x], $COLOR_INFO)
 			Next
 		Next
 	EndIf
@@ -137,7 +137,7 @@ Func ChkSmartFarm($TypeResources = "All")
 	Setlog("Total of Resources: " & $TotalOfResources, $COLOR_INFO)
 	Setlog(" - Inside the Village: " & UBound($aResourcesIN), $COLOR_INFO)
 	Setlog(" - Outside the village: " & UBound($aResourcesOUT), $COLOR_INFO)
-	SetDebugLog("MainSide array: " & _ArrayToString($aMainSide))
+	;~ SetDebugLog("MainSide array: " & _ArrayToString($aMainSide))
 
 	$g_sResourcesIN = UBound($aResourcesIN)
 	$g_sResourcesOUT = UBound($aResourcesOUT)
@@ -284,16 +284,16 @@ Func SmartFarmDetection($txtBuildings = "All")
 		For $buildings = 0 To UBound($aResult) - 1
 			If _Sleep(50) Then Return ; just in case on PAUSE
 			If Not $g_bRunState Then Return ; Stop Button
-			SetDebugLog(_ArrayToString($aResult[$buildings]))
+			;~ SetDebugLog(_ArrayToString($aResult[$buildings]))
 			$aTEMP = $aResult[$buildings]
 			$sObjectname = String($aTEMP[0])
-			SetDebugLog("Building name: " & String($aTEMP[0]), $COLOR_INFO)
+			;~ SetDebugLog("Building name: " & String($aTEMP[0]), $COLOR_INFO)
 			$aObjectpoints = $aTEMP[1] ; number of  objects returned
-			SetDebugLog("Object points: " & String($aTEMP[1]), $COLOR_INFO)
+			;~ SetDebugLog("Object points: " & String($aTEMP[1]), $COLOR_INFO)
 			$sNear = $aTEMP[2] ;
-			SetDebugLog("Near points: " & String($aTEMP[2]), $COLOR_INFO)
+			;~ SetDebugLog("Near points: " & String($aTEMP[2]), $COLOR_INFO)
 			$sRedLineDistance = $aTEMP[3] ;
-			SetDebugLog("Distance points: " & String($aTEMP[3]), $COLOR_INFO)
+			;~ SetDebugLog("Distance points: " & String($aTEMP[3]), $COLOR_INFO)
 
 			Switch String($aTEMP[0])
 				Case "Mines"
@@ -368,7 +368,7 @@ Func SmartFarmDetection($txtBuildings = "All")
 			$tempObbjs = Null
 		Next
 		; End of building loop
-		SetDebugLog($txtBuildings & " Calculated  (in " & Round(TimerDiff($hTimer) / 1000, 2) & " seconds)", $COLOR_INFO)
+		;~ SetDebugLog($txtBuildings & " Calculated  (in " & Round(TimerDiff($hTimer) / 1000, 2) & " seconds)", $COLOR_INFO)
 		Return $aReturn
 	Else
 		SetLog("ERROR|NONE Building - Detection: " & $txtBuildings, $COLOR_INFO)
@@ -386,7 +386,7 @@ Func DoublePoint($sName, $aReturn, $aPoint, $iDistance = 18)
 		$x = Number($aReturn[$i][0])
 		$y = Number($aReturn[$i][1])
 		If Pixel_Distance($x, $y, $x1, $y1) < $iDistance Then
-			SetDebugLog("Detected a " & $sName & " double detection at (" & $x & "," & $y & ")")
+			;~ SetDebugLog("Detected a " & $sName & " double detection at (" & $x & "," & $y & ")")
 			Return True
 		EndIf
 	Next
@@ -494,7 +494,7 @@ Func DebugImageSmartFarm($THdetails, $aIn, $aOut, $sTime, $BestSideToAttack, $re
 	; ############################# Best Side to attack INSIDE ###################################
 	Local $hPenCyan = _GDIPlus_PenCreate(0xFF00FFFF, 2) ; Create a pencil Color BLUE
 	Local $aTEMP, $DecodeEachPoint
-	SetDebugLog("$redline: " & _ArrayToString($redline))
+	;~ SetDebugLog("$redline: " & _ArrayToString($redline))
 	For $l = 0 To UBound($redline) - 1
 		$aTEMP = StringSplit($redline[$l], "|", 2)
 		For $i = 0 To UBound($aTEMP) - 1
@@ -570,7 +570,7 @@ Func AttackSmartFarm($Nside, $SIDESNAMES)
 			EndSwitch
 	EndSwitch
 
-	SetDebugLog("Giants : " & $GiantComp & "  , per side: " & ($GiantComp / $nbSides) & " / deploy points per side: " & $g_iSlotsGiants)
+	;~ SetDebugLog("Giants : " & $GiantComp & "  , per side: " & ($GiantComp / $nbSides) & " / deploy points per side: " & $g_iSlotsGiants)
 
 	Local $listInfoDeploy[45][5] = [[$eGole, $nbSides, 1, 1, 2] _
 				, [$eLava, $nbSides, 1, 1, 2] _
@@ -669,7 +669,7 @@ Func AttackSmartFarm($Nside, $SIDESNAMES)
 	SetLog("Dropping left over troops", $COLOR_INFO)
 	For $x = 0 To 1
 		If PrepareAttack($g_iMatchMode, True) = 0 Then
-			SetDebugLog("No Wast time... exit, no troops usable left", $COLOR_DEBUG)
+			;~ SetDebugLog("No Wast time... exit, no troops usable left", $COLOR_DEBUG)
 			ExitLoop ;Check remaining quantities
 		EndIf
 		Local $aRandomEdge = $g_aaiEdgeDropPoints[Round(Random(0, 3))]
@@ -689,7 +689,7 @@ EndFunc   ;==>AttackSmartFarm
 
 Func LaunchTroopSmartFarm($listInfoDeploy, $iCC, $iKing, $iQueen, $iWarden, $iChampion, $SIDESNAMES = "TR|TL|BR|BL")
 
-	SetDebugLog("LaunchTroopSmartFarm with CC " & $iCC & ", K " & $iKing & ", Q " & $iQueen & ", W " & $iWarden & ", C " & $iChampion, $COLOR_DEBUG)
+	;~ SetDebugLog("LaunchTroopSmartFarm with CC " & $iCC & ", K " & $iKing & ", Q " & $iQueen & ", W " & $iWarden & ", C " & $iChampion, $COLOR_DEBUG)
 	; $ListInfoDeploy = [Troop, No. of Sides, $WaveNb, $MaxWaveNb, $slotsPerEdge]
 	Local $listListInfoDeployTroopPixel[0]
 	Local $pixelRandomDrop[2]
@@ -708,7 +708,7 @@ Func LaunchTroopSmartFarm($listInfoDeploy, $iCC, $iKing, $iQueen, $iWarden, $iCh
 		Local $waveNb = $listInfoDeploy[$i][2] ; waves
 		Local $maxWaveNb = $listInfoDeploy[$i][3] ; Max waves
 		Local $slotsPerEdge = $listInfoDeploy[$i][4] ; deploy Points per Edge
-		SetDebugLog("**ListInfoDeploy row " & $i & ": USE " & "[" & $troopKind & "] " & GetTroopName($troopKind, 0) & " SIDES " & $nbSides & " WAVE " & $waveNb & " XWAVE " & $maxWaveNb & " SLOTXEDGE " & $slotsPerEdge, $COLOR_DEBUG)
+		;~ SetDebugLog("**ListInfoDeploy row " & $i & ": USE " & "[" & $troopKind & "] " & GetTroopName($troopKind, 0) & " SIDES " & $nbSides & " WAVE " & $waveNb & " XWAVE " & $maxWaveNb & " SLOTXEDGE " & $slotsPerEdge, $COLOR_DEBUG)
 
 		; Regular Troops , not Heroes or Castle
 		If (IsNumber($troopKind)) Then
@@ -772,20 +772,20 @@ Func LaunchTroopSmartFarm($listInfoDeploy, $iCC, $iKing, $iQueen, $iWarden, $iCh
 							If $g_aiDeployHeroesPosition[0] <> -1 Then
 								$pixelRandomDrop[0] = $g_aiDeployHeroesPosition[0]
 								$pixelRandomDrop[1] = $g_aiDeployHeroesPosition[1]
-								SetDebugLog("Deploy Heroes $g_aiDeployHeroesPosition")
+								;~ SetDebugLog("Deploy Heroes $g_aiDeployHeroesPosition")
 							Else
 								$pixelRandomDrop[0] = $g_aaiBottomRightDropPoints[2][0]
 								$pixelRandomDrop[1] = $g_aaiBottomRightDropPoints[2][1] ;
-								SetDebugLog("Deploy Heroes $g_aaiBottomRightDropPoints")
+								;~ SetDebugLog("Deploy Heroes $g_aaiBottomRightDropPoints")
 							EndIf
 							If $g_aiDeployCCPosition[0] <> -1 Then
 								$pixelRandomDropcc[0] = $g_aiDeployCCPosition[0]
 								$pixelRandomDropcc[1] = $g_aiDeployCCPosition[1]
-								SetDebugLog("Deploy CC $g_aiDeployHeroesPosition")
+								;~ SetDebugLog("Deploy CC $g_aiDeployHeroesPosition")
 							Else
 								$pixelRandomDropcc[0] = $g_aaiBottomRightDropPoints[2][0]
 								$pixelRandomDropcc[1] = $g_aaiBottomRightDropPoints[2][1] ;
-								SetDebugLog("Deploy CC $g_aaiBottomRightDropPoints")
+								;~ SetDebugLog("Deploy CC $g_aaiBottomRightDropPoints")
 							EndIf
 
 							If ($g_bIsCCDropped = False And $infoTroopListArrPixel[0] = "CC" And $i = $numberSidesDropTroop - 1) Then
@@ -832,9 +832,9 @@ Func LaunchTroopSmartFarm($listInfoDeploy, $iCC, $iKing, $iQueen, $iWarden, $iCh
 				Local $numberLeft = ReadTroopQuantity($infoPixelDropTroop[0])
 				If $g_bDebugSetlog Then
 					Local $aiSlotPos = GetSlotPosition($infoPixelDropTroop[0])
-					SetDebugLog("Slot Nun= " & $infoPixelDropTroop[0])
-					SetDebugLog("Slot Xaxis= " & $aiSlotPos[0])
-				    SetDebugLog($infoPixelDropTroop[5] & " - NumberLeft : " & $numberLeft)
+					;~ SetDebugLog("Slot Nun= " & $infoPixelDropTroop[0])
+					;~ SetDebugLog("Slot Xaxis= " & $aiSlotPos[0])
+				    ;~ SetDebugLog($infoPixelDropTroop[5] & " - NumberLeft : " & $numberLeft)
 				EndIf
 				If ($numberLeft > 0) Then
 					If _Sleep($DELAYLAUNCHTROOP21) Then Return

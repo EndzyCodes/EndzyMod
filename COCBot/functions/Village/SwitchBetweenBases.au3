@@ -49,10 +49,10 @@ Func SwitchBetweenBases($ForcedSwitchTo = Default)
 		SetLog(" --- Are we on BuilderBase ? " & String($bIsOnBuilderBase), $COLOR_INFO)
 		SetLog("Switching To BuilderBase")
 		$FalseDetectionCount += 1
-		SetDebugLog("CountFalseDetection: " & $FalseDetectionCount)
+		;~ SetDebugLog("CountFalseDetection: " & $FalseDetectionCount)
 		If $FalseDetectionCount > 2 Then 
-			SetDebugLog("BuilderBase Detection Maybe Failed, been trying " & $FalseDetectionCount & " times")
-			SetDebugLog("Let's assume we are on BuilderBase")
+			;~ SetDebugLog("BuilderBase Detection Maybe Failed, been trying " & $FalseDetectionCount & " times")
+			;~ SetDebugLog("Let's assume we are on BuilderBase")
 			Return True ;just return true as assumed on BB
 		EndIf
 		Return SwitchTo("BB")
@@ -180,7 +180,7 @@ Func BBTutorial($x = 170, $y = 560)
 	
 	Local $RebuildWindowOK = False
 	For $i = 1 To 5
-		SetDebugLog("Waiting for Rebuild Boat Window #" & $i, $COLOR_ACTION)
+		;~ SetDebugLog("Waiting for Rebuild Boat Window #" & $i, $COLOR_ACTION)
 		If QuickMis("BC1", $g_sImgGeneralCloseButton, 540, 140, 595, 190) Then
 			SetLog("Rebuild Boat Window Opened", $COLOR_INFO)
 			Click(430, 470) ;Click Rebuild Button
@@ -333,7 +333,7 @@ Func BBTutorial($x = 170, $y = 560)
 	For $i = 1 To 10
 		SetLog("Wait For Find Now Button #" & $i, $COLOR_ACTION)
 		If WaitforPixel(588, 321, 589, 322, "D7540E", 20, 2) Then
-			SetDebugLog("Found FindNow Button", $COLOR_ACTION)
+			;~ SetDebugLog("Found FindNow Button", $COLOR_ACTION)
 			Click(590, 300)
 			_SleepStatus(25000) ;wait for clouds and other animations
 			ExitLoop
