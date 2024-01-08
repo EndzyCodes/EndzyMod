@@ -389,36 +389,36 @@ EndFunc   ;==>SetupProfileFolder
 Func InitializeMBR(ByRef $sAI, $bConfigRead)
 
 	; license
-	If Not FileExists(@ScriptDir & "\License.txt") Then
-		Local $hDownload = InetGet("http://www.gnu.org/licenses/gpl-3.0.txt", @ScriptDir & "\License.txt")
+	;~ If Not FileExists(@ScriptDir & "\License.txt") Then
+	;~ 	Local $hDownload = InetGet("http://www.gnu.org/licenses/gpl-3.0.txt", @ScriptDir & "\License.txt")
 
-		; Wait for the download to complete by monitoring when the 2nd index value of InetGetInfo returns True.
-		Local $i = 0
-		Do
-			Sleep($DELAYDOWNLOADLICENSE)
-			$i += 1
-		Until InetGetInfo($hDownload, $INET_DOWNLOADCOMPLETE) Or $i > 25
+	;~ 	; Wait for the download to complete by monitoring when the 2nd index value of InetGetInfo returns True.
+	;~ 	Local $i = 0
+	;~ 	Do
+	;~ 		Sleep($DELAYDOWNLOADLICENSE)
+	;~ 		$i += 1
+	;~ 	Until InetGetInfo($hDownload, $INET_DOWNLOADCOMPLETE) Or $i > 25
 
-		InetClose($hDownload)
-	EndIf
+	;~ 	InetClose($hDownload)
+	;~ EndIf
 
 	; multilanguage
-	If Not FileExists(@ScriptDir & "\Languages") Then DirCreate(@ScriptDir & "\Languages")
+	;~ If Not FileExists(@ScriptDir & "\Languages") Then DirCreate(@ScriptDir & "\Languages")
 	;DetectLanguage()
-	_ReadFullIni()
+	;~ _ReadFullIni()
 	; must be called after language is detected
-	TranslateTroopNames()
-	InitializeCOCDistributors()
+	;~ TranslateTroopNames()
+	;~ InitializeCOCDistributors()
 
 	; check for compiled x64 version
 	Local $sMsg = GetTranslatedFileIni("MBR GUI Design - Loading", "Compile_Script", "Don't Run/Compile the Script as (x64)! Try to Run/Compile the Script as (x86) to get the bot to work.\r\n" & _
 			"If this message still appears, try to re-install AutoIt.")
-	If @AutoItX64 = 1 Then
-		DestroySplashScreen()
-		MsgBox(0, "", $sMsg)
-		__GDIPlus_Shutdown()
-		Exit
-	EndIf
+	;~ If @AutoItX64 = 1 Then
+	;~ 	DestroySplashScreen()
+	;~ 	MsgBox(0, "", $sMsg)
+	;~ 	__GDIPlus_Shutdown()
+	;~ 	Exit
+	;~ EndIf
 
 	; Initialize Android emulator
 	InitializeAndroid($bConfigRead)
@@ -600,9 +600,9 @@ Func FinalInitialization(Const $sAI)
 		;~ SetDebugLog("Wait for GUI Process...")
 
 		Local $timer = __TimerInit()
-		While $g_iGuiPID = @AutoItPID And __TimerDiff($timer) < 60000
+		While $g_iGuiPID = @AutoItPID And __TimerDiff($timer) < 5000
 			; wait for GUI Process updating $g_iGuiPID
-			Sleep(50) ; must be Sleep as no run state!
+			Sleep(2) ; must be Sleep as no run state!
 		WEnd
 		If $g_iGuiPID = @AutoItPID Then
 			;~ SetDebugLog("GUI Process not received, close bot")
@@ -1084,14 +1084,18 @@ Func Attack() ;Selects which algorithm
 EndFunc   ;==>Attack
 
 Func _RunFunction($action)
+	Local $hTimer = __TimerInit()
 	FuncEnter(_RunFunction)
 	; ensure that builder base flag is false
 	$g_bStayOnBuilderBase = False
 	Local $Result = __RunFunction($action)
 	; ensure that builder base flag is false
 	$g_bStayOnBuilderBase = False
+	Local $runtime = __TimerDiff($hTimer)
+	SetLog("Function " & $action & " runtime: " & $runtime & " ms")
 	Return FuncReturn($Result)
 EndFunc   ;==>_RunFunction
+
 
 Func __RunFunction($action)
 	;~ SetDebugLog("_RunFunction: " & $action & " BEGIN", $COLOR_DEBUG2)
@@ -1366,120 +1370,11 @@ Func FirstCheckRoutine()
 	;~ If $g_iFreeBuilderCount - ($g_bUpgradeWallSaveBuilder ? 1 : 0) > 0 Then $bSwitch = False
 	;~ If $g_abLowStorage[$eLootElixir] Or $g_abLowStorage[$eLootGold] Then $bSwitch = False
 
-	Local $aRndFuncList = ['BoostBarracks', 'BoostSpellFactory', 'BoostWorkshop', 'BoostKing', 'BoostQueen', 'BoostWarden', 'BoostChampion']
-	_ArrayShuffle($aRndFuncList)
-	For $Index In $aRndFuncList
-		If Not $g_bRunState Then Return
-		_RunFunction($Index)
-		If _Sleep(50) Then Return
-		If $g_bRestart Then Return
-	Next
+	CommonRoutine("BoostArmy")
 
-	; ------------------ F I R S T  A T T A C K ------------------
-	If Not $g_bRunState Then Return
-	If $g_iCommandStop <> 3 And $g_iCommandStop <> 0 Then
-		; VERIFY THE TROOPS AND ATTACK IF IS FULL
-		SetLog("-- FirstCheck on Train --", $COLOR_DEBUG)
-		If Not $g_bRunState Then Return
+	; Attack
+	perform_attacks()
 
-		CheckIfArmyIsReady()
-		ClickAway()
-		If $g_bIsFullArmywithHeroesAndSpells Then
-			; Now the bot can attack
-			If $g_iCommandStop <> 0 And $g_iCommandStop <> 3 Then
-				Setlog("Before any other routine let's attack!", $COLOR_INFO)
-				Local $loopcount = 1
-				While True
-					$g_bRestart = False
-					If Not $g_bRunState Then Return
-					If AttackMain($g_bSkipDT) Then
-						Setlog("[" & $loopcount & "] 1st Attack Loop Success", $COLOR_SUCCESS)
-						$g_bIsFullArmywithHeroesAndSpells = False
-						TrainSystem()
-						ExitLoop
-					Else
-						If $g_bForceSwitch Then ExitLoop ;exit here
-						$loopcount += 1
-						If $loopcount > 5 Then
-							Setlog("1st Attack Loop, Already Try 5 times... Exit", $COLOR_ERROR)
-							ExitLoop
-						Else
-							Setlog("[" & $loopcount & "] 1st Attack Loop, Failed", $COLOR_INFO)
-						EndIf
-						If Not $g_bRunState Then Return
-					EndIf
-				Wend
-				If $g_bIsCGEventRunning And $g_bChkForceBBAttackOnClanGames And $g_bIsBBevent Then
-					SetLog("Forced BB Attack On ClanGames", $COLOR_INFO)
-					SetLog("Because running CG Event is BB Challenges", $COLOR_INFO)
-					GotoBBTodoCG() ;force go to bb todo event
-				EndIf
-				If $g_bOutOfGold Then
-					SetLog("Switching to Halt Attack, Stay Online/Collect mode", $COLOR_ERROR)
-					$g_bFirstStart = True ; reset First time flag to ensure army balancing when returns to training
-					Return
-				EndIf
-				If _Sleep($DELAYRUNBOT1) Then Return
-			EndIf
-		Else
-			If Not $g_bDonateEarly Then TrainSystem()
-		EndIf
-	EndIf
-
-	; ------------------ S E C O N D  A T T A C K ------------------
-	If Not $g_bRunState Then Return
-	VillageReport()
-	If ProfileSwitchAccountEnabled() And $g_bChkFastSwitchAcc Then ;Allow immediate Second Attack on FastSwitchAcc enabled
-		If _Sleep($DELAYRUNBOT2) Then Return
-		If BotCommand() Then btnStop()
-		If Not $g_bRunState Then Return
-		If $g_iCommandStop <> 3 And $g_iCommandStop <> 0 Then
-			; VERIFY THE TROOPS AND ATTACK IF IS FULL
-			SetLog("-- SecondCheck on Train --", $COLOR_DEBUG)
-			SetLog("Fast Switch Account Enabled", $COLOR_DEBUG)
-			If Not $g_bIsFullArmywithHeroesAndSpells Then TrainSystem()
-			If $g_bIsFullArmywithHeroesAndSpells Then
-				If $g_iCommandStop <> 0 And $g_iCommandStop <> 3 Then
-					Setlog("Before any other routine let's attack!", $COLOR_INFO)
-					$g_bRestart = False ;idk this flag make sometimes bot cannot attack on second time
-					Local $loopcount = 1
-					While True
-						$g_bRestart = False
-						If Not $g_bRunState Then Return
-						If AttackMain($g_bSkipDT) Then
-							Setlog("[" & $loopcount & "] 2nd Attack Loop Success", $COLOR_SUCCESS)
-							$b_SuccessAttack = True
-							ExitLoop
-						Else
-							If $g_bForceSwitch Then ExitLoop ;exit here
-							$loopcount += 1
-							If $loopcount > 5 Then
-								Setlog("2nd Attack Loop, Already Try 5 times... Exit", $COLOR_ERROR)
-								ExitLoop
-							Else
-								Setlog("[" & $loopcount & "] 2nd Attack Loop, Failed", $COLOR_INFO)
-							EndIf
-							If Not $g_bRunState Then Return
-						EndIf
-					Wend
-					If $g_bIsCGEventRunning And $g_bChkForceBBAttackOnClanGames And $g_bIsBBevent Then
-						SetLog("Forced BB Attack On ClanGames", $COLOR_INFO)
-						SetLog("Because running CG Event is BB Challenges", $COLOR_INFO)
-						GotoBBTodoCG() ;force go to bb todo event
-					EndIf
-					If $g_bOutOfGold Then
-						SetLog("Switching to Halt Attack, Stay Online/Collect mode", $COLOR_ERROR)
-						$g_bFirstStart = True ; reset First time flag to ensure army balancing when returns to training
-						Return
-					EndIf
-					If _Sleep($DELAYRUNBOT1) Then Return
-				EndIf
-			EndIf
-		EndIf
-	EndIf
-	If Not $g_bRunState Then Return
-	;~ If CheckNeedOpenTrain() Then TrainSystem()
-	TrainSystem()
 	If Not $g_bRunState Then Return
 	CommonRoutine("FirstCheckRoutine")
 	If ProfileSwitchAccountEnabled() And ($g_bForceSwitch Or $g_bChkFastSwitchAcc) Then

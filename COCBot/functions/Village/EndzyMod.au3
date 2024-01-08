@@ -68,7 +68,7 @@ EndFunc ;==>TestAttack
 
 #Region - For MainLoop - Endzy
 Func EU0() ; Early Upgrades - NEED TO UPDATE COORDS ON PIXEL SEARCH
-	RequestCC() ; only type CC text req here]
+	RequestCC() ; only type CC text req here
 	ClickAway()
 	_SLeep(500)
 	ClickAway()
@@ -562,106 +562,11 @@ Func AOM() ; Attack Only Mode
 		If $g_bRestart Then Return
 	Next
 
-	; ------------------ F I R S T  A T T A C K ------------------
-	If Not $g_bRunState Then Return
-        If $g_iCommandStop <> 3 And $g_iCommandStop <> 0 Then
-            ; VERIFY THE TROOPS AND ATTACK IF IS FULL
-            SetLog("-- FirstCheck on Train --", $COLOR_DEBUG)
-            If Not $g_bRunState Then Return
+	CommonRoutine("BoostArmy")
 
-            CheckIfArmyIsReady()
-            ClickAway()
-            If $g_bIsFullArmywithHeroesAndSpells Then
-                ; Now the bot can attack
-                If $g_iCommandStop <> 0 And $g_iCommandStop <> 3 Then
-                    Setlog("Before any other routine let's attack!", $COLOR_INFO)
-                    Local $loopcount = 1
-                    While True
-                        $g_bRestart = False
-                        If Not $g_bRunState Then Return
-                        If AttackMain($g_bSkipDT) Then
-                            Setlog("[" & $loopcount & "] 1st Attack Loop Success", $COLOR_SUCCESS)
-                            $g_bIsFullArmywithHeroesAndSpells = False
-                            TrainSystem()
-                            ExitLoop
-                        Else
-                            If $g_bForceSwitch Then ExitLoop ;exit here
-                            $loopcount += 1
-                            If $loopcount > 5 Then
-                                Setlog("1st Attack Loop, Already Try 5 times... Exit", $COLOR_ERROR)
-                                ExitLoop
-                            Else
-                                Setlog("[" & $loopcount & "] 1st Attack Loop, Failed", $COLOR_INFO)
-                            EndIf
-                            If Not $g_bRunState Then Return
-                        EndIf
-                    Wend
-                    If $g_bOutOfGold Then
-                        SetLog("Switching to Halt Attack, Stay Online/Collect mode", $COLOR_ERROR)
-                        $g_bFirstStart = True ; reset First time flag to ensure army balancing when returns to training
-                        Return
-                    EndIf
-                    If _Sleep($DELAYRUNBOT1) Then Return
-                EndIf
-            Else
-                If Not $g_bDonateEarly Then TrainSystem()
-            EndIf
-        EndIf
+	; Attack
+	perform_attacks()
 
-	; ------------------ S E C O N D  A T T A C K ------------------
-    If Not $g_bRunState Then Return
-    VillageReport()
-    If ProfileSwitchAccountEnabled() And $g_bChkFastSwitchAcc Then ;Allow immediate Second Attack on FastSwitchAcc enabled
-        If _Sleep($DELAYRUNBOT2) Then Return
-        If BotCommand() Then btnStop()
-        If Not $g_bRunState Then Return
-        If $g_iCommandStop <> 3 And $g_iCommandStop <> 0 Then
-            ; VERIFY THE TROOPS AND ATTACK IF IS FULL
-            SetLog("-- SecondCheck on Train --", $COLOR_DEBUG)
-            SetLog("Fast Switch Account Enabled", $COLOR_DEBUG)
-            If Not $g_bIsFullArmywithHeroesAndSpells Then TrainSystem()
-            If $g_bIsFullArmywithHeroesAndSpells Then
-                If $g_iCommandStop <> 0 And $g_iCommandStop <> 3 Then
-                    Setlog("Before any other routine let's attack!", $COLOR_INFO)
-                    $g_bRestart = False ;idk this flag make sometimes bot cannot attack on second time
-                    Local $loopcount = 1
-                    While True
-                        $g_bRestart = False
-                        If Not $g_bRunState Then Return
-                        If AttackMain($g_bSkipDT) Then
-                            Setlog("[" & $loopcount & "] 2nd Attack Loop Success", $COLOR_SUCCESS)
-                            $b_SuccessAttack = True
-                            ExitLoop
-                        Else
-                            If $g_bForceSwitch Then ExitLoop ;exit here
-                            $loopcount += 1
-                            If $loopcount > 5 Then
-                                Setlog("2nd Attack Loop, Already Try 5 times... Exit", $COLOR_ERROR)
-                                ExitLoop
-                            Else
-                                Setlog("[" & $loopcount & "] 2nd Attack Loop, Failed", $COLOR_INFO)
-                            EndIf
-                            If Not $g_bRunState Then Return
-                        EndIf
-                    Wend
-                    If $g_bIsCGEventRunning And $g_bChkForceBBAttackOnClanGames And $g_bIsBBevent Then
-                        SetLog("Forced BB Attack On ClanGames", $COLOR_INFO)
-                        SetLog("Because running CG Event is BB Challenges", $COLOR_INFO)
-                        GotoBBTodoCG() ;force go to bb todo event
-                    EndIf
-                    If $g_bOutOfGold Then
-                        SetLog("Switching to Halt Attack, Stay Online/Collect mode", $COLOR_ERROR)
-                        $g_bFirstStart = True ; reset First time flag to ensure army balancing when returns to training
-                        Return
-                    EndIf
-                    If _Sleep($DELAYRUNBOT1) Then Return
-                EndIf
-            EndIf
-        EndIf
-    EndIf
-	If Not $g_bRunState Then Return
-	;If CheckNeedOpenTrain() Then TrainSystem()
-	TrainSystem()
 	If _Sleep(1000) Then Return
 	ClickAway()
 	If Not $g_bRunState Then Return
@@ -702,108 +607,11 @@ Func MVAOM() ; Main Village Attack Only Mode
 		If $g_bRestart Then Return
 	Next
 
-	; ------------------ F I R S T  A T T A C K ------------------
-	If Not $g_bRunState Then Return
-        If $g_iCommandStop <> 3 And $g_iCommandStop <> 0 Then
-            ; VERIFY THE TROOPS AND ATTACK IF IS FULL
-            SetLog("-- FirstCheck on Train --", $COLOR_DEBUG)
-            If Not $g_bRunState Then Return
+	CommonRoutine("BoostArmy")
 
-            CheckIfArmyIsReady()
-            ClickAway()
-            If $g_bIsFullArmywithHeroesAndSpells Then
-                ; Now the bot can attack
-                If $g_iCommandStop <> 0 And $g_iCommandStop <> 3 Then
-                    Setlog("Before any other routine let's attack!", $COLOR_INFO)
-                    Local $loopcount = 1
-                    While True
-                        $g_bRestart = False
-                        If Not $g_bRunState Then Return
-                        If AttackMain($g_bSkipDT) Then
-                            Setlog("[" & $loopcount & "] 1st Attack Loop Success", $COLOR_SUCCESS)
-                            $g_bIsFullArmywithHeroesAndSpells = False
-                            TrainSystem()
-                            ExitLoop
-                        Else
-                            If $g_bForceSwitch Then ExitLoop ;exit here
-                            $loopcount += 1
-                            If $loopcount > 5 Then
-                                Setlog("1st Attack Loop, Already Try 5 times... Exit", $COLOR_ERROR)
-                                ExitLoop
-                            Else
-                                Setlog("[" & $loopcount & "] 1st Attack Loop, Failed", $COLOR_INFO)
-                            EndIf
-                            If Not $g_bRunState Then Return
-                        EndIf
-                    Wend
-                    If $g_bOutOfGold Then
-                        SetLog("Switching to Halt Attack, Stay Online/Collect mode", $COLOR_ERROR)
-                        $g_bFirstStart = True ; reset First time flag to ensure army balancing when returns to training
-                        Return
-                    EndIf
-                    If _Sleep($DELAYRUNBOT1) Then Return
-                EndIf
-            Else
-                If Not $g_bDonateEarly Then TrainSystem()
-            EndIf
-        EndIf
+	; Attack
+	perform_attacks()
 
-	; ------------------ S E C O N D  A T T A C K ------------------
-    If Not $g_bRunState Then Return
-    VillageReport()
-    If ProfileSwitchAccountEnabled() And $g_bChkFastSwitchAcc Then ;Allow immediate Second Attack on FastSwitchAcc enabled
-        If _Sleep($DELAYRUNBOT2) Then Return
-        If BotCommand() Then btnStop()
-        If Not $g_bRunState Then Return
-        If $g_iCommandStop <> 3 And $g_iCommandStop <> 0 Then
-            ; VERIFY THE TROOPS AND ATTACK IF IS FULL
-            SetLog("-- SecondCheck on Train --", $COLOR_DEBUG)
-            SetLog("Fast Switch Account Enabled", $COLOR_DEBUG)
-            If Not $g_bIsFullArmywithHeroesAndSpells Then TrainSystem()
-            If $g_bIsFullArmywithHeroesAndSpells Then
-                If $g_iCommandStop <> 0 And $g_iCommandStop <> 3 Then
-                    Setlog("Before any other routine let's attack!", $COLOR_INFO)
-                    $g_bRestart = False ;idk this flag make sometimes bot cannot attack on second time
-                    Local $loopcount = 1
-                    While True
-                        $g_bRestart = False
-                        If Not $g_bRunState Then Return
-                        If AttackMain($g_bSkipDT) Then
-                            Setlog("[" & $loopcount & "] 2nd Attack Loop Success", $COLOR_SUCCESS)
-                            $b_SuccessAttack = True
-                            ExitLoop
-                        Else
-                            If $g_bForceSwitch Then ExitLoop ;exit here
-                            $loopcount += 1
-                            If $loopcount > 5 Then
-                                Setlog("2nd Attack Loop, Already Try 5 times... Exit", $COLOR_ERROR)
-                                ExitLoop
-                            Else
-                                Setlog("[" & $loopcount & "] 2nd Attack Loop, Failed", $COLOR_INFO)
-                            EndIf
-                            If Not $g_bRunState Then Return
-                        EndIf
-                    Wend
-                    If $g_bIsCGEventRunning And $g_bChkForceBBAttackOnClanGames And $g_bIsBBevent Then
-                        SetLog("Forced BB Attack On ClanGames", $COLOR_INFO)
-                        SetLog("Because running CG Event is BB Challenges", $COLOR_INFO)
-                        GotoBBTodoCG() ;force go to bb todo event
-                    EndIf
-                    If $g_bOutOfGold Then
-                        SetLog("Switching to Halt Attack, Stay Online/Collect mode", $COLOR_ERROR)
-                        $g_bFirstStart = True ; reset First time flag to ensure army balancing when returns to training
-                        Return
-                    EndIf
-                    If _Sleep($DELAYRUNBOT1) Then Return
-                EndIf
-            EndIf
-        EndIf
-    EndIf
-	If Not $g_bRunState Then Return
-
-	;If CheckNeedOpenTrain() Then TrainSystem()
-	TrainSystem()
-	If _Sleep(1000) Then Return
 	ClickAway()
 	If _Sleep(1000) Then Return
 	_RunFunction("DonateCC,Train")
@@ -817,109 +625,13 @@ EndFunc  ;==> NVAOM
 
 Func NM() ; Normal Mode
 	SetLog("======= NORMAL MODE =======", $COLOR_ACTION)
-	_RunFunction('EarlyUpgChk')
+	;~ _RunFunction('EarlyUpgChk')
 
-	; ------------------ F I R S T  A T T A C K ------------------
-	If Not $g_bRunState Then Return
-        If $g_iCommandStop <> 3 And $g_iCommandStop <> 0 Then
-            ; VERIFY THE TROOPS AND ATTACK IF IS FULL
-            SetLog("-- FirstCheck on Train --", $COLOR_DEBUG)
-            If Not $g_bRunState Then Return
+	CommonRoutine("BoostArmy")
 
-            CheckIfArmyIsReady()
-            ClickAway()
-            If $g_bIsFullArmywithHeroesAndSpells Then
-                ; Now the bot can attack
-                If $g_iCommandStop <> 0 And $g_iCommandStop <> 3 Then
-                    Setlog("Before any other routine let's attack!", $COLOR_INFO)
-                    Local $loopcount = 1
-                    While True
-                        $g_bRestart = False
-                        If Not $g_bRunState Then Return
-                        If AttackMain($g_bSkipDT) Then
-                            Setlog("[" & $loopcount & "] 1st Attack Loop Success", $COLOR_SUCCESS)
-                            $g_bIsFullArmywithHeroesAndSpells = False
-                            TrainSystem()
-                            ExitLoop
-                        Else
-                            If $g_bForceSwitch Then ExitLoop ;exit here
-                            $loopcount += 1
-                            If $loopcount > 5 Then
-                                Setlog("1st Attack Loop, Already Try 5 times... Exit", $COLOR_ERROR)
-                                ExitLoop
-                            Else
-                                Setlog("[" & $loopcount & "] 1st Attack Loop, Failed", $COLOR_INFO)
-                            EndIf
-                            If Not $g_bRunState Then Return
-                        EndIf
-                    Wend
-                    If $g_bOutOfGold Then
-                        SetLog("Switching to Halt Attack, Stay Online/Collect mode", $COLOR_ERROR)
-                        $g_bFirstStart = True ; reset First time flag to ensure army balancing when returns to training
-                        Return
-                    EndIf
-                    If _Sleep($DELAYRUNBOT1) Then Return
-                EndIf
-            Else
-                If Not $g_bDonateEarly Then TrainSystem()
-            EndIf
-        EndIf
+	; Attack
+	perform_attacks()
 
-	; ------------------ S E C O N D  A T T A C K ------------------
-    If Not $g_bRunState Then Return
-    VillageReport()
-    If ProfileSwitchAccountEnabled() And $g_bChkFastSwitchAcc Then ;Allow immediate Second Attack on FastSwitchAcc enabled
-        If _Sleep($DELAYRUNBOT2) Then Return
-        If BotCommand() Then btnStop()
-        If Not $g_bRunState Then Return
-        If $g_iCommandStop <> 3 And $g_iCommandStop <> 0 Then
-            ; VERIFY THE TROOPS AND ATTACK IF IS FULL
-            SetLog("-- SecondCheck on Train --", $COLOR_DEBUG)
-            SetLog("Fast Switch Account Enabled", $COLOR_DEBUG)
-            If Not $g_bIsFullArmywithHeroesAndSpells Then TrainSystem()
-            If $g_bIsFullArmywithHeroesAndSpells Then
-                If $g_iCommandStop <> 0 And $g_iCommandStop <> 3 Then
-                    Setlog("Before any other routine let's attack!", $COLOR_INFO)
-                    $g_bRestart = False ;idk this flag make sometimes bot cannot attack on second time
-                    Local $loopcount = 1
-                    While True
-                        $g_bRestart = False
-                        If Not $g_bRunState Then Return
-                        If AttackMain($g_bSkipDT) Then
-                            Setlog("[" & $loopcount & "] 2nd Attack Loop Success", $COLOR_SUCCESS)
-                            $b_SuccessAttack = True
-                            ExitLoop
-                        Else
-                            If $g_bForceSwitch Then ExitLoop ;exit here
-                            $loopcount += 1
-                            If $loopcount > 5 Then
-                                Setlog("2nd Attack Loop, Already Try 5 times... Exit", $COLOR_ERROR)
-                                ExitLoop
-                            Else
-                                Setlog("[" & $loopcount & "] 2nd Attack Loop, Failed", $COLOR_INFO)
-                            EndIf
-                            If Not $g_bRunState Then Return
-                        EndIf
-                    Wend
-                    If $g_bIsCGEventRunning And $g_bChkForceBBAttackOnClanGames And $g_bIsBBevent Then
-                        SetLog("Forced BB Attack On ClanGames", $COLOR_INFO)
-                        SetLog("Because running CG Event is BB Challenges", $COLOR_INFO)
-                        GotoBBTodoCG() ;force go to bb todo event
-                    EndIf
-                    If $g_bOutOfGold Then
-                        SetLog("Switching to Halt Attack, Stay Online/Collect mode", $COLOR_ERROR)
-                        $g_bFirstStart = True ; reset First time flag to ensure army balancing when returns to training
-                        Return
-                    EndIf
-                    If _Sleep($DELAYRUNBOT1) Then Return
-                EndIf
-            EndIf
-        EndIf
-    EndIf
-	If Not $g_bRunState Then Return
-
-	;If CheckNeedOpenTrain() Then TrainSystem()
-	TrainSystem()
 	If Not $g_bRunState Then Return
 	CommonRoutine("FirstCheckRoutine")
 	If ProfileSwitchAccountEnabled() And ($g_bForceSwitch Or $g_bChkFastSwitchAcc) Then
@@ -1161,3 +873,138 @@ Func NotRndmClick($x, $y, $times = 1, $speed = 0, $debugtxt = "")
 	EndIf
 	SuspendAndroid($SuspendMode)
 EndFunc   ;==>Click
+
+; Endzy Mod - Optimized Function - Faster
+Func perform_attacks()
+    Local $b_SuccessAttack = False
+
+    ; FIRST ATTACK
+    SetLog(" ------------------ FIRST ATTACK ------------------ ", $COLOR_ACTION)
+    If Not $g_bRunState Or $g_iCommandStop = 3 Or $g_iCommandStop = 0 Then Return
+
+    ; VERIFY THE TROOPS AND ATTACK IF IS FULL
+    SetLog("-- FirstCheck on Train --", $COLOR_DEBUG)
+    If Not $g_bRunState Then Return
+	CheckIfArmyIsReady()
+	ClickAway()
+
+    If $g_bIsFullArmywithHeroesAndSpells Then
+        Setlog("Before any other routine let's attack!", $COLOR_INFO)
+        Local $loopcount = 1
+
+        While $loopcount <= 5
+            If Not $g_bRunState Then Return
+
+            If AttackMain($g_bSkipDT) Then
+                Setlog("[" & $loopcount & "] 1st Attack Loop Success", $COLOR_SUCCESS)
+                $g_bIsFullArmywithHeroesAndSpells = False ; reset flag for next attack to train again
+                ; TrainSystem()
+                Return
+            EndIf
+
+            If $g_bForceSwitch Then ExitLoop ; exit here
+
+            Setlog("[" & $loopcount & "] 1st Attack Loop, Failed", $COLOR_INFO)
+            $loopcount += 1
+        WEnd
+
+        If $g_bOutOfGold Then
+            SetLog("Switching to Halt Attack, Stay Online/Collect mode", $COLOR_ERROR)
+            $g_bFirstStart = True ; reset First time flag to ensure army balancing when returns to training
+            Return
+        EndIf
+
+        If _Sleep($DELAYRUNBOT1) Then Return
+    Else
+        If Not $g_bDonateEarly Then TrainSystem()
+    EndIf
+
+
+    SetLog(" ------------------ SECOND ATTACK ------------------ ", $COLOR_ACTION)
+    If Not $g_bRunState Or $g_iCommandStop = 3 Or $g_iCommandStop = 0 Then Return
+
+    VillageReport()
+
+    If ProfileSwitchAccountEnabled() And $g_bChkFastSwitchAcc Then ; Allow immediate Second Attack on FastSwitchAcc enabled
+        If _Sleep($DELAYRUNBOT2) Then Return
+        If BotCommand() Then btnStop()
+        If Not $g_bRunState Then Return
+
+        SetLog("-- SecondCheck on Train --", $COLOR_DEBUG)
+        SetLog("Fast Switch Account Enabled", $COLOR_DEBUG)
+
+        If Not $g_bIsFullArmywithHeroesAndSpells Then TrainSystem() ; flag is reset on first attack to make it train again
+
+        If $g_bIsFullArmywithHeroesAndSpells Then
+            Setlog("Before any other routine let's attack!", $COLOR_INFO)
+            Local $loopcount = 1
+
+            While $loopcount <= 5
+                If Not $g_bRunState Then Return
+
+                If AttackMain($g_bSkipDT) Then
+                    Setlog("[" & $loopcount & "] 2nd Attack Loop Success", $COLOR_SUCCESS)
+                    $b_SuccessAttack = True
+                    ExitLoop
+                EndIf
+
+                If $g_bForceSwitch Then ExitLoop ; exit here
+
+                Setlog("[" & $loopcount & "] 2nd Attack Loop, Failed", $COLOR_INFO)
+                $loopcount += 1
+            WEnd
+
+            If $g_bOutOfGold Then
+                SetLog("Switching to Halt Attack, Stay Online/Collect mode", $COLOR_ERROR)
+                $g_bFirstStart = True ; reset First time flag to ensure army balancing when returns to training
+                Return
+            EndIf
+
+            If _Sleep($DELAYRUNBOT1) Then Return
+        EndIf
+    EndIf
+
+    If Not $g_bRunState Then Return
+
+    ; Uncomment the line below if needed
+    TrainSystem()
+EndFunc ; ==> perform_attacks
+
+Func CommonRoutine($RoutineType = Default)
+    If $RoutineType = Default Then $RoutineType = "FirstCheckRoutine"
+    SetLog("Doing CommonRoutine: " & $RoutineType, $COLOR_SUCCESS)
+    Switch $RoutineType
+        Case "FirstCheckRoutine"
+            Local $aRndFuncList = ['Collect', 'DailyChallenge', 'CollectAchievements', 'CheckTombs', 'CleanYard', "SaleMagicItem", 'Laboratory', 'CollectFreeMagicItems', 'fstReq']
+            ExecuteRoutineTasks($aRndFuncList)
+
+            Local $aRndFuncList2 = ['PetHouse', 'ForgeClanCapitalGold', 'CollectCCGold', 'AutoUpgradeCC']
+            ExecuteRoutineTasks($aRndFuncList2)
+
+        Case "NoClanGamesEvent"
+			Local $aRndFuncList = ['Collect', 'PetHouse', 'Laboratory', 'BuilderBase', 'CollectCCGold', 'UpgradeHeroes', 'UpgradeBuilding', 'UpgradeWall', 'UpgradeLow']
+            ExecuteRoutineTasks($aRndFuncList)
+
+        Case "Switch"
+            ;TrainSystem()
+            If _Sleep(1000) Then Return
+			Local $aRndFuncList = ['BuilderBase', 'UpgradeHeroes', 'CollectCCGold', 'UpgradeBuilding', 'UpgradeWall', 'UpgradeLow']
+            ExecuteRoutineTasks($aRndFuncList)
+
+		Case "BoostArmy"
+			Local $aRndFuncList = ['BoostBarracks', 'BoostSpellFactory', 'BoostWorkshop', 'BoostKing', 'BoostQueen', 'BoostWarden', 'BoostChampion']
+			ExecuteRoutineTasks($aRndFuncList)
+		EndSwitch
+EndFunc
+
+Func ExecuteRoutineTasks($aRndFuncList)
+	_ArrayShuffle($aRndFuncList)
+    For $Index In $aRndFuncList
+        If Not $g_bRunState Then Return
+        _RunFunction($Index)
+        If _Sleep(50) Then Return
+        If $g_bRestart Then Return
+        ClickAway()
+    Next
+EndFunc
+
