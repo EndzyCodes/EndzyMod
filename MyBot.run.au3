@@ -1390,52 +1390,52 @@ Func FirstCheckRoutine()
 EndFunc ;===> FirstCheckRoutine
 
 
-Func CommonRoutine($RoutineType = Default)
-	If $RoutineType = Default Then $RoutineType = "FirstCheckRoutine"
-	SetLog("Doing CommonRoutine: " & $RoutineType, $COLOR_SUCCESS)
-	Switch $RoutineType
-		Case "FirstCheckRoutine"
-			Local $aRndFuncList = ['Collect', 'DailyChallenge', 'CollectAchievements','CheckTombs', 'CleanYard', "SaleMagicItem", 'Laboratory', 'CollectFreeMagicItems', 'fstReq']
-			For $Index In $aRndFuncList
-				If Not $g_bRunState Then Return
-				_RunFunction($Index)
-				If _Sleep(500) Then Return
-				ClickAway()
-				If $g_bRestart Then Return
-			Next
-			Local $aRndFuncList = ['PetHouse', 'ForgeClanCapitalGold', 'CollectCCGold', 'AutoUpgradeCC']
-			For $Index In $aRndFuncList
-				If Not $g_bRunState Then Return
-				_RunFunction($Index)
-				If _Sleep(500) Then Return
-				ClickAway()
-				If $g_bRestart Then Return
-			Next
+;~ Func CommonRoutine($RoutineType = Default)
+;~ 	If $RoutineType = Default Then $RoutineType = "FirstCheckRoutine"
+;~ 	SetLog("Doing CommonRoutine: " & $RoutineType, $COLOR_SUCCESS)
+;~ 	Switch $RoutineType
+;~ 		Case "FirstCheckRoutine"
+;~ 			Local $aRndFuncList = ['Collect', 'DailyChallenge', 'CollectAchievements','CheckTombs', 'CleanYard', "SaleMagicItem", 'Laboratory', 'CollectFreeMagicItems', 'fstReq']
+;~ 			For $Index In $aRndFuncList
+;~ 				If Not $g_bRunState Then Return
+;~ 				_RunFunction($Index)
+;~ 				If _Sleep(500) Then Return
+;~ 				ClickAway()
+;~ 				If $g_bRestart Then Return
+;~ 			Next
+;~ 			Local $aRndFuncList = ['PetHouse', 'ForgeClanCapitalGold', 'CollectCCGold', 'AutoUpgradeCC']
+;~ 			For $Index In $aRndFuncList
+;~ 				If Not $g_bRunState Then Return
+;~ 				_RunFunction($Index)
+;~ 				If _Sleep(500) Then Return
+;~ 				ClickAway()
+;~ 				If $g_bRestart Then Return
+;~ 			Next
 
-		Case "NoClanGamesEvent"
-			Local $aRndFuncList = ['Collect', 'PetHouse', 'Laboratory', 'BuilderBase', 'CollectCCGold', 'UpgradeHeroes', 'UpgradeBuilding', 'UpgradeWall', 'UpgradeLow']
-			For $Index In $aRndFuncList
-				If Not $g_bRunState Then Return
-				_RunFunction($Index)
-				If _Sleep(50) Then Return
-				ClickAway()
-				If $g_bRestart Then Return
-			Next
+;~ 		Case "NoClanGamesEvent"
+;~ 			Local $aRndFuncList = ['Collect', 'PetHouse', 'Laboratory', 'BuilderBase', 'CollectCCGold', 'UpgradeHeroes', 'UpgradeBuilding', 'UpgradeWall', 'UpgradeLow']
+;~ 			For $Index In $aRndFuncList
+;~ 				If Not $g_bRunState Then Return
+;~ 				_RunFunction($Index)
+;~ 				If _Sleep(50) Then Return
+;~ 				ClickAway()
+;~ 				If $g_bRestart Then Return
+;~ 			Next
 
-		Case "Switch"
-			;TrainSystem()
-			If _Sleep(1000) Then Return
+;~ 		Case "Switch"
+;~ 			;TrainSystem()
+;~ 			If _Sleep(1000) Then Return
 
-			Local $aRndFuncList = ['BuilderBase', 'UpgradeHeroes', 'CollectCCGold', 'UpgradeBuilding', 'UpgradeWall', 'UpgradeLow']
-			For $Index In $aRndFuncList
-				If Not $g_bRunState Then Return
-				_RunFunction($Index)
-				If _Sleep(50) Then Return
-				ClickAway()
-				If $g_bRestart Then Return
-			Next
-	EndSwitch
-EndFunc
+;~ 			Local $aRndFuncList = ['BuilderBase', 'UpgradeHeroes', 'CollectCCGold', 'UpgradeBuilding', 'UpgradeWall', 'UpgradeLow']
+;~ 			For $Index In $aRndFuncList
+;~ 				If Not $g_bRunState Then Return
+;~ 				_RunFunction($Index)
+;~ 				If _Sleep(50) Then Return
+;~ 				ClickAway()
+;~ 				If $g_bRestart Then Return
+;~ 			Next
+;~ 	EndSwitch
+;~ EndFunc
 
 Func BuilderBase()
 	If Not $g_bRunState Then Return
