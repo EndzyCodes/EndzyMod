@@ -12,26 +12,49 @@
 ; Link ..........: https://github.com/MyBotRun/MyBot/wiki
 ; Example .......: No
 ; ===============================================================================================================================
+#Region Endzy Mod - Image Directories
 
+;~ Global Const $g_sImgLoonDonMod = @ScriptDir & "\imgxml\EndzyMod\DonateMod\"
+;~ Global Const $g_sImgSiegeDonMod = @ScriptDir & "\imgxml\EndzyMod\DonateMod\"
+;~ Global Const $g_sImgSpellDonMod = @ScriptDir & "\imgxml\EndzyMod\DonateMod\"
+;~ Global Const $g_sImgBorderMain = @ScriptDir & "\imgxml\EndzyMod\ClanGamesMod\"
+;~ Global Const $g_sImgPurgeTheseEvents = @ScriptDir & "\imgxml\EndzyMod\ClanGamesMod\PurgeThisEvents\"
+;~ Global Const $g_sImgGemPurge = @ScriptDir & "\imgxml\EndzyMod\ClanGamesMod\"
+Global Const $g_sImgFCsurr = @ScriptDir & "\imgxml\EndzyMod\TestAttack\"
+
+#EndRegion
 
 Func TestAttack() ;Endzy
+	;~ Local $surr_bt = False
+
 	If _Sleep(300) Then Return
-	PureClick(20,350)
+	PureClick(17,320) ; click open clan chat
 	If _Sleep(1000) Then Return
-	PureClick(230,580)
+	PureClick(242,563) ; click attack
 	If _Sleep(1000) Then Return
-	PureClick(680,430)
+	PureClick(730,450) ; click attack in prompt
 	If _Sleep(1000) Then Return
-	For $x = 0 To 5
-		_Sleep(1000)
-		If QuickMIS("BC1", $g_sImgFCsurr, 14, 520, 129, 560, True, $g_bDebugImageSave) Then
+	;~ For $x = 0 To 20
+	;~ 	_Sleep(1000)
+	;~ 	If QuickMIS("BC1", $g_sImgFCsurr, 14, 520, 129, 560, True, $g_bDebugImageSave) Then
+	;~ 		SetLog("Found Surrender Button, PrepareAttack now!", $COLOR_INFO)
+	;~ 		PrepareAttack($g_iMatchMode)
+	;~ 		_Sleep(100)
+	;~ 		ExitLoop
+	;~ 	EndIf
+	;~ Next
+	While True ; Search for surrend btn if present then it means the attack page is present also
+		If QuickMIS("BC1", $g_sImgFCsurr, 20, 525, 76, 557, True, $g_bDebugImageSave) Then
 			SetLog("Found Surrender Button, PrepareAttack now!", $COLOR_INFO)
 			PrepareAttack($g_iMatchMode)
-			_Sleep(1000)
+			_Sleep(100)
 			ExitLoop
 		EndIf
-	Next
-	If _Sleep(1000) Then Return
+		;~ _Sleep(100)
+		If Not $g_bRunState Then Return
+	Wend
+
+	;~ If _Sleep(1000) Then Return
 	$g_bAttackActive = True
 	SetLog(" ====== Start Attack ====== ", $COLOR_SUCCESS)
 	If ($g_iMatchMode = $DB And $g_aiAttackAlgorithm[$DB] = 1) Or ($g_iMatchMode = $LB And $g_aiAttackAlgorithm[$LB] = 1) Then
@@ -50,6 +73,7 @@ Func TestAttack() ;Endzy
 		; Variable to return : $Return[3]  [0] = To attack InSide  [1] = Quant. Sides  [2] = Name Sides
 		Local $Nside = ChkSmartFarm()
 		If Not $g_bRunState Then Return
+		SetLog("TEST SMARTFARM ENDZY MOD")
 		AttackSmartFarm($Nside[1], $Nside[2])
 	Else
 		;~ SetDebugLog("start standard attack", $COLOR_ERROR)
