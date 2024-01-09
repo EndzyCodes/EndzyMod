@@ -12,6 +12,8 @@
 ; Link ..........: https://github.com/MyBotRun/MyBot/wiki
 ; Example .......: No
 ; ===============================================================================================================================
+Global $g_bCheckHeroPower[4] = [True, True, True, True]
+
 Func CheckHeroesHealth()
 	SetLog("TEST OPTIMIZATION CheckHeroesHealth FUNCTION", $COLOR_INFO)
     If $g_bCheckKingPower Or $g_bCheckQueenPower Or $g_bCheckWardenPower Or $g_bCheckChampionPower Then
