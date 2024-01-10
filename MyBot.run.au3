@@ -110,20 +110,20 @@ Func InitializeBot()
 		If $NumVD = 1 Then _CreateNewVirtDskt()
     EndIf
 
-	ProcessCommandLine()
+	;~ ProcessCommandLine() ENDZY EDIT
 
-	If FileExists(@ScriptDir & "\EnableMBRDebug.txt") Then ; Set developer mode
-		$g_bDevMode = True
-		Local $aText = FileReadToArray(@ScriptDir & "\EnableMBRDebug.txt") ; check if special debug flags set inside EnableMBRDebug.txt file
-		If Not @error Then
-			For $l = 0 To UBound($aText) - 1
-				If StringInStr($aText[$l], "DISABLEWATCHDOG", $STR_NOCASESENSEBASIC) <> 0 Then
-					$g_bBotLaunchOption_NoWatchdog = True
-					;~ SetDebugLog("Watch Dog disabled by Developer Mode File Command", $COLOR_INFO)
-				EndIf
-			Next
-		EndIf
-	EndIf
+	;~ If FileExists(@ScriptDir & "\EnableMBRDebug.txt") Then ; Set developer mode
+	;~ 	$g_bDevMode = True
+	;~ 	Local $aText = FileReadToArray(@ScriptDir & "\EnableMBRDebug.txt") ; check if special debug flags set inside EnableMBRDebug.txt file
+	;~ 	If Not @error Then
+	;~ 		For $l = 0 To UBound($aText) - 1
+	;~ 			If StringInStr($aText[$l], "DISABLEWATCHDOG", $STR_NOCASESENSEBASIC) <> 0 Then
+	;~ 				$g_bBotLaunchOption_NoWatchdog = True
+	;~ 				;~ SetDebugLog("Watch Dog disabled by Developer Mode File Command", $COLOR_INFO)
+	;~ 			EndIf
+	;~ 		Next
+	;~ 	EndIf
+	;~ EndIf
 
 	SetupProfileFolder() ; Setup profile folders
 
