@@ -1229,6 +1229,8 @@ Func Donate()
 				EndIf
 				If $SecCount <= 20 Then
 					SetLog("No more loons to donate, exit donate loop...")
+					Click(320, 25, 1, 0, "Close Donate Window")
+					randomSleep(1700, 500)
 					checkChatTabPixel() ; close clan chat
 					$bKeepDonating = False                           
 					ExitLoop 2 ; Exit to the main loop if not found donate button after 20 times of checking
