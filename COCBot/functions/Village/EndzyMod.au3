@@ -1174,6 +1174,7 @@ Func Donate()
 	Local $bKeepDonating = False
 	;~ Local $MainLoopCount = 0
 	Local $count = 0
+	Local $SecCount = 0
 
 	If checkChatTabPixel() Then
 		Click($aChatTabClosed[0], $aChatTabClosed[1]) ;Click ClanChatOpen
@@ -1211,6 +1212,7 @@ Func Donate()
 
 		If $FoundDonateBtn Then
 			While True ; Find Troop: balloon and donate it
+				$SecCount += 1
 				If QuickMIS("BC1", $g_sImgDonLoon, 330, 10, 500, 400, True, $g_bDebugImageSave) Then
 					Local $NewX = $g_iQuickMISX + Round(Random(5, 15)) 
 					Local $NewY = $g_iQuickMISY + Round(Random(5, 15))
@@ -1225,7 +1227,12 @@ Func Donate()
 					$FoundDonateBtn = False ; Reset Variable after donating loons
 					ExitLoop
 				EndIf
-
+				If $SecCount <= 20 Then
+					SetLog("No more loons to donate, exit donate loop...")
+					checkChatTabPixel() ; close clan chat
+					$bKeepDonating = False                           
+					ExitLoop 2 ; Exit to the main loop if not found donate button after 20 times of checking
+				EndIf
 				If Not $g_bRunState Then Return
 			Wend
 		EndIf

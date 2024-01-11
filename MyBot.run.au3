@@ -1340,7 +1340,7 @@ Func FirstCheckRoutine()
 	CommonRoutine("FirstCheckRoutine")
 	
 	If ProfileSwitchAccountEnabled() And ($g_bForceSwitch Or $g_bChkFastSwitchAcc) Then
-		_RunFunction("DonateCC,Train")
+		If Not $g_bChkAttackOnly Then _RunFunction("DonateCC,Train")
 		CommonRoutine("Switch")
 		;CheckIfArmyIsReady()
 		;ClickAway()
