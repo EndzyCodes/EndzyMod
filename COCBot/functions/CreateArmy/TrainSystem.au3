@@ -42,9 +42,9 @@ Func TrainSystem()
 	If $g_bDonationEnabled And $g_bChkDonate Then ResetVariables("donated")
 
 	ClickAway()
-	If _Sleep(1000) Then Return ; Delay AFTER the click Away Prevents lots of coc restarts
+	;~ If _Sleep(1000) Then Return ; Delay AFTER the click Away Prevents lots of coc restarts
 
-	EndGainCost("Train")
+	;~ EndGainCost("Train") not needed anymore
 
 	checkAttackDisable($g_iTaBChkIdle) ; Check for Take-A-Break after opening train page
 EndFunc   ;==>TrainSystem

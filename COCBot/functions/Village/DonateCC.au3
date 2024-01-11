@@ -205,7 +205,7 @@ Func DonateCC($bTest = False, $bCheckForNewMsg = False)
 	Local $sNewClanString = ""
 	Local $bNewSystemToDonate = False
 
-	Local $iScrollY = 77
+	;~ Local $iScrollY = 77
 	
 	$g_bDonated = False
 	
@@ -271,7 +271,10 @@ Func DonateCC($bTest = False, $bCheckForNewMsg = False)
 	Local $sSearchArea, $aiSearchArray[4] = [250, 110, 350, 600], $aiSearchArrayBackUp = $aiSearchArray
 	Local $aiDonateButton
 
+	Local $iDonateCounter = 0 ; endzy
+
 	While $bDonate
+		$iDonateCounter += 1
 		;checkAttackDisable($g_iTaBChkIdle) ; Early Take-A-Break detection
 		$ClanString = ""
 		$sNewClanString = ""
@@ -642,8 +645,10 @@ Func DonateCC($bTest = False, $bCheckForNewMsg = False)
 			$aiSearchArray = $aiSearchArrayBackUp
 			ContinueLoop
 		EndIf
-		
-		$bDonate = False
+		If $iDonateCounter <= 20 Then
+			$bDonate = False 
+			ExitLoop
+		EndIf
 	WEnd
 
 	Click(320, 25, 1, 0, "Close Donate Window")

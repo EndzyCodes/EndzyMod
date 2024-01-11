@@ -19,8 +19,8 @@
 Func Click($x, $y, $times = 1, $speed = 0, $debugtxt = "")
 	Local $txt = "", $aPrevCoor[2] = [$x, $y]
     If $g_bUseRandomClick Then
-		$x = Random($x - 2, $x + 2, 1)
-		$y = Random($y - 2, $y + 2, 1)
+		$x = Random($x - 5, $x + 10, 1)
+		$y = Random($y - 5, $y + 10, 1)
 		If $g_bDebugClick Then
 			$txt = _DecodeDebug($debugtxt)
 			SetLog("Random Click X: " & $aPrevCoor[0] & " To " & $x & ", Y: " & $aPrevCoor[1] & " To " & $y & ", Times: " & $times & ", Speed: " & $speed & " " & $debugtxt & $txt, $COLOR_ACTION, "Verdana", "7.5", 0)
@@ -98,10 +98,11 @@ Func isProblemAffectBeforeClick($iCount = 0)
 	Return False
 EndFunc   ;==>isProblemAffectBeforeClick
 
+;~ EndzyMod - this was removed and moved to EndzyMod file
 ; ClickP : takes an array[2] (or array[4]) as a parameter [x,y]
-Func ClickP($point, $howMuch = 1, $speed = 0, $debugtxt = "")
-	Click($point[0], $point[1], $howMuch, $speed, $debugtxt)
-EndFunc   ;==>ClickP
+;~ Func ClickP($point, $howMuch = 1, $speed = 0, $debugtxt = "")
+;~ 	Click($point[0], $point[1], $howMuch, $speed, $debugtxt)
+;~ EndFunc   ;==>ClickP
 
 Func ConvertBuildingCoord(ByRef $x, ByRef $y, $iZF = 0)
 	Local $xOffset = $g_iVILLAGE_OFFSET[0]

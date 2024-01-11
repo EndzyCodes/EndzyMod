@@ -21,7 +21,13 @@
 ;~ Global Const $g_sImgPurgeTheseEvents = @ScriptDir & "\imgxml\EndzyMod\ClanGamesMod\PurgeThisEvents\"
 ;~ Global Const $g_sImgGemPurge = @ScriptDir & "\imgxml\EndzyMod\ClanGamesMod\"
 Global Const $g_sImgFCsurr = @ScriptDir & "\imgxml\EndzyMod\TestAttack\"
+Global Const $g_sImgDonateBtn = @ScriptDir & "\imgxml\EndzyMod\DonateMod\"
+Global Const $g_sImgDonLoon = @ScriptDir & "\imgxml\EndzyMod\DonateMod\"
+Global Const $g_sImgTrainLoons = @ScriptDir & "\imgxml\EndzyMod\DonateMod\Train\"
 
+; can test image detect without restarting mbr:
+;~ QuickMIS("BC1", "\imgxml\EndzyMod\DonateMod\Train\", 250, 440, 320, 500, True)
+; just add the image in the path you want then test it by using the above example and put it in the mbr debug tab => run function
 #EndRegion
 
 Func TestAttack() ;Endzy
@@ -323,6 +329,9 @@ Func randomSleep($iSleepTime, $iRange = Default)
     
     ; Call the built-in AutoIt Sleep function with the calculated sleep time.
     Return _Sleep($iSleepTimeF)
+	; sample use: 
+	; randomSleep(2200,500)
+	; 500 is the range the func will use: 2200 +/- 500 = 2700 to 1700
 EndFunc   ;==>randomSleep
 
 Func _GUICtrlCreateInput($sText, $iLeft, $iTop, $iWidth, $iHeight, $vStyle = -1, $vExStyle = -1)
@@ -330,6 +339,25 @@ Func _GUICtrlCreateInput($sText, $iLeft, $iTop, $iWidth, $iHeight, $vStyle = -1,
 	GUICtrlSetBkColor($hReturn, 0xD1DFE7)
 	Return $hReturn
 EndFunc   ;==>_GUICtrlCreateInput
+
+#Region EndzyMod - ClickP randomized
+;~ Example use case:
+
+;~ Global $aArmyTrainButton[2] = [40, 525] ; Main Screen, Army Train Button
+;~ If Not $bReady And $bNeedTrain Then
+;~     SetLog("Train to Fill Army", $COLOR_INFO)
+;~     ClickAway()
+;~     If _Sleep(2000) Then Return
+;~     ClickP($aArmyTrainButton, 1, 0, "BB Train Button")
+;~ EndIf
+
+Func ClickP($point, $howMuch = 1, $speed = 0, $debugtxt = "")
+    Local $offsetX = Round(Random(5, 15))
+    Local $offsetY = Round(Random(5, 15))
+    Click($point[0] + $offsetX, $point[1] + $offsetY, $howMuch, $speed, $debugtxt)
+EndFunc   ;==>ClickP
+
+#EndRegion EndzyMod - ClickP randomized
 
 #cs
 Func BBRTN0() ; BB routine for cg - do upgrades - lab - ClockTower boost etc. before switch acc
@@ -514,66 +542,112 @@ Func OpenArmyOverview($bCheckMain = True, $sWhereFrom = "Undefined")
 EndFunc   ;==>OpenArmyOverview
 #ce
 
-Func ROM(); Request Only Mode
+;~ Func ROM(); Request Only Mode - temp comment this function as this is for when using 2 bots simultaneously
+;~ 	SetLog("======= REQUEST ONLY MODE =======", $COLOR_ACTION)
+;~ 	_RunFunction("FstReq")
+;~ 	Local $aRndFuncList = ['Collect', 'CollectBB', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold']
+;~ 	_ArrayShuffle($aRndFuncList)
+;~ 	For $Index In $aRndFuncList
+;~ 		If Not $g_bRunState Then Return
+;~ 		_RunFunction($Index)
+;~ 		If _Sleep(50) Then Return
+;~ 		If $g_bRestart Then Return
+;~ 	Next
+
+;~ 	checkSwitchAcc()
+
+;~ EndFunc  ;==> ROM
+
+Func ROM(); Request Only Mode - temp function for using 1 bot only
 	SetLog("======= REQUEST ONLY MODE =======", $COLOR_ACTION)
 	_RunFunction("FstReq")
+	Local $aRndFuncList = ['Collect', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold'] ;  'CollectBB'
+	_ArrayShuffle($aRndFuncList)
+	For $Index In $aRndFuncLists
+		If Not $g_bRunState Then Return
+		If _Sleep(10000) Then Return
+		_RunFunction($Index)
+		ClickAway()
+		If $g_bRestart Then Return
+	Next
+
+	If _Sleep(10000) Then Return
+	ClickAway()
+	checkSwitchAcc()
+EndFunc  ;==> ROM
+
+Func DOM() ; Donate Only Mode - temp function for using 1 bot instance only
+	SetLog("======= DONATE ONLY MODE =======", $COLOR_ACTION)
+	Local $iCount = 0
+
+	$iCount += 1
+
+	DonateLoop()
+	If Not $g_bRunState Then Return
+	If _Sleep(1000) Then Return
+
 	Local $aRndFuncList = ['Collect', 'CollectBB', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold']
 	_ArrayShuffle($aRndFuncList)
 	For $Index In $aRndFuncList
 		If Not $g_bRunState Then Return
 		_RunFunction($Index)
-		If _Sleep(50) Then Return
+		If _Sleep(1000) Then Return
 		If $g_bRestart Then Return
 	Next
 
-	checkSwitchAcc()
+	ClickAway()
 
-EndFunc  ;==> ROM
-
-Func DOM() ; Donate Only Mode
-	SetLog("======= DONATE ONLY MODE =======", $COLOR_ACTION)
-	Local $count = 0
-
-	Collect()
-	_RunFunction("FstReq")
-	For $i = 0 to 4
-
-		$count += 1
-
-		_RunFunction("DonateCC,Train")
-		If Not $g_bRunState Then Return
-		If _Sleep(1000) Then Return
-
-		;~ If $count < 2 Then
-        Local $aRndFuncList = ['Collect', 'CollectBB', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold']
-        _ArrayShuffle($aRndFuncList)
-        For $Index In $aRndFuncList
-            If Not $g_bRunState Then Return
-            _RunFunction($Index)
-            If _Sleep(50) Then Return
-            If $g_bRestart Then Return
-        Next
-		;~ EndIf
-
-		ClickAway()
-
-		;~ If $count < 4 Then
-		;~ 	Local $aRndFuncList = ['Collect', 'CollectBB', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold']
-		;~ 	_ArrayShuffle($aRndFuncList)
-		;~ 	For $Index In $aRndFuncList
-		;~ 		If Not $g_bRunState Then Return
-		;~ 		_RunFunction($Index)
-		;~ 		If _Sleep(50) Then Return
-		;~ 		If $g_bRestart Then Return
-		;~ 	Next
-		;~ EndIf
-		If randomSleep(1000) Then Return
-	Next
+	If randomSleep(1000) Then Return
 
 	SetLog("Donate loop complete! Swtiching Account now.", $COLOR_SUCCESS)
 	checkSwitchAcc()
 
 EndFunc  ;==> DOM 
+
+;~ Func DOM() ; Donate Only Mode
+;~ 	SetLog("======= DONATE ONLY MODE =======", $COLOR_ACTION)
+;~ 	Local $count = 0
+
+;~ 	Collect()
+;~ 	_RunFunction("FstReq")
+;~ 	For $i = 0 to 4
+
+;~ 		$count += 1
+
+;~ 		_RunFunction("DonateCC,Train")
+;~ 		If Not $g_bRunState Then Return
+;~ 		If _Sleep(1000) Then Return
+
+;~ 		;~ If $count < 2 Then
+;~         Local $aRndFuncList = ['Collect', 'CollectBB', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold']
+;~         _ArrayShuffle($aRndFuncList)
+;~         For $Index In $aRndFuncList
+;~             If Not $g_bRunState Then Return
+;~             _RunFunction($Index)
+;~             If _Sleep(50) Then Return
+;~             If $g_bRestart Then Return
+;~         Next
+;~ 		;~ EndIf
+
+;~ 		ClickAway()
+
+;~ 		;~ If $count < 4 Then
+;~ 		;~ 	Local $aRndFuncList = ['Collect', 'CollectBB', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold']
+;~ 		;~ 	_ArrayShuffle($aRndFuncList)
+;~ 		;~ 	For $Index In $aRndFuncList
+;~ 		;~ 		If Not $g_bRunState Then Return
+;~ 		;~ 		_RunFunction($Index)
+;~ 		;~ 		If _Sleep(50) Then Return
+;~ 		;~ 		If $g_bRestart Then Return
+;~ 		;~ 	Next
+;~ 		;~ EndIf
+;~ 		If randomSleep(1000) Then Return
+;~ 	Next
+
+;~ 	SetLog("Donate loop complete! Swtiching Account now.", $COLOR_SUCCESS)
+;~ 	checkSwitchAcc()
+
+;~ EndFunc  ;==> DOM 
 
 Func AOM() ; Attack Only Mode
 	SetLog("======= ATTACK ONLY MODE =======", $COLOR_ACTION)
@@ -1032,3 +1106,156 @@ Func ExecuteRoutineTasks($aRndFuncList)
     Next
 EndFunc
 
+;~ Global $aDonateButton[2] = [40, 525] ; Main Screen, Army Train Button
+
+;~ Func Donate()
+;~ 	SetLog("NEW DONATE SYSTEM", $COLOR_INFO)
+
+;~ 	Local $aDonateButton[2] = [0,0] 
+;~ 	While True
+;~ 		If QuickMIS("BC1", $g_sImgDonateBtn, 243, 60, 353, 605, True, $g_bDebugImageSave) Then
+;~ 			$aDonateButton[2] = [$g_sImgDonateBtn[0], $g_sImgDonateBtn[1]]
+
+;~ 			SetLog("Found Donate Button, Clicking now!", $COLOR_INFO)
+;~ 			ClickP($aDonateButton, 1, 0, "Donate Button")
+;~ 			_Sleep(2000)
+;~ 			ClickAway('Left')
+;~ 			ExitLoop
+;~ 		EndIf
+;~ 		;~ _Sleep(100)
+;~ 		If Not $g_bRunState Then Return
+;~ 	Wend
+
+;~ EndFunc
+
+Func ArmyTabClickAway()
+	;~ Func ModClickAway($window)
+	;~ Local $Dur = Round(Random(92,212))
+	;~ Switch $window
+	;~ 	Case "ArmyTab", "TrainTab"	
+	;~ 		Local $x = Round(Random(40, 800))
+	;~ 		Local $y = Round(Random(20,100))
+	;~ 		Click($x, $y, 1, $Dur, "ClickAway")
+	;~ 	Case "Donate", "donate window"
+	;~ 		Local $x = Round(Random(40, 800))
+	;~ 		Local $y = Round(Random(20,100))
+	;~ 		Click($x, $y, 1, $Dur, "ClickAway")
+	;~ 	Case Else
+	;~ 		ClickAway() ; use mbr default ClickAway()
+	;~ EndSwitch
+
+	Local $Dur = Round(Random(92,212))
+	Local $x = Round(Random(40, 800))
+	Local $y = Round(Random(20,100))
+	Click($x, $y, 1, $Dur, "ClickAway")
+
+EndFunc
+
+Func TrainLoons()
+	Local $count = 0 ; make counter just incase it loops infinitely
+	;~ ClickP($aArmyTrainButton, 1, 0, "Open Army Tab")
+	If OpenArmyOverview() Then
+		If OpenTroopsTab() Then
+			While True; Find Troop loon and train it
+				$count += 1
+				If QuickMIS("BC1", $g_sImgTrainLoons, 250, 440, 320, 500, True) Then
+					Local $NewX = $g_iQuickMISX + Round(Random(-5, 15)) 
+					Local $NewY = $g_iQuickMISY + Round(Random(-5, 15))
+					Local $Dur = Round(Random(2834, 4231, 1))
+
+					SetLog("Found Loons, Training it now!", $COLOR_INFO)
+					Click($NewX, $NewY, 1, $Dur, "Train loons")
+					randomSleep(2200,500)
+					ArmyTabClickAway()
+
+					ExitLoop
+				EndIf
+				If $count <= 20 Then 
+					Return False
+					ExitLoop
+				EndIf
+				If Not $g_bRunState Then Return
+			Wend
+		EndIf
+	EndIf
+
+EndFunc
+
+Func Donate()
+	SetLog("NEW DONATE SYSTEM", $COLOR_INFO)
+	Local $FoundDonateBtn = False 
+	Local $bKeepDonating = False
+	;~ Local $MainLoopCount = 0
+	Local $count = 0
+
+	If checkChatTabPixel() Then
+		Click($aChatTabClosed[0], $aChatTabClosed[1]) ;Click ClanChatOpen
+	EndIf
+
+	$bKeepDonating = True
+
+	While $bKeepDonating
+		If Not $g_bRunState Then Return
+
+		While True; Find Donate buttons
+			$count += 1
+			If QuickMIS("BC1", $g_sImgDonateBtn, 243, 60, 353, 605, True, $g_bDebugImageSave) Then
+				$FoundDonateBtn = True
+				Local $NewX = $g_iQuickMISX + Round(Random(-5, 15)) 
+				Local $NewY = $g_iQuickMISY + Round(Random(-5, 15))
+
+				SetLog("Found Donate Button, Clicking now!", $COLOR_INFO)
+				SetLog("X: " & $NewX & " Y: " & $NewY, $COLOR_INFO)
+
+				Click($NewX, $NewY, 1, 0, "Click Donate Button")
+				;~ ClickAway('Right')
+
+				ExitLoop
+			EndIf
+
+			If $count <= 20 Then
+				SetLog("No more donate buttons, exit donate loop...")
+				checkChatTabPixel() ; close clan chat
+				$bKeepDonating = False                           
+				ExitLoop 2 ; Exit to the main loop if not found donate button after 20 times of checking
+			EndIf
+			If Not $g_bRunState Then Return
+		Wend
+
+		If $FoundDonateBtn Then
+			While True ; Find Troop: balloon and donate it
+				If QuickMIS("BC1", $g_sImgDonLoon, 330, 10, 500, 400, True, $g_bDebugImageSave) Then
+					Local $NewX = $g_iQuickMISX + Round(Random(5, 15)) 
+					Local $NewY = $g_iQuickMISY + Round(Random(5, 15))
+					Local $RanDur = Round(Random(2134, 3231, 1)) ; Random Duration
+
+					SetLog("Found Loons, Donating now!", $COLOR_INFO)
+					SetLog("X: " & $NewX & " Y: " & $NewY, $COLOR_INFO)
+
+					Click($NewX, $NewY, 1, $RanDur, "Click Troop Balloon")
+					;~ ClickAway('Right')
+
+					$FoundDonateBtn = False ; Reset Variable after donating loons
+					ExitLoop
+				EndIf
+
+				If Not $g_bRunState Then Return
+			Wend
+		EndIf
+		If Not $g_bRunState Then Return
+		$FoundDonateBtn = False ; also reset it here just in case
+	WEnd
+
+EndFunc
+
+Func DonateLoop()
+
+	TrainLoons() ; train first before donate
+	randomSleep(2300, 500)
+	Donate()
+	randomSleep(2300, 500)
+	TrainLoons() ; Train again after donating
+
+	checkSwitchAcc()
+
+EndFunc
