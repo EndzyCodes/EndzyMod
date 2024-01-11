@@ -604,50 +604,52 @@ Func DOM() ; Donate Only Mode - temp function for using 1 bot instance only
 
 EndFunc  ;==> DOM 
 
-;~ Func DOM() ; Donate Only Mode
-;~ 	SetLog("======= DONATE ONLY MODE =======", $COLOR_ACTION)
-;~ 	Local $count = 0
+#cs
+Func DOM() ; Donate Only Mode
+	SetLog("======= DONATE ONLY MODE =======", $COLOR_ACTION)
+	Local $count = 0
 
-;~ 	Collect()
-;~ 	_RunFunction("FstReq")
-;~ 	For $i = 0 to 4
+	Collect()
+	_RunFunction("FstReq")
+	For $i = 0 to 4
 
-;~ 		$count += 1
+		$count += 1
 
-;~ 		_RunFunction("DonateCC,Train")
-;~ 		If Not $g_bRunState Then Return
-;~ 		If _Sleep(1000) Then Return
+		_RunFunction("DonateCC,Train")
+		If Not $g_bRunState Then Return
+		If _Sleep(1000) Then Return
 
-;~ 		;~ If $count < 2 Then
-;~         Local $aRndFuncList = ['Collect', 'CollectBB', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold']
-;~         _ArrayShuffle($aRndFuncList)
-;~         For $Index In $aRndFuncList
-;~             If Not $g_bRunState Then Return
-;~             _RunFunction($Index)
-;~             If _Sleep(50) Then Return
-;~             If $g_bRestart Then Return
-;~         Next
-;~ 		;~ EndIf
+		;~ If $count < 2 Then
+        Local $aRndFuncList = ['Collect', 'CollectBB', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold']
+        _ArrayShuffle($aRndFuncList)
+        For $Index In $aRndFuncList
+            If Not $g_bRunState Then Return
+            _RunFunction($Index)
+            If _Sleep(50) Then Return
+            If $g_bRestart Then Return
+        Next
+		;~ EndIf
 
-;~ 		ClickAway()
+		ClickAway()
 
-;~ 		;~ If $count < 4 Then
-;~ 		;~ 	Local $aRndFuncList = ['Collect', 'CollectBB', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold']
-;~ 		;~ 	_ArrayShuffle($aRndFuncList)
-;~ 		;~ 	For $Index In $aRndFuncList
-;~ 		;~ 		If Not $g_bRunState Then Return
-;~ 		;~ 		_RunFunction($Index)
-;~ 		;~ 		If _Sleep(50) Then Return
-;~ 		;~ 		If $g_bRestart Then Return
-;~ 		;~ 	Next
-;~ 		;~ EndIf
-;~ 		If randomSleep(1000) Then Return
-;~ 	Next
+		;~ If $count < 4 Then
+		;~ 	Local $aRndFuncList = ['Collect', 'CollectBB', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold']
+		;~ 	_ArrayShuffle($aRndFuncList)
+		;~ 	For $Index In $aRndFuncList
+		;~ 		If Not $g_bRunState Then Return
+		;~ 		_RunFunction($Index)
+		;~ 		If _Sleep(50) Then Return
+		;~ 		If $g_bRestart Then Return
+		;~ 	Next
+		;~ EndIf
+		If randomSleep(1000) Then Return
+	Next
 
-;~ 	SetLog("Donate loop complete! Swtiching Account now.", $COLOR_SUCCESS)
-;~ 	checkSwitchAcc()
+	SetLog("Donate loop complete! Swtiching Account now.", $COLOR_SUCCESS)
+	checkSwitchAcc()
 
-;~ EndFunc  ;==> DOM 
+EndFunc  ;==> DOM 
+#ce
 
 Func AOM() ; Attack Only Mode
 	SetLog("======= ATTACK ONLY MODE =======", $COLOR_ACTION)
@@ -663,7 +665,7 @@ Func AOM() ; Attack Only Mode
 	CommonRoutine("BoostArmy")
 
 	; Attack
-	perform_attacks()
+	perform_attacks(True) ; ! attack once only $SkipSecAtk = True
 
 	If _Sleep(1000) Then Return
 	ClickAway()
@@ -973,7 +975,7 @@ Func NotRndmClick($x, $y, $times = 1, $speed = 0, $debugtxt = "")
 EndFunc   ;==>Click
 
 ; Endzy Mod - Optimized Function - Faster
-Func perform_attacks()
+Func perform_attacks($SkipSecAtk=False)
     Local $b_SuccessAttack = False
 
     ; FIRST ATTACK
@@ -996,7 +998,7 @@ Func perform_attacks()
             If AttackMain($g_bSkipDT) Then
                 Setlog("[" & $loopcount & "] 1st Attack Loop Success", $COLOR_SUCCESS)
                 $g_bIsFullArmywithHeroesAndSpells = False ; reset flag for next attack to train again
-                ; TrainSystem()
+                TrainSystem()
                 Return
             EndIf
 
@@ -1014,8 +1016,9 @@ Func perform_attacks()
 
         If _Sleep($DELAYRUNBOT1) Then Return
     Else
-        If Not $g_bDonateEarly Then TrainSystem()
-    EndIf
+        ;~ If Not $g_bDonateEarly Then TrainSystem()
+		TrainSystem()
+	EndIf
 
 
     SetLog(" ------------------ SECOND ATTACK ------------------ ", $COLOR_ACTION)
@@ -1023,7 +1026,7 @@ Func perform_attacks()
 
     VillageReport()
 
-    If ProfileSwitchAccountEnabled() And $g_bChkFastSwitchAcc Then ; Allow immediate Second Attack on FastSwitchAcc enabled
+    If ProfileSwitchAccountEnabled() And $g_bChkFastSwitchAcc And Not $SkipSecAtk Then ; Allow immediate Second Attack on FastSwitchAcc enabled
         If _Sleep($DELAYRUNBOT2) Then Return
         If BotCommand() Then btnStop()
         If Not $g_bRunState Then Return
@@ -1060,7 +1063,9 @@ Func perform_attacks()
 
             If _Sleep($DELAYRUNBOT1) Then Return
         EndIf
-    EndIf
+	Else
+		SetLog("Skipping 2nd attack: " & $SkipSecAtk, $COLOR_INFO)
+	EndIf
 
     If Not $g_bRunState Then Return
 
@@ -1100,7 +1105,6 @@ Func ExecuteRoutineTasks($aRndFuncList)
     For $Index In $aRndFuncList
         If Not $g_bRunState Then Return
         _RunFunction($Index)
-        If _Sleep(50) Then Return
         If $g_bRestart Then Return
         ClickAway()
     Next

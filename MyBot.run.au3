@@ -873,6 +873,7 @@ Func runBot() ;Bot that runs everything in order
 		If _Sleep($DELAYRUNBOT1) Then Return
 		If $g_bRestart = True Then ContinueLoop
 	WEnd
+
 EndFunc   ;==>runBot
 
 Func Idle() ;Sequence that runs until Full Army
@@ -1096,7 +1097,6 @@ Func _RunFunction($action)
 	Return FuncReturn($Result)
 EndFunc   ;==>_RunFunction
 
-
 Func __RunFunction($action)
 	;~ SetDebugLog("_RunFunction: " & $action & " BEGIN", $COLOR_DEBUG2)
 	Switch $action
@@ -1295,37 +1295,28 @@ Func FirstCheck()
 
 	;~ ChkTHlvl() ; Check Town Hall level and if no gold/elixir then stop the bot
 
-	If $g_bChkRequestOnly = True Then ; Request Only
-		;SetLog("Request Only", $COLOR_INFO)
-		ROM()
-	ElseIf $g_bChkDonateOnly = True Then ; Donate Only
-		;SetLog("Donate Only", $COLOR_INFO)
-		DOM()
-	ElseIf $g_bChkAttackOnly = True Then ; Attack Only
-		;SetLog("Attack Only", $COLOR_INFO)
-		AOM()
-	ElseIf $g_bChkBBAtkOnly = True Then ; BB attack only
-		;SetLog("BB attack only", $COLOR_INFO)
-		BBAOM()
-	ElseIf $g_bChkMainVillAtkOnly = True Then ; Main village attack only
-		;SetLog("Main village attack only", $COLOR_INFO)
-		MVAOM()
-	ElseIf $g_bChkNormalMode = True Then ; Normal mode
-		;SetLog("Normal mode", $COLOR_INFO)
-		;~ NM()
-		FirstCheckRoutine()
-	ElseIf $g_bChkRoutineMode = True Then ; Routines Only
-		;SetLog("Routines Only", $COLOR_INFO)
-		RM()
-	ElseIf $g_bChkClanGamesMode = True Then ; Clan Games Mode
-		;SetLog("Clan Games Mode", $COLOR_INFO)
-		CGM()
-	Else
-		;SetLog("Error on Miscellaneous Modes!", $COLOR_ERROR)
-		SetLog("No specific modes checked!", $COLOR_INFO)
-		SetLog("Defaulting on normal mode now.", $COLOR_INFO)
-		FirstCheckRoutine()
-	EndIf
+	Switch True
+		Case $g_bChkRequestOnly
+			ROM()
+		Case $g_bChkDonateOnly
+			DOM()
+		Case $g_bChkAttackOnly
+			AOM()
+		Case $g_bChkBBAtkOnly
+			BBAOM()
+		Case $g_bChkMainVillAtkOnly
+			MVAOM()
+		Case $g_bChkNormalMode
+			FirstCheckRoutine()
+		Case $g_bChkRoutineMode
+			RM()
+		Case $g_bChkClanGamesMode
+			CGM()
+		Case Else
+			SetLog("No specific modes checked!", $COLOR_INFO)
+			SetLog("Defaulting on normal mode now: FirstCheckRoutine()", $COLOR_INFO)
+			FirstCheckRoutine()
+	EndSwitch
 
 EndFunc   ;==>FirstCheck
 
@@ -1334,36 +1325,6 @@ Func FirstCheckRoutine()
 	SetLog("======== FirstCheckRoutine ========", $COLOR_ACTION)
 	If Not $g_bRunState Then Return
 	checkMainScreen(True, $g_bStayOnBuilderBase, "FirstCheckRoutine")
-	If $g_bChkCGBBAttackOnly Then
-		SetLog("Enabled Do Only BB Challenges", $COLOR_INFO)
-		For $count = 1 to 5
-			If Not $g_bRunState Then Return
-			If _ClanGames() Then
-				If $g_bIsBBevent Then
-					SetLog("Forced BB Attack On ClanGames", $COLOR_INFO)
-					SetLog("[" & $count & "] Trying to complete BB Challenges", $COLOR_ACTION)
-					GotoBBTodoCG()
-				Else
-					ExitLoop ;should be will never get here, but
-				EndIf
-			Else
-				If $g_bIsCGPointMaxed Then ExitLoop ; If point is max then continue to main loop
-				If Not $g_bIsCGEventRunning Then ExitLoop ; No Running Event after calling ClanGames
-				If $g_bChkClanGamesStopBeforeReachAndPurge and $g_bIsCGPointAlmostMax Then ExitLoop ; Exit loop if want to purge near max point
-			EndIf
-			If isOnMainVillage() Then ZoomOut(True)	; Verify is on main village and zoom out
-		Next
-	Else
-		If $g_bCheckCGEarly And $g_bChkClanGamesEnabled Then
-			If Not $g_bRunState Then Return
-			SetLog("Check ClanGames Early", $COLOR_INFO)
-			_ClanGames(False)
-			If $g_bChkForceBBAttackOnClanGames And $g_bIsBBevent Then
-				SetLog("Forced BB Attack On ClanGames", $COLOR_INFO)
-				GotoBBTodoCG()
-			EndIf
-		EndIf
-	EndIf
 
 	;Skip switch if Free Builder > 0 Or Storage Fill is Low, when clangames
 	Local $bSwitch = True
@@ -1377,6 +1338,7 @@ Func FirstCheckRoutine()
 
 	If Not $g_bRunState Then Return
 	CommonRoutine("FirstCheckRoutine")
+	
 	If ProfileSwitchAccountEnabled() And ($g_bForceSwitch Or $g_bChkFastSwitchAcc) Then
 		_RunFunction("DonateCC,Train")
 		CommonRoutine("Switch")
@@ -1384,7 +1346,8 @@ Func FirstCheckRoutine()
 		;ClickAway()
 		If _Sleep(1000) Then Return
 		;~ _ClanGames(False, True) ; Do Only Purge
-		If Not $g_bIsFullArmywithHeroesAndSpells Or $g_bForceSwitch Then checkSwitchAcc() ;switch to next account
+		;~ If Not $g_bIsFullArmywithHeroesAndSpells Or $g_bForceSwitch Then checkSwitchAcc() ;switch to next account
+		checkSwitchAcc()
 	EndIf
 
 EndFunc ;===> FirstCheckRoutine
