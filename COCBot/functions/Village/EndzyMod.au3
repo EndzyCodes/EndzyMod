@@ -1106,43 +1106,26 @@ Func ExecuteRoutineTasks($aRndFuncList)
     Next
 EndFunc
 
-;~ Global $aDonateButton[2] = [40, 525] ; Main Screen, Army Train Button
-
-;~ Func Donate()
-;~ 	SetLog("NEW DONATE SYSTEM", $COLOR_INFO)
-
-;~ 	Local $aDonateButton[2] = [0,0] 
-;~ 	While True
-;~ 		If QuickMIS("BC1", $g_sImgDonateBtn, 243, 60, 353, 605, True, $g_bDebugImageSave) Then
-;~ 			$aDonateButton[2] = [$g_sImgDonateBtn[0], $g_sImgDonateBtn[1]]
-
-;~ 			SetLog("Found Donate Button, Clicking now!", $COLOR_INFO)
-;~ 			ClickP($aDonateButton, 1, 0, "Donate Button")
-;~ 			_Sleep(2000)
-;~ 			ClickAway('Left')
-;~ 			ExitLoop
-;~ 		EndIf
-;~ 		;~ _Sleep(100)
-;~ 		If Not $g_bRunState Then Return
-;~ 	Wend
-
-;~ EndFunc
+#cs
+Func ModClickAway($window)
+	Local $Dur = Round(Random(92,212))
+	Switch $window
+		Case "ArmyTab", "TrainTab"	
+			Local $x = Round(Random(40, 800))
+			Local $y = Round(Random(20,100))
+			Click($x, $y, 1, $Dur, "ClickAway")
+		Case "Donate", "donate window"
+			Local $x = Round(Random(40, 800))
+			Local $y = Round(Random(20,100))
+			Click($x, $y, 1, $Dur, "ClickAway")
+		Case Else
+			ClickAway() ; use mbr default ClickAway()
+	EndSwitch
+EndFunc
+#ce
 
 Func ArmyTabClickAway()
-	;~ Func ModClickAway($window)
-	;~ Local $Dur = Round(Random(92,212))
-	;~ Switch $window
-	;~ 	Case "ArmyTab", "TrainTab"	
-	;~ 		Local $x = Round(Random(40, 800))
-	;~ 		Local $y = Round(Random(20,100))
-	;~ 		Click($x, $y, 1, $Dur, "ClickAway")
-	;~ 	Case "Donate", "donate window"
-	;~ 		Local $x = Round(Random(40, 800))
-	;~ 		Local $y = Round(Random(20,100))
-	;~ 		Click($x, $y, 1, $Dur, "ClickAway")
-	;~ 	Case Else
-	;~ 		ClickAway() ; use mbr default ClickAway()
-	;~ EndSwitch
+	
 
 	Local $Dur = Round(Random(92,212))
 	Local $x = Round(Random(40, 800))
