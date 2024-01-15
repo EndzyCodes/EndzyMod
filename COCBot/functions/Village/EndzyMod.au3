@@ -609,7 +609,7 @@ Func ROM(); Request Only Mode - temp comment this function as this is for when u
 
 EndFunc  ;==> ROM
 
-#cs
+
 Func DOM() ; Donate Only Mode
 	SetLog("======= DONATE ONLY MODE =======", $COLOR_ACTION)
 	Local $count = 0
