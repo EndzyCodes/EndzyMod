@@ -1152,8 +1152,7 @@ Func __RunFunction($action)
 				EndIf
 			EndIf
 			If Not $g_bRunState Then Return
-		
-		
+
 		;Case "BoostBarracks"
 		;	BoostBarracks()
 		;	_Sleep($DELAYRESPOND)

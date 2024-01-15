@@ -514,6 +514,7 @@ Func RandomArmyComp()
 	Return True
 EndFunc ;==>RandomArmyComp
 
+
 Func OpenArmyOverview($bCheckMain = True, $sWhereFrom = "Undefined")
 
 	If $bCheckMain Then
@@ -542,21 +543,72 @@ Func OpenArmyOverview($bCheckMain = True, $sWhereFrom = "Undefined")
 EndFunc   ;==>OpenArmyOverview
 #ce
 
-;~ Func ROM(); Request Only Mode - temp comment this function as this is for when using 2 bots simultaneously
-;~ 	SetLog("======= REQUEST ONLY MODE =======", $COLOR_ACTION)
-;~ 	_RunFunction("FstReq")
-;~ 	Local $aRndFuncList = ['Collect', 'CollectBB', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold']
-;~ 	_ArrayShuffle($aRndFuncList)
-;~ 	For $Index In $aRndFuncList
-;~ 		If Not $g_bRunState Then Return
-;~ 		_RunFunction($Index)
-;~ 		If _Sleep(50) Then Return
-;~ 		If $g_bRestart Then Return
-;~ 	Next
+Func NotRndmClick($x, $y, $times = 1, $speed = 0, $debugtxt = "")
+	Local $txt = "", $aPrevCoor[2] = [$x, $y]
+	If Not $g_bUseRandomClick Then
+		$x = Random($x - 2, $x + 2, 1)
+		$y = Random($y - 2, $y + 2, 1)
+		If $g_bDebugClick Then
+			$txt = _DecodeDebug($debugtxt)
+			SetLog("Random Click X: " & $aPrevCoor[0] & " To " & $x & ", Y: " & $aPrevCoor[1] & " To " & $y & ", Times: " & $times & ", Speed: " & $speed & " " & $debugtxt & $txt, $COLOR_ACTION, "Verdana", "7.5", 0)
+		EndIf
+    Else
+		If $g_bDebugClick Or TestCapture() Then
+			$txt = _DecodeDebug($debugtxt)
+			SetLog("Click " & $x & "," & $y & "," & $times & "," & $speed & " " & $debugtxt & $txt, $COLOR_ACTION, "Verdana", "7.5", 0)
+        EndIf
+	EndIf
 
-;~ 	checkSwitchAcc()
+	If TestCapture() Then Return
 
-;~ EndFunc  ;==> ROM
+	If $g_bAndroidAdbClick = True Then
+		AndroidClick($x, $y, $times, $speed)
+		Return
+	EndIf
+
+	Local $SuspendMode = ResumeAndroid()
+	If $times <> 1 Then
+		For $i = 0 To ($times - 1)
+			If isProblemAffectBeforeClick($i) Then
+				If $g_bDebugClick Then SetLog("VOIDED Click " & $x & "," & $y & "," & $times & "," & $speed & " " & $debugtxt & $txt, $COLOR_ERROR, "Verdana", "7.5", 0)
+				checkMainScreen(False, $g_bStayOnBuilderBase, "Click")
+				SuspendAndroid($SuspendMode)
+				Return ; if need to clear screen do not click
+			EndIf
+			MoveMouseOutBS()
+			_ControlClick($x, $y)
+			If _Sleep($speed, False) Then ExitLoop
+		Next
+	Else
+		If isProblemAffectBeforeClick() Then
+			If $g_bDebugClick Then SetLog("VOIDED Click " & $x & "," & $y & "," & $times & "," & $speed & " " & $debugtxt & $txt, $COLOR_ERROR, "Verdana", "7.5", 0)
+			checkMainScreen(False, $g_bStayOnBuilderBase, "Click")
+			SuspendAndroid($SuspendMode)
+			Return ; if need to clear screen do not click
+		EndIf
+		MoveMouseOutBS()
+		_ControlClick($x, $y)
+	EndIf
+	SuspendAndroid($SuspendMode)
+EndFunc   ;==>Click
+
+#cs
+Func ROM(); Request Only Mode - temp comment this function as this is for when using 2 bots simultaneously
+	SetLog("======= REQUEST ONLY MODE =======", $COLOR_ACTION)
+	_RunFunction("FstReq")
+	Local $aRndFuncList = ['Collect', 'CollectBB', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold']
+	_ArrayShuffle($aRndFuncList)
+	For $Index In $aRndFuncList
+		If Not $g_bRunState Then Return
+		_RunFunction($Index)
+		If _Sleep(50) Then Return
+		If $g_bRestart Then Return
+	Next
+
+	checkSwitchAcc()
+
+EndFunc  ;==> ROM
+#ce
 
 Func ROM(); Request Only Mode - temp function for using 1 bot only
 	SetLog("======= REQUEST ONLY MODE =======", $COLOR_ACTION)
@@ -925,54 +977,6 @@ Func ChkTHlvl()
 
 EndFunc ; ==> ChkTHlvl
 
-Func NotRndmClick($x, $y, $times = 1, $speed = 0, $debugtxt = "")
-	Local $txt = "", $aPrevCoor[2] = [$x, $y]
-	If Not $g_bUseRandomClick Then
-		$x = Random($x - 2, $x + 2, 1)
-		$y = Random($y - 2, $y + 2, 1)
-		If $g_bDebugClick Then
-			$txt = _DecodeDebug($debugtxt)
-			SetLog("Random Click X: " & $aPrevCoor[0] & " To " & $x & ", Y: " & $aPrevCoor[1] & " To " & $y & ", Times: " & $times & ", Speed: " & $speed & " " & $debugtxt & $txt, $COLOR_ACTION, "Verdana", "7.5", 0)
-		EndIf
-    Else
-		If $g_bDebugClick Or TestCapture() Then
-			$txt = _DecodeDebug($debugtxt)
-			SetLog("Click " & $x & "," & $y & "," & $times & "," & $speed & " " & $debugtxt & $txt, $COLOR_ACTION, "Verdana", "7.5", 0)
-        EndIf
-	EndIf
-
-	If TestCapture() Then Return
-
-	If $g_bAndroidAdbClick = True Then
-		AndroidClick($x, $y, $times, $speed)
-		Return
-	EndIf
-
-	Local $SuspendMode = ResumeAndroid()
-	If $times <> 1 Then
-		For $i = 0 To ($times - 1)
-			If isProblemAffectBeforeClick($i) Then
-				If $g_bDebugClick Then SetLog("VOIDED Click " & $x & "," & $y & "," & $times & "," & $speed & " " & $debugtxt & $txt, $COLOR_ERROR, "Verdana", "7.5", 0)
-				checkMainScreen(False, $g_bStayOnBuilderBase, "Click")
-				SuspendAndroid($SuspendMode)
-				Return ; if need to clear screen do not click
-			EndIf
-			MoveMouseOutBS()
-			_ControlClick($x, $y)
-			If _Sleep($speed, False) Then ExitLoop
-		Next
-	Else
-		If isProblemAffectBeforeClick() Then
-			If $g_bDebugClick Then SetLog("VOIDED Click " & $x & "," & $y & "," & $times & "," & $speed & " " & $debugtxt & $txt, $COLOR_ERROR, "Verdana", "7.5", 0)
-			checkMainScreen(False, $g_bStayOnBuilderBase, "Click")
-			SuspendAndroid($SuspendMode)
-			Return ; if need to clear screen do not click
-		EndIf
-		MoveMouseOutBS()
-		_ControlClick($x, $y)
-	EndIf
-	SuspendAndroid($SuspendMode)
-EndFunc   ;==>Click
 
 ; Endzy Mod - Optimized Function - Faster
 Func perform_attacks($SkipSecAtk=False)
