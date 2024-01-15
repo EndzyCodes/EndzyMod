@@ -608,53 +608,6 @@ Func ROM(); Request Only Mode - temp comment this function as this is for when u
 	checkSwitchAcc()
 
 EndFunc  ;==> ROM
-#ce
-
-Func ROM(); Request Only Mode - temp function for using 1 bot only
-	SetLog("======= REQUEST ONLY MODE =======", $COLOR_ACTION)
-	_RunFunction("FstReq")
-	Local $aRndFuncList = ['Collect', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold'] ;  'CollectBB'
-	_ArrayShuffle($aRndFuncList)
-	For $Index In $aRndFuncLists
-		If Not $g_bRunState Then Return
-		If _Sleep(10000) Then Return
-		_RunFunction($Index)
-		ClickAway()
-		If $g_bRestart Then Return
-	Next
-
-	If _Sleep(10000) Then Return
-	ClickAway()
-	checkSwitchAcc()
-EndFunc  ;==> ROM
-
-Func DOM() ; Donate Only Mode - temp function for using 1 bot instance only
-	SetLog("======= DONATE ONLY MODE =======", $COLOR_ACTION)
-	Local $iCount = 0
-
-	$iCount += 1
-
-	DonateLoop()
-	If Not $g_bRunState Then Return
-	If _Sleep(1000) Then Return
-
-	Local $aRndFuncList = ['Collect', 'CollectBB', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold']
-	_ArrayShuffle($aRndFuncList)
-	For $Index In $aRndFuncList
-		If Not $g_bRunState Then Return
-		_RunFunction($Index)
-		If _Sleep(1000) Then Return
-		If $g_bRestart Then Return
-	Next
-
-	ClickAway()
-
-	If randomSleep(1000) Then Return
-
-	SetLog("Donate loop complete! Swtiching Account now.", $COLOR_SUCCESS)
-	checkSwitchAcc()
-
-EndFunc  ;==> DOM 
 
 #cs
 Func DOM() ; Donate Only Mode
@@ -702,6 +655,52 @@ Func DOM() ; Donate Only Mode
 
 EndFunc  ;==> DOM 
 #ce
+
+Func ROM(); Request Only Mode - temp function for using 1 bot only
+	SetLog("======= REQUEST ONLY MODE =======", $COLOR_ACTION)
+	_RunFunction("FstReq")
+	Local $aRndFuncList = ['Collect', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold'] ;  'CollectBB'
+	_ArrayShuffle($aRndFuncList)
+	For $Index In $aRndFuncLists
+		If Not $g_bRunState Then Return
+		If _Sleep(10000) Then Return
+		_RunFunction($Index)
+		ClickAway()
+		If $g_bRestart Then Return
+	Next
+
+	If _Sleep(10000) Then Return
+	ClickAway()
+	checkSwitchAcc()
+EndFunc  ;==> ROM
+
+Func DOM() ; Donate Only Mode - temp function for using 1 bot instance only
+	SetLog("======= DONATE ONLY MODE =======", $COLOR_ACTION)
+	Local $iCount = 0
+
+	$iCount += 1
+
+	DonateLoop()
+	If Not $g_bRunState Then Return
+	If _Sleep(1000) Then Return
+
+	Local $aRndFuncList = ['Collect', 'CollectBB', 'Laboratory', 'CollectCCGold', 'ForgeClanCapitalGold']
+	_ArrayShuffle($aRndFuncList)
+	For $Index In $aRndFuncList
+		If Not $g_bRunState Then Return
+		_RunFunction($Index)
+		If _Sleep(1000) Then Return
+		If $g_bRestart Then Return
+	Next
+
+	ClickAway()
+
+	If randomSleep(1000) Then Return
+
+	SetLog("Donate loop complete! Swtiching Account now.", $COLOR_SUCCESS)
+	checkSwitchAcc()
+
+EndFunc  ;==> DOM 
 
 Func AOM() ; Attack Only Mode
 	SetLog("======= ATTACK ONLY MODE =======", $COLOR_ACTION)
