@@ -575,8 +575,8 @@ Func NotRndmClick($x, $y, $times = 1, $speed = 0, $debugtxt = "")
 				SuspendAndroid($SuspendMode)
 				Return ; if need to clear screen do not click
 			EndIf
-			MoveMouseOutBS()
-			_ControlClick($x, $y)
+			;MoveMouseOutBS()
+			;_ControlClick($x, $y)
 			If _Sleep($speed, False) Then ExitLoop
 		Next
 	Else
@@ -586,8 +586,8 @@ Func NotRndmClick($x, $y, $times = 1, $speed = 0, $debugtxt = "")
 			SuspendAndroid($SuspendMode)
 			Return ; if need to clear screen do not click
 		EndIf
-		MoveMouseOutBS()
-		_ControlClick($x, $y)
+		;MoveMouseOutBS()
+		;_ControlClick($x, $y)
 	EndIf
 	SuspendAndroid($SuspendMode)
 EndFunc   ;==>Click

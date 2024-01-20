@@ -48,8 +48,8 @@ Func Click($x, $y, $times = 1, $speed = 0, $debugtxt = "")
 				SuspendAndroid($SuspendMode)
 				Return ; if need to clear screen do not click
 			EndIf
-			MoveMouseOutBS()
-			_ControlClick($x, $y)
+			;MoveMouseOutBS()
+			;_ControlClick($x, $y)
 			If _Sleep($speed, False) Then ExitLoop
 		Next
 	Else
@@ -59,8 +59,8 @@ Func Click($x, $y, $times = 1, $speed = 0, $debugtxt = "")
 			SuspendAndroid($SuspendMode)
 			Return ; if need to clear screen do not click
 		EndIf
-		MoveMouseOutBS()
-		_ControlClick($x, $y)
+		;MoveMouseOutBS()
+		;_ControlClick($x, $y)
 	EndIf
 	SuspendAndroid($SuspendMode)
 EndFunc   ;==>Click
@@ -153,13 +153,13 @@ Func PureClick($x, $y, $times = 1, $speed = 0, $debugtxt = "")
 	Local $SuspendMode = ResumeAndroid()
 	If $times <> 1 Then
 		For $i = 0 To ($times - 1)
-			MoveMouseOutBS()
-			_ControlClick($x, $y)
+			;MoveMouseOutBS()
+			;_ControlClick($x, $y)
 			If _Sleep($speed, False) Then ExitLoop
 		Next
 	Else
-		MoveMouseOutBS()
-		_ControlClick($x, $y)
+		;MoveMouseOutBS()
+		;_ControlClick($x, $y)
 	EndIf
 	SuspendAndroid($SuspendMode)
 EndFunc   ;==>PureClick
@@ -211,8 +211,8 @@ Func GemClick($x, $y, $times = 1, $speed = 0, $debugtxt = "")
 				SuspendAndroid($SuspendMode)
 				Return ; if need to clear screen do not click
 			EndIf
-			MoveMouseOutBS()
-			_ControlClick($x, $y)
+			;MoveMouseOutBS()
+			;_ControlClick($x, $y)
 			If isGemOpen(True) Then
 				SuspendAndroid($SuspendMode)
 				Return False
@@ -230,8 +230,8 @@ Func GemClick($x, $y, $times = 1, $speed = 0, $debugtxt = "")
 			SuspendAndroid($SuspendMode)
 			Return ; if need to clear screen do not click
 		EndIf
-		MoveMouseOutBS()
-		_ControlClick($x, $y)
+		;MoveMouseOutBS()
+		;_ControlClick($x, $y)
 		If isGemOpen(True) Then
 			SuspendAndroid($SuspendMode)
 			Return False

@@ -177,8 +177,8 @@ Func GemClickR($boundingBox,$x, $y, $times = 1, $speed = 0, $debugtxt = "", $Out
 				SuspendAndroid($SuspendMode)
 				Return  ; if need to clear screen do not click
 			EndIf
-			MoveMouseOutBS()
-			_ControlClick($x, $y)
+			;MoveMouseOutBS()
+			;_ControlClick($x, $y)
 			If isGemOpen(True) Then
 			   SuspendAndroid($SuspendMode)
 			   Return False
@@ -196,8 +196,8 @@ Func GemClickR($boundingBox,$x, $y, $times = 1, $speed = 0, $debugtxt = "", $Out
 			SuspendAndroid($SuspendMode)
 			Return  ; if need to clear screen do not click
 		EndIf
-		MoveMouseOutBS()
-		_ControlClick($x, $y)
+		;MoveMouseOutBS()
+		;_ControlClick($x, $y)
 		If isGemOpen(True) Then
 		   SuspendAndroid($SuspendMode)
 		   Return False
