@@ -118,13 +118,13 @@ Func InitializeBot()
 	;~ 	If Not @error Then
 	;~ 		For $l = 0 To UBound($aText) - 1
 	;~ 			If StringInStr($aText[$l], "DISABLEWATCHDOG", $STR_NOCASESENSEBASIC) <> 0 Then
-	;~ 				$g_bBotLaunchOption_NoWatchdog = True
+					;~ $g_bBotLaunchOption_NoWatchdog = True
 	;~ 				;~ SetDebugLog("Watch Dog disabled by Developer Mode File Command", $COLOR_INFO)
 	;~ 			EndIf
 	;~ 		Next
 	;~ 	EndIf
 	;~ EndIf
-
+	$g_bBotLaunchOption_NoWatchdog = True ; Disable Watchdog
 	SetupProfileFolder() ; Setup profile folders
 
 	SetLogCentered(" BOT LOG ") ; Initial text for log
@@ -1337,7 +1337,7 @@ Func FirstCheckRoutine()
 
 	If Not $g_bRunState Then Return
 	CommonRoutine("FirstCheckRoutine")
-	
+
 	If ProfileSwitchAccountEnabled() And ($g_bForceSwitch Or $g_bChkFastSwitchAcc) Then
 		If Not $g_bChkAttackOnly Then _RunFunction("DonateCC,Train")
 		CommonRoutine("Switch")

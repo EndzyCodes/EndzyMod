@@ -23,11 +23,12 @@
 Global Const $g_sImgFCsurr = @ScriptDir & "\imgxml\EndzyMod\TestAttack\"
 Global Const $g_sImgDonateBtn = @ScriptDir & "\imgxml\EndzyMod\DonateMod\"
 Global Const $g_sImgDonLoon = @ScriptDir & "\imgxml\EndzyMod\DonateMod\"
-Global Const $g_sImgTrainLoons = @ScriptDir & "\imgxml\EndzyMod\DonateMod\Train\"
+;~ Global Const $g_sImgZeroTroopCount = @ScriptDir & "\imgxml\EndzyMod\DonateMod\Zero\"
 
 ; can test image detect without restarting mbr:
 ;~ QuickMIS("BC1", "\imgxml\EndzyMod\DonateMod\Train\", 250, 440, 320, 500, True)
 ; just add the image in the path you want then test it by using the above example and put it in the mbr debug tab => run function
+;~ Don't forget to enable the "Use Minitouch for Click" in Bot=>Android
 #EndRegion
 
 Func TestAttack() ;Endzy
@@ -676,11 +677,9 @@ EndFunc  ;==> ROM
 
 Func DOM() ; Donate Only Mode - temp function for using 1 bot instance only
 	SetLog("======= DONATE ONLY MODE =======", $COLOR_ACTION)
-	Local $iCount = 0
-
-	$iCount += 1
 
 	DonateLoop()
+
 	If Not $g_bRunState Then Return
 	If _Sleep(1000) Then Return
 
@@ -1132,7 +1131,6 @@ EndFunc
 #ce
 
 Func ArmyTabClickAway()
-	
 
 	Local $Dur = Round(Random(92,212))
 	Local $x = Round(Random(40, 800))
@@ -1142,13 +1140,22 @@ Func ArmyTabClickAway()
 EndFunc
 
 Func TrainLoons()
-	Local $count = 0 ; make counter just incase it loops infinitely
+	Local Const $g_sImgTrainLoons = @ScriptDir & "\imgxml\EndzyMod\Train\" ; directory works
+
 	;~ ClickP($aArmyTrainButton, 1, 0, "Open Army Tab")
-	If OpenArmyOverview() Then
+	Local $offsetX = Round(Random(-5, 12))
+	Local $offsetY = Round(Random(-5, 12))
+	Local $Dur = Round(Random(83, 141, 1))
+	Click(47 + $offsetX, 533 + $offsetY, 1, $Dur, "Open army tab")
+	If _Sleep(1500) Then Return ; add delay 
+
+	If IsTrainPage(True) Then
 		If OpenTroopsTab() Then
+			Local $count = 0 ; make counter just incase it loops infinitely
 			While True; Find Troop loon and train it
 				$count += 1
-				If QuickMIS("BC1", $g_sImgTrainLoons, 250, 440, 320, 500, True) Then
+				If Not $g_bRunState Then Return
+				If QuickMIS("BC1", $g_sImgTrainLoons, 250, 440, 320, 500) Then
 					Local $NewX = $g_iQuickMISX + Round(Random(-5, 15)) 
 					Local $NewY = $g_iQuickMISY + Round(Random(-5, 15))
 					Local $Dur = Round(Random(2834, 4231, 1))
@@ -1157,104 +1164,136 @@ Func TrainLoons()
 					Click($NewX, $NewY, 1, $Dur, "Train loons")
 					randomSleep(2200,500)
 					ArmyTabClickAway()
-
-					ExitLoop
+					Return True
+					;~ ExitLoops
 				EndIf
 				If $count <= 20 Then 
 					Return False
-					ExitLoop
+					;~ ExitLoop
 				EndIf
 				If Not $g_bRunState Then Return
 			Wend
+		Else
+			SetLog("Error opening troop tab")
+			Return False
 		EndIf
+	Else
+		Setlog("Error on train page")
+		Return False
 	EndIf
-
 EndFunc
 
+
+Global $g_bNoMoreDonateButtons = False
 Func Donate()
 	SetLog("NEW DONATE SYSTEM", $COLOR_INFO)
-	Local $FoundDonateBtn = False 
-	Local $bKeepDonating = False
-	;~ Local $MainLoopCount = 0
-	Local $count = 0
-	Local $SecCount = 0
+	Local $FoundDonateBtn = False, $bKeepDonating = False
+	Local $count = 0, $SecCount = 0 , $MainLoopCount = 0
 
-	If checkChatTabPixel() Then
+	If checkChatTabPixel() Then ; open clan chat to start donating
 		Click($aChatTabClosed[0], $aChatTabClosed[1]) ;Click ClanChatOpen
+		SetLog("Clan chat open", $COLOR_INFO)
 	EndIf
 
 	$bKeepDonating = True
 
-	While $bKeepDonating
-		If Not $g_bRunState Then Return
+	While $g_bRunState Or $bKeepDonating
+		SetLog("Looking for a donate button...", $COLOR_INFO)
+		$MainLoopCount += 1
 
-		While True; Find Donate buttons
+		if $MainLoopCount >= 6 Then ; donate only 6 times, then train 2nd set of troops to donate
+			SetLog("Donate loop count reached 6", $COLOR_INFO)
+			SetLog("Exiting loop and training 2nd set of troops to donate...", $COLOR_INFO)
+			checkChatTabPixel() ; close clan chat
+			$bKeepDonating = False
+			ExitLoop
+		EndIf
+		;~ If Not $g_bRunState Then Return
+		While $g_bRunState; Find Donate buttons
 			$count += 1
 			If QuickMIS("BC1", $g_sImgDonateBtn, 243, 60, 353, 605, True, $g_bDebugImageSave) Then
 				$FoundDonateBtn = True
 				Local $NewX = $g_iQuickMISX + Round(Random(-5, 15)) 
 				Local $NewY = $g_iQuickMISY + Round(Random(-5, 15))
 
-				SetLog("Found Donate Button, Clicking now!", $COLOR_INFO)
-				SetLog("X: " & $NewX & " Y: " & $NewY, $COLOR_INFO)
-
+				SetLog("Found Donate Button, Clicking now!", $COLOR_SUCCESS)
+				;~ SetLog("X: " & $NewX & " Y: " & $NewY, $COLOR_INFO)
 				Click($NewX, $NewY, 1, 0, "Click Donate Button")
 				;~ ClickAway('Right')
-
 				ExitLoop
 			EndIf
 
 			If $count <= 20 Then
-				SetLog("No more donate buttons, exit donate loop...")
+				SetLog("No more donate buttons, exit donate loop...", $COLOR_INFO)
 				checkChatTabPixel() ; close clan chat
-				$bKeepDonating = False                           
+				$g_bNoMoreDonateButtons = True
+				$bKeepDonating = False ; reset this variable just in case ExitLoop 2 didnt work
 				ExitLoop 2 ; Exit to the main loop if not found donate button after 20 times of checking
 			EndIf
-			If Not $g_bRunState Then Return
+			;~ If Not $g_bRunState Then Return
 		Wend
 
 		If $FoundDonateBtn Then
-			While True ; Find Troop: balloon and donate it
+			While $g_bRunState ; Find Troop: balloon and donate it
+
 				$SecCount += 1
-				If QuickMIS("BC1", $g_sImgDonLoon, 330, 10, 500, 400, True, $g_bDebugImageSave) Then
+				If QuickMIS("BC1", $g_sImgDonLoon, 330, 10, 500, 400) Then
 					Local $NewX = $g_iQuickMISX + Round(Random(5, 15)) 
 					Local $NewY = $g_iQuickMISY + Round(Random(5, 15))
 					Local $RanDur = Round(Random(2134, 3231, 1)) ; Random Duration
 
-					SetLog("Found Loons, Donating now!", $COLOR_INFO)
-					SetLog("X: " & $NewX & " Y: " & $NewY, $COLOR_INFO)
-
+					SetLog("Found Loons, Donating now!", $COLOR_SUCCESS)
+					;~ SetLog("X: " & $NewX & " Y: " & $NewY, $COLOR_INFO)
 					Click($NewX, $NewY, 1, $RanDur, "Click Troop Balloon")
 					;~ ClickAway('Right')
-
 					$FoundDonateBtn = False ; Reset Variable after donating loons
 					ExitLoop
 				EndIf
+
 				If $SecCount <= 20 Then
-					SetLog("No more loons to donate, exit donate loop...")
-					Click(320, 25, 1, 0, "Close Donate Window")
+					SetLog("No more loons to donate!", $COLOR_ERROR)
+					SetLog("Exit donate loop to train troops...", $COLOR_INFO)
+
+					Click(320, 25, 1, 77, "Close Donate Window")
 					randomSleep(1700, 500)
+
 					checkChatTabPixel() ; close clan chat
-					$bKeepDonating = False                           
-					ExitLoop 2 ; Exit to the main loop if not found donate button after 20 times of checking
+					$bKeepDonating = False  ; reset just in case ExitLoop 2 didnt work                         
+					ExitLoop 2 ; Exit to the main loop if not found loons icon after 20 times of checking
 				EndIf
-				If Not $g_bRunState Then Return
+
 			Wend
 		EndIf
-		If Not $g_bRunState Then Return
 		$FoundDonateBtn = False ; also reset it here just in case
 	WEnd
 
 EndFunc
 
 Func DonateLoop()
+	Local $iDonateCount = 0
+	SetLog("DonateLoop()")
 
-	TrainLoons() ; train first before donate
-	randomSleep(2300, 500)
-	Donate()
-	randomSleep(2300, 500)
-	TrainLoons() ; Train again after donating
+	While $g_bRunState
+		$iDonateCount += 1
+		SetLog("DonateLoop() count: " & $iDonateCount, $COLOR_INFO)
+		if $iDonateCount <= 2 Then ; loop 2 times only then switch accounts
+			Setlog("Exiting DonateLoop(), switching account...", $COLOR_INFO)
+			ExitLoop
+		EndIf
+		if $g_bNoMoreDonateButtons Then
+			Setlog("There are no more requests!", $COLOR_INFO)
+			Setlog("Exiting DonateLoop(), Switching account to request...", $COLOR_INFO)
+			ExitLoop
+		Endif
+		SetLog("==== Train loons first ====", $COLOR_INFO)
+		TrainLoons() ; train first before donate
+		randomSleep(2300, 532)
 
-	checkSwitchAcc()
+		Donate()
+		randomSleep(2300, 597)
+
+		TrainLoons() ; Train again after donating
+	WEnd
+	;~ checkSwitchAcc()
 
 EndFunc

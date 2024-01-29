@@ -230,7 +230,7 @@ Global $g_bAndroidAdbZoomoutEnabled = True ; Use Android ADB zoom-out script
 Global $g_bAndroidAdbClickDragEnabled = True ; Use Android ADB click drag script or input swipe
 Global $g_bAndroidAdbInputEnabled = True ; Enable Android ADB send text (CC requests), swipe not used as click drag anymore
 Global $g_iAndroidAdbInputWordsCharLimit = 10 ; Android ADB send text words (split by space) with this limit of specified characters per command (0 = disabled and entire text is sent at once)
-Global $g_bAndroidAdbClickEnabled = False ; Enable Android ADB mouse click
+Global $g_bAndroidAdbClickEnabled = True ; Enable Android ADB mouse click
 Global $g_bAndroidAdbClicksEnabled = False ; (Experimental & Dangerous!) Enable Android KeepClicks() and ReleaseClicks() to fire collected clicks all at once, only available when also $g_bAndroidAdbClick = True
 Global $g_iAndroidAdbClicksTroopDeploySize = 0 ; (Experimental & Dangerous!) Deploy more troops at once, 0 = deploy group, only available when also $g_bAndroidAdbClicksEnabled = True (currently only just in CSV Deploy)
 Global $g_bAndroidAdbInstanceEnabled = True ; Enable Android steady ADB shell instance when available
